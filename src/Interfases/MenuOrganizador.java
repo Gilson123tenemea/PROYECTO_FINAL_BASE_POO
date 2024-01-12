@@ -22,6 +22,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Cruds_Personal orgapersonal = new Cruds_Personal();
     Crud_Departamento orgadepar = new Crud_Departamento();
     Crud_Puestos orgapuesto = new Crud_Puestos();
+    
+    Cambio tip = new Cambio();
 
     CardLayout vista;
 
@@ -94,6 +96,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 144, 200, 52));
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 124, 200, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
@@ -107,6 +111,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, 200, 52));
+
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 214, 200, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -120,6 +126,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 324, 200, 52));
+
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 304, 200, -1));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -133,6 +141,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 589, 200, 52));
+
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 394, 200, -1));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -146,6 +156,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 414, 200, 52));
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 484, 200, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
@@ -159,6 +171,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 234, 200, 52));
+
+        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 569, 200, -1));
 
         jButton9.setBackground(new java.awt.Color(255, 255, 255));
@@ -245,7 +259,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        pnldinamico.add(orgaeventos, "crud");
+        pnldinamico.add(tip, "crud");
         vista.show(pnldinamico, "crud");
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
