@@ -80,6 +80,11 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         contenedor.setLayout(new java.awt.BorderLayout());
 
         btnanterior.setText("ANTERIOR");
+        btnanterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnanteriorActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnanterior);
 
         btnsiguente.setText("SIGUENTE");
@@ -89,6 +94,10 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
         add(contenedor, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnanteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnanteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnanteriorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
