@@ -25,6 +25,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_tipo_comercio comerci = new Crud_tipo_comercio();
     Crud_Comerciante comerciante = new Crud_Comerciante();
     Encuestaa_Organizor ecuesta = new Encuestaa_Organizor();
+    Reporte_Publico publico = new Reporte_Publico();
     Cambio tip = new Cambio();
 
     CardLayout vista;
@@ -214,6 +215,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/relaciones-publicas.png"))); // NOI18N
         jButton11.setText("Público");
         jButton11.setBorder(null);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 40));
         jPanel2.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 10));
         jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 200, -1));
@@ -331,20 +337,27 @@ public class MenuOrganizador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       
+
         pnldinamico.add(comerci, "crud");
         vista.show(pnldinamico, "crud");
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-         pnldinamico.add(comerciante, "crud");
+        pnldinamico.add(comerciante, "crud");
         vista.show(pnldinamico, "crud");
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        pnldinamico.add(publico, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint(); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -423,17 +423,17 @@ public class Publico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtCedulaActionPerformed
     public void crearPublico(ObjectContainer base) {
-
         try {
+            // Obtener el último código
+            ObjectSet<Publico_p> result = base.queryByExample(new Publico_p());
+            int ultimoCodigo = result.size() + 1;
 
-            String seleccion = " ";
-            Date nacimiento = null;
-
-            int aux = 1 + ReporteOrganizador.listaagentes.size();
-            String auxn = String.valueOf(aux);
-            String cod = "00" + auxn;
-
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
             lblcod.setText(cod);
+
+            String seleccion = null;
+            Date nacimiento = null;
 
             // establecer formato
             Date fecha = jDateFechaNaci.getDate();
@@ -454,25 +454,25 @@ public class Publico extends javax.swing.JFrame {
                 e.printStackTrace();
             }
 
-            String sexo = " ";
-            if (rbnFemenino.isSelected()) {
-                sexo = "Femenino";
+            String sexo = rbnFemenino.isSelected() ? "Femenino" : (rbnMasculino.isSelected() ? "Masculino" : "");
 
-            } else if (rbnMasculino.isSelected()) {
-                sexo = "Masculino";
-            }
+            // Incremental code
+            // Create a Publico_p instance with the cedula for checking existence
+            Publico_p examplePublico = new Publico_p(null, null, null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null);
 
-            ObjectSet<Publico_p> resul = base.queryByExample(new Publico_p(null, null, null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null));
+            // Query the database to check for existing records
+            ObjectSet<Publico_p> existingRecords = base.queryByExample(examplePublico);
 
-            if (!resul.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (!existingRecords.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un Publico con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 lblcedula.setText("Campo obligatorio");
                 return;
             }
 
             Validar();
 
-            Publico_p mipublico = new Publico_p(lblcod.getText().trim(), txtEstado.getText().trim(), txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtEmail.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),
+            // public Publico_p(String codigo_publico, String estado_registro, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+            Publico_p mipublico = new Publico_p(cod, txtEstado.getText().trim(), txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
                     txtCelular.getText().trim(), nacimiento, sexo);
 
             base.store(mipublico);
@@ -480,6 +480,7 @@ public class Publico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
         } finally {
             base.close();
+
         }
 
         // spnedad.setValue(0);
