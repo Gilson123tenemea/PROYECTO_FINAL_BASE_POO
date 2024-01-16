@@ -5,6 +5,11 @@
  */
 package Interfases;
 
+import Clases.Publico_p;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +26,8 @@ public class Inicio extends javax.swing.JFrame {
     public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
+
+    String usuario = " ", password = " ";
 
     public Inicio() {
         initComponents();
@@ -41,9 +48,9 @@ public class Inicio extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        txtCedula = new javax.swing.JTextField();
+        jPasswordPublico = new javax.swing.JPasswordField();
+        btnIniciarSesion = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -89,29 +96,40 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setText("BIENVENIDO");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 30, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        txtCedula.setText("Ingrese su usuario");
+        txtCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCedulaMouseClicked(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 140, 123, -1));
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 150, 150, -1));
 
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+        jPasswordPublico.setText("jPasswordField1");
+        jPasswordPublico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordPublicoMouseClicked(evt);
             }
         });
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 190, 123, -1));
+        jPasswordPublico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordPublicoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 190, 150, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        jButton1.setText("INICIAR SESION");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        btnIniciarSesion.setText("INICIAR SESION");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, -1, 40));
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar (1).png"))); // NOI18N
         jButton2.setText("CREAR CUENTA");
@@ -274,13 +292,13 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void jPasswordPublicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordPublicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_jPasswordPublicoActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         Login_Administradoor let = new Login_Administradoor();
@@ -299,9 +317,39 @@ public class Inicio extends javax.swing.JFrame {
         mostrarInformacionProyecto();
     }//GEN-LAST:event_btnHelpActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        setLocationRelativeTo(null);
+        Query query = base.query();
+        query.constrain(Publico_p.class);
+        query.descend("cedula").constrain(txtCedula.getText().trim());
+        query.descend("contraseña").constrain(jPasswordPublico.getText().trim());
+
+        ObjectSet<Publico_p> result = query.execute();
+
+        if (!result.isEmpty()) {
+
+            for (Publico_p publico : result) {
+                usuario = publico.getCedula();
+                password = publico.getContraseña();
+
+            }
+
+            this.dispose();
+            Menu_Publico admin = new Menu_Publico();
+            admin.setVisible(true);
+
+            txtCedula.setText(usuario.trim());
+            jPasswordPublico.setText(password.trim());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+        }
+
+        base.close();
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Publico le = new Publico();
@@ -315,6 +363,16 @@ public class Inicio extends javax.swing.JFrame {
         cm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void txtCedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCedulaMouseClicked
+        // TODO add your handling code here:
+        txtCedula.setText("");
+    }//GEN-LAST:event_txtCedulaMouseClicked
+
+    private void jPasswordPublicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordPublicoMouseClicked
+        // TODO add your handling code here:
+        jPasswordPublico.setText("");
+    }//GEN-LAST:event_jPasswordPublicoMouseClicked
 
     private void mostrarInformacionProyecto() {
         String mensaje = "Organizador de Eventos - SACY Eventos Municipales\n"
@@ -368,7 +426,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHelp;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -396,9 +454,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordPublico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
 }
