@@ -20,6 +20,17 @@ public class Validaciones {
         return ban;
     }
 
+    public boolean validarTelefono(String numero) {
+        numero = numero.trim();
+        boolean esValido = false;
+
+        if (numero.matches("[0-9]{7}")) {
+            esValido = true;
+        }
+
+        return esValido;
+    }
+
     public boolean validarPlaca(String cadena) {
         cadena = cadena.trim();
         boolean ban = false;
@@ -102,10 +113,9 @@ public class Validaciones {
         return tipoVehiculo.matches("[A-Za-z\\s]{1,50}");
     }
 
-   // public boolean ValidarCasaVacacional(CasaVacacional casaVacacional) {
-     //   return casaVacacional != null; // Verifica si la casaVacacional es diferente de nulo
+    // public boolean ValidarCasaVacacional(CasaVacacional casaVacacional) {
+    //   return casaVacacional != null; // Verifica si la casaVacacional es diferente de nulo
     //}
-
     public boolean ValidarContenido(String cadena) {
         return cadena.matches("^[A-Za-z0-9\\s]+$");
     }
