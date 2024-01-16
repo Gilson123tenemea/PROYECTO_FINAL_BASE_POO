@@ -466,15 +466,16 @@ public class Publico extends javax.swing.JFrame {
 
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+                lblcedula.setText("Campo obligatorio");
                 return;
             }
 
             Validar();
 
-            Publico_p miorganizador = new Publico_p(lblcod.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtEmail.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),
-                    txtCelular.getText().trim(), jPasswordPublico.getText().trim(), txtEstado.getText().trim(), txtPreferencias.getText().trim(), nacimiento, sexo);
+            Publico_p mipublico = new Publico_p(lblcod.getText().trim(), txtEstado.getText().trim(), txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtEmail.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),
+                    txtCelular.getText().trim(), nacimiento, sexo);
 
-            base.store(miorganizador);
+            base.store(mipublico);
 
             JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
         } finally {
@@ -594,9 +595,9 @@ public class Publico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-          Inicio le = new Inicio();
-          le.setVisible(true);
-          this.dispose();
+        Inicio le = new Inicio();
+        le.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 //    
     private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
