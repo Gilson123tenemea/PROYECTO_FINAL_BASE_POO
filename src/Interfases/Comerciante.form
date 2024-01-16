@@ -366,7 +366,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo Puesto: "/>
+            <Property name="text" type="java.lang.String" value="Tipo de Puesto: "/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -555,11 +555,8 @@
         <Component class="javax.swing.JComboBox" name="txtTipoComercio">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Frreteria"/>
-                <StringItem index="1" value="Cferetira"/>
-                <StringItem index="2" value="asdasd"/>
-                <StringItem index="3" value=" "/>
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
               </StringArray>
             </Property>
           </Properties>

@@ -428,7 +428,7 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 190, 50));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel11.setText("Código Puesto: ");
+        jLabel11.setText("Tipo de Puesto: ");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
 
         cboCodigoPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -489,7 +489,7 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 370, 50, 30));
 
-        txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frreteria", "Cferetira", "asdasd", " " }));
+        txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jPanel1.add(txtTipoComercio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 170, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
