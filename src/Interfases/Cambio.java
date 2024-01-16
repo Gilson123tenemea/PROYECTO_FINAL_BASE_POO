@@ -1,9 +1,10 @@
+package Interfases;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfases;
 
 
 import java.awt.event.ActionEvent;
@@ -17,6 +18,8 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
     crud_tipo tipo = new crud_tipo();
     Cruds_Eventos event = new Cruds_Eventos();
+    Reporte_eventos co = new Reporte_eventos();
+    Reporte_evento re = new Reporte_evento();
 
     /**
      * Creates new form Cambio
@@ -26,26 +29,43 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         contenedor.add(tipo);
         tipo.setVisible(true);
         event.setVisible(false);
-        
+        co.setVisible(false);
+        re.setVisible(false);
+
         desabilitarPanel();
-        
+
         btnanterior.addActionListener(this);
         btnsiguente.addActionListener(this);
+        btnconsulta.addActionListener(this);
+        btnreporte.addActionListener(this);
 
     }
-    
-   
-    public void desabilitarPanel(){
+
+    public void desabilitarPanel() {
         if (tipo.isVisible()) {
             btnanterior.setEnabled(false);
             btnsiguente.setEnabled(true);
-            
-            
-        }else if (event.isVisible()) {
-             btnanterior.setEnabled(true);
+            btnconsulta.setEnabled(false);
+            btnreporte.setEnabled(false);
+
+        } else if (event.isVisible()) {
+            btnanterior.setEnabled(false);
             btnsiguente.setEnabled(false);
-            
-            
+            btnconsulta.setEnabled(true);
+            btnreporte.setEnabled(false);
+
+        } else if (co.isVisible()) {
+
+            btnanterior.setEnabled(false);
+            btnsiguente.setEnabled(false);
+            btnconsulta.setEnabled(false);
+            btnreporte.setEnabled(true);
+        } else if (re.isVisible()) {
+
+            btnanterior.setEnabled(true);
+            btnsiguente.setEnabled(false);
+            btnconsulta.setEnabled(false);
+            btnreporte.setEnabled(false);
         }
     }
 
@@ -63,6 +83,8 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         jPanel2 = new javax.swing.JPanel();
         btnanterior = new javax.swing.JButton();
         btnsiguente = new javax.swing.JButton();
+        btnconsulta = new javax.swing.JButton();
+        btnreporte = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,29 +101,28 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
         contenedor.setLayout(new java.awt.BorderLayout());
 
-        btnanterior.setText("ANTERIOR");
-        btnanterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnanteriorActionPerformed(evt);
-            }
-        });
+        btnanterior.setText("Ingresartipo evento");
         jPanel2.add(btnanterior);
 
-        btnsiguente.setText("SIGUENTE");
+        btnsiguente.setText("Ingresar- modificar Evento");
         jPanel2.add(btnsiguente);
+
+        btnconsulta.setText("Consultar Evento");
+        jPanel2.add(btnconsulta);
+
+        btnreporte.setText("Reporte general");
+        jPanel2.add(btnreporte);
 
         contenedor.add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         add(contenedor, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnanteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnanteriorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnanteriorActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnanterior;
+    private javax.swing.JButton btnconsulta;
+    private javax.swing.JButton btnreporte;
     private javax.swing.JButton btnsiguente;
     private javax.swing.JPanel contenedor;
     private javax.swing.JPanel jPanel1;
@@ -115,21 +136,47 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         if (evt.equals(btnanterior)) {
             event.setVisible(false);
             tipo.setVisible(true);
+            re.setVisible(false);
+
+            co.setVisible(false);
             contenedor.add(tipo);
             contenedor.validate();
-            
+
             desabilitarPanel();
-            
-            
-        }else if (evt.equals(btnsiguente)) {
+
+        } else if (evt.equals(btnsiguente)) {
             event.setVisible(true);
             tipo.setVisible(false);
+            re.setVisible(false);
+
+            co.setVisible(false);
             contenedor.add(event);
             contenedor.validate();
-            
+
             desabilitarPanel();
-            
-            
+
+        } else if (evt.equals(btnconsulta)) {
+            event.setVisible(false);
+            tipo.setVisible(false);
+            re.setVisible(false);
+
+            co.setVisible(true);
+            contenedor.add(co);
+            contenedor.validate();
+
+            desabilitarPanel();
+
+        } else if (evt.equals(btnreporte)) {
+            event.setVisible(false);
+            tipo.setVisible(false);
+            re.setVisible(true);
+
+            co.setVisible(false);
+            contenedor.add(re);
+            contenedor.validate();
+
+            desabilitarPanel();
+
         }
     }
 }

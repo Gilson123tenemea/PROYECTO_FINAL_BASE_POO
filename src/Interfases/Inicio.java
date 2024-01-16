@@ -21,9 +21,9 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    // public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\proyecto_final.yap";
+    public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\proyecto_final.yap";
     //  public static String direccion = "C:\\Users\\ADMIN_01\\Documents\\SEGUNDO CICLO\\pro.yap";
-    public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
+    //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
 

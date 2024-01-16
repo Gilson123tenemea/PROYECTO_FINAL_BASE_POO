@@ -5,27 +5,21 @@
  */
 package Interfases;
 
-import Clases.Evento;
-import Clases.Imagen;
-import Clases.Proceso;
+import Clases.ImageTableCellRenderer;
 import Clases.Tipo_evento;
-import Clases.imgTabla;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
-import java.awt.Dimension;
+import com.db4o.ObjectSet;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,13 +28,8 @@ import javax.swing.table.DefaultTableModel;
 public class crud_tipo extends javax.swing.JPanel {
 
     String ruta = "";
-
-    Imagen p;
-    Proceso rp;
-    Evento e;
-    Tipo_evento t;
-
-    int clic_tabla;
+    int longitudBytes;
+    byte[] foto;
 
     /**
      * Creates new form crud_tipo
@@ -60,15 +49,13 @@ public class crud_tipo extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         txttipo = new javax.swing.JTextField();
-        pnlimagen = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnseleccionar = new javax.swing.JButton();
-        tbtipo = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        fotolbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbtipo = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "         EVENTOS MUNICIPALES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
@@ -81,19 +68,6 @@ public class crud_tipo extends javax.swing.JPanel {
         });
         jPanel1.add(txttipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 180, -1));
 
-        javax.swing.GroupLayout pnlimagenLayout = new javax.swing.GroupLayout(pnlimagen);
-        pnlimagen.setLayout(pnlimagenLayout);
-        pnlimagenLayout.setHorizontalGroup(
-            pnlimagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 290, Short.MAX_VALUE)
-        );
-        pnlimagenLayout.setVerticalGroup(
-            pnlimagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(pnlimagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 290, 250));
-
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("INGRESA EL TIPO DE EVENTO");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 260, -1));
@@ -104,22 +78,7 @@ public class crud_tipo extends javax.swing.JPanel {
                 btnseleccionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnseleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tbtipo.setViewportView(jTable1);
-
-        jPanel1.add(tbtipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 480, 370));
+        jPanel1.add(btnseleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
@@ -129,27 +88,42 @@ public class crud_tipo extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
-        jButton2.setText("MODIFICAR");
+        jButton2.setText("REPORTE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, -1));
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
-        jButton3.setText("ELIMINAR");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, -1, -1));
+        fotolbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fotolbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fotolblMouseClicked(evt);
+            }
+        });
+        jPanel1.add(fotolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 250, 230));
 
-        jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
-        jButton5.setText("REPORTE");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, -1, -1));
+        tbtipo.setFont(new java.awt.Font("Raanana", 0, 14)); // NOI18N
+        tbtipo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "CODIGO", "NOMBRE", "IMAGEN"
+            }
+        ));
+        tbtipo.setRowHeight(100);
+        jScrollPane1.setViewportView(tbtipo);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 500, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -172,96 +146,132 @@ public class crud_tipo extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         try {
-            cargar();
+
+            JFileChooser se = new JFileChooser();
+            se.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int estado = se.showOpenDialog(null);
+            if (estado == JFileChooser.APPROVE_OPTION) {
+                try {
+                    File archivo = se.getSelectedFile();
+                    this.longitudBytes = (int) archivo.length();
+
+                    // Leer la imagen seleccionada como bytes
+                    byte[] buffer = new byte[this.longitudBytes];
+                    try ( FileInputStream fis = new FileInputStream(archivo)) {
+                        fis.read(buffer);
+                    }
+
+                    // Mostrar la imagen en el JLabel
+                    Image icono = ImageIO.read(archivo).getScaledInstance(fotolbl.getWidth(), fotolbl.getHeight(), Image.SCALE_DEFAULT);
+                    fotolbl.setIcon(new ImageIcon(icono));
+                    fotolbl.updateUI();
+
+                    // Asignar los bytes de la imagen a la variable "foto"
+                    foto = buffer;
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, " no se selecciono una imagen ");
         }
     }//GEN-LAST:event_btnseleccionarActionPerformed
 
-    public void listarRegistro() {
-        DefaultTableModel dt = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        dt.addColumn("Evento N°");
-        dt.addColumn("tipo_n° ");
-        dt.addColumn("nombre");
-        dt.addColumn("imagen n°");
-        dt.addColumn("Imagen");
-        dt.addColumn("Nombre de Imagen");
-        dt.addColumn("ruta");
-
-        jTable1.setDefaultRenderer(Object.class, new imgTabla());
-
-        Object fila[] = new Object[dt.getColumnCount()];
-        for (int i = 0; i < rp.cantidadRegistro(); i++) {
-            p = rp.obtenerRegistro(i);
-            fila[0] = t.getCodigo_evento();
-            fila[1] = t.getCodigo_tipo();
-            fila[2] = t.getNombre();
-            fila[3] = p.getId_imagen();
-            try {
-                byte[] bi = p.getData();
-                BufferedImage image = null;
-                InputStream in = new ByteArrayInputStream(bi);
-                image = ImageIO.read(in);
-
-                ImageIcon img = new ImageIcon(image.getScaledInstance(60, 60, 0));
-
-                fila[4] = new JLabel(img);
-
-            } catch (Exception e) {
-                fila[4] = " no imagen";
-
-            }
-
-            fila[5] = p.getNombreArchivo();
-            fila[6] = p.getRuta();
-
-            dt.addRow(fila);
-        }
-        jTable1.setModel(dt);
-        jTable1.setRowHeight(60);
-    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        
-        /*
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        crearTipo(base);
-        listarRegistro();
+        crearImagen(base);
 
         base.close();
-*/
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
+    public void cargarTabla(ObjectContainer BaseD) {
+
+        Tipo_evento ima = new Tipo_evento(null, null, null, null);
+        ObjectSet result = BaseD.get(ima);
+        mostrarDatos(result);
+    }
+
+    public void mostrarDatos(ObjectSet result) {
+        Object[][] matrizExposicion = new Object[result.size()][3];
+        if (result.size() == 0) {
+            JOptionPane.showMessageDialog(null, "El tipo de evento no existe");
+        } else {
+            for (int i = 0; i < result.size(); i++) {
+                Tipo_evento im = (Tipo_evento) result.get(i);
+                matrizExposicion[i][0] = im.getCodigo_tipo();
+                matrizExposicion[i][1] = im.getNombre();
+
+                // Convertir el arreglo de bytes (foto) a un ImageIcon
+                byte[] fotoBytes = im.getData();
+                if (fotoBytes != null) {
+                    ImageIcon icono = new ImageIcon(fotoBytes);
+                    matrizExposicion[i][2] = icono;
+                } else {
+                    matrizExposicion[i][2] = null;
+                }
+            }
+
+            // Configurar el modelo de la tabla con los datos y títulos de columna
+            tbtipo.setModel(new javax.swing.table.DefaultTableModel(
+                    matrizExposicion,
+                    new String[]{"Codigo", "Nombre", "Foto"}
+            ));
+
+            // Asignar el renderer personalizado a la columna de la foto (columna 3)
+            tbtipo.getColumnModel().getColumn(2).setCellRenderer(new ImageTableCellRenderer());
+        }
+    }
+
 
     private void txttipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txttipoActionPerformed
 
-    public byte[] leerFoto(ObjectContainer base) {
+    public void crearImagen(ObjectContainer base) {
+
         try {
-            byte[] icono = new byte[(int) ruta.length()];
-            InputStream input = new FileInputStream(ruta);
-            input.read(icono);
-            return icono;
-        } catch (Exception ex) {
-            return null;
-        }
+            Tipo_evento im = new Tipo_evento(null, txttipo.getText().trim(), null, foto);
+            base.store(im);
+            JOptionPane.showMessageDialog(null, " se guardo exitosamente");
+
+            // Limpiar el JLabel (establecer su icono en un icono vacío)
+            fotolbl.setIcon(new ImageIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB)));
+            txttipo.setText(" ");
+        
     }
 
+    
+        finally {
+            base.close();
+    }
+}
+    private void fotolblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fotolblMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_fotolblMouseClicked
+
+    public void asignarVariables(ObjectContainer BaseD) {
+        seleccionarImagen();
+        // nombre_exposicion = nombretxt.getText();
+        // descripcion_exposicion = descripciontxt.getText();
+    }
+
+    /*
     public byte[] leerFoto2(int codigo) {
         p = rp.obtenerRegistro(codigo);
         try {
@@ -271,65 +281,48 @@ public class crud_tipo extends javax.swing.JPanel {
         }
     }
 
-    public void crearTipo(ObjectContainer base) {
+     */
+    private byte[] obtenerBytesImagen() {
+        JFileChooser se = new JFileChooser();
+        se.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int estado = se.showOpenDialog(null);
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
+                File archivo = se.getSelectedFile();
+                this.longitudBytes = (int) archivo.length();
 
-        try {
-            Imagen im = new Imagen(leerFoto(base), ruta, null, ruta);
-            Tipo_evento tip = new Tipo_evento(null, txttipo.getText().trim(), null);
+                // Leer la imagen seleccionada como bytes
+                byte[] buffer = new byte[this.longitudBytes];
+                try ( FileInputStream fis = new FileInputStream(archivo)) {
+                    fis.read(buffer);
+                }
 
-            base.store(tip);
-            base.store(im);
-            
-            JOptionPane.showMessageDialog(null,"Se ha creado el evento exitosamente");
+                // Mostrar la imagen en un JLabel (opcional, solo para visualización)
+                Image icono = ImageIO.read(archivo).getScaledInstance(fotolbl.getWidth(), fotolbl.getHeight(), Image.SCALE_DEFAULT);
+                fotolbl.setIcon(new ImageIcon(icono));
+                fotolbl.updateUI();
 
-        } finally {
-            base.close();
-        }
-
-    }
-
-    public String cargar() {
-
-        Dimension d = pnlimagen.size();
-        int alto = d.height;
-        int ancho = d.width;
-
-        ruta = ObtenerImagen();
-        ImageIcon icon = new ImageIcon(ruta);
-        Image img = icon.getImage();
-        Image nueva = img.getScaledInstance(ancho, alto, java.awt.Image.SCALE_SMOOTH);
-        Icon nuevoIcon = new ImageIcon(nueva);
-
-        JLabel label = new JLabel();
-        label.setIcon(nuevoIcon);
-        pnlimagen.removeAll();
-
-        label.setBounds(0, 0, ancho, alto);
-        pnlimagen.add(label);
-        repaint();
-
-        return ruta;
-    }
-
-    public String ObtenerImagen() {
-        JFileChooser archivo = new JFileChooser();
-        int resultado = archivo.showOpenDialog(this);
-        if (resultado != JFileChooser.CANCEL_OPTION) {
-            return archivo.getSelectedFile().getAbsolutePath().replace("\\", "/");
+                return buffer;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
         return null;
     }
+
+// Método que invoca obtenerBytesImagen() y asigna el arreglo de bytes a la variable "foto"
+    public void seleccionarImagen() {
+        foto = obtenerBytesImagen();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnseleccionar;
+    private javax.swing.JLabel fotolbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JPanel pnlimagen;
-    private javax.swing.JScrollPane tbtipo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbtipo;
     private javax.swing.JTextField txttipo;
     // End of variables declaration//GEN-END:variables
 }

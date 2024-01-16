@@ -12,14 +12,15 @@ import java.util.Date;
  * @author Mauricio
  */
 public class Evento {
-    
-    private String cod_evento,nombre,descripcion,codigo_patrocinador,codigo_agenda;
-    private Date fecha_inicio,Fecha_fin,hora_inicio,hora_fin;
+
+    private String cod_evento, nombre, descripcion, codigo_patrocinador, codigo_agenda, tipo;
+    private Date fecha_inicio, Fecha_fin;
+    private String hora_inicio, hora_fin;
 
     public Evento() {
     }
 
-    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, Date fecha_inicio, Date Fecha_fin, Date hora_inicio, Date hora_fin) {
+    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, String tipo) {
         this.cod_evento = cod_evento;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -29,6 +30,8 @@ public class Evento {
         this.Fecha_fin = Fecha_fin;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
+        this.tipo = tipo;
+
     }
 
     public String getCod_evento() {
@@ -87,29 +90,30 @@ public class Evento {
         this.Fecha_fin = Fecha_fin;
     }
 
-    public Date getHora_inicio() {
+    public String getHora_inicio() {
         return hora_inicio;
     }
 
-    public void setHora_inicio(Date hora_inicio) {
+    public void setHora_inicio(String hora_inicio) {
         this.hora_inicio = hora_inicio;
     }
 
-    public Date getHora_fin() {
+    public String getHora_fin() {
         return hora_fin;
     }
 
-    public void setHora_fin(Date hora_fin) {
+    public void setHora_fin(String hora_fin) {
         this.hora_fin = hora_fin;
     }
 
-    @Override
-    public String toString() {
-        return "Evento{" + "cod_evento=" + cod_evento + ", nombre=" + nombre + ", descripcion=" + descripcion + ", codigo_patrocinador=" + codigo_patrocinador + ", codigo_agenda=" + codigo_agenda + ", fecha_inicio=" + fecha_inicio + ", Fecha_fin=" + Fecha_fin + ", hora_inicio=" + hora_inicio + ", hora_fin=" + hora_fin + '}';
+    public String getTipo() {
+        return tipo;
     }
-    
-    
-    
-    
-    
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+   
+
 }

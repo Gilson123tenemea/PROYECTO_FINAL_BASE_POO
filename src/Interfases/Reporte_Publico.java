@@ -77,7 +77,6 @@ public class Reporte_Publico extends javax.swing.JPanel {
         jLabel1.setText("REPORTE PUBLICO");
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar.png"))); // NOI18N
         jButton1.setText("ACTUALIZAR TABLA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +146,7 @@ public class Reporte_Publico extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
