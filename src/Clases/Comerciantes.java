@@ -5,17 +5,16 @@ import java.util.Date;
 public class Comerciantes extends Persona {
 
     private String codigo_participante;//llave primaria
-    private String cedula_perso, Tipo_Comercio, Productos_c, Servicio_c;
+    private String Tipo_Comercio, Productos_c, Servicio_c;
     private String codigo_puesto;//llave secundaria
 
     public Comerciantes() {
         super();
     }
 
-    public Comerciantes(String codigo_participante, String cedula_perso, String Tipo_Comercio, String Productos_c, String Servicio_c, String codigo_puesto, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+    public Comerciantes(String codigo_participante, String Tipo_Comercio, String Productos_c, String Servicio_c, String codigo_puesto, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
         super(cedula, nombre, apellido, telefono, correo, direccion, celular, fecchaNaci, genero);
         this.codigo_participante = codigo_participante;
-        this.cedula_perso = cedula_perso;
         this.Tipo_Comercio = Tipo_Comercio;
         this.Productos_c = Productos_c;
         this.Servicio_c = Servicio_c;
@@ -28,14 +27,6 @@ public class Comerciantes extends Persona {
 
     public void setCodigo_participante(String codigo_participante) {
         this.codigo_participante = codigo_participante;
-    }
-
-    public String getCedula_perso() {
-        return cedula_perso;
-    }
-
-    public void setCedula_perso(String cedula_perso) {
-        this.cedula_perso = cedula_perso;
     }
 
     public String getTipo_Comercio() {
@@ -68,11 +59,6 @@ public class Comerciantes extends Persona {
 
     public void setCodigo_puesto(String codigo_puesto) {
         this.codigo_puesto = codigo_puesto;
-    }
-
-    @Override
-    public String toString() {
-        return "Comerciantes{" + "codigo_participante=" + codigo_participante + ", cedula_perso=" + cedula_perso + ", Tipo_Comercio=" + Tipo_Comercio + ", Productos_c=" + Productos_c + ", Servicio_c=" + Servicio_c + ", codigo_puesto=" + codigo_puesto + '}';
     }
 
 }
