@@ -3,15 +3,20 @@ package Interfases;
 
 import Clases.Patrocinador;
 import Clases.Validaciones;
+import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Crud_Patrocinado extends javax.swing.JPanel {
+
     String sexo;
+
     public Crud_Patrocinado() {
         initComponents();
     }
@@ -21,37 +26,187 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         mibuton.add(masculino);
         mibuton.add(femenino);
     }
-    
-    public void CrearCliente(ObjectContainer Base) {
-        
+
+    public void CrearCliente(ObjectContainer base) {
         try {
             if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
             }
+
             if (masculino.isSelected()) {
-
                 sexo = "Masculino";
-
             } else if (femenino.isSelected()) {
                 sexo = "Femenino";
             }
-            
-            Date Seleccion = Date_patro.getDate();
-            
-            //String codigo_patri, String Descripcion_p, String redes_sociales, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero
-            
-          ObjectSet<Patrocinador> resul = Base.queryByExample(new Patrocinador(0, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null));
-            
-            
-        }finally {
 
-            Base.close();
+            // Obtener el último código incremental de patrocinador
+            ObjectSet<Patrocinador> lastResult = base.queryByExample(new Patrocinador());
+            int ultimoCodigo = lastResult.size() + 1;
+
+            // Formatear el nuevo código con ceros a la izquierda
+            String nuevoCodigo = String.format("PTR-%03d", ultimoCodigo);
+            codig_patrio.setText(nuevoCodigo);
+
+            Date Seleccion = Date_patro.getDate();
+
+            // Crear un nuevo Patrocinador y almacenarlo en la base de datos
+            Patrocinador patro = new Patrocinador(nuevoCodigo, txtDescripcion.getText(), txtRedes.getText(), txtCedula.getText(), txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtDireccion.getText(), txtCelular.getText(), Seleccion, sexo);
+
+            base.store(patro);
+            JOptionPane.showMessageDialog(null, "Patrocinador creado exitosamente");
+            cargarTabla(base,patro);
+        } finally {
+            base.close();
         }
-         
+
+        limpiarCamposPatrocinador();
+    }
+
+    private void limpiarCamposPatrocinador() {
+        codig_patrio.setText("");
+        txtDescripcion.setText("");
+        txtRedes.setText("");
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
+        txtDireccion.setText("");
+        txtCelular.setText("");
+        Date_patro.setDate(null);
+        masculino.setSelected(false);
+        femenino.setSelected(false);
+    }
+
+    private void cargarTabla(ObjectContainer base, Patrocinador actividadFiltrada) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        Object[] row = {
+            actividadFiltrada.getCedula(),
+            actividadFiltrada.getNombre(),
+            actividadFiltrada.getApellido(),
+            actividadFiltrada.getTelefono(),
+            actividadFiltrada.getCorreo(),
+            actividadFiltrada.getDireccion(),
+            actividadFiltrada.getCelular(),
+            actividadFiltrada.getGenero(),
+            actividadFiltrada.getCodigo_patri(),
+            actividadFiltrada.getDescripcion_p(),
+            actividadFiltrada.getRedes_sociales(),
+            actividadFiltrada.getFecchaNaci()
+        };
+        model.addRow(row);
+
+        base.close();
     }
     
+    private void cargarTablaReporte(ObjectContainer base) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        
+        Query query = base.query();
+        query.constrain(Patrocinador.class);
+        query.descend("cedula").orderAscending();
+        ObjectSet<Patrocinador> pro = query.execute();
+        while (pro.hasNext()) {
+            Patrocinador actividadFiltrada = pro.next();
+        Object[] row = {
+            actividadFiltrada.getCedula(),
+            actividadFiltrada.getNombre(),
+            actividadFiltrada.getApellido(),
+            actividadFiltrada.getTelefono(),
+            actividadFiltrada.getCorreo(),
+            actividadFiltrada.getDireccion(),
+            actividadFiltrada.getCelular(),
+            actividadFiltrada.getGenero(),
+            actividadFiltrada.getCodigo_patri(),
+            actividadFiltrada.getDescripcion_p(),
+            actividadFiltrada.getRedes_sociales(),
+            actividadFiltrada.getFecchaNaci()
+        };
+        model.addRow(row);
+        }
+        base.close();
+    }
+ 
+    private void buscarPatrocinadorPorCedula(String cedulaBusqueda,ObjectContainer base) {
+        txtCedula.setEditable(false);
+        if (cedulaBusqueda != null && !cedulaBusqueda.isEmpty()) {
+            ObjectSet<Patrocinador> result = base.queryByExample(new Patrocinador(null, null, null, cedulaBusqueda, null, null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                Patrocinador patrocinadorEncontrado = result.next();
+                cargarDatosPatrocinador(patrocinadorEncontrado);
+                limpiarTablaPatrocinador();
+                cargarTabla(base, patrocinadorEncontrado);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún patrocinador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void cargarDatosPatrocinador(Patrocinador patrocinador) {
+        codig_patrio.setText(patrocinador.getCodigo_patri());
+        txtDescripcion.setText(patrocinador.getDescripcion_p());
+        txtRedes.setText(patrocinador.getRedes_sociales());
+        txtCedula.setText(patrocinador.getCedula());
+        txtNombre.setText(patrocinador.getNombre());
+        txtApellido.setText(patrocinador.getApellido());
+        txtTelefono.setText(patrocinador.getTelefono());
+        txtEmail.setText(patrocinador.getCorreo());
+        txtDireccion.setText(patrocinador.getDireccion());
+        txtCelular.setText(patrocinador.getCelular());
+        Date_patro.setDate(patrocinador.getFecchaNaci());
+
+        if (patrocinador.getGenero().equals("Masculino")) {
+            masculino.setSelected(true);
+        } else {
+            femenino.setSelected(true);
+        }
+    }
+
+    private void limpiarTablaPatrocinador() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+    }
+    
+    public void ActualizarDatos(ObjectContainer base) {
+        if (masculino.isSelected()) {
+            sexo = "Masculino";
+        } else if (femenino.isSelected()) {
+            sexo = "Femenino";
+        }
+        Patrocinador patro = new Patrocinador(null, null, null, txtCedula.getText(), null, null, null, null, null, null, null, null);
+        try {
+            ObjectSet res = base.get(patro);
+            if (res.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún Patrocinador con la cédula proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Patrocinador mipratroci = (Patrocinador) res.next();
+            mipratroci.setNombre(txtNombre.getText().trim());
+            mipratroci.setApellido(txtApellido.getText().trim());
+            mipratroci.setTelefono(txtTelefono.getText().trim());
+            mipratroci.setCorreo(txtEmail.getText().trim());
+            mipratroci.setDireccion(txtDireccion.getText().trim());
+            mipratroci.setCelular(txtCelular.getText().trim());
+            mipratroci.setGenero(sexo.trim());
+            mipratroci.setDescripcion_p(txtDescripcion.getText().trim());
+            mipratroci.setRedes_sociales(txtRedes.getText().trim());
+            mipratroci.setFecchaNaci(Date_patro.getDate());
+
+            base.set(mipratroci);
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error durante la modificación. Consulta los registros para obtener más detalles.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            base.close();
+        }
+    }
+
     public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
@@ -136,7 +291,6 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         txtEmail = new javax.swing.JTextField();
         masculino = new javax.swing.JRadioButton();
         femenino = new javax.swing.JRadioButton();
-        txtcod_Patro = new javax.swing.JTextField();
         txtRedes = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -148,14 +302,13 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        txtConatacto = new javax.swing.JTextField();
+        codig_patrio = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
@@ -188,8 +341,8 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Fecha de Nacimiento: ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, -1));
-        jPanel1.add(Date_patro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 180, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
+        jPanel1.add(Date_patro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 180, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Codigo Patrocinador:");
@@ -201,7 +354,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel10.setText("Redes Sociales:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
 
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,8 +372,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         femenino.setText("Femenino");
         jPanel1.add(femenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, -1));
-        jPanel1.add(txtcod_Patro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 240, -1));
-        jPanel1.add(txtRedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 190, -1));
+        jPanel1.add(txtRedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 190, -1));
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/humano.png"))); // NOI18N
@@ -265,20 +417,22 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton3.setText("ELIMINAR");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 130, 40));
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, -1));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 130, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cédula ", "Nombre", "Apellido", "Teléfono", "Email", "Dirección", "Celular", "Género", "Cédula Persona ", "Código ", "Descripción", "Redes Sociales", "Fecha de Nacimiento"
+                "Cédula ", "Nombre", "Apellido", "Teléfono", "Email", "Dirección", "Celular", "Género", "Código ", "Descripción", "Redes Sociales", "Fecha de Nacimiento"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -294,11 +448,23 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar.png"))); // NOI18N
         jButton4.setText("REPORTE");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, -1, 40));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 390, -1, 40));
+        jPanel1.add(codig_patrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 130, 30));
 
-        jLabel12.setText("Contacto:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, -1, -1));
-        jPanel1.add(txtConatacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 190, -1));
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -317,29 +483,101 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        ActualizarDatos(base);
+        base.close();
+        txtCedula.setEditable(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        CrearCliente(base); 
+        base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String cedulaBusqueda = txtCedula.getText();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        buscarPatrocinadorPorCedula(cedulaBusqueda, base);
+        base.close();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargarTablaReporte(base);
+        base.close();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        Query query = base.query();
+        query.constrain(Patrocinador.class);
+        query.descend("cedula").constrain(txtCedula.getText().trim());
+
+        ObjectSet<Patrocinador> result = query.execute();
+
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Telefono", "Email", "Dirección", "Celular", "Género", "Código", "Descripcion", "Redes Sociales", "Fecha de Nacimiento"};
+        Object[][] data = new Object[result.size()][12];
+        int i = 0;
+        for (Patrocinador propie : result) {
+            data[i][0] = propie.getCedula();
+            data[i][1] = propie.getNombre();
+            data[i][2] = propie.getApellido();
+            data[i][3] = propie.getTelefono();
+            data[i][4] = propie.getCorreo();
+            data[i][5] = propie.getDireccion();
+            data[i][6] = propie.getCelular();
+            data[i][7] = propie.getGenero();
+            data[i][8] = propie.getCodigo_patri();
+            data[i][9] = propie.getDescripcion_p();
+            data[i][10] = propie.getRedes_sociales();
+            data[i][11] = propie.getFecchaNaci();
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        jTable1.setModel(model);
+
+        int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Patrocinador", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+        if (resul == JOptionPane.YES_OPTION) {
+
+            for (Patrocinador PORBD : result) {
+
+                base.delete(PORBD);
+                JOptionPane.showMessageDialog(null, "Se estan borrando los datos del Patrocinador");
+
+            }
+
+        } else if (resul == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+        }
+        vaciarTabla();
+        limpiarCamposPatrocinador();
+        base.close();
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+    public void vaciarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date_patro;
+    private javax.swing.JLabel codig_patrio;
     private javax.swing.JRadioButton femenino;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -358,13 +596,11 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtConatacto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRedes;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtcod_Patro;
     // End of variables declaration//GEN-END:variables
 }
