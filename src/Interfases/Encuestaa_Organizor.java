@@ -69,6 +69,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
+        scrollbar1 = new java.awt.Scrollbar();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,7 +109,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, -1, 150));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,6 +196,18 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
+
+        scrollbar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollbar1MouseClicked(evt);
+            }
+        });
+        scrollbar1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                scrollbar1ComponentMoved(evt);
+            }
+        });
+        jPanel1.add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, -1, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -473,6 +486,16 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void scrollbar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollbar1MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_scrollbar1MouseClicked
+
+    private void scrollbar1ComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_scrollbar1ComponentMoved
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_scrollbar1ComponentMoved
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -508,6 +531,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private java.awt.Scrollbar scrollbar1;
     private javax.swing.JLabel txtcodigopersonal;
     // End of variables declaration//GEN-END:variables
 }
