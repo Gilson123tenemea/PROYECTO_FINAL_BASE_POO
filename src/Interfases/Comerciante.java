@@ -6,16 +6,19 @@
 package Interfases;
 
 import Clases.Comerciantes;
+import Clases.Puesto;
+import Clases.Tipo_Comercio;
 import Clases.Validaciones;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
-
+import com.db4o.Db4o;
 /**
  *
  * @author ADMIN_01
@@ -49,12 +52,11 @@ public class Comerciante extends javax.swing.JFrame {
             Date nacimiento = null;
 
             int aux = 1 + ReporteOrganizador.listaagentes.size();
-            String auxn = String.valueOf(aux);
-            String cod = "00" + auxn;
+            String auxn = String.format("%03d", aux);
+            String cod = "COM-" + auxn;
 
             lblCodigoComerciante.setText(cod);
 
-            // establecer formato
             Date fecha = jDateFecha.getDate();
 
             if (fecha != null) {
@@ -63,7 +65,6 @@ public class Comerciante extends javax.swing.JFrame {
                 System.out.println("Fecha no seleccionada");
             }
 
-            // convertir el String seleccionado a Date
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 nacimiento = format.parse(seleccion);
@@ -88,28 +89,19 @@ public class Comerciante extends javax.swing.JFrame {
             }
 
             validarCampos();
-            
-            
-            //todo esto comentado no sirve 
-
-//            Comerciantes miorganizador = new Comerciantes(txtCedula.getText().trim(), txtApellido.getText().trim(), txtNombre.getText().trim(), txtEmail.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(), txtTipoComercio.getText().trim(), 
-//                    sexo, seleccion, lblCodigoComerciante.getText().trim(), txtProductosC.getText().trim(), txtServiciosC.getText().trim(), cboCodigoPuesto.getItemAt(aux), txtCelular.getText().trim());
-
-            //base.store(miorganizador);
 
             JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
         } finally {
             base.close();
         }
 
-        // spnedad.setValue(0);
         txtCedula.setText("");
         txtApellido.setText("");
         txtNombre.setText("");
         txtEmail.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
-        txtTipoComercio.setText("");
+        txtTipoComercio.setSelectedItem("");
         rbnMasculino.setSelected(false);
         rbnFemenino.setSelected(false);
         jDateFecha.setDate(null);
@@ -120,7 +112,67 @@ public class Comerciante extends javax.swing.JFrame {
         txtCelular.setText("");
 
     }
+    
+      public void cargarPuesto(ObjectContainer Base) {
+          cboCodigoPuesto.removeAllItems();
+          Query query = Base.query();
+          query.constrain(Puesto.class);
+          
+          ObjectSet<Puesto> puesto = query.execute();
+          
+          if (puesto.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "No existen Puestos Disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+          }else {
+              while (puesto.hasNext()) {
+                  Puesto pu = puesto.next();
+                  cboCodigoPuesto.addItem(pu.getNombrePuesto());
+              }
+          }
+          Base.close();
+      }
+      
+      private void mostrarDatosPuestoSeleccionado(ObjectContainer bases) {
+          
+          String nombreSeleccionada = cboCodigoPuesto.getSelectedItem().toString();
+          Query query = bases.query();
+          query.constrain(Puesto.class);
+          
+          query.descend("NombrePuesto").constrain(nombreSeleccionada);
+          ObjectSet<Puesto> result = query.execute();
+          
+          if (!result.isEmpty()) {
+              
+              Puesto pues = result.next();
+            String mensaje = "Nombre: " + pues.getNombrePuesto()+ "\n"
+                    + "Descripcion: " + pues.getDescripcionPuesto()+ "\n"
+                    + "Tipo: " + pues.getTipo_puesto();
 
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Propietario", JOptionPane.INFORMATION_MESSAGE);    
+          }else {
+            JOptionPane.showMessageDialog(this, "No se encontró un Puesto con el nombre seleccionado.", "Puesto no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+          bases.close();
+      }
+      
+       public void cargarTipoComercio(ObjectContainer Base) {
+           txtTipoComercio.removeAllItems();
+           Query query = Base.query();
+           query.constrain(Tipo_Comercio.class);
+           
+           ObjectSet<Tipo_Comercio> comercio = query.execute();
+           
+           if (comercio.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "No existen Tipos de comercios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
+          }else {
+               while (comercio.hasNext()) {
+                  Tipo_Comercio com = comercio.next();
+                  cboCodigoPuesto.addItem(com.getNombre());
+              }
+           }
+           Base.close();   
+       }
+
+      
     public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
@@ -187,7 +239,7 @@ public class Comerciante extends javax.swing.JFrame {
         txtEmail.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
-        txtTipoComercio.setText("");
+        txtTipoComercio.setSelectedItem("");
         rbnMasculino.setSelected(false);
         rbnFemenino.setSelected(false);
         jDateFecha.setDate(null);
@@ -230,7 +282,6 @@ public class Comerciante extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         cboCodigoPuesto = new javax.swing.JComboBox<>();
-        txtTipoComercio = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         rbnMasculino = new javax.swing.JRadioButton();
         rbnFemenino = new javax.swing.JRadioButton();
@@ -243,6 +294,9 @@ public class Comerciante extends javax.swing.JFrame {
         txtCelular = new javax.swing.JTextField();
         btnVer = new javax.swing.JButton();
         lblCodigoComerciante = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        txtTipoComercio = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,8 +405,13 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 220, -1));
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        btnGuardar.setText("GUARDAR");
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 150, 50));
+        btnGuardar.setText("SOLICITAR PUESTO");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 190, 50));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Código Puesto: ");
@@ -360,7 +419,6 @@ public class Comerciante extends javax.swing.JFrame {
 
         cboCodigoPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 160, -1));
-        jPanel1.add(txtTipoComercio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 170, -1));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("Género:");
@@ -396,9 +454,38 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, -1));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 160, -1));
 
-        btnVer.setText("Ver");
-        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, -1, -1));
+        btnVer.setBackground(new java.awt.Color(255, 255, 255));
+        btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
+        btnVer.setBorder(null);
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 40, 30));
         jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 150, 20));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargardatos.jpg"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 370, 50, 30));
+
+        txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frreteria", "Cferetira", "asdasd", " " }));
+        jPanel1.add(txtTipoComercio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 170, -1));
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargardatos.jpg"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 40, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -424,6 +511,33 @@ public class Comerciante extends javax.swing.JFrame {
         le.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosPuestoSeleccionado(bases);
+        bases.close();
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+       cargarPuesto(bases);
+       bases.close();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+       cargarTipoComercio(bases);
+       bases.close();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+      ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+      crearOrganizador(bases);
+      bases.close();
+        
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -481,6 +595,8 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JButton btnVer;
     private javax.swing.JComboBox<String> cboCodigoPuesto;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -516,6 +632,6 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JTextArea txtProductosC;
     private javax.swing.JTextArea txtServiciosC;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTipoComercio;
+    private javax.swing.JComboBox<String> txtTipoComercio;
     // End of variables declaration//GEN-END:variables
 }
