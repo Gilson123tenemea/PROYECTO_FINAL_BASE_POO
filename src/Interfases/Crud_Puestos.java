@@ -122,7 +122,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
                 if (!result.isEmpty()) {
                     Puesto puesto = result.get(0);
 
-                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de modificar el departamento?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de modificar el Puesto?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                     if (confirmacion == JOptionPane.YES_OPTION) {
                         // Modificar los datos del departamento en la base de datos
@@ -133,12 +133,12 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
                         base.store(puesto);
 
-                        JOptionPane.showMessageDialog(null, "Departamento modificado correctamente");
+                        JOptionPane.showMessageDialog(null, "Puesto modificado correctamente");
                         RefrescarTabla(base);
                         limpiar();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró el departamento en la base de datos.");
+                    JOptionPane.showMessageDialog(null, "No se encontró el Puesto en la base de datos.");
                 }
             } finally {
                 // No cierres la base de datos aquí; déjalo abierto para que puedas usarlo en otras partes del código
@@ -449,17 +449,17 @@ public class Crud_Puestos extends javax.swing.JPanel {
         if (result.size() > 0) {
             encontrado = true;
 
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Departamento", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Puesto", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Puesto puestoBD : result) {
 
                     base.delete(puestoBD);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Departamento");
+                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Puesto");
                     cargarTabla(base);
                 }
             } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Departamento no eliminados");
+                JOptionPane.showMessageDialog(null, "Datos del Puesto no eliminados");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró el código");

@@ -409,7 +409,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
             resul = Base.queryByExample(new Departamento(cod, null, null));
 
             if (!resul.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe una casa con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe un departamento con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -418,7 +418,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
             Base.store(casa1);
 
-            JOptionPane.showMessageDialog(this, "Casa creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Departamento creado exitosamente");
             limpiar();
             cargarTabla(Base);
         } finally {
