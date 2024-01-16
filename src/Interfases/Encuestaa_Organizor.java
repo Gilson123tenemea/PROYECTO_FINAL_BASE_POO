@@ -5,6 +5,14 @@
  */
 package Interfases;
 
+import Clases.Encuesta;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Query;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HP
@@ -40,14 +48,27 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        txtcodigopersonal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton12 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,87 +77,101 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 250, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 250, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 180, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 180, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/votacion-en-linea.png"))); // NOI18N
         jLabel1.setText("ENCUESTA");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Código Encuesta:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 200, 240, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, 240, -1));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Descripción: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Evento: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
-        jPanel1.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 240, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        jPanel1.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 240, -1));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Preguntas del Evento: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Fecha Inicio:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, 30));
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText(" Fecha Fin:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, -1, 30));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 180, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo Encuesta", "Nombre Encuesta", "Tipo Evento", "Descripcion", "Fecha Inicio", "Fecha Fin", "Pregunta 1", "Pregunta 2", "Pregunta 3", "Pregunta 4", "Pregunta 5"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 860, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 600, 860, 150));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        jLabel9.setText("Pregunta 1");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, -1));
+
+        jLabel10.setText("Pregunta 2");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, -1));
+
+        jLabel11.setText("Pregunta 3");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
+
+        jLabel12.setText("Pregunta 4");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, -1, -1));
+
+        jLabel13.setText("Pregunta 5");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 540, -1));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, 540, -1));
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 540, -1));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, 540, -1));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 540, -1));
+        jPanel1.add(txtcodigopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 180, 20));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 540, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar (1).png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         jButton2.setText("MODIFICAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, -1, -1));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton-eliminar (1).png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton3.setText("ELIMINAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
         jButton4.setText("REPORTE");
@@ -145,43 +180,303 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, -1, -1));
+
+        jLabel14.setText("Nombre Encuesta");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 180, -1));
+
+        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton12.setBorder(null);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void crearCasa(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+
+        try {
+
+            // Obtener el último código de personal en la base de datos
+            Query query = base.query();
+            query.constrain(Encuesta.class);
+            query.descend("codigo_perso").orderDescending();
+            ObjectSet<Encuesta> result = query.execute();
+
+            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            if (!result.isEmpty()) {
+                Encuesta ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_encuesta()) + 4;
+            }
+
+            // Formatear el código con ceros a la izquierda
+            String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
+            txtcodigopersonal.setText(nuevoCodigo);
+
+            // Verificar si ya existe un personal con el mismo código
+            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Personal y almacenar en la base de datos
+            Encuesta nuevoPersonal = new Encuesta(
+                    nuevoCodigo,
+                    jTextField1.getText().trim(),
+                    jComboBox1.getSelectedItem().toString(),
+                    jTextArea1.getText().trim(),
+                    jDateChooser1.getDate(),
+                    jDateChooser2.getDate(),
+                    jTextField2.getText().trim(),
+                    jTextField3.getText().trim(),
+                    jTextField4.getText().trim(),
+                    jTextField5.getText().trim(),
+                    jTextField6.getText().trim()
+            );
+
+            base.store(nuevoPersonal);
+
+            JOptionPane.showMessageDialog(this, "Personal creado exitosamente");
+            limpiar();
+            cargarTabla(base);
+        } finally {
+            base.close();
+        }
+    }
+
+    public void limpiar() {
+        jTextField1.setText("");
+        jTextArea1.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField2.setText("");
+        jComboBox1.setSelectedItem("");
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+
+    }
+
+    public void cargarTabla(ObjectContainer base) {
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+
+        ObjectSet<Encuesta> result = base.queryByExample(new Encuesta());
+
+        while (result.hasNext()) {
+            Encuesta personal1 = result.next();
+
+            Object[] row = {
+                personal1.getCod_encuesta(),
+                personal1.getNombre_encuesta(),
+                personal1.getTipo_evento(),
+                personal1.getDescrpcion_encuesta(),
+                personal1.getFecha_inicio(),
+                personal1.getFecha_fin(),
+                personal1.getPregunta1(),
+                personal1.getPregunta2(),
+                personal1.getPregunta3(),
+                personal1.getPregunta4(),
+                personal1.getPregunta5()
+
+            };
+            model.addRow(row);
+        }
+
+    }
+
+    public void ActualizarDatos(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()
+                || jComboBox1.getSelectedItem() == null || jTextField3.getText().trim().isEmpty() || jTextField4.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Encuesta micasa = new Encuesta(txtcodigopersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null);
+
+            ObjectSet res = base.get(micasa);
+            Encuesta micasita = (Encuesta) res.next();
+            micasita.setNombre_encuesta(jTextField1.getText().trim());
+            micasita.setDescrpcion_encuesta(jTextArea1.getText().trim());
+            micasita.setPregunta1(jTextField2.getText().trim());
+            micasita.setPregunta2(jTextField3.getText().trim());
+            micasita.setPregunta3(jTextField4.getText().trim());
+            micasita.setPregunta4(jTextField5.getText().trim());
+            micasita.setPregunta5(jTextField6.getText().trim());
+            micasita.setFecha_inicio(jDateChooser1.getDate());
+             micasita.setFecha_fin(jDateChooser2.getDate());
+
+            micasita.setTipo_evento(jComboBox1.getSelectedItem().toString());
+
+            base.set(micasita);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            limpiar();
+
+        } finally {
+            base.close();
+        }
+    }
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        crearCasa(base);
+        base.close();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        ActualizarDatos(base);
+        base.close();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la Encuesta a eliminar");
+        boolean encontrado = false;
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        Query query = base.query();
+        query.constrain(Encuesta.class);
+        query.descend("cedula").constrain(codigoEliminar);
+
+        ObjectSet<Encuesta> result = query.execute();
+        cargarTabla(base);
+
+        if (result.size() > 0) {
+            encontrado = true;
+
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Encuesta ", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+            if (resul == JOptionPane.YES_OPTION) {
+                for (Encuesta vacacionalDB : result) {
+                    // Eliminar la Casa Vacacional de la base de datos db4o
+                    base.delete(vacacionalDB);
+                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Encuesta");
+                    cargarTabla(base);
+                }
+            } else if (resul == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Datos de la Encuesta no eliminados");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el código");
+            cargarTabla(base);
+        }
+
+        base.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void buscarActividad(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la Encuesta a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Encuesta> result = base.queryByExample(new Encuesta(codigoBusqueda, null, null, null, null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                Encuesta actividadEncontrada = result.next();
+                cargarDatosActividad(actividadEncontrada);
+                limpiarTabla();
+                cargarTabla(base, actividadEncontrada);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+
+    private void cargarDatosActividad(Encuesta actividad) {
+        txtcodigopersonal.setText(actividad.getCod_encuesta());
+        jTextField1.setText(actividad.getNombre_encuesta());
+        jTextArea1.setText(actividad.getDescrpcion_encuesta());
+        jTextField2.setText(actividad.getPregunta1());
+        jTextField3.setText(actividad.getPregunta2());
+        jTextField4.setText(actividad.getPregunta3());
+        jTextField5.setText(actividad.getPregunta4());
+        jTextField6.setText(actividad.getPregunta5());
+        jDateChooser1.setDate(actividad.getFecha_inicio());
+        jDateChooser1.setDate(actividad.getFecha_fin());
+
+        jComboBox1.setSelectedItem(actividad.getTipo_evento());
+
+    }
+
+    private void cargarTabla(ObjectContainer base, Encuesta actividadFiltrada) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        Object[] row = {
+            actividadFiltrada.getCod_encuesta(),
+            actividadFiltrada.getNombre_encuesta(),
+            actividadFiltrada.getTipo_evento(),
+            actividadFiltrada.getDescrpcion_encuesta(),
+            actividadFiltrada.getFecha_inicio(),
+            actividadFiltrada.getFecha_fin(),
+            actividadFiltrada.getPregunta1(),
+            actividadFiltrada.getPregunta2(),
+            actividadFiltrada.getPregunta3(),
+            actividadFiltrada.getPregunta4(),
+            actividadFiltrada.getPregunta5(),};
+        model.addRow(row);
+
+        base.close();
+    }
+
+    private void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+    }
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        buscarActividad(base);
+        base.close();
+    }//GEN-LAST:event_jButton12ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -189,6 +484,11 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -196,11 +496,18 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JLabel txtcodigopersonal;
     // End of variables declaration//GEN-END:variables
 }
