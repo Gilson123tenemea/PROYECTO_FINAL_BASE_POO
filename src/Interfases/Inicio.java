@@ -5,6 +5,8 @@
  */
 package Interfases;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lenovo.User
@@ -15,10 +17,10 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     // public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\proyecto_final.yap";
-  //  public static String direccion = "C:\\Users\\ADMIN_01\\Documents\\SEGUNDO CICLO\\pro.yap";
-    //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final.yap";
+    //  public static String direccion = "C:\\Users\\ADMIN_01\\Documents\\SEGUNDO CICLO\\pro.yap";
+    public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
-    public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
+    //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
 
     public Inicio() {
         initComponents();
@@ -47,7 +49,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnHelp = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -182,14 +184,14 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
 
-        jButton5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jButton5.setText("HELP");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnHelp.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        btnHelp.setText("HELP");
+        btnHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnHelpActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 70, 50));
+        jPanel1.add(btnHelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 70, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 159));
@@ -292,10 +294,10 @@ public class Inicio extends javax.swing.JFrame {
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
+        mostrarInformacionProyecto();
+    }//GEN-LAST:event_btnHelpActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -313,6 +315,20 @@ public class Inicio extends javax.swing.JFrame {
         cm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void mostrarInformacionProyecto() {
+        String mensaje = "Organizador de Eventos - SACY Eventos Municipales\n"
+                + "Este proyecto está diseñado para facilitar la organización de eventos municipales.\n\n"
+                + "Características:\n"
+                + "- En la interfaz pricipal donde se puede Crear la Cuenta de acuerdo a su rol.\n"
+                + "- Despues de crear su cuenta podrá Iniciar Sesión y ingresar a su Menú.\n"
+                + "- Dentro del Menú podrá revisar la agenda, mi blog, calificar y mucho más. \n\n"
+                + "Fecha de Creación: [Enero - 2024]\n\n"
+                + "¡Gracias por elegir nuestro Organizador de Eventos!";
+
+        // Mostrar el cuadro de diálogo con la información del proyecto
+        JOptionPane.showMessageDialog(this, mensaje, "Información del Proyecto", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -351,9 +367,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHelp;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

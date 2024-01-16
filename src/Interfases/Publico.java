@@ -5,11 +5,15 @@
  */
 package Interfases;
 
+import Clases.Publico_p;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,12 +22,24 @@ import javax.swing.JOptionPane;
  */
 public class Publico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Publico
-     */
+    public static ArrayList<Publico_p> listaagentes = new ArrayList<>();
+
+    public static ArrayList<Publico_p> codigoseliminados = new ArrayList<>();
+
+    Boolean primeraMayusculaIngresada;
+
     public Publico() {
         initComponents();
-//        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        agrupar();
+        btncrear.setEnabled(false);
+    }
+
+    public void agrupar() {
+
+        ButtonGroup botones = new ButtonGroup();
+        botones.add(rbnMasculino);
+        botones.add(rbnFemenino);
     }
 
     /**
@@ -35,33 +51,55 @@ public class Publico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordPublico = new javax.swing.JPasswordField();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lblcod = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateFechaNaci = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        rbnMasculino = new javax.swing.JRadioButton();
+        rbnFemenino = new javax.swing.JRadioButton();
+        btncrear = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtPreferencias = new javax.swing.JTextArea();
+        jLabel16 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        lblcedula = new javax.swing.JLabel();
+        lblnombre = new javax.swing.JLabel();
+        lblapellido = new javax.swing.JLabel();
+        lblemail = new javax.swing.JLabel();
+        lbltelefono = new javax.swing.JLabel();
+        lbldireccion = new javax.swing.JLabel();
+        lblfecha = new javax.swing.JLabel();
+        lblgenero = new javax.swing.JLabel();
+        lblcelular = new javax.swing.JLabel();
+        lblcontraseña = new javax.swing.JLabel();
+        lblestado = new javax.swing.JLabel();
+        lblpreferencia = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,39 +108,80 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Cedula:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, 40));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Apellido:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Email:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, -1, 40));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, 40));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Telefono:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, 40));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 40));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtCedulaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 140, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 140, -1));
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 140, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 140, -1));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 180, -1));
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 180, -1));
+
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 180, -1));
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 180, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -122,10 +201,7 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jLabel9.setText("REGISTRO PUBLICO");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 260, 30));
-
-        jLabel10.setText("_____________________________________");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 260, 30));
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -134,26 +210,49 @@ public class Publico extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 356, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 6, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 650, 360, 10));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, -1, -1));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 140, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 480, -1, -1));
+
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 180, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Contraseña:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 130, -1));
+        jPasswordPublico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPasswordPublico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordPublicoActionPerformed(evt);
+            }
+        });
+        jPasswordPublico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordPublicoKeyReleased(evt);
+            }
+        });
+        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 180, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/REGRESAR.jpg"))); // NOI18N
@@ -167,32 +266,144 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Codigo Publico:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
         lblcod.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 50, 20));
+        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 170, 20));
 
-        jLabel7.setText("FECHA DE NACIMIENTO:");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Fecha de Nacimiento: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 130, -1));
 
-        jLabel12.setText("GENERO:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 460, 50, -1));
-
-        jRadioButton1.setText("Masculino");
-        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, -1, -1));
-
-        jRadioButton2.setText("Femenino");
-        jPanel1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        jButton1.setText("CREAR CUENTA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jDateFechaNaci.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateFechaNaciPropertyChange(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 540, 160, 40));
+        jPanel1.add(jDateFechaNaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 140, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setText("Género:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 460, 70, -1));
+
+        rbnMasculino.setText("Masculino");
+        rbnMasculino.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbnMasculinoStateChanged(evt);
+            }
+        });
+        jPanel1.add(rbnMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, -1, -1));
+
+        rbnFemenino.setText("Femenino");
+        rbnFemenino.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbnFemeninoStateChanged(evt);
+            }
+        });
+        jPanel1.add(rbnFemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
+
+        btncrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        btncrear.setText("CREAR CUENTA");
+        btncrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncrearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 540, 160, 40));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setText("Celular:");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("Estado de Registro:");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setText("Preferencias: ");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, -1, 30));
+
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
+            }
+        });
+        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEstadoKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 180, -1));
+
+        txtPreferencias.setColumns(20);
+        txtPreferencias.setRows(5);
+        txtPreferencias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPreferenciasKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtPreferencias);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, 180, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setText("Dirección:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, -1));
+
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 180, -1));
+
+        lblcedula.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 124, 180, 20));
+
+        lblnombre.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 174, 180, 20));
+
+        lblapellido.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 224, 180, 20));
+
+        lblemail.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 274, 180, 20));
+
+        lbltelefono.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lbltelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 324, 180, 20));
+
+        lbldireccion.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lbldireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 374, 180, 20));
+
+        lblfecha.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 424, 140, 20));
+
+        lblgenero.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 180, 20));
+
+        lblcelular.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 174, 180, 20));
+
+        lblcontraseña.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 180, 20));
+
+        lblestado.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 284, 180, 20));
+
+        lblpreferencia.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 410, 180, 20));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 180, 30));
+
+        jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 240, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,138 +413,390 @@ public class Publico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        System.out.println("Prueva");
-    }//GEN-LAST:event_jTextField1ActionPerformed
-//    public void CrearCliente(ObjectContainer base) {
-//
-//        try {
-//
-//            if (!validarCampos()) {
-//                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-//
-//                return;
-//            }
-//
-////          Cliente(String codigo_cli, String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, int edad, String genero, Date fecha_nac
-//            ObjectSet<Publico> resul = base.queryByExample(new Cliente(0, null, null, txtcedulaClie.getText(), null, null, null, null, 0, null, null));
-//
-//            if (!resul.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Ya existe una Persona con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
-//
-//                return;
-//
-//            }
-//
-//            Cliente cliente1 = new Cliente(0, discapacidad1, txtcontraseña.getText(), txtcedulaClie.getText(), txtnombreCli.getText(), txtapellidoCli.getText(), txtemailCli.getText(), txttelefonoCli.getText(), edad, sexo, Seleccion);
-//
-//            base.store(cliente1);
-//
-//            JOptionPane.showMessageDialog(null, "Cuenta Creada Exitosamente");
-//
-//        } finally {
-//
-//            base.close();
-//        }
-//
-//        txtcedulaClie.setText(" ".trim());
-//        txtnombreCli.setText(" ".trim());
-//        txtcodigoCli.setText(" ".trim());
-//        txtapellidoCli.setText(" ".trim());
-//        txtemailCli.setText(" ".trim());
-//        txttelefonoCli.setText(" ".trim());
-//        Datefechaclie.setDate(null);
-//        txtcontraseña.setText(" ".trim());
-//        rbfemeninoCli.setSelected(false);
-//        rbmasculinoCli.setSelected(false);
-//        rbtSi.setSelected(false);
-//        rbtNo.setSelected(false);
-//
-//    }
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+
+    }//GEN-LAST:event_txtCedulaActionPerformed
+    public void crearPublico(ObjectContainer base) {
+
+        try {
+
+            String seleccion = " ";
+            Date nacimiento = null;
+
+            int aux = 1 + ReporteOrganizador.listaagentes.size();
+            String auxn = String.valueOf(aux);
+            String cod = "00" + auxn;
+
+            lblcod.setText(cod);
+
+            // establecer formato
+            Date fecha = jDateFechaNaci.getDate();
+
+            if (fecha != null) {
+                seleccion = new SimpleDateFormat("dd/MM/yyyy").format(fecha);
+            } else {
+                System.out.println("Fecha no seleccionada");
+            }
+
+            // convertir el String seleccionado a Date
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                nacimiento = format.parse(seleccion);
+                System.out.println("Date: " + nacimiento);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            String sexo = " ";
+            if (rbnFemenino.isSelected()) {
+                sexo = "Femenino";
+
+            } else if (rbnMasculino.isSelected()) {
+                sexo = "Masculino";
+            }
+
+            ObjectSet<Publico_p> resul = base.queryByExample(new Publico_p(null, null, null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null));
+
+            if (!resul.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Validar();
+
+            Publico_p miorganizador = new Publico_p(lblcod.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtEmail.getText().trim(), txtTelefono.getText().trim(), txtDireccion.getText().trim(),
+                    txtCelular.getText().trim(), jPasswordPublico.getText().trim(), txtEstado.getText().trim(), txtPreferencias.getText().trim(), nacimiento, sexo);
+
+            base.store(miorganizador);
+
+            JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
+        } finally {
+            base.close();
+        }
+
+        // spnedad.setValue(0);
+        txtEmail.setText("".trim());
+        jDateFechaNaci.setDate(null);
+        txtCedula.setText("".trim());
+        txtNombre.setText("".trim());
+        txtApellido.setText("".trim());
+        txtCelular.setText("".trim());
+        txtTelefono.setText("".trim());
+        lblcod.setText(" ".trim());
+        txtDireccion.setText("".trim());
+        jPasswordPublico.setText("");
+        txtEstado.setText("");
+        txtPreferencias.setText("");
+        rbnFemenino.setSelected(false);
+        rbnMasculino.setSelected(false);
+
+    }
+
+    public void Validar() {
+
+        if (txtCedula.getText().trim().isEmpty()) {
+            lblcedula.setText("Campo obligatorio");
+        } else {
+            lblcedula.setText("");
+        }
+
+        if (txtEmail.getText().trim().isEmpty()) {
+
+            lblemail.setText("Campo obligatorio");
+        } else {
+            lblemail.setText(" ");
+        }
+        if (txtNombre.getText().trim().isEmpty()) {
+            lblnombre.setText("Campo obligatorio");
+        } else {
+            lblnombre.setText("");
+        }
+        if (txtApellido.getText().trim().isEmpty()) {
+            lblapellido.setText("Campo obligatorio");
+        } else {
+            lblapellido.setText(" ");
+        }
+        if (txtCelular.getText().trim().isEmpty()) {
+            lblcelular.setText("Campo obligatorio");
+
+        } else {
+            lblcelular.setText("");
+
+        }
+        if (txtTelefono.getText().trim().isEmpty()) {
+            lbltelefono.setText("Campo obligatorio");
+
+        } else {
+            lbltelefono.setText("");
+
+        }
+        if (txtEstado.getText().trim().isEmpty()) {
+            lblestado.setText("Campo obligatorio");
+
+        } else {
+            lblestado.setText("");
+
+        }
+        if (txtPreferencias.getText().trim().isEmpty()) {
+            lblpreferencia.setText("Campo obligatorio");
+
+        } else {
+            lblpreferencia.setText("");
+
+        }
+        if (txtDireccion.getText().trim().isEmpty()) {
+            lbldireccion.setText("Campo obligatorio");
+
+        } else {
+            lbldireccion.setText("");
+        }
+        if (jPasswordPublico.getText().trim().isEmpty()) {
+            lblcontraseña.setText("Campo obligatorio");
+
+        } else {
+            lblcontraseña.setText("");
+        }
+        if (jDateFechaNaci.getDate() == null) {
+            lblfecha.setText("Campo requerido");
+
+        } else {
+            lblfecha.setText(" ");
+        }
+
+        if (rbnFemenino.isSelected()) {
+            lblgenero.setText(" ");
+        } else if (rbnMasculino.isSelected()) {
+            lblgenero.setText(" ");
+
+        } else if (!rbnFemenino.isSelected() || !rbnMasculino.isSelected()) {
+            lblgenero.setText("Campo requerido");
+        }
+
+        if (jDateFechaNaci.getDate() == null || jPasswordPublico.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty()
+                || (!rbnFemenino.isSelected() && !rbnMasculino.isSelected()) || txtApellido.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() || txtCedula.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty()
+                || txtEstado.getText().trim().isEmpty() || txtPreferencias.getText().trim().isEmpty()) {
+            btncrear.setEnabled(false);
+
+        } else {
+            btncrear.setEnabled(true);
+        }
+    }
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+          Inicio le = new Inicio();
+          le.setVisible(true);
+          this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-//    public boolean validarCampos() {
-//        Validaciones miValidaciones = new Validaciones();
-//        boolean ban_confirmar = true;
-//
-//        if (txtcedulaClie.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese la cédula del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.validarCedula(txtcedulaClie.getText())) {
-//            JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//
-//        if (txtnombreCli.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.ValidarNomApe(txtnombreCli.getText())) {
-//            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//
-//        if (txtapellidoCli.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese el apellido del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.ValidarNomApe(txtapellidoCli.getText())) {
-//            JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//
-//        if (txtemailCli.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese el correo del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.ValidarCorreo(txtemailCli.getText())) {
-//            JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//
-//        // Validar otros campos aquí...
-//        if (txttelefonoCli.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese el celular del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.validarCedula(txttelefonoCli.getText())) {
-//            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//        if (Datefechaclie.getDate() == null) {
-//            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
-//            ban_confirmar = false;
-//        } else {
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            String fechaComoCadena = sdf.format(Datefechaclie.getDate());
-//
-//            if (!miValidaciones.validarFecha(fechaComoCadena)) {
-//                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
-//                ban_confirmar = false;
-//            }
-//        }
-//
-//        if (txtcontraseña.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Ingrese la Contraseña del cliente");
-//            ban_confirmar = false;
-//        } else if (!miValidaciones.validarContrasena(txtcontraseña.getText())) {
-//            JOptionPane.showMessageDialog(this, "Contraseña incorrecta. Ingrese de nuevo");
-//            ban_confirmar = false;
-//        }
-//        return ban_confirmar;
-//    }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        ObjectContainer baseD = Db4o.openFile(Inicio.direccion);
-//        CrearCliente(baseD);
-//        baseD.close();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+//    
+    private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
+        // TODO add your handling code here:
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        crearPublico(base);
+        base.close();
+    }//GEN-LAST:event_btncrearActionPerformed
+
+    private void jPasswordPublicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordPublicoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jPasswordPublicoActionPerformed
+
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void jDateFechaNaciPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateFechaNaciPropertyChange
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_jDateFechaNaciPropertyChange
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        // Verificar si es un número y si la longitud actual es menor que 10
+        if (!Character.isDigit(c) || txtCedula.getText().length() >= 10) {
+            // Si no es un número o la longitud es mayor o igual a 10, se consume el evento para evitar que se agregue al campo de texto
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtApellidoKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtTelefonoKeyReleased
+
+    private void txtDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtDireccionKeyReleased
+
+    private void rbnMasculinoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbnMasculinoStateChanged
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_rbnMasculinoStateChanged
+
+    private void rbnFemeninoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbnFemeninoStateChanged
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_rbnFemeninoStateChanged
+
+    private void jPasswordPublicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordPublicoKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_jPasswordPublicoKeyReleased
+
+    private void txtEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtEstadoKeyReleased
+
+    private void txtPreferenciasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPreferenciasKeyReleased
+        // TODO add your handling code here:
+        Validar();
+    }//GEN-LAST:event_txtPreferenciasKeyReleased
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        String textoActual = txtNombre.getText();
+
+        // Verificar si es una letra minúscula y si la longitud actual es menor que 20 y si no es un espacio en blanco
+        if ((!Character.isLetter(c) || (Character.isLowerCase(c) && textoActual.length() >= 20) || c == ' ')) {
+            // Si no es una letra minúscula, o la longitud es mayor o igual a 20, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+            evt.consume();
+        } else if (textoActual.length() == 0) {
+            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
+            if (!Character.isUpperCase(c)) {
+                // Si no es mayúscula, convertirla a mayúscula
+                evt.setKeyChar(Character.toUpperCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        } else {
+            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
+            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+            if (Character.isUpperCase(ultimoCaracter)) {
+                // Si es mayúscula, convertirla a minúscula
+                evt.setKeyChar(Character.toLowerCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        }
+
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
+        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtApellido.getText().length() >= 20 || c == ' ') {
+            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+            evt.consume();
+        } else if (txtApellido.getText().length() == 0) {
+            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
+            if (!Character.isUpperCase(c)) {
+                // Si no es mayúscula, convertirla a mayúscula
+                evt.setKeyChar(Character.toUpperCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        } else {
+            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
+            String textoActual = txtApellido.getText();
+            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+            if (Character.isUpperCase(ultimoCaracter)) {
+                // Si es mayúscula, convertirla a minúscula
+                evt.setKeyChar(Character.toLowerCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        // Verificar si es un número y si la longitud actual es menor que 10
+        if (!Character.isDigit(c) || txtTelefono.getText().length() >= 7) {
+            // Si no es un número o la longitud es mayor o igual a 10, se consume el evento para evitar que se agregue al campo de texto
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
+        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtDireccion.getText().length() >= 50 || c == ' ') {
+            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+            evt.consume();
+        } else if (txtDireccion.getText().length() == 0) {
+            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
+            if (!Character.isUpperCase(c)) {
+                // Si no es mayúscula, convertirla a mayúscula
+                evt.setKeyChar(Character.toUpperCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        } else {
+            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
+            String textoActual = txtDireccion.getText();
+            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+            if (Character.isUpperCase(ultimoCaracter)) {
+                // Si es mayúscula, convertirla a minúscula
+                evt.setKeyChar(Character.toLowerCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        }
+    }//GEN-LAST:event_txtDireccionKeyTyped
 
     /**
      * @param args the command line arguments
@@ -371,13 +834,17 @@ public class Publico extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btncrear;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateFechaNaci;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -389,14 +856,32 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JPasswordField jPasswordPublico;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblapellido;
+    private javax.swing.JLabel lblcedula;
+    private javax.swing.JLabel lblcelular;
     private javax.swing.JLabel lblcod;
+    private javax.swing.JLabel lblcontraseña;
+    private javax.swing.JLabel lbldireccion;
+    private javax.swing.JLabel lblemail;
+    private javax.swing.JLabel lblestado;
+    private javax.swing.JLabel lblfecha;
+    private javax.swing.JLabel lblgenero;
+    private javax.swing.JLabel lblnombre;
+    private javax.swing.JLabel lblpreferencia;
+    private javax.swing.JLabel lbltelefono;
+    private javax.swing.JRadioButton rbnFemenino;
+    private javax.swing.JRadioButton rbnMasculino;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextArea txtPreferencias;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
