@@ -45,9 +45,7 @@ public class Comerciante extends javax.swing.JFrame {
     }
 
     public void crearOrganizador(ObjectContainer base) {
-
         try {
-
             String seleccion = " ";
             Date nacimiento = null;
 
@@ -77,12 +75,11 @@ public class Comerciante extends javax.swing.JFrame {
             String sexo = " ";
             if (rbnMasculino.isSelected()) {
                 sexo = "Femenino";
-
             } else if (rbnFemenino.isSelected()) {
                 sexo = "Masculino";
             }
 
-           ObjectSet<Comerciantes> resul = base.queryByExample(new Comerciantes(txtCedula.getText(), null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+            ObjectSet<Comerciantes> resul = base.queryByExample(new Comerciantes(null, null, null, null, null, txtCedula.getText(), null, null, null, null, null, null, null, null));
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -90,11 +87,29 @@ public class Comerciante extends javax.swing.JFrame {
 
             validarCampos();
 
-            JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
+            Comerciantes miorganizador = new Comerciantes(
+                    lblCodigoComerciante.getText().trim(),
+                    txtTipoComercio.getSelectedItem().toString(),
+                    txtProductosC.getText().trim(),
+                    txtServiciosC.getText().trim(),
+                    cboCodigoPuesto.getSelectedItem().toString(),
+                    txtCedula.getText().trim(),
+                    txtNombre.getText().trim(),
+                    txtApellido.getText().trim(),
+                    txtTelefono.getText().trim(),
+                    txtEmail.getText().trim(),
+                    txtDireccion.getText().trim(),
+                    txtCelular.getText().trim(),
+                    nacimiento,
+                    sexo
+            );
+
+            base.store(miorganizador);
+
+            JOptionPane.showMessageDialog(null, "Solicitud Enviada");
         } finally {
             base.close();
         }
-
         txtCedula.setText("");
         txtApellido.setText("");
         txtNombre.setText("");
@@ -110,10 +125,9 @@ public class Comerciante extends javax.swing.JFrame {
         txtServiciosC.setText("");
         cboCodigoPuesto.setSelectedItem("");
         txtCelular.setText("");
-
     }
-    
-      public void cargarPuesto(ObjectContainer Base) {
+
+    public void cargarPuesto(ObjectContainer Base) {
           cboCodigoPuesto.removeAllItems();
           Query query = Base.query();
           query.constrain(Puesto.class);
@@ -151,26 +165,26 @@ public class Comerciante extends javax.swing.JFrame {
           }else {
             JOptionPane.showMessageDialog(this, "No se encontró un Puesto con el nombre seleccionado.", "Puesto no encontrado", JOptionPane.ERROR_MESSAGE);
         }
-          bases.close();
-      }
-      
-       public void cargarTipoComercio(ObjectContainer Base) {
-           txtTipoComercio.removeAllItems();
-           Query query = Base.query();
-           query.constrain(Tipo_Comercio.class);
-           
-           ObjectSet<Tipo_Comercio> comercio = query.execute();
-           
-           if (comercio.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "No existen Tipos de comercios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
-          }else {
-               while (comercio.hasNext()) {
-                  Tipo_Comercio com = comercio.next();
-                  cboCodigoPuesto.addItem(com.getNombre());
-              }
-           }
-           Base.close();   
-       }
+        bases.close();
+    }
+
+    public void cargarTipoComercio(ObjectContainer Base) {
+        txtTipoComercio.removeAllItems();  // Asegúrate de limpiar el ComboBox correcto
+        Query query = Base.query();
+        query.constrain(Tipo_Comercio.class);
+
+        ObjectSet<Tipo_Comercio> comercio = query.execute();
+
+        if (comercio.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Tipos de comercios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (comercio.hasNext()) {
+                Tipo_Comercio com = comercio.next();
+                txtTipoComercio.addItem(com.getNombre());
+            }
+        }
+        Base.close();
+    }
 
       
     public boolean validarCampos() {
@@ -309,11 +323,11 @@ public class Comerciante extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Apellido:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Email:");
@@ -564,6 +578,22 @@ public class Comerciante extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Comerciante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -24,7 +24,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_Puestos orgapuesto = new Crud_Puestos();
     Crud_tipo_comercio comerci = new Crud_tipo_comercio();
     Crud_Comerciante comerciante = new Crud_Comerciante();
-    
+    Encuestaa_Organizor ecuesta = new Encuestaa_Organizor();
     Cambio tip = new Cambio();
 
     CardLayout vista;
@@ -69,6 +69,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         pnldinamico = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -193,7 +194,15 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 190, 40));
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 200, 40));
+
+        jButton11.setText("ENCUESTA");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 200, 40));
 
         pnldinamico.setBackground(new java.awt.Color(255, 255, 255));
         pnldinamico.setLayout(new java.awt.CardLayout());
@@ -321,6 +330,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        pnldinamico.add(ecuesta, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -361,6 +377,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
