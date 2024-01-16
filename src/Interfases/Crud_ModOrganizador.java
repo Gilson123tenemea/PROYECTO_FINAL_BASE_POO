@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Organizador;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -374,7 +375,6 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-
         String nombre = " ", apellido = " ", celular = " ", telefono = " ", direccion = " ", correo = " ", codigo = "";
         double presupuesto = 0.0;
         Date fecha = null;
@@ -567,6 +567,10 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
 
     public void ActualizarOrganizador(ObjectContainer base) {
 
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         double presupuesto = 0.0;
         String valorIngresado = txtpresupuesto.getText().trim();
 
@@ -773,4 +777,80 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
     private javax.swing.JTextField txtpresupuesto;
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtcedula.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la cédula del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtcedula.getText())) {
+            JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtnombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtnombre.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtapellido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el apellido del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtapellido.getText())) {
+            JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtcorreo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el correo del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarCorreo(txtcorreo.getText())) {
+            JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (txtcelular.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el celular del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtcelular.getText())) {
+            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txttelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Telefono del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarTelefono(txttelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
+            ban_confirmar = false;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaComoCadena = sdf.format(jDateChooser1.getDate());
+
+            if (!miValidaciones.validarFecha(fechaComoCadena)) {
+                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
+                ban_confirmar = false;
+            }
+        }
+
+        if (txtdireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtdireccion.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        return ban_confirmar;
+    }
+
 }
