@@ -442,28 +442,29 @@ public class Crud_Organizador extends javax.swing.JPanel {
     }//GEN-LAST:event_txttelefonoKeyTyped
 
     private void txtdireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccionKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtdireccion.getText().length() >= 50 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
-            evt.consume();
-        } else if (txtdireccion.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtdireccion.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        }          // TODO add your handling code here:
+//        char c = evt.getKeyChar();
+//// Verificar si es una letra o un espacio en blanco, y si la longitud actual es menor que 50
+//        if ((!Character.isLetter(c) && c != ' ' || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtdireccion.getText().length() >= 50) {
+//            // Si no es una letra o es un espacio en blanco, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, se consume el evento para evitar que se agregue al campo de texto
+//            evt.consume();
+//        } else if (txtdireccion.getText().length() == 0) {
+//            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
+//            if (!Character.isUpperCase(c)) {
+//                // Si no es mayúscula, convertirla a mayúscula
+//                evt.setKeyChar(Character.toUpperCase(c));
+//                primeraMayusculaIngresada = true;
+//            }
+//        } else {
+//            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
+//            String textoActual = txtdireccion.getText();
+//            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+//            if (Character.isUpperCase(ultimoCaracter)) {
+//                // Si es mayúscula, convertirla a minúscula
+//                evt.setKeyChar(Character.toLowerCase(c));
+//                primeraMayusculaIngresada = true;
+//            }
+//        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtdireccionKeyTyped
 
     private void txtpresupuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpresupuestoKeyTyped

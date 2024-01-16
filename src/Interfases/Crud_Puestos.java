@@ -41,7 +41,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+           String cod = "PUE-" + String.format("%03d", ultimoCodigo);
             lblcod.setText(cod);
 
             // Verificar si ya existe un Puesto con el mismo código
@@ -52,14 +52,19 @@ public class Crud_Puestos extends javax.swing.JPanel {
                 return;
             }
 
+//                public Puesto(String Codigo_puesto, String NombrePuesto, String DescripcionPuesto, String tipo_puesto) {
             // Crear objeto Puesto y almacenar en la base de datos
-            Puesto puesto1 = new Puesto(cod, txtnombrepuesto.getText().trim(), txttipopuesto.getText().trim(), txtdescripcion.getText().trim());
+            Puesto puesto1 = new Puesto(cod, txtnombrepuesto.getText().trim(), txtdescripcion.getText().trim(), txttipopuesto.getText().trim());
 
             Base.store(puesto1);
 
+            cargarTabla(Base);
+
             JOptionPane.showMessageDialog(this, "Puesto Creado exitosamente");
         } finally {
+
             Base.close();
+
         }
 
         // Limpiar los campos después de almacenar
@@ -447,7 +452,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Puesto puestoBD : result) {
-                   
+
                     base.delete(puestoBD);
                     JOptionPane.showMessageDialog(null, "Se están borrando los datos del Departamento");
                     cargarTabla(base);
