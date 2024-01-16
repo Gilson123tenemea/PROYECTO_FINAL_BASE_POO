@@ -282,6 +282,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/confirmacion.png"))); // NOI18N
         jButton5.setText("Confirmar Modificar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,16 +325,16 @@ public class Crud_Puestos extends javax.swing.JPanel {
                                 .addComponent(jButton2)
                                 .addGap(33, 33, 33)
                                 .addComponent(jButton3)
-                                .addGap(33, 33, 33)
-                                .addComponent(jButton4)))
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5)))
                         .addGap(0, 38, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(168, 168, 168)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5)
-                            .addComponent(jLabel6))))
+                        .addComponent(jLabel6)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

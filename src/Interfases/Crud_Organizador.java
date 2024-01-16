@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Organizador;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -374,28 +375,28 @@ public class Crud_Organizador extends javax.swing.JPanel {
     }//GEN-LAST:event_txtcedulaKeyTyped
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtnombre.getText().length() >= 20 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
-            evt.consume();
-        } else if (txtnombre.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtnombre.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        }              // TODO add your handling code here:
+//        char c = evt.getKeyChar();
+//        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
+//        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtnombre.getText().length() >= 20 || c == ' ') {
+//            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+//            evt.consume();
+//        } else if (txtnombre.getText().length() == 0) {
+//            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
+//            if (!Character.isUpperCase(c)) {
+//                // Si no es mayúscula, convertirla a mayúscula
+//                evt.setKeyChar(Character.toUpperCase(c));
+//                primeraMayusculaIngresada = true;
+//            }
+//        } else {
+//            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
+//            String textoActual = txtnombre.getText();
+//            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+//            if (Character.isUpperCase(ultimoCaracter)) {
+//                // Si es mayúscula, convertirla a minúscula
+//                evt.setKeyChar(Character.toLowerCase(c));
+//                primeraMayusculaIngresada = true;
+//            }
+//        }              // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreKeyTyped
 
     private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
@@ -486,68 +487,50 @@ public class Crud_Organizador extends javax.swing.JPanel {
     }
 
     public void crearOrganizador(ObjectContainer base) {
-
         try {
-
-            String seleccion = " ";
-            Date nacimiento = null;
-
-            int aux = 1 + ReporteOrganizador.listaagentes.size();
-            String auxn = String.valueOf(aux);
-            String cod = "00" + auxn;
-
-            lblcod.setText(cod);
-
-            // establecer formato
-            Date fecha = jDateChooser1.getDate();
-
-            if (fecha != null) {
-                seleccion = new SimpleDateFormat("dd/MM/yyyy").format(fecha);
-            } else {
-                System.out.println("Fecha no seleccionada");
+            if (!validarCampos()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // convertir el String seleccionado a Date
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                nacimiento = format.parse(seleccion);
-                System.out.println("Date: " + nacimiento);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            double presupuesto = 0.0;
-            String valorIngresado = txtpresupuesto.getText().trim();
-
-            if (esNumeroDecimal(valorIngresado)) {
-                presupuesto = Double.valueOf(valorIngresado);
-            } else {
-                System.out.println("Error: El valor ingresado no es un número decimal.");
-            }
-
-            String sexo = " ";
-            if (rbnfemenino.isSelected()) {
-                sexo = "Femenino";
-
-            } else if (rbnmasculino.isSelected()) {
-                sexo = "Masculino";
-            }
-
+            // Verificar si ya existe un Organizador con la misma cédula
             ObjectSet<Organizador> resul = base.queryByExample(new Organizador(null, null, null, 0.0, txtcedula.getText().trim(), null, null, null, null, null, null, null, null));
-
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // Obtener el último código
+            resul = base.queryByExample(new Organizador(null, null, null, 0.0, null, null, null, null, null, null, null, null, null));
+            int ultimoCodigo = resul.size() + 1;
+
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
+            lblcod.setText(cod);
+
+            // Obtener la información de género y fecha de nacimiento
+            String sexo = rbnfemenino.isSelected() ? "Femenino" : "Masculino";
+            Date fechaNacimiento = jDateChooser1.getDate();
+
+            // Validar presupuesto
+            double presupuesto = 0.0;
+            String valorIngresado = txtpresupuesto.getText().trim();
+
+            if (!esNumeroDecimal(valorIngresado)) {
+                JOptionPane.showMessageDialog(this, "El presupuesto ingresado no es un número decimal válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                presupuesto = Double.valueOf(valorIngresado);
+            }
+
+            // Resto del código...
             Validar();
 
-            Organizador miorganizador = new Organizador(lblcod.getText().trim(), null, null, presupuesto, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txttelefono.getText().trim(), txtcorreo.getText().trim(), txtdireccion.getText().trim(), txtcelular.getText().trim(), nacimiento, sexo);
+            Organizador miorganizador = new Organizador(cod, null, null, presupuesto, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txttelefono.getText().trim(), txtcorreo.getText().trim(), txtdireccion.getText().trim(), txtcelular.getText().trim(), fechaNacimiento, sexo);
 
             base.store(miorganizador);
 
-            JOptionPane.showMessageDialog(null, " Se guardo los datos de forma correcta");
+            JOptionPane.showMessageDialog(null, "Se guardaron los datos correctamente.");
         } finally {
             base.close();
         }
@@ -684,4 +667,84 @@ public class Crud_Organizador extends javax.swing.JPanel {
     private javax.swing.JTextField txtpresupuesto;
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
+
+
+
+public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtcedula.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la cédula del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtcedula.getText())) {
+            JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtnombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtnombre.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtapellido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el apellido del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtapellido.getText())) {
+            JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtcorreo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el correo del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarCorreo(txtcorreo.getText())) {
+            JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (txtcelular.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el celular del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtcelular.getText())) {
+            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        
+        
+        if (txttelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Telefono del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarTelefono(txttelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
+            ban_confirmar = false;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaComoCadena = sdf.format(jDateChooser1.getDate());
+
+            if (!miValidaciones.validarFecha(fechaComoCadena)) {
+                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
+                ban_confirmar = false;
+            }
+        }
+
+        if (txtdireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtdireccion.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        return ban_confirmar;
+    }
+
+
 }
