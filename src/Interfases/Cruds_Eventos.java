@@ -363,12 +363,11 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnguardarActionPerformed
 
-    public void cargar() {
-        ObjectContainer based = Db4o.openFile(Inicio.direccion);
+    public void cargar(ObjectContainer base) {
 
         try {
             cbxtipo.removeAllItems();
-            Query query = based.query();
+            Query query = base.query();
             query.constrain(Tipo_evento.class);
 
             ObjectSet<Tipo_evento> evento1 = query.execute();
@@ -384,7 +383,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         } finally {
 
-            based.close();
+            base.close();
 
         }
     }
@@ -504,7 +503,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             int res = JOptionPane.showConfirmDialog(null, "Desea modificar los datos del evento", "confirmacion", JOptionPane.YES_NO_OPTION);
             if (res == JOptionPane.YES_OPTION) {
 
-                
                 btnmodificar.setEnabled(true);
                 habilitar();
             } else if (res == JOptionPane.NO_OPTION) {
@@ -556,7 +554,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     private void cbxtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxtipoMouseClicked
         // TODO add your handling code here:
-        cargar();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargar(base);
+        base.close();
     }//GEN-LAST:event_cbxtipoMouseClicked
 
 
