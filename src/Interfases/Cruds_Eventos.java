@@ -27,7 +27,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public Cruds_Eventos() {
         initComponents();
-        cargar();
+//        cargar();
         txtinicio.setVisible(false);
         txtfinal.setVisible(false);
         btnmodificar.setEnabled(false);
