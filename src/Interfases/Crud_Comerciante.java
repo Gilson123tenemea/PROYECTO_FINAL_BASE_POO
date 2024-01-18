@@ -9,6 +9,7 @@ import Clases.Comerciantes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,33 +25,35 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         initComponents();
     }
 
-     private void cargarTabla(ObjectContainer base) {
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    ObjectSet<Comerciantes> result = base.queryByExample(new Comerciantes());
+    private void cargarTabla(ObjectContainer base) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+        ObjectSet<Comerciantes> result = base.queryByExample(new Comerciantes());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    while (result.hasNext()) {
-        Comerciantes comerciante = result.next();
+        while (result.hasNext()) {
+            Comerciantes comerciante = result.next();
 
-        Object[] row = {
-            comerciante.getCedula(),
-            comerciante.getApellido(),
-            comerciante.getNombre(),
-            comerciante.getCorreo(),
-            comerciante.getTelefono(),
-            comerciante.getDireccion(),
-            comerciante.getTipo_Comercio(),
-            comerciante.getGenero(),
-            comerciante.getFecchaNaci(),
-            comerciante.getCodigo_participante(),
-            comerciante.getProductos_c(),
-            comerciante.getServicio_c(),
-            comerciante.getCodigo_puesto(),
-            comerciante.getCelular()
-        };
-        model.addRow(row);
+            Object[] row = {
+                comerciante.getCedula(),
+                comerciante.getApellido(),
+                comerciante.getNombre(),
+                comerciante.getCorreo(),
+                comerciante.getTelefono(),
+                comerciante.getDireccion(),
+                comerciante.getTipo_Comercio(),
+                comerciante.getGenero(),
+                comerciante.getFecchaNaci() != null ? sdf.format(comerciante.getFecchaNaci()) : null,
+                comerciante.getCodigo_participante(),
+                comerciante.getProductos_c(),
+                comerciante.getServicio_c(),
+                comerciante.getCodigo_puesto(),
+                comerciante.getCelular()
+            };
+            model.addRow(row);
+        }
     }
-}
-     
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

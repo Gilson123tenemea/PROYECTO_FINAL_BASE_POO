@@ -19,6 +19,9 @@ import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import com.db4o.Db4o;
+import java.time.LocalDate;
+import java.util.Calendar;
+
 /**
  *
  * @author ADMIN_01
@@ -46,15 +49,24 @@ public class Comerciante extends javax.swing.JFrame {
 
     public void crearOrganizador(ObjectContainer base) {
         try {
-            String seleccion = " ";
+            // Validar campos antes de continuar
+            if (!validarCampos()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Obtener el último código
+            ObjectSet<Comerciantes> result = base.queryByExample(new Comerciantes());
+            int ultimoCodigo = result.size() + 1;
+
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
+            lblCodigoComerciante.setText("COM-" + cod);
+
+            String seleccion = null;
             Date nacimiento = null;
 
-            int aux = 1 + ReporteOrganizador.listaagentes.size();
-            String auxn = String.format("%03d", aux);
-            String cod = "COM-" + auxn;
-
-            lblCodigoComerciante.setText(cod);
-
+            // Establecer formato
             Date fecha = jDateFecha.getDate();
 
             if (fecha != null) {
@@ -63,10 +75,16 @@ public class Comerciante extends javax.swing.JFrame {
                 System.out.println("Fecha no seleccionada");
             }
 
+            // Convertir el String seleccionado a Date
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 nacimiento = format.parse(seleccion);
-                System.out.println("Date: " + nacimiento);
+
+                // Validar edad (mayor a 18 años)
+                if (!esMayorDeEdad(nacimiento)) {
+                    JOptionPane.showMessageDialog(this, "El organizador debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -79,14 +97,20 @@ public class Comerciante extends javax.swing.JFrame {
                 sexo = "Masculino";
             }
 
-            ObjectSet<Comerciantes> resul = base.queryByExample(new Comerciantes(null, null, null, null, null, txtCedula.getText(), null, null, null, null, null, null, null, null));
-            if (!resul.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Incremental code
+            // Crear una instancia de Comerciantes con la cédula para verificar la existencia
+            Comerciantes exampleComerciante = new Comerciantes(null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null);
+
+            // Consultar la base de datos para verificar la existencia de registros
+            ObjectSet<Comerciantes> existingRecords = base.queryByExample(exampleComerciante);
+
+            if (!existingRecords.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un comerciante con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            validarCampos();
-
+            // Resto del código...
+            // Crear y almacenar el organizador
             Comerciantes miorganizador = new Comerciantes(
                     lblCodigoComerciante.getText().trim(),
                     txtTipoComercio.getSelectedItem().toString(),
@@ -110,6 +134,7 @@ public class Comerciante extends javax.swing.JFrame {
         } finally {
             base.close();
         }
+
         txtCedula.setText("");
         txtApellido.setText("");
         txtNombre.setText("");
@@ -128,42 +153,40 @@ public class Comerciante extends javax.swing.JFrame {
     }
 
     public void cargarPuesto(ObjectContainer Base) {
-          cboCodigoPuesto.removeAllItems();
-          Query query = Base.query();
-          query.constrain(Puesto.class);
-          
-          ObjectSet<Puesto> puesto = query.execute();
-          
-          if (puesto.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "No existen Puestos Disponibles", "Error", JOptionPane.ERROR_MESSAGE);
-          }else {
-              while (puesto.hasNext()) {
-                  Puesto pu = puesto.next();
-                  cboCodigoPuesto.addItem(pu.getNombrePuesto());
-              }
-          }
-          Base.close();
-      }
-      
-      private void mostrarDatosPuestoSeleccionado(ObjectContainer bases) {
-          
-          String nombreSeleccionada = cboCodigoPuesto.getSelectedItem().toString();
-          Query query = bases.query();
-          query.constrain(Puesto.class);
-          
-          query.descend("NombrePuesto").constrain(nombreSeleccionada);
-          ObjectSet<Puesto> result = query.execute();
-          
-          if (!result.isEmpty()) {
-              
-              Puesto pues = result.next();
-            String mensaje = "Nombre: " + pues.getNombrePuesto()+ "\n"
-                    + "Descripcion: " + pues.getDescripcionPuesto()+ "\n"
-                    + "Tipo: " + pues.getTipo_puesto();
+        cboCodigoPuesto.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Puesto.class);
 
-            JOptionPane.showMessageDialog(this, mensaje, "Datos del Propietario", JOptionPane.INFORMATION_MESSAGE);    
-          }else {
-            JOptionPane.showMessageDialog(this, "No se encontró un Puesto con el nombre seleccionado.", "Puesto no encontrado", JOptionPane.ERROR_MESSAGE);
+        ObjectSet<Puesto> puesto = query.execute();
+
+        if (puesto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Puestos Disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (puesto.hasNext()) {
+                Puesto pu = puesto.next();
+                cboCodigoPuesto.addItem(pu.getNombrePuesto());
+            }
+        }
+        Base.close();
+    }
+
+    private void mostrarDatosPuestoSeleccionado(ObjectContainer bases) {
+        String nombreSeleccionada = cboCodigoPuesto.getSelectedItem().toString();
+        Query query = bases.query();
+        query.constrain(Puesto.class);
+
+        query.descend("NombrePuesto").constrain(nombreSeleccionada);
+        ObjectSet<Puesto> result = query.execute();
+
+        if (!result.isEmpty()) {
+            Puesto pues = result.next();
+            String mensaje = "Nombre: " + pues.getNombrePuesto() + "\n"
+                    + "Tipo: " + pues.getTipo_puesto() + "\n"
+                    + "Descripcion: " + pues.getDescripcionPuesto();
+
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Puesto", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay puestos con información que mostrar.", "Puestos no encontrados", JOptionPane.WARNING_MESSAGE);
         }
         bases.close();
     }
@@ -186,7 +209,6 @@ public class Comerciante extends javax.swing.JFrame {
         Base.close();
     }
 
-      
     public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
@@ -518,7 +540,27 @@ public class Comerciante extends javax.swing.JFrame {
     private void rbnMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbnMasculinoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbnMasculinoActionPerformed
+// Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
 
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        Calendar calNacimiento = Calendar.getInstance();
+        calNacimiento.setTime(fechaNacimiento);
+
+        // Obtener la fecha actual
+        Calendar calActual = Calendar.getInstance();
+
+        // Calcular la diferencia en años
+        int edad = calActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
+
+        // Verificar si ya ha pasado su cumpleaños de este año
+        if (calActual.get(Calendar.DAY_OF_YEAR) < calNacimiento.get(Calendar.DAY_OF_YEAR)) {
+            edad--;
+        }
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Inicio le = new Inicio();
@@ -534,23 +576,23 @@ public class Comerciante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-       cargarPuesto(bases);
-       bases.close();
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        cargarPuesto(bases);
+        bases.close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-       cargarTipoComercio(bases);
-       bases.close();
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        cargarTipoComercio(bases);
+        bases.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-      crearOrganizador(bases);
-      bases.close();
-        
-        
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        crearOrganizador(bases);
+        bases.close();
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
