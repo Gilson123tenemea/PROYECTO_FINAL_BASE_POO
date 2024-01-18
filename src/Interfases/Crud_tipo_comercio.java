@@ -217,7 +217,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 880, 590));
     }// </editor-fold>//GEN-END:initComponents
 
-     public void crearCasa(ObjectContainer base) {
+     public void crearTComercio(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
 
@@ -245,7 +245,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
             result = base.queryByExample(new Tipo_Comercio(nuevoCodigo, null, null));
 
             if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe un Tipo de Comercio con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -253,7 +253,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
             Tipo_Comercio casa1 = new Tipo_Comercio(nuevoCodigo, jTextField1.getText().trim(), jTextField2.getText().trim());
             base.store(casa1);
 
-            JOptionPane.showMessageDialog(this, "Casa creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Tipo de Comercio creado exitosamente");
             limpiar();
             cargarTabla(base);
         } finally {
@@ -297,7 +297,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        crearCasa(base);
+        crearTComercio(base);
         base.close();
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -337,7 +337,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
     
     
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Tipo de Comercio a eliminar");
         boolean encontrado = false;
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -352,17 +352,17 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
         if (result.size() > 0) {
             encontrado = true;
 
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Tipo de Comercio", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Tipo_Comercio vacacionalDB : result) {
                     // Eliminar la Casa Vacacional de la base de datos db4o
                     base.delete(vacacionalDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
+                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Tipo de Comercio");
                     cargarTabla(base);
                 }
             } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+                JOptionPane.showMessageDialog(null, "Datos del Tipo de Comercio no eliminados");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró el código");
@@ -373,7 +373,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
     }//GEN-LAST:event_btneliminarActionPerformed
 
      private void buscarActividad(ObjectContainer base) {
-        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Tipo de Comercio a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
             ObjectSet<Tipo_Comercio> result = base.queryByExample(new Tipo_Comercio(codigoBusqueda, null, null));
@@ -384,7 +384,7 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
                 limpiarTabla();
                 cargarTabla(base, actividadEncontrada);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró ninguna actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró ningun Tipo de Comercio con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         base.close();
