@@ -424,7 +424,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         query.descend("cedula").constrain(CedulaPersonal.getText().trim());
         ObjectSet<Personal> result = query.execute();
 
-        String[] columnNames = {"CODIGO DE LA CASA", "CODIGO DEL PROPIETARIO", "DESCRIPCION", "PROVINCIA", "CIUDAD", "BARRIO", "CALLE PRINCIPAL", "CAPACIDAD", "HABITACIONES", "NUMERO DE PISOS", "BAÑOS", "TIPO DE CASA", "DISPONIBILIDAD"};
+       
 
         Object[][] data = new Object[result.size()][13];
 
@@ -447,8 +447,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
             i++;
         }
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
+       
+        
 
         jTable1.repaint();
 
