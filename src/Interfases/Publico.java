@@ -79,9 +79,7 @@ public class Publico extends javax.swing.JFrame {
         rbnFemenino = new javax.swing.JRadioButton();
         btncrear = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtPreferencias = new javax.swing.JTextArea();
         jLabel16 = new javax.swing.JLabel();
@@ -96,7 +94,6 @@ public class Publico extends javax.swing.JFrame {
         lblgenero = new javax.swing.JLabel();
         lblcelular = new javax.swing.JLabel();
         lblcontraseña = new javax.swing.JLabel();
-        lblestado = new javax.swing.JLabel();
         lblpreferencia = new javax.swing.JLabel();
         txtCelular = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -315,25 +312,9 @@ public class Publico extends javax.swing.JFrame {
         jLabel13.setText("Celular:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setText("Estado de Registro:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
-
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Preferencias: ");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, -1, 30));
-
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
-            }
-        });
-        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtEstadoKeyReleased(evt);
-            }
-        });
-        jPanel1.add(txtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 180, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, 30));
 
         txtPreferencias.setColumns(20);
         txtPreferencias.setRows(5);
@@ -344,7 +325,7 @@ public class Publico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtPreferencias);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, 180, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 180, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Dirección:");
@@ -395,11 +376,8 @@ public class Publico extends javax.swing.JFrame {
         lblcontraseña.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 180, 20));
 
-        lblestado.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 284, 180, 20));
-
         lblpreferencia.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 410, 180, 20));
+        jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 180, 20));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 180, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
@@ -458,7 +436,7 @@ public class Publico extends javax.swing.JFrame {
 
             // Incremental code
             // Create a Publico_p instance with the cedula for checking existence
-            Publico_p examplePublico = new Publico_p(null, null, null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null);
+            Publico_p examplePublico = new Publico_p(null, null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null);
 
             // Query the database to check for existing records
             ObjectSet<Publico_p> existingRecords = base.queryByExample(examplePublico);
@@ -472,7 +450,7 @@ public class Publico extends javax.swing.JFrame {
             Validar();
 
             // public Publico_p(String codigo_publico, String estado_registro, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
-            Publico_p mipublico = new Publico_p(cod, txtEstado.getText().trim(), txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
+            Publico_p mipublico = new Publico_p(cod, txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
                     txtCelular.getText().trim(), nacimiento, sexo);
 
             base.store(mipublico);
@@ -494,7 +472,6 @@ public class Publico extends javax.swing.JFrame {
         lblcod.setText(" ".trim());
         txtDireccion.setText("".trim());
         jPasswordPublico.setText("");
-        txtEstado.setText("");
         txtPreferencias.setText("");
         rbnFemenino.setSelected(false);
         rbnMasculino.setSelected(false);
@@ -539,13 +516,7 @@ public class Publico extends javax.swing.JFrame {
             lbltelefono.setText("");
 
         }
-        if (txtEstado.getText().trim().isEmpty()) {
-            lblestado.setText("Campo obligatorio");
-
-        } else {
-            lblestado.setText("");
-
-        }
+       
         if (txtPreferencias.getText().trim().isEmpty()) {
             lblpreferencia.setText("Campo obligatorio");
 
@@ -583,7 +554,7 @@ public class Publico extends javax.swing.JFrame {
 
         if (jDateFechaNaci.getDate() == null || jPasswordPublico.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty() || txtCelular.getText().trim().isEmpty()
                 || (!rbnFemenino.isSelected() && !rbnMasculino.isSelected()) || txtApellido.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() || txtCedula.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty()
-                || txtEstado.getText().trim().isEmpty() || txtPreferencias.getText().trim().isEmpty()) {
+                || txtPreferencias.getText().trim().isEmpty()) {
             btncrear.setEnabled(false);
 
         } else {
@@ -614,11 +585,6 @@ public class Publico extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jPasswordPublicoActionPerformed
-
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtEstadoActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
@@ -699,11 +665,6 @@ public class Publico extends javax.swing.JFrame {
         // TODO add your handling code here:
         Validar();
     }//GEN-LAST:event_jPasswordPublicoKeyReleased
-
-    private void txtEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyReleased
-        // TODO add your handling code here:
-        Validar();
-    }//GEN-LAST:event_txtEstadoKeyReleased
 
     private void txtPreferenciasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPreferenciasKeyReleased
         // TODO add your handling code here:
@@ -844,7 +805,6 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -868,7 +828,6 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JLabel lblcontraseña;
     private javax.swing.JLabel lbldireccion;
     private javax.swing.JLabel lblemail;
-    private javax.swing.JLabel lblestado;
     private javax.swing.JLabel lblfecha;
     private javax.swing.JLabel lblgenero;
     private javax.swing.JLabel lblnombre;
@@ -881,7 +840,6 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtPreferencias;
     private javax.swing.JTextField txtTelefono;
