@@ -10,6 +10,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +32,7 @@ public class Reporte_evento extends javax.swing.JPanel {
 
     public void actualizarDatos() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         AsignarRegistrosArray(base);
 
@@ -49,10 +51,10 @@ public class Reporte_evento extends javax.swing.JPanel {
 
             data[i][4] = Listaeventos.get(i).getCodigo_patrocinador();
 
-            data[i][5] = Listaeventos.get(i).getFecha_inicio();
+            data[i][5] = Listaeventos.get(i).getFecha_inicio() != null ? sdf.format(Listaeventos.get(i).getFecha_inicio()) : null;
             data[i][6] = Listaeventos.get(i).getHora_inicio();
 
-            data[i][7] = Listaeventos.get(i).getFecha_fin();
+            data[i][7] = Listaeventos.get(i).getFecha_fin()!= null ? sdf.format(Listaeventos.get(i).getFecha_fin()) : null;
             data[i][8] = Listaeventos.get(i).getHora_fin();
         }
 
@@ -70,7 +72,7 @@ public class Reporte_evento extends javax.swing.JPanel {
         Query query = base.query();
         query.constrain(Evento.class);
         ObjectSet<Evento> eventos = query.execute();
-        
+
         if (eventos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se ha ingresado eventos");
         }

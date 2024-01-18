@@ -5,7 +5,9 @@
  */
 package Interfases;
 
+import Clases.Departamento;
 import Clases.Evento;
+import Clases.Patrocinador;
 import Clases.Tipo_evento;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -50,7 +52,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
-        txtcodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jdtinicio = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
@@ -72,6 +73,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         txtfinal = new javax.swing.JTextField();
         cbxtipo = new javax.swing.JComboBox<>();
         cboxpatrocinador = new javax.swing.JComboBox<>();
+        lblcod = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -133,7 +136,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Código Ubicación:");
 
-        cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cuenca", "Loja", "Machala", "Quito", "Sucumbios", "Morona Santiago" }));
 
         tmreloj.setForeground(new java.awt.Color(51, 102, 255));
         tmreloj.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,6 +187,18 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         });
 
         cboxpatrocinador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxpatrocinador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxpatrocinadorMouseClicked(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,16 +230,20 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jdtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(88, 88, 88)
+                                        .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1))
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                                    .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(95, 95, 95)
+                                        .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                                .addGap(56, 56, 56)
                                 .addComponent(tmreloj, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9)
@@ -278,13 +297,18 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4))
-                                .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
+                                    .addComponent(jButton4)
+                                    .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(38, 38, 38)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel8)
+                                            .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jButton1)))
+                                .addGap(38, 38, 38)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
@@ -388,13 +412,18 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void CrearEvento(ObjectContainer bd) {
         try {
-            /*
-            int aux = 1 + Reporte_evento.Listaeventos.size();
-            String auxn = String.valueOf(aux);
-            String cod = "00" + auxn;
-             */
 
-            Evento evento1 = new Evento(txtcodigo.getText().trim(), txtnombre.getText().trim(), txadescripcion.getText().trim(), cboxpatrocinador.getSelectedItem().toString(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai, horafinal, cbxtipo.getSelectedItem().toString());
+            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null));
+            int ultimoCodigo = resul.size() + 1;
+
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
+            lblcod.setText(cod);
+
+            // Verificar si ya existe una casa con el mismo código
+            resul = bd.queryByExample(new Evento(cod, null, null, null, null, null, null, null, null, null));
+
+            Evento evento1 = new Evento(cod, txtnombre.getText().trim(), txadescripcion.getText().trim(), cboxpatrocinador.getSelectedItem().toString(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai, horafinal, cbxtipo.getSelectedItem().toString());
             bd.store(evento1);
 
             JOptionPane.showMessageDialog(null, "Se ha guardado el evento exitosamente");
@@ -407,7 +436,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
 
-        Evento miagente = new Evento(txtcodigo.getText().trim(), null, null, null, null, null, null, null, null, null);
+        Evento miagente = new Evento(cod, null, null, null, null, null, null, null, null, null);
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();
@@ -433,7 +462,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }//GEN-LAST:event_tmrelojMouseClicked
 
     public void limpiar() {
-        txtcodigo.setText(" ");
+        lblcod.setText(" ");
         txtnombre.setText(" ");
         txadescripcion.setText(" ");
         jdtinicio.setDate(null);
@@ -471,7 +500,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 .constrain(Evento.class
                 );
         query.descend(
-                "cod_evento").constrain(txtcodigo.getText().trim());
+                "cod_evento").constrain(cod);
         ObjectSet<Evento> result = query.execute();
 
         if (!result.isEmpty()) {
@@ -489,7 +518,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
             txtnombre.setText(nombre.trim());
             txadescripcion.setText(descripcion.trim());
-           
+
             jdtinicio.setDate(fechai);
             jDateChooser2.setDate(fechaf);
             txtinicio.setText(horain);
@@ -556,6 +585,71 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_cbxtipoMouseClicked
 
+    private void cboxpatrocinadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxpatrocinadorMouseClicked
+        cargarPatrocinadores();        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxpatrocinadorMouseClicked
+    private void mostrarDatosPatrocinadores(ObjectContainer bases) {
+        try {
+            Object selectedItem = cboxpatrocinador.getSelectedItem();
+
+            if (selectedItem != null) {
+                String cedulaSeleccionada = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Patrocinador.class);
+                query.descend("codigo_patri").constrain(cedulaSeleccionada);
+                ObjectSet<Patrocinador> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Patrocinador patro = result.next();
+                    String mensaje = "Cédula: " + patro.getCedula() + "\n"
+                            + "Nombre: " + patro.getNombre() + "\n"
+                            + "Apellido: " + patro.getApellido() + "\n"
+                            + "Telefono: " + patro.getTelefono() + "\n"
+                            + "Email: " + patro.getCorreo() + "\n"
+                            + "Direccion: " + patro.getDireccion() + "\n"
+                            + "Genero: " + patro.getGenero() + "\n"
+                            + "Fecha de Nacimiento: " + patro.getFecchaNaci() + "\n"
+                            + "Redes Sociales: " + patro.getRedes_sociales() + "\n"
+                            + "Descripcion: " + patro.getDescripcion_p();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Patrocinador", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un Patrocinador con la cédula seleccionada.", "Patrocinador no encontrado", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Patrocinador.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosPatrocinadores(bases);
+        bases.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public void cargarPatrocinadores() {
+        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
+        cboxpatrocinador.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Patrocinador.class);
+
+        ObjectSet<Patrocinador> propi = query.execute();
+
+        if (propi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Patrocinadores", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (propi.hasNext()) {
+                Patrocinador pro = propi.next();
+                cboxpatrocinador.addItem(pro.getCodigo_patri());
+            }
+        }
+        Base.close();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnfin;
@@ -565,6 +659,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboxpatrocinador;
     private javax.swing.JComboBox<String> cbxtipo;
     private javax.swing.JComboBox<String> cbxubicacion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -581,9 +676,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdtinicio;
+    private javax.swing.JLabel lblcod;
     private com.raven.swing.TimePicker tmreloj;
     private javax.swing.JTextArea txadescripcion;
-    private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtfinal;
     private javax.swing.JTextField txtinicio;
     private javax.swing.JTextField txtnombre;

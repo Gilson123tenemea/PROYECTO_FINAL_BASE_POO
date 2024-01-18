@@ -164,7 +164,7 @@ public class Comerciante extends javax.swing.JFrame {
         } else {
             while (puesto.hasNext()) {
                 Puesto pu = puesto.next();
-                cboCodigoPuesto.addItem(pu.getNombrePuesto());
+                cboCodigoPuesto.addItem(pu.getCodigo_puesto());
             }
         }
         Base.close();
@@ -175,7 +175,7 @@ public class Comerciante extends javax.swing.JFrame {
         Query query = bases.query();
         query.constrain(Puesto.class);
 
-        query.descend("NombrePuesto").constrain(nombreSeleccionada);
+        query.descend("Codigo_puesto").constrain(nombreSeleccionada);
         ObjectSet<Puesto> result = query.execute();
 
         if (!result.isEmpty()) {
@@ -203,7 +203,7 @@ public class Comerciante extends javax.swing.JFrame {
         } else {
             while (comercio.hasNext()) {
                 Tipo_Comercio com = comercio.next();
-                txtTipoComercio.addItem(com.getNombre());
+                txtTipoComercio.addItem(com.getCod_tipocomercion());
             }
         }
         Base.close();
@@ -333,6 +333,7 @@ public class Comerciante extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         txtTipoComercio = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -454,6 +455,11 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
 
         cboCodigoPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCodigoPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCodigoPuestoActionPerformed(evt);
+            }
+        });
         jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 160, -1));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -522,6 +528,14 @@ public class Comerciante extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 40, 30));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -594,6 +608,16 @@ public class Comerciante extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosTipoComercio(bases);
+        bases.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void cboCodigoPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCodigoPuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboCodigoPuestoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -669,6 +693,7 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -706,4 +731,25 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JComboBox<String> txtTipoComercio;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarDatosTipoComercio(ObjectContainer bases) {
+        String nombreSeleccionada = txtTipoComercio.getSelectedItem().toString();
+        Query query = bases.query();
+        query.constrain(Tipo_Comercio.class);
+
+        query.descend("Cod_tipocomercion").constrain(nombreSeleccionada);
+        ObjectSet<Tipo_Comercio> result = query.execute();
+
+        if (!result.isEmpty()) {
+            Tipo_Comercio pues = result.next();
+            String mensaje = "Nombre: " + pues.getNombre() + "\n"
+                    + "Descripcion: " + pues.getDescripcion();
+
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Tipo de Comercio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay puestos con información que mostrar.", "Tipos de Comercios no encontrados", JOptionPane.WARNING_MESSAGE);
+        }
+        bases.close();
+    }
+
 }

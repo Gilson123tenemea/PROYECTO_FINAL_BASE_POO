@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Departamento;
 import Clases.Organizador;
 import Clases.Personal;
 import Clases.Validaciones;
@@ -218,6 +219,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jComboBoxevento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboBoxdepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxdepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxdepartamentoMouseClicked(evt);
+            }
+        });
 
         jButton6.setText("Ver");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -402,9 +408,30 @@ public class Cruds_Personal extends javax.swing.JPanel {
         ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
+    private void mostrarDatosDepartamentos(ObjectContainer bases) {
+        String nombreSeleccionada = jComboBoxdepartamento.getSelectedItem().toString();
+        Query query = bases.query();
+        query.constrain(Departamento.class);
 
+        query.descend("id_departamento").constrain(nombreSeleccionada);
+        ObjectSet<Departamento> result = query.execute();
+
+        if (!result.isEmpty()) {
+            Departamento pues = result.next();
+            String mensaje = "Nombre: " + pues.getNombre() + "\n"
+                    + "Descripcion: " + pues.getDescripcion();
+
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Departamento", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay puestos con información que mostrar.", "Departamentos no encontrados", JOptionPane.WARNING_MESSAGE);
+        }
+        bases.close();
+    }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosDepartamentos(bases);
+        bases.close();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -423,8 +450,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
         query.constrain(Personal.class);
         query.descend("cedula").constrain(CedulaPersonal.getText().trim());
         ObjectSet<Personal> result = query.execute();
-
-       
 
         Object[][] data = new Object[result.size()][13];
 
@@ -446,9 +471,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
             i++;
         }
-
-       
-        
 
         jTable1.repaint();
 
@@ -478,7 +500,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             txttelefono.setText(telefono.trim());
             txtemail.setText(email.trim());
             txtdireccion.setText(direccion.trim());
-             if (genero.equalsIgnoreCase("Masculino")) {
+            if (genero.equalsIgnoreCase("Masculino")) {
                 rbmasculinoPro.setSelected(true);
             } else if (genero.equalsIgnoreCase("Femenino")) {
                 rbfemeninoPro.setSelected(true);
@@ -693,6 +715,27 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
+    public void cargarDepartamentos() {
+        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
+        jComboBoxdepartamento.removeAllItems();
+        Query query = Base.query();
+            query.constrain(Departamento.class);
+
+        ObjectSet<Departamento> propi = query.execute();
+
+        if (propi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Departamentos", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (propi.hasNext()) {
+                Departamento pro = propi.next();
+                jComboBoxdepartamento.addItem(pro.getId_departamento());
+            }
+        }
+        Base.close();
+    }
+    private void jComboBoxdepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxdepartamentoMouseClicked
+        cargarDepartamentos();           // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxdepartamentoMouseClicked
 
     public void crearPersonal(ObjectContainer base) {
         // Verificar si todos los campos están llenos
@@ -726,12 +769,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 return;
             }
 
-             if (rbmasculinoPro.isSelected()) {
+            if (rbmasculinoPro.isSelected()) {
                 sexo = "Masculino";
             } else if (rbfemeninoPro.isSelected()) {
                 sexo = "Femenino";
             }
-            
 
             // Validar edad (mayor a 18 años)
             if (!esMayorDeEdad1(fechanac.getDate())) {

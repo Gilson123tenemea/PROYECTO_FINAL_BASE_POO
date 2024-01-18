@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Evento;
 import Clases.ImageTableCellRenderer;
 import Clases.Tipo_evento;
 import com.db4o.Db4o;
@@ -250,7 +251,17 @@ public class crud_tipo extends javax.swing.JPanel {
     public void crearImagen(ObjectContainer base) {
 
         try {
-            Tipo_evento im = new Tipo_evento(null, txttipo.getText().trim(), null, foto);
+            
+            ObjectSet<Tipo_evento> resul = base.queryByExample(new Tipo_evento( null,null, null, null));
+            int ultimoCodigo = resul.size() + 1;
+
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
+           // lblcod.setText(cod);
+
+            // Verificar si ya existe una casa con el mismo código
+            resul = base.queryByExample(new Tipo_evento(cod, null, null, null));
+            Tipo_evento im = new Tipo_evento(cod, txttipo.getText().trim(), null, foto);
             base.store(im);
             JOptionPane.showMessageDialog(null, " se guardo exitosamente");
 

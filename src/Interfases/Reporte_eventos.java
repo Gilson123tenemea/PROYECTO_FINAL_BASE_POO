@@ -6,10 +6,12 @@
 package Interfases;
 
 import Clases.Evento;
+import static Interfases.Reporte_evento.Listaeventos;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -139,10 +141,11 @@ public class Reporte_eventos extends javax.swing.JPanel {
         query.descend("cod_evento").constrain(txtconsulta.getText().trim());
 
         ObjectSet<Evento> result = query.execute();
-        
+
         if (result.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"");
+            JOptionPane.showMessageDialog(null, "");
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         String[] columnNames = {"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL"};
 
@@ -156,9 +159,9 @@ public class Reporte_eventos extends javax.swing.JPanel {
             data[i][3] = even.getTipo();
 
             data[i][4] = even.getCodigo_patrocinador();
-            data[i][5] = even.getFecha_inicio();
+            data[i][5] = even.getFecha_inicio() != null ? sdf.format(even.getFecha_inicio()) : null;
             data[i][6] = even.getHora_inicio();
-            data[i][7] = even.getFecha_fin();
+            data[i][7] = even.getFecha_fin() != null ? sdf.format(even.getFecha_fin()) : null;
             data[i][8] = even.getHora_fin();
 
             i++;
