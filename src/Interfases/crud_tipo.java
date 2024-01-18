@@ -66,6 +66,11 @@ public class crud_tipo extends javax.swing.JPanel {
                 txttipoActionPerformed(evt);
             }
         });
+        txttipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttipoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txttipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 180, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -264,6 +269,10 @@ public class crud_tipo extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_fotolblMouseClicked
+
+    private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttipoKeyTyped
 
     public void asignarVariables(ObjectContainer BaseD) {
         seleccionarImagen();
