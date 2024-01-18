@@ -25,6 +25,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_tipo_comercio comerci = new Crud_tipo_comercio();
     Crud_Comerciante comerciante = new Crud_Comerciante();
     Encuestaa_Organizor ecuesta = new Encuestaa_Organizor();
+    Reporte_Publico publico = new Reporte_Publico();
     Cambio tip = new Cambio();
 
     CardLayout vista;
@@ -352,7 +353,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-     
+        pnldinamico.add(publico, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**

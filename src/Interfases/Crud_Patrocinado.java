@@ -1,4 +1,3 @@
-
 package Interfases;
 
 import Clases.Patrocinador;
@@ -8,6 +7,10 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -25,6 +28,25 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         ButtonGroup mibuton = new ButtonGroup();
         mibuton.add(masculino);
         mibuton.add(femenino);
+    }
+
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        Calendar calNacimiento = Calendar.getInstance();
+        calNacimiento.setTime(fechaNacimiento);
+
+        // Obtener la fecha actual
+        Calendar calActual = Calendar.getInstance();
+
+        // Calcular la diferencia en años
+        int edad = calActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
+
+        // Verificar si ya ha pasado su cumpleaños de este año
+        if (calActual.get(Calendar.DAY_OF_YEAR) < calNacimiento.get(Calendar.DAY_OF_YEAR)) {
+            edad--;
+        }
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     public void CrearCliente(ObjectContainer base) {
@@ -50,12 +72,17 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
             Date Seleccion = Date_patro.getDate();
 
+            if (!esMayorDeEdad(Seleccion)) {
+                JOptionPane.showMessageDialog(this, "Debe ser mayor de 18 años para registrarse como organizador.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Crear un nuevo Patrocinador y almacenarlo en la base de datos
             Patrocinador patro = new Patrocinador(nuevoCodigo, txtDescripcion.getText(), txtRedes.getText(), txtCedula.getText(), txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtDireccion.getText(), txtCelular.getText(), Seleccion, sexo);
 
             base.store(patro);
             JOptionPane.showMessageDialog(null, "Patrocinador creado exitosamente");
-            cargarTabla(base,patro);
+            cargarTabla(base, patro);
         } finally {
             base.close();
         }
@@ -81,6 +108,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
     private void cargarTabla(ObjectContainer base, Patrocinador actividadFiltrada) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         Object[] row = {
             actividadFiltrada.getCedula(),
@@ -94,43 +122,41 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             actividadFiltrada.getCodigo_patri(),
             actividadFiltrada.getDescripcion_p(),
             actividadFiltrada.getRedes_sociales(),
-            actividadFiltrada.getFecchaNaci()
-        };
+            actividadFiltrada.getFecchaNaci() != null ? sdf.format(actividadFiltrada.getFecchaNaci()) : null,};
         model.addRow(row);
 
         base.close();
     }
-    
+
     private void cargarTablaReporte(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Query query = base.query();
         query.constrain(Patrocinador.class);
         query.descend("cedula").orderAscending();
         ObjectSet<Patrocinador> pro = query.execute();
         while (pro.hasNext()) {
             Patrocinador actividadFiltrada = pro.next();
-        Object[] row = {
-            actividadFiltrada.getCedula(),
-            actividadFiltrada.getNombre(),
-            actividadFiltrada.getApellido(),
-            actividadFiltrada.getTelefono(),
-            actividadFiltrada.getCorreo(),
-            actividadFiltrada.getDireccion(),
-            actividadFiltrada.getCelular(),
-            actividadFiltrada.getGenero(),
-            actividadFiltrada.getCodigo_patri(),
-            actividadFiltrada.getDescripcion_p(),
-            actividadFiltrada.getRedes_sociales(),
-            actividadFiltrada.getFecchaNaci()
-        };
-        model.addRow(row);
+            Object[] row = {
+                actividadFiltrada.getCedula(),
+                actividadFiltrada.getNombre(),
+                actividadFiltrada.getApellido(),
+                actividadFiltrada.getTelefono(),
+                actividadFiltrada.getCorreo(),
+                actividadFiltrada.getDireccion(),
+                actividadFiltrada.getCelular(),
+                actividadFiltrada.getGenero(),
+                actividadFiltrada.getCodigo_patri(),
+                actividadFiltrada.getDescripcion_p(),
+                actividadFiltrada.getRedes_sociales(),
+                actividadFiltrada.getFecchaNaci() != null ? sdf.format(actividadFiltrada.getFecchaNaci()) : null,};
+            model.addRow(row);
         }
         base.close();
     }
- 
-    private void buscarPatrocinadorPorCedula(String cedulaBusqueda,ObjectContainer base) {
+
+    private void buscarPatrocinadorPorCedula(String cedulaBusqueda, ObjectContainer base) {
         txtCedula.setEditable(false);
         if (cedulaBusqueda != null && !cedulaBusqueda.isEmpty()) {
             ObjectSet<Patrocinador> result = base.queryByExample(new Patrocinador(null, null, null, cedulaBusqueda, null, null, null, null, null, null, null, null));
@@ -170,7 +196,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
     }
-    
+
     public void ActualizarDatos(ObjectContainer base) {
         if (masculino.isSelected()) {
             sexo = "Masculino";
@@ -185,6 +211,23 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 return;
             }
             Patrocinador mipratroci = (Patrocinador) res.next();
+
+            // Obtener la fecha seleccionada del DateChooser
+            Date fechaSeleccionada = Date_patro.getDate();
+
+            // Verificar si la fecha seleccionada es válida
+            if (fechaSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione una fecha válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar la edad del patrocinador (mayor a 18 años)
+            if (!esMayorDeEdad1(fechaSeleccionada)) {
+                JOptionPane.showMessageDialog(this, "El patrocinador debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Resto del código para actualizar otros campos del patrocinador...
             mipratroci.setNombre(txtNombre.getText().trim());
             mipratroci.setApellido(txtApellido.getText().trim());
             mipratroci.setTelefono(txtTelefono.getText().trim());
@@ -194,9 +237,10 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             mipratroci.setGenero(sexo.trim());
             mipratroci.setDescripcion_p(txtDescripcion.getText().trim());
             mipratroci.setRedes_sociales(txtRedes.getText().trim());
-            mipratroci.setFecchaNaci(Date_patro.getDate());
+            mipratroci.setFecchaNaci(fechaSeleccionada);
 
             base.set(mipratroci);
+            cargarTablaReporte(base);
             JOptionPane.showMessageDialog(this, "Modificación exitosa");
 
         } catch (Exception e) {
@@ -205,6 +249,26 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         } finally {
             base.close();
         }
+    }
+
+// Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad1(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     public boolean validarCampos() {
@@ -263,10 +327,10 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 ban_confirmar = false;
             }
         }
-        
+
         return ban_confirmar;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -490,8 +554,8 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        CrearCliente(base); 
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        CrearCliente(base);
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 

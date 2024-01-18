@@ -13,6 +13,7 @@ import com.db4o.ObjectSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -43,6 +44,25 @@ public class Crud_Organizador extends javax.swing.JPanel {
         ButtonGroup botones = new ButtonGroup();
         botones.add(rbnmasculino);
         botones.add(rbnfemenino);
+    }
+
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        Calendar calNacimiento = Calendar.getInstance();
+        calNacimiento.setTime(fechaNacimiento);
+
+        // Obtener la fecha actual
+        Calendar calActual = Calendar.getInstance();
+
+        // Calcular la diferencia en años
+        int edad = calActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
+
+        // Verificar si ya ha pasado su cumpleaños de este año
+        if (calActual.get(Calendar.DAY_OF_YEAR) < calNacimiento.get(Calendar.DAY_OF_YEAR)) {
+            edad--;
+        }
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     /**
@@ -510,7 +530,12 @@ public class Crud_Organizador extends javax.swing.JPanel {
 
             // Obtener la información de género y fecha de nacimiento
             String sexo = rbnfemenino.isSelected() ? "Femenino" : "Masculino";
+
             Date fechaNacimiento = jDateChooser1.getDate();
+            if (!esMayorDeEdad(fechaNacimiento)) {
+                JOptionPane.showMessageDialog(this, "Debe ser mayor de 18 años para registrarse como organizador.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Validar presupuesto
             double presupuesto = 0.0;
@@ -668,9 +693,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 
-
-
-public boolean validarCampos() {
+    public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
 
@@ -714,8 +737,7 @@ public boolean validarCampos() {
             JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
-        
+
         if (txttelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el Telefono del cliente");
             ban_confirmar = false;
@@ -745,6 +767,5 @@ public boolean validarCampos() {
         }
         return ban_confirmar;
     }
-
 
 }
