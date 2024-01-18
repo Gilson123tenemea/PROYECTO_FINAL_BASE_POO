@@ -13,6 +13,9 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -33,7 +36,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     public Cruds_Personal() {
         initComponents();
     }
-    
+
     public static ArrayList<Personal> listaagentes = new ArrayList<>();
 
     public static ArrayList<Personal> codigoseliminados = new ArrayList<>();
@@ -495,7 +498,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-     public boolean validarCampos() {
+    public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
 
@@ -517,7 +520,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         if (txtapellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el apellido ");
-                ban_confirmar = false;
+            ban_confirmar = false;
         } else if (!miValidaciones.ValidarNomApe(txtapellido.getText())) {
             JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
@@ -552,43 +555,41 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         }
 
-       return ban_confirmar;
+        return ban_confirmar;
     }
 
-    
-    
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-        
-
         try {
-            
             if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
             }
 
             if (rbmasculinoPro.isSelected()) {
-
                 sexo = "Masculino";
-
             } else if (rbfemeninoPro.isSelected()) {
                 sexo = "Femenino";
             }
-            // Obtener valores de los campos
 
+            // Obtener valores de los campos
             Personal micasa = new Personal(null, null, null, null, null, null, null, null, null, CedulaPersonal.getText().trim(), null, null, null, null, null, null, null, null);
 
             ObjectSet res = base.get(micasa);
             Personal micasita = (Personal) res.next();
-            micasita.setNombre(txtnombre.getText().trim());
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad(fechanac.getDate())) {
+                JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Resto del código para actualizar otros campos del personal...
+            micasita.setNombre(txtnombre.getText().trim());
             micasita.setApellido(txtapellido.getText().trim());
-            micasita.setApellido(txttelefono.getText().trim());
+            micasita.setTelefono(txttelefono.getText().trim());
             micasita.setCorreo(txtemail.getText().trim());
             micasita.setTelefono(txttelefono.getText().trim());
-
             micasita.setDireccion(txtdireccion.getText().trim());
             micasita.setCodigo_perso(txtcodigopersonal.getText().trim());
             micasita.setTipo_personal(txttipopersonal.getText().trim());
@@ -601,10 +602,30 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this, "Modificación exitosa");
             limpiar();
-
+            cargarTabla(base);
         } finally {
             base.close();
         }
+    }
+
+// Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
 
@@ -652,7 +673,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        crearCasa(base);
+        crearPersonal(base);
         base.close();
 
 
@@ -669,75 +690,98 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    public void crearCasa(ObjectContainer base) {
-    // Verificar si todos los campos están llenos
-    
-    try {
-        
-        if (!validarCampos()) {
+    public void crearPersonal(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        try {
+            if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
             }
-        
-        // Obtener el último código de personal en la base de datos
-        Query query = base.query();
-        query.constrain(Personal.class);
-        query.descend("codigo_perso").orderDescending();
-        ObjectSet<Personal> result = query.execute();
 
-        int ultimoCodigo = 1; // Por defecto, si no hay registros previos
-        if (!result.isEmpty()) {
-            Personal ultimoPersonal = result.next();
-            ultimoCodigo = Integer.parseInt(ultimoPersonal.getCodigo_perso()) + 1;
+            // Obtener el último código de personal en la base de datos
+            Query query = base.query();
+            query.constrain(Personal.class);
+            query.descend("codigo_perso").orderDescending();
+            ObjectSet<Personal> result = query.execute();
+
+            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            if (!result.isEmpty()) {
+                Personal ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCodigo_perso()) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda
+            String nuevoCodigo = String.format("%03d", ultimoCodigo);
+            txtcodigopersonal.setText(nuevoCodigo);
+
+            // Verificar si ya existe un personal con el mismo código
+            result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Obtener valores de los campos
+            String sexo = (rbmasculinoPro.isSelected()) ? "Masculino" : "Femenino";
+
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad1(fechanac.getDate())) {
+                JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Personal y almacenar en la base de datos
+            Personal nuevoPersonal = new Personal(
+                    nuevoCodigo,
+                    txttipopersonal.getText().trim(),
+                    jComboBoxdepartamento.getSelectedItem().toString(),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    jComboBoxevento.getSelectedItem().toString(),
+                    CedulaPersonal.getText().trim(),
+                    txtnombre.getText().trim(),
+                    txtapellido.getText().trim(),
+                    txttelefono.getText().trim(),
+                    txtemail.getText().trim(),
+                    txtdireccion.getText().trim(),
+                    txtcelular.getText().trim(),
+                    fechanac.getDate(),
+                    sexo
+            );
+
+            base.store(nuevoPersonal);
+
+            JOptionPane.showMessageDialog(this, "Personal creado exitosamente");
+            limpiar();
+            cargarTabla(base);
+        } finally {
+            base.close();
         }
-
-        // Formatear el código con ceros a la izquierda
-        String nuevoCodigo = String.format("%03d", ultimoCodigo);
-        txtcodigopersonal.setText(nuevoCodigo);
-
-        // Verificar si ya existe un personal con el mismo código
-        result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
-
-        if (!result.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Obtener valores de los campos
-        String sexo = (rbmasculinoPro.isSelected()) ? "Masculino" : "Femenino";
-
-        // Crear objeto Personal y almacenar en la base de datos
-        Personal nuevoPersonal = new Personal(
-                nuevoCodigo,
-                txttipopersonal.getText().trim(),
-                jComboBoxdepartamento.getSelectedItem().toString(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                jComboBoxevento.getSelectedItem().toString(),
-                CedulaPersonal.getText().trim(),
-                txtnombre.getText().trim(),
-                txtapellido.getText().trim(),
-                txttelefono.getText().trim(),
-                txtemail.getText().trim(),
-                txtdireccion.getText().trim(),
-                txtcelular.getText().trim(),
-                fechanac.getDate(),
-                sexo
-        );
-
-        base.store(nuevoPersonal);
-
-        JOptionPane.showMessageDialog(this, "Personal creado exitosamente");
-        limpiar();
-        cargarTabla(base);
-    } finally {
-        base.close();
     }
-}
+
+// Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad1(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
+    }
 
     public void limpiar() {
         CedulaPersonal.setText("");
@@ -758,6 +802,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         ObjectSet<Personal> result = base.queryByExample(new Personal());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         while (result.hasNext()) {
             Personal personal1 = result.next();
@@ -774,7 +819,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 personal1.getTipo_personal(),
                 personal1.getDepartamento_p(),
                 personal1.getCelular(),
-                personal1.getFecchaNaci(),
+                personal1.getFecchaNaci() != null ? sdf.format(personal1.getFecchaNaci()) : null,
                 personal1.getCod_evento()
 
             };
