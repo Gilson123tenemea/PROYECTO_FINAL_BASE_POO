@@ -478,6 +478,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
             txttelefono.setText(telefono.trim());
             txtemail.setText(email.trim());
             txtdireccion.setText(direccion.trim());
+             if (genero.equalsIgnoreCase("Masculino")) {
+                rbmasculinoPro.setSelected(true);
+            } else if (genero.equalsIgnoreCase("Femenino")) {
+                rbfemeninoPro.setSelected(true);
+            }
             txtcodigopersonal.setText(codigopersoal.trim());
             txttipopersonal.setText(tipopersonal.trim());
             jComboBoxdepartamento.setSelectedItem(departamento.trim());
@@ -721,8 +726,12 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 return;
             }
 
-            // Obtener valores de los campos
-            String sexo = (rbmasculinoPro.isSelected()) ? "Masculino" : "Femenino";
+             if (rbmasculinoPro.isSelected()) {
+                sexo = "Masculino";
+            } else if (rbfemeninoPro.isSelected()) {
+                sexo = "Femenino";
+            }
+            
 
             // Validar edad (mayor a 18 años)
             if (!esMayorDeEdad1(fechanac.getDate())) {
