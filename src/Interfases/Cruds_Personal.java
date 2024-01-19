@@ -6,8 +6,11 @@
 package Interfases;
 
 import Clases.Departamento;
+import Clases.Evento;
 import Clases.Organizador;
+import Clases.Patrocinador;
 import Clases.Personal;
+import Clases.Tipo_evento;
 import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -217,6 +220,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jLabel4.setText("Código Evento: ");
 
         jComboBoxevento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxevento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxeventoMouseClicked(evt);
+            }
+        });
 
         jComboBoxdepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxdepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -433,9 +441,47 @@ public class Cruds_Personal extends javax.swing.JPanel {
         mostrarDatosDepartamentos(bases);
         bases.close();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+    private void mostrarDatosEventos(ObjectContainer bases) {
+        try {
+            Object selectedItem = jComboBoxevento.getSelectedItem();
 
+            if (selectedItem != null) {
+                String cedulaSeleccionada = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Evento.class);
+                query.descend("cod_evento").constrain(cedulaSeleccionada);
+                ObjectSet<Evento> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Evento patro = result.next();
+                    String mensaje = "Codigo: " + patro.getCodigo_patrocinador() + "\n"
+                            + "Nombre: " + patro.getNombre() + "\n"
+                            + "Tipo: " + patro.getTipo() + "\n"
+                            + "Fecha de Inicio: " + patro.getFecha_inicio() + "\n"
+                            + "Fecha de Fin: " + patro.getFecha_fin() + "\n"
+                            + "Hora Inicio: " + patro.getHora_inicio() + "\n"
+                            + "Hora Fin: " + patro.getHora_fin() + "\n"
+                            + "Descripcion: " + patro.getDescripcion();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Evento", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un Evento con el codigo seleccionado.", "Evento no encontrado", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Evento.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosEventos(bases);
+        bases.close();           // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -719,7 +765,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         ObjectContainer Base = Db4o.openFile(Inicio.direccion);
         jComboBoxdepartamento.removeAllItems();
         Query query = Base.query();
-            query.constrain(Departamento.class);
+        query.constrain(Departamento.class);
 
         ObjectSet<Departamento> propi = query.execute();
 
@@ -736,6 +782,35 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private void jComboBoxdepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxdepartamentoMouseClicked
         cargarDepartamentos();           // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxdepartamentoMouseClicked
+
+    public void cargar(ObjectContainer base) {
+
+        try {
+            jComboBoxevento.removeAllItems();
+            Query query = base.query();
+            query.constrain(Evento.class);
+
+            ObjectSet<Evento> evento1 = query.execute();
+
+            while (evento1.hasNext()) {
+
+                Evento mie = evento1.next();
+                System.out.println("tipo:" + mie.getNombre());
+                jComboBoxevento.addItem(mie.getCod_evento());
+
+            }
+
+        } finally {
+
+            base.close();
+
+        }
+    }
+    private void jComboBoxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxeventoMouseClicked
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargar(base);
+        base.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxeventoMouseClicked
 
     public void crearPersonal(ObjectContainer base) {
         // Verificar si todos los campos están llenos

@@ -250,7 +250,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
             result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe una Encuesta con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -271,7 +271,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
 
             base.store(nuevoPersonal);
 
-            JOptionPane.showMessageDialog(this, "Personal creado exitosamente");
+            JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente");
             limpiar();
             cargarTabla(base);
         } finally {
