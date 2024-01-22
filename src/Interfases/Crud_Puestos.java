@@ -41,7 +41,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-           String cod = "PUE-" + String.format("%03d", ultimoCodigo);
+            String cod = "PUE-" + String.format("%03d", ultimoCodigo);
             lblcod.setText(cod);
 
             // Verificar si ya existe un Puesto con el mismo código
@@ -200,6 +200,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         lblcod = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -290,6 +291,14 @@ public class Crud_Puestos extends javax.swing.JPanel {
             }
         });
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -310,32 +319,35 @@ public class Crud_Puestos extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(57, 57, 57)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(txtnombrepuesto)
-                                                .addComponent(txttipopuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                                            .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(200, 200, 200))
+                                                .addComponent(txttipopuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                                        .addGap(129, 129, 129))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(33, 33, 33)
-                                .addComponent(jButton3)
-                                .addGap(27, 27, 27)
-                                .addComponent(jButton4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5)))
-                        .addGap(0, 38, Short.MAX_VALUE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 56, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(168, 168, 168)
                         .addComponent(jLabel6)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addGap(14, 14, 14)
+                .addComponent(jButton5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,14 +360,14 @@ public class Crud_Puestos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtnombrepuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)))
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txttipopuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -366,15 +378,16 @@ public class Crud_Puestos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -382,7 +395,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,6 +482,46 @@ public class Crud_Puestos extends javax.swing.JPanel {
         base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed
+      public void buscarActividad(ObjectContainer base) {
+        String cedulaBuscada = JOptionPane.showInputDialog("Ingrese el código del Puesto a Buscar:");
+
+        if (cedulaBuscada != null && !cedulaBuscada.trim().isEmpty()) {
+
+            String nombre = " ", tipo = " ", descripcion = " ", cod = " ";
+
+            Query query = base.query();
+            query.constrain(Puesto.class);
+            query.descend("Codigo_puesto").constrain(cedulaBuscada.trim());
+            ObjectSet<Puesto> result = query.execute();
+
+            DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
+            model.setRowCount(0);  // Limpiar la tabla antes de agregar la nueva fila
+
+            if (!result.isEmpty()) {
+                for (Puesto puesto : result) {
+                    nombre = puesto.getNombrePuesto();
+                    tipo = puesto.getTipo_puesto();
+                    descripcion = puesto.getDescripcionPuesto();
+
+                    // Agregar la fila a la tabla
+                    model.addRow(new Object[]{cedulaBuscada.trim(), nombre.trim(), tipo.trim(), descripcion.trim()});
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún Puesto con el código ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+                cargarTabla(base);
+            }
+
+            base.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "El código ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        buscarActividad(base);
+        base.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Función para realizar la modificación
     public void cargarTabla(ObjectContainer base) {
@@ -491,6 +544,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
