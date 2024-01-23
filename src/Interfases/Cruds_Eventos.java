@@ -414,13 +414,18 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void CrearEvento(ObjectContainer bd) {
         try {
-
             ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null));
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
             String cod = String.format("%03d", ultimoCodigo);
             lblcod.setText(cod);
+
+            // Validar que la fecha de inicio sea anterior a la fecha de fin
+            if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
+                JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
+                return;  // Salir del método si las fechas son incorrectas
+            }
 
             // Verificar si ya existe una casa con el mismo código
             resul = bd.queryByExample(new Evento(cod, null, null, null, null, null, null, null, null, null));
