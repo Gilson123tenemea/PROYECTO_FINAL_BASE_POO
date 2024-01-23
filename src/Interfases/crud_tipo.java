@@ -179,7 +179,7 @@ public class crud_tipo extends javax.swing.JPanel {
                 }
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, " no se selecciono una imagen ");
+            JOptionPane.showMessageDialog(null, " No se selecciono una imagen ");
         }
     }//GEN-LAST:event_btnseleccionarActionPerformed
 
@@ -263,7 +263,7 @@ public class crud_tipo extends javax.swing.JPanel {
             resul = base.queryByExample(new Tipo_evento(cod, null, null, null));
             Tipo_evento im = new Tipo_evento(cod, txttipo.getText().trim(), null, foto);
             base.store(im);
-            JOptionPane.showMessageDialog(null, " se guardo exitosamente");
+            JOptionPane.showMessageDialog(null, " Se guardo exitosamente");
 
             // Limpiar el JLabel (establecer su icono en un icono vacío)
             fotolbl.setIcon(new ImageIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB)));
