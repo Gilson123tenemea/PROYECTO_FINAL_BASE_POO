@@ -6,10 +6,15 @@
 package Interfases;
 
 import Clases.Encuesta;
+import Clases.Evento;
+import Clases.Patrocinador;
+import Clases.Tipo_evento;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,7 +43,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboxevento = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -70,6 +75,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
         scrollbar1 = new java.awt.Scrollbar();
+        jButton5 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,8 +86,13 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 250, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 180, -1));
+        cboxevento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxevento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxeventoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(cboxevento, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 180, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/votacion-en-linea.png"))); // NOI18N
@@ -209,6 +220,14 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         });
         jPanel1.add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, -1, 640));
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,7 +277,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
             Encuesta nuevoPersonal = new Encuesta(
                     nuevoCodigo,
                     jTextField1.getText().trim(),
-                    jComboBox1.getSelectedItem().toString(),
+                    cboxevento.getSelectedItem().toString(),
                     jTextArea1.getText().trim(),
                     jDateChooser1.getDate(),
                     jDateChooser2.getDate(),
@@ -287,7 +306,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField2.setText("");
-        jComboBox1.setSelectedItem("");
+        cboxevento.setSelectedItem("");
         jDateChooser1.setDate(null);
         jDateChooser2.setDate(null);
 
@@ -325,7 +344,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()
-                || jComboBox1.getSelectedItem() == null || jTextField3.getText().trim().isEmpty() || jTextField4.getText().trim().isEmpty()) {
+                || cboxevento.getSelectedItem() == null || jTextField3.getText().trim().isEmpty() || jTextField4.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -344,9 +363,9 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
             micasita.setPregunta4(jTextField5.getText().trim());
             micasita.setPregunta5(jTextField6.getText().trim());
             micasita.setFecha_inicio(jDateChooser1.getDate());
-             micasita.setFecha_fin(jDateChooser2.getDate());
+            micasita.setFecha_fin(jDateChooser2.getDate());
 
-            micasita.setTipo_evento(jComboBox1.getSelectedItem().toString());
+            micasita.setTipo_evento(cboxevento.getSelectedItem().toString());
 
             base.set(micasita);
 
@@ -440,7 +459,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jDateChooser1.setDate(actividad.getFecha_inicio());
         jDateChooser1.setDate(actividad.getFecha_fin());
 
-        jComboBox1.setSelectedItem(actividad.getTipo_evento());
+        cboxevento.setSelectedItem(actividad.getTipo_evento());
 
     }
 
@@ -493,17 +512,92 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
 
     private void scrollbar1ComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_scrollbar1ComponentMoved
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_scrollbar1ComponentMoved
+    public void cargar(ObjectContainer base) {
+
+        try {
+            cboxevento.removeAllItems();
+            Query query = base.query();
+            query.constrain(Evento.class);
+
+            ObjectSet<Evento> evento1 = query.execute();
+
+            while (evento1.hasNext()) {
+
+                Evento mie = evento1.next();
+                System.out.println("tipo:" + mie.getCod_evento());
+                cboxevento.addItem(mie.getCod_evento());
+
+            }
+
+        } finally {
+
+            base.close();
+
+        }
+    }
+    private void cboxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxeventoMouseClicked
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargar(base);
+        base.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxeventoMouseClicked
+    private void mostrarDatosEventos(ObjectContainer bases) {
+        try {
+            Object selectedItem = cboxevento.getSelectedItem();
+
+            if (selectedItem != null) {
+                String cedulaSeleccionada = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Evento.class);
+                query.descend("cod_evento").constrain(cedulaSeleccionada);
+                ObjectSet<Evento> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Evento patro = result.next();
+
+                    SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
+
+                    String mensaje = "Nombre: " + patro.getNombre() + "\n"
+                            + "Descripcion: " + patro.getDescripcion() + "\n"
+                            + "Codigo de Patrocinador: " + patro.getCodigo_patrocinador() + "\n"
+                            + "Codigo de Agenda: " + patro.getCodigo_agenda() + "\n"
+                            + "Tipo: " + patro.getTipo() + "\n"
+                            + "Fecha de Inicio: " + patro.getFecha_inicio() + "\n"
+                            + "Fecha de Fin: " + patro.getFecha_fin() + "\n"
+                            + "Hora de Inicio: " + patro.getHora_inicio() + "\n"
+                            + "Hora Fin: " + patro.getHora_fin();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Tipo de Evento", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un Tipo de Evento con el codigo seleccionado.", "Patrocinador no encontrado", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Tipo de Evento.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        mostrarDatosEventos(bases);
+        bases.close();         // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboxevento;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton5;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;

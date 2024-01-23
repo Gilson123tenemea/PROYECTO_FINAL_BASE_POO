@@ -13,6 +13,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -603,6 +604,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                 if (!result.isEmpty()) {
                     Patrocinador patro = result.next();
+                    Date fecha = patro.getFecchaNaci();
+                    SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
+                    String Fecha = sfd.format(fecha);
                     String mensaje = "Cédula: " + patro.getCedula() + "\n"
                             + "Nombre: " + patro.getNombre() + "\n"
                             + "Apellido: " + patro.getApellido() + "\n"
@@ -610,13 +614,13 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             + "Email: " + patro.getCorreo() + "\n"
                             + "Direccion: " + patro.getDireccion() + "\n"
                             + "Genero: " + patro.getGenero() + "\n"
-                            + "Fecha de Nacimiento: " + patro.getFecchaNaci() + "\n"
+                            + "Fecha de Nacimiento: " + Fecha + "\n"
                             + "Redes Sociales: " + patro.getRedes_sociales() + "\n"
                             + "Descripcion: " + patro.getDescripcion_p();
 
                     JOptionPane.showMessageDialog(this, mensaje, "Datos del Patrocinador", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró un Patrocinador con la cédula seleccionada.", "Patrocinador no encontrado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se encontró un Patrocinador con el codigo seleccionado.", "Patrocinador no encontrado", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
