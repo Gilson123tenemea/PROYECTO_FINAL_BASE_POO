@@ -16,6 +16,8 @@ import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,9 +26,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Encuestaa_Organizor extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Encuestaa_Organizor
-     */
     public Encuestaa_Organizor() {
         initComponents();
     }
@@ -74,10 +73,12 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
-        scrollbar1 = new java.awt.Scrollbar();
         jButton5 = new javax.swing.JButton();
+        jScrollBar1 = new javax.swing.JScrollBar();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(926, 926));
+        jPanel1.setPreferredSize(new java.awt.Dimension(923, 650));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextArea1.setColumns(20);
@@ -208,18 +209,6 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         });
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
 
-        scrollbar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scrollbar1MouseClicked(evt);
-            }
-        });
-        scrollbar1.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentMoved(java.awt.event.ComponentEvent evt) {
-                scrollbar1ComponentMoved(evt);
-            }
-        });
-        jPanel1.add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, -1, 640));
-
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,14 +216,13 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, -1));
+        jPanel1.add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, -1, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -504,16 +492,6 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
         buscarActividad(base);
         base.close();
     }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void scrollbar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollbar1MouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_scrollbar1MouseClicked
-
-    private void scrollbar1ComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_scrollbar1ComponentMoved
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_scrollbar1ComponentMoved
     public void cargar(ObjectContainer base) {
 
         try {
@@ -615,6 +593,7 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
@@ -625,7 +604,6 @@ public class Encuestaa_Organizor extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private java.awt.Scrollbar scrollbar1;
     private javax.swing.JLabel txtcodigopersonal;
     // End of variables declaration//GEN-END:variables
 }

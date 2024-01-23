@@ -269,21 +269,21 @@ public class Cruds_Personal extends javax.swing.JPanel {
         });
         jPanel1.add(jComboBoxdepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 177, 200, -1));
 
-        jButton6.setText("Ver");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 174, -1, -1));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 50, -1));
 
-        jButton7.setText("Ver");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 309, -1, -1));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 50, -1));
         jPanel1.add(txtcodigopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 88, 165, 18));
 
         txttipopersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -294,13 +294,13 @@ public class Cruds_Personal extends javax.swing.JPanel {
         });
         jPanel1.add(txttipopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 130, 200, -1));
 
-        jButton8.setText("ver");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 120, 50, -1));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 50, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -368,14 +368,15 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 query.constrain(Evento.class);
                 query.descend("cod_evento").constrain(cedulaSeleccionada);
                 ObjectSet<Evento> result = query.execute();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
                 if (!result.isEmpty()) {
                     Evento patro = result.next();
                     String mensaje = "Codigo: " + patro.getCodigo_patrocinador() + "\n"
                             + "Nombre: " + patro.getNombre() + "\n"
                             + "Tipo: " + patro.getTipo() + "\n"
-                            + "Fecha de Inicio: " + patro.getFecha_inicio() + "\n"
-                            + "Fecha de Fin: " + patro.getFecha_fin() + "\n"
+                            + "Fecha de Inicio: " + (patro.getFecha_inicio() != null ? sdf.format(patro.getFecha_inicio()) : "No disponible") + "\n"
+                            + "Fecha de Fin: " + (patro.getFecha_fin() != null ? sdf.format(patro.getFecha_fin()) : "No disponible") + "\n"
                             + "Hora Inicio: " + patro.getHora_inicio() + "\n"
                             + "Hora Fin: " + patro.getHora_fin() + "\n"
                             + "Descripcion: " + patro.getDescripcion();
@@ -878,7 +879,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
 
     }
-    
+
     public void cargarTipoPersonal() {
         ObjectContainer Base = Db4o.openFile(Inicio.direccion);
         txttipopersonal.removeAllItems();
@@ -897,7 +898,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
         Base.close();
     }
-    
+
     private void mostrarDatosTipoPersonal(ObjectContainer bases) {
         String nombreSeleccionada = txttipopersonal.getSelectedItem().toString();
         Query query = bases.query();
@@ -917,11 +918,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
         bases.close();
     }
-    
-    
-    
-    
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
