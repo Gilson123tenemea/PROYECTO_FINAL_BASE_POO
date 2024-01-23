@@ -26,6 +26,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_Comerciante comerciante = new Crud_Comerciante();
     Encuestaa_Organizor ecuesta = new Encuestaa_Organizor();
     Reporte_Publico publico = new Reporte_Publico();
+    Tipo_Personal tippersonal = new Tipo_Personal ();
+    
+    
     Cambio tip = new Cambio();
 
     CardLayout vista;
@@ -74,6 +77,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
+        jButton12 = new javax.swing.JButton();
+        jSeparator11 = new javax.swing.JSeparator();
         pnldinamico = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -96,7 +101,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/secretario.png"))); // NOI18N
         jButton2.setText("Patrocinador");
         jButton2.setBorder(null);
@@ -105,11 +109,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, 40));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 10));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, 30));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, 10));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarjeta-de-identificacion.png"))); // NOI18N
         jButton3.setText("Eventos");
         jButton3.setBorder(null);
@@ -118,11 +121,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, 200, 40));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, 200, 30));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 200, 10));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda-de-datos.png"))); // NOI18N
         jButton4.setText("Personal");
         jButton4.setBorder(null);
@@ -131,11 +133,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 200, 40));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 10));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 200, 10));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar (1).png"))); // NOI18N
         jButton5.setText("Solicitudes");
         jButton5.setBorder(null);
@@ -144,11 +145,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 200, 40));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 10));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 200, 30));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, 10));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButton6.setText("Encuesta");
         jButton6.setBorder(null);
@@ -157,11 +157,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 200, 40));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 200, 10));
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 200, 30));
+        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 10));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/escritorio.png"))); // NOI18N
         jButton7.setText("Departamento");
         jButton7.setBorder(null);
@@ -170,11 +169,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 200, 40));
-        jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, 200, -1));
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 200, 30));
+        jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 200, 10));
 
         jButton9.setBackground(new java.awt.Color(255, 255, 255));
-        jButton9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cabina (1).png"))); // NOI18N
         jButton9.setText("Puesto");
         jButton9.setBorder(null);
@@ -183,10 +181,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 200, 40));
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 30));
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tienda (1).png"))); // NOI18N
         jButton8.setText("Comercios");
         jButton8.setBorder(null);
@@ -196,10 +193,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 200, 40));
+        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 30));
 
         jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reunion.png"))); // NOI18N
         jButton10.setText("Comerciantes");
         jButton10.setBorder(null);
@@ -208,10 +204,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 200, 40));
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 200, 30));
 
         jButton11.setBackground(new java.awt.Color(255, 255, 255));
-        jButton11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/relaciones-publicas.png"))); // NOI18N
         jButton11.setText("Público");
         jButton11.setBorder(null);
@@ -220,16 +215,27 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 40));
-        jPanel2.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 10));
-        jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 200, -1));
-        jPanel2.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 200, -1));
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 200, 30));
+        jPanel2.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 10));
+        jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 200, 10));
+        jPanel2.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 200, 20));
+
+        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setForeground(new java.awt.Color(0, 0, 0));
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/consulta.png"))); // NOI18N
+        jButton12.setText("Tipo Persoal");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 200, -1));
+        jPanel2.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 200, 10));
 
         pnldinamico.setBackground(new java.awt.Color(255, 255, 255));
         pnldinamico.setLayout(new java.awt.CardLayout());
         pnldinamico.add(jSeparator7, "card2");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MENU ORGANIZADOR");
 
@@ -359,6 +365,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        pnldinamico.add(tippersonal, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,6 +399,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -400,6 +415,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -413,6 +429,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

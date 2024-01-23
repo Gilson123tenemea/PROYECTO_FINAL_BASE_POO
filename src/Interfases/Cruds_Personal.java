@@ -11,6 +11,7 @@ import Clases.Organizador;
 import Clases.Patrocinador;
 import Clases.Personal;
 import Clases.Tipo_evento;
+import Clases.Tipos_Personales;
 import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -96,68 +97,93 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jComboBoxevento = new javax.swing.JComboBox<>();
         jComboBoxdepartamento = new javax.swing.JComboBox<>();
-        txttipopersonal = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         txtcodigopersonal = new javax.swing.JLabel();
+        txttipopersonal = new javax.swing.JComboBox<>();
+        jButton8 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/humano.png"))); // NOI18N
         jLabel1.setText("PERSONAL");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 6, -1, -1));
 
         jLabel2.setText("Cédula: ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 92, -1, -1));
 
         jLabel3.setText("Nombre: ");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 135, -1, -1));
 
         jLabel5.setText("Apellido:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 182, -1, -1));
 
         jLabel6.setText("Teléfono: ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, -1, -1));
 
         jLabel7.setText("Email: ");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 270, -1, -1));
 
         jLabel8.setText("Fecha de Nacimiento: ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 270, -1, -1));
 
         jLabel9.setText("Dirección: ");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 312, -1, -1));
 
         jLabel11.setText("Género: ");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 359, -1, -1));
+        jPanel1.add(fechanac, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 262, 200, -1));
 
         txtemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtemailActionPerformed(evt);
             }
         });
+        jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 266, 200, -1));
+        jPanel1.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 224, 200, -1));
 
         txtapellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtapellidoActionPerformed(evt);
             }
         });
+        jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 178, 200, -1));
+        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 131, 200, -1));
+        jPanel1.add(CedulaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 88, 200, -1));
 
         txtdireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdireccionActionPerformed(evt);
             }
         });
+        jPanel1.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 308, 200, -1));
 
         rbmasculinoPro.setText("Masculino");
+        jPanel1.add(rbmasculinoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 359, -1, -1));
 
         rbfemeninoPro.setText("Femenino");
+        jPanel1.add(rbfemeninoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 359, -1, -1));
 
         jLabel12.setText("Código Personal:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 92, -1, -1));
 
         jLabel13.setText("Tipo de Personal: ");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 135, -1, -1));
 
         jLabel14.setText("Id Departamento: ");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 182, -1, -1));
 
         jLabel15.setText("Celular:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 228, -1, -1));
 
         txtcelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtcelularActionPerformed(evt);
             }
         });
+        jPanel1.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 224, 200, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,6 +202,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 468, 903, 163));
+
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +211,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 410, 136, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         jButton2.setText("MODIFICAR");
@@ -191,6 +220,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 410, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton3.setText("ELIMINAR");
@@ -199,6 +229,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 410, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
         jButton4.setText("REPORTE");
@@ -207,6 +238,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 410, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda (1)_1.png"))); // NOI18N
@@ -216,8 +248,10 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton5ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 88, -1, -1));
 
         jLabel4.setText("Código Evento: ");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 312, -1, -1));
 
         jComboBoxevento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxevento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,6 +259,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jComboBoxeventoMouseClicked(evt);
             }
         });
+        jPanel1.add(jComboBoxevento, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 312, 200, -1));
 
         jComboBoxdepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxdepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,6 +267,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jComboBoxdepartamentoMouseClicked(evt);
             }
         });
+        jPanel1.add(jComboBoxdepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 177, 200, -1));
 
         jButton6.setText("Ver");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +275,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 174, -1, -1));
 
         jButton7.setText("Ver");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -246,145 +283,24 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 jButton7ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 309, -1, -1));
+        jPanel1.add(txtcodigopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 88, 165, 18));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel11))
-                                .addGap(75, 75, 75)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbmasculinoPro)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(rbfemeninoPro))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                            .addComponent(txttelefono)
-                                            .addComponent(txtapellido)
-                                            .addComponent(txtnombre)
-                                            .addComponent(CedulaPersonal)
-                                            .addComponent(txtdireccion))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton5)
-                                        .addGap(31, 31, 31)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel8)
-                                                    .addComponent(jLabel12)
-                                                    .addComponent(jLabel13)
-                                                    .addComponent(jLabel14)
-                                                    .addComponent(jLabel15)
-                                                    .addComponent(jLabel4))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                            .addComponent(fechanac, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                                            .addComponent(txtcelular)
-                                                            .addComponent(jComboBoxevento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                            .addComponent(jComboBoxdepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                            .addComponent(txttipopersonal))
-                                                        .addGap(43, 43, 43)
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jButton7)
-                                                            .addComponent(jButton6)))
-                                                    .addComponent(txtcodigopersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                        .addGap(0, 73, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(CedulaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(jButton5)
-                    .addComponent(txtcodigopersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(txttipopersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(jComboBoxdepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(txtcelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(fechanac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxevento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(rbmasculinoPro)
-                    .addComponent(rbfemeninoPro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-        );
+        txttipopersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txttipopersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txttipopersonalMouseClicked(evt);
+            }
+        });
+        jPanel1.add(txttipopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 130, 200, -1));
+
+        jButton8.setText("ver");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 120, 50, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -552,7 +468,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 rbfemeninoPro.setSelected(true);
             }
             txtcodigopersonal.setText(codigopersoal.trim());
-            txttipopersonal.setText(tipopersonal.trim());
+            txttipopersonal.setSelectedItem(tipopersonal.trim());
             jComboBoxdepartamento.setSelectedItem(departamento.trim());
             txtcelular.setText(contacto.trim());
             fechanac.setDate(fechanacimiento);
@@ -664,7 +580,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             micasita.setTelefono(txttelefono.getText().trim());
             micasita.setDireccion(txtdireccion.getText().trim());
             micasita.setCodigo_perso(txtcodigopersonal.getText().trim());
-            micasita.setTipo_personal(txttipopersonal.getText().trim());
+            micasita.setTipo_personal(txttipopersonal.getSelectedItem().toString());
             micasita.setDepartamento_p(jComboBoxdepartamento.getSelectedItem().toString());
             micasita.setCelular(txtcelular.getText().trim());
             micasita.setFecchaNaci(fechanac.getDate());
@@ -812,6 +728,16 @@ public class Cruds_Personal extends javax.swing.JPanel {
         base.close();        // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxeventoMouseClicked
 
+    private void txttipopersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttipopersonalMouseClicked
+        cargarTipoPersonal();
+    }//GEN-LAST:event_txttipopersonalMouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        mostrarDatosTipoPersonal(base);
+        base.close();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     public void crearPersonal(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         try {
@@ -859,7 +785,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             // Crear objeto Personal y almacenar en la base de datos
             Personal nuevoPersonal = new Personal(
                     nuevoCodigo,
-                    txttipopersonal.getText().trim(),
+                    txttipopersonal.getSelectedItem().toString(),
                     jComboBoxdepartamento.getSelectedItem().toString(),
                     null,
                     null,
@@ -916,7 +842,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         txtemail.setText("");
         txtdireccion.setText("");
         txtcodigopersonal.setText("");
-        txttipopersonal.setText("");
+        txttipopersonal.setSelectedItem("");
         txtcelular.setText("");
         //  txtcodigoPropi.setText(" ");
     }
@@ -952,6 +878,50 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
 
     }
+    
+    public void cargarTipoPersonal() {
+        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
+        txttipopersonal.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Tipos_Personales.class);
+
+        ObjectSet<Tipos_Personales> propi = query.execute();
+
+        if (propi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Tipos de Personal", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (propi.hasNext()) {
+                Tipos_Personales pro = propi.next();
+                txttipopersonal.addItem(pro.getId_tip_peronal());
+            }
+        }
+        Base.close();
+    }
+    
+    private void mostrarDatosTipoPersonal(ObjectContainer bases) {
+        String nombreSeleccionada = txttipopersonal.getSelectedItem().toString();
+        Query query = bases.query();
+        query.constrain(Tipos_Personales.class);
+
+        query.descend("id_tip_peronal").constrain(nombreSeleccionada);
+        ObjectSet<Tipos_Personales> result = query.execute();
+
+        if (!result.isEmpty()) {
+            Tipos_Personales pues = result.next();
+            String mensaje = "Nombre: " + pues.getNombre() + "\n"
+                    + "Descripcion: " + pues.getDescripcion();
+
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Tipo Personal", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay Tipos de Personales con información que mostrar.", "Tipos Personales no encontrados", JOptionPane.WARNING_MESSAGE);
+        }
+        bases.close();
+    }
+    
+    
+    
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -965,6 +935,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBoxdepartamento;
     private javax.swing.JComboBox<String> jComboBoxevento;
     private javax.swing.JLabel jLabel1;
@@ -993,6 +964,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txttelefono;
-    private javax.swing.JTextField txttipopersonal;
+    private javax.swing.JComboBox<String> txttipopersonal;
     // End of variables declaration//GEN-END:variables
 }
