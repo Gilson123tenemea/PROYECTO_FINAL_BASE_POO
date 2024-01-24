@@ -273,6 +273,7 @@
               <Image iconType="3" name="/imagenes/disco-flexible.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="GUARDAR"/>
+            <Property name="toolTipText" type="java.lang.String" value="GUARA LA INFORMACION EN LA BASE DATOS"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -306,6 +307,7 @@
               <Image iconType="3" name="/imagenes/curriculum.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="REPORTE"/>
+            <Property name="toolTipText" type="java.lang.String" value="MUESTRA LOS DATOS QUE EXISTEN EN LA TABLA"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>

@@ -24,6 +24,11 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
 
     public Asignar_Credencialess() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }
 
     public void habiltarDatos() {

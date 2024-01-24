@@ -279,11 +279,11 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jLabel15.setText("FECHA DE NACIMIENTO:");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, 20));
 
-        jLabel16.setText("PRESUPUESTO:");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, -1, 20));
+        jLabel16.setText("PRESUPUESTO ANUAL:");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, 20));
 
         jLabel10.setText("CORREO:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, -1, 30));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, 50));
 
         lblpresupuesto.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblpresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 180, 20));

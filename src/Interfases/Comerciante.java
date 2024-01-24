@@ -37,6 +37,10 @@ public class Comerciante extends javax.swing.JFrame {
         initComponents();
         Agrupar();
         setLocationRelativeTo(null);
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+        cargarTipoComercio(bases);
+        bases.close();
+        
     }
 
     public void Agrupar() {
@@ -46,6 +50,8 @@ public class Comerciante extends javax.swing.JFrame {
         mibuton.add(rbnFemenino);
 
     }
+    
+    
 
     public void crearOrganizador(ObjectContainer base) {
         try {
@@ -596,9 +602,9 @@ public class Comerciante extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        cargarTipoComercio(bases);
-        bases.close();
+//        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+//        cargarTipoComercio(bases);
+//        bases.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

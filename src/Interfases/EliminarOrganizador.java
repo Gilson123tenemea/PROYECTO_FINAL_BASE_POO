@@ -25,6 +25,11 @@ public class EliminarOrganizador extends javax.swing.JPanel {
      */
     public EliminarOrganizador() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }
 
     /**

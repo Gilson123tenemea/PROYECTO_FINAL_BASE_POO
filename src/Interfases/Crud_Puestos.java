@@ -251,6 +251,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
+        jButton1.setToolTipText("GUARA LA INFORMACION EN LA BASE DATOS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -275,6 +276,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
         jButton4.setText("REPORTE");
+        jButton4.setToolTipText("MUESTRA LOS DATOS QUE EXISTEN EN LA TABLA");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);

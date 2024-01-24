@@ -25,6 +25,11 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
      */
     public ConsultarOrganizador() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }
 
     /**
@@ -133,6 +138,11 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
                 txtCedulaOrganizadorMouseClicked(evt);
             }
         });
+        txtCedulaOrganizador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCedulaOrganizadorKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtCedulaOrganizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 87, 254, -1));
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -225,6 +235,10 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
 
         base.close();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtCedulaOrganizadorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaOrganizadorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaOrganizadorKeyPressed
     private void cargarTabla(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos

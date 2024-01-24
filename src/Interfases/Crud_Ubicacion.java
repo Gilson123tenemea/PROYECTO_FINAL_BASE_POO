@@ -5,6 +5,12 @@
  */
 package Interfases;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Query;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
@@ -29,43 +35,176 @@ public class Crud_Ubicacion extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        txtPais = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtRegion = new javax.swing.JTextField();
+        txtcalle = new javax.swing.JTextField();
+        txtcallesecu = new javax.swing.JTextField();
+        provinciacombo = new javax.swing.JComboBox<>();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mapa.png"))); // NOI18N
         jLabel1.setText("UBICACION");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 38, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(363, 363, 363)
-                .addComponent(jLabel1)
-                .addContainerGap(399, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addContainerGap(510, Short.MAX_VALUE))
-        );
+        jLabel2.setText("CODIGO UBICACION:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 114, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel4.setText("PAIS:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+
+        jLabel5.setText("NOMBRE:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 204, -1, 20));
+
+        jLabel6.setText("REGION:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
+
+        jLabel7.setText("PROVINCIA:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 154, -1, 20));
+
+        jLabel8.setText("CALLE PRINCIPAL:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 200, -1, -1));
+
+        jLabel9.setText("CALLE SECUNDARIA:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 780, 270));
+
+        jButton1.setText("GUARDAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
+
+        jButton2.setText("BUSCAR");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
+
+        jButton3.setText("MODIFICAR");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
+
+        jButton4.setText("ELIMINAR");
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, -1, -1));
+
+        jButton5.setText("REPORTE");
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, -1, -1));
+        jPanel1.add(txtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 140, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 140, -1));
+        jPanel1.add(txtRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 140, -1));
+        jPanel1.add(txtcalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 200, 120, -1));
+        jPanel1.add(txtcallesecu, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 120, -1));
+
+        provinciacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opcion", "Azuay", "Bolivar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas" }));
+        jPanel1.add(provinciacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, 160, -1));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 577));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+//        crearUbicacion(base);
+        base.close();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+//public void crearUbicacion(ObjectContainer base) {
+//        if (txtPais.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
+//                || provinciacombo.getSelectedItem() == null || provinciacombo.getSelectedItem() == null) {
+//
+//            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        try {
+//            Query query = base.query();
+//            query.constrain(Ubicacion.class);
+//            query.descend("cod_ubicacion").orderDescending();
+//            ObjectSet<Ubicacion> result = query.execute();
+//
+//            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+//            if (!result.isEmpty()) {
+//                Ubicacion ultimaUbicacion = result.next();
+//                ultimoCodigo = Integer.parseInt(ultimaUbicacion.getCod_ubicacion().substring(4)) + 1;
+//            }
+//
+//            String nuevoCodigo = String.format("UBI-%03d", ultimoCodigo);
+//            lblcodigo.setText(nuevoCodigo);
+//
+//            result = base.queryByExample(new Ubicacion(nuevoCodigo, null, null, null, null));
+//
+//            if (!result.isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "Ya existe una ubicación con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            // public Ubicacion(String cod_ubicacion, String provincia, String ciudad, String barriocalle, String principal) {
+//            Ubicacion nuevaUbicacion = new Ubicacion(nuevoCodigo, provinciacombo.getSelectedItem().toString(), ciudadcombo.getSelectedItem().toString(), txtbarrio.getText().trim(), txtcalleprincipal.getText().trim());
+//            base.store(nuevaUbicacion);
+//
+//            JOptionPane.showMessageDialog(this, "Ubicación creada exitosamente");
+//            limpiar();
+//            cargarTabla(base);
+//        } finally {
+//            base.close();
+//        }
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> provinciacombo;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPais;
+    private javax.swing.JTextField txtRegion;
+    private javax.swing.JTextField txtcalle;
+    private javax.swing.JTextField txtcallesecu;
     // End of variables declaration//GEN-END:variables
 }
