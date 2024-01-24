@@ -56,6 +56,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
         btnReporte = new javax.swing.JButton();
         lblIdDepartamento = new javax.swing.JLabel();
         btnConfirmarModificacion = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -124,12 +125,20 @@ public class Crud_Departamento extends javax.swing.JPanel {
             }
         });
 
-        btnConfirmarModificacion.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnConfirmarModificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/confirmacion.png"))); // NOI18N
         btnConfirmarModificacion.setText("Confirmar Modificar");
         btnConfirmarModificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarModificacionActionPerformed(evt);
+            }
+        });
+
+        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton12.setBorder(null);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
             }
         });
 
@@ -141,10 +150,12 @@ public class Crud_Departamento extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -152,15 +163,14 @@ public class Crud_Departamento extends javax.swing.JPanel {
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(lblIdDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(80, 80, 80)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(jLabel5)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(lblIdDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jButton12))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(123, 123, 123)
@@ -185,19 +195,24 @@ public class Crud_Departamento extends javax.swing.JPanel {
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton12)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
                 .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnModificar)
@@ -283,6 +298,54 @@ public class Crud_Departamento extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void buscarActividad(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Departamento a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Departamento> result = base.queryByExample(new Departamento(codigoBusqueda, null, null));
+
+            if (!result.isEmpty()) {
+                Departamento actividadEncontrada = result.next();
+                cargarDatosActividad(actividadEncontrada);
+                limpiarTabla();
+                cargarTabla(base, actividadEncontrada);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningun Departamento con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+     
+     private void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
+        model.setRowCount(0);
+    }
+
+     
+     private void cargarTabla(ObjectContainer base, Departamento actividadFiltrada) {
+        DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
+
+        Object[] row = {
+            actividadFiltrada.getId_departamento(),
+            actividadFiltrada.getNombre(),
+            actividadFiltrada.getDescripcion(),};
+        model.addRow(row);
+
+        base.close();
+    }
+
+    private void cargarDatosActividad(Departamento actividad) {
+        lblIdDepartamento.setText(actividad.getId_departamento());
+        txtNombreDepartamento.setText(actividad.getNombre());
+        txtDescripcion.setText(actividad.getDescripcion());
+       
+
+     
+    }
+    
+    
+    
+    
     private void btnConfirmarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarModificacionActionPerformed
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -291,6 +354,12 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         base.close();
     }//GEN-LAST:event_btnConfirmarModificacionActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        buscarActividad(base);
+        base.close();
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     public void modificarDepartamento(ObjectContainer base) {
         int filaSeleccionada = jTableDatos.getSelectedRow();
@@ -398,10 +467,10 @@ public class Crud_Departamento extends javax.swing.JPanel {
         try {
 
             ObjectSet<Departamento> resul = Base.queryByExample(new Departamento(null, null, null));
-            int ultimoCodigo = resul.size() + 1;
+            int ultimoCodigo = resul.size() + 4;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+            String cod = String.format("DEP-%03d", ultimoCodigo);
             lblIdDepartamento.setText(cod);
 
             // Verificar si ya existe una casa con el mismo código
@@ -456,6 +525,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
