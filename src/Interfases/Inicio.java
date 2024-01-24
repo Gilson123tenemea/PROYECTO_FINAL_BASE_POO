@@ -27,6 +27,7 @@ public class Inicio extends javax.swing.JFrame {
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
 
+    public static String nombre = " ", codigo = "";
     String usuario = " ", password = " ";
 
     public Inicio() {
@@ -70,7 +71,6 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -260,9 +260,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu1.add(jMenu5);
 
-        jMenuItem5.setText("SALIR");
-        jMenu1.add(jMenuItem5);
-
         jMenuBar1.add(jMenu1);
 
         jMenu2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
@@ -334,9 +331,12 @@ public class Inicio extends javax.swing.JFrame {
             for (Publico_p publico : result) {
                 usuario = publico.getCedula();
                 password = publico.getContraseña();
+                nombre = publico.getNombre();
+                codigo = publico.getCodigo_publico();
 
             }
 
+            base.close();
             this.dispose();
             Menu_Publico admin = new Menu_Publico();
             admin.setVisible(true);
@@ -348,7 +348,7 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
         }
 
-        base.close();
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -415,6 +415,8 @@ public class Inicio extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -446,7 +448,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;

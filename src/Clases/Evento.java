@@ -16,11 +16,12 @@ public class Evento {
     private String cod_evento, nombre, descripcion, codigo_patrocinador, codigo_agenda, tipo;
     private Date fecha_inicio, Fecha_fin;
     private String hora_inicio, hora_fin;
+    private byte[] data;
 
     public Evento() {
     }
 
-    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, String tipo) {
+    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, String tipo,byte[] data) {
         this.cod_evento = cod_evento;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -31,6 +32,7 @@ public class Evento {
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
         this.tipo = tipo;
+        this.data=data;
 
     }
 
@@ -112,6 +114,14 @@ public class Evento {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
    

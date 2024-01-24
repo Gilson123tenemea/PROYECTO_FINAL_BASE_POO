@@ -43,29 +43,29 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
     public void desabilitarPanel() {
         if (tipo.isVisible()) {
-            btnanterior.setEnabled(false);
+            btnanterior.setEnabled(true);
             btnsiguente.setEnabled(true);
-            btnconsulta.setEnabled(false);
-            btnreporte.setEnabled(false);
+            btnconsulta.setEnabled(true);
+            btnreporte.setEnabled(true);
 
         } else if (event.isVisible()) {
-            btnanterior.setEnabled(false);
-            btnsiguente.setEnabled(false);
+            btnanterior.setEnabled(true);
+            btnsiguente.setEnabled(true);
             btnconsulta.setEnabled(true);
-            btnreporte.setEnabled(false);
+            btnreporte.setEnabled(true);
 
         } else if (co.isVisible()) {
 
-            btnanterior.setEnabled(false);
-            btnsiguente.setEnabled(false);
-            btnconsulta.setEnabled(false);
+            btnanterior.setEnabled(true);
+            btnsiguente.setEnabled(true);
+            btnconsulta.setEnabled(true);
             btnreporte.setEnabled(true);
         } else if (re.isVisible()) {
 
             btnanterior.setEnabled(true);
-            btnsiguente.setEnabled(false);
-            btnconsulta.setEnabled(false);
-            btnreporte.setEnabled(false);
+            btnsiguente.setEnabled(true);
+            btnconsulta.setEnabled(true);
+            btnreporte.setEnabled(true);
         }
     }
 

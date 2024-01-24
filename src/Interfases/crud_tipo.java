@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +38,9 @@ public class crud_tipo extends javax.swing.JPanel {
      */
     public crud_tipo() {
         initComponents();
+        
+        cargarTabla();
+
     }
 
     /**
@@ -125,8 +129,22 @@ public class crud_tipo extends javax.swing.JPanel {
             new String [] {
                 "CODIGO", "NOMBRE", "IMAGEN"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbtipo.setEnabled(false);
         tbtipo.setRowHeight(100);
+        tbtipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbtipoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbtipo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 500, 360));
@@ -199,17 +217,19 @@ public class crud_tipo extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        cargarTabla(base);
-
-        base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
-    public void cargarTabla(ObjectContainer BaseD) {
+    public void cargarTabla() {
+
+        ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
+        
+        
 
         Tipo_evento ima = new Tipo_evento(null, null, null, null);
         ObjectSet result = BaseD.get(ima);
         mostrarDatos(result);
+        
+        BaseD.close();
     }
 
     public void mostrarDatos(ObjectSet result) {
@@ -251,13 +271,13 @@ public class crud_tipo extends javax.swing.JPanel {
     public void crearImagen(ObjectContainer base) {
 
         try {
-            
-            ObjectSet<Tipo_evento> resul = base.queryByExample(new Tipo_evento( null,null, null, null));
+
+            ObjectSet<Tipo_evento> resul = base.queryByExample(new Tipo_evento(null, null, null, null));
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
             String cod = String.format("%03d", ultimoCodigo);
-           // lblcod.setText(cod);
+            // lblcod.setText(cod);
 
             // Verificar si ya existe una casa con el mismo código
             resul = base.queryByExample(new Tipo_evento(cod, null, null, null));
@@ -268,14 +288,11 @@ public class crud_tipo extends javax.swing.JPanel {
             // Limpiar el JLabel (establecer su icono en un icono vacío)
             fotolbl.setIcon(new ImageIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB)));
             txttipo.setText(" ");
-        
-    }
 
-    
-        finally {
+        } finally {
             base.close();
+        }
     }
-}
     private void fotolblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fotolblMouseClicked
         // TODO add your handling code here:
 
@@ -284,6 +301,11 @@ public class crud_tipo extends javax.swing.JPanel {
     private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txttipoKeyTyped
+
+    private void tbtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtipoMouseClicked
+        // TODO add your handling code here:
+        tbtipo.setEnabled(false);
+    }//GEN-LAST:event_tbtipoMouseClicked
 
     public void asignarVariables(ObjectContainer BaseD) {
         seleccionarImagen();
