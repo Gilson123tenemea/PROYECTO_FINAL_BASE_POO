@@ -55,6 +55,10 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            
+            
+            
 
             if (masculino.isSelected()) {
                 sexo = "Masculino";
