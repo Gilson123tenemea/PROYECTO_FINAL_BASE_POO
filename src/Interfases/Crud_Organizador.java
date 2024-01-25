@@ -185,7 +185,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtcedulaKeyTyped(evt);
             }
         });
-        jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 160, -1));
+        jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 160, 30));
 
         lblapellido.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 150, 20));
@@ -246,7 +246,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtnombreKeyTyped(evt);
             }
         });
-        jPanel2.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 160, 20));
+        jPanel2.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 160, 30));
 
         txtapellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +261,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtapellidoKeyTyped(evt);
             }
         });
-        jPanel2.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 160, 20));
+        jPanel2.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 160, 30));
 
         txtcelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,7 +276,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtcelularKeyTyped(evt);
             }
         });
-        jPanel2.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 160, 20));
+        jPanel2.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 160, 30));
 
         txttelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +291,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txttelefonoKeyTyped(evt);
             }
         });
-        jPanel2.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 160, 20));
+        jPanel2.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 160, 30));
 
         txtdireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +306,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtdireccionKeyTyped(evt);
             }
         });
-        jPanel2.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 160, -1));
+        jPanel2.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 160, 30));
 
         lblgenero.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 480, 160, 20));
