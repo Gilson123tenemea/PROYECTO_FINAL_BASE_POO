@@ -48,7 +48,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         try {
             // Obtener el último código de puesto en la base de datos
             ObjectSet<Puesto> resul = Base.queryByExample(new Puesto(null, null, null, null));
-            int ultimoCodigo = resul.size() + 1;
+            int ultimoCodigo = resul.size() + 4;
 
             // Formatear el código con ceros a la izquierda
             String cod = "PUE-" + String.format("%03d", ultimoCodigo);
