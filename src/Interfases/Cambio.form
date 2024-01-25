@@ -53,7 +53,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnanterior">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ingresartipo evento"/>
+                <Property name="text" type="java.lang.String" value="Tipo de evento"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnanteriorActionPerformed"/>
@@ -67,11 +67,6 @@
             <Component class="javax.swing.JButton" name="btnconsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar Evento"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnreporte">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reporte general"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -13,6 +13,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,10 +41,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public Cruds_Eventos() {
         initComponents();
-//        cargar();
+        cargarPatrocinadores();
+        cargar();
         txtinicio.setVisible(false);
         txtfinal.setVisible(false);
-        btnmodificar.setEnabled(false);
 
     }
 
@@ -59,7 +60,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
@@ -85,7 +85,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         cbxtipo = new javax.swing.JComboBox<>();
         cboxpatrocinador = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         fotolbl = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
@@ -96,9 +95,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/presentacion.png"))); // NOI18N
         jLabel1.setText("EVENTOS");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel2.setText("Código Evento: ");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Nombre: ");
@@ -122,6 +118,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         btnguardar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
+        btnguardar.setToolTipText("Crear un nuevo registro");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnguardarActionPerformed(evt);
@@ -131,6 +128,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         btnmodificar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
+        btnmodificar.setToolTipText("Sirve para modificar algun campo de un registro");
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmodificarActionPerformed(evt);
@@ -139,6 +137,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda.png"))); // NOI18N
+        jButton4.setToolTipText("Ayuda a buscar por medio del nombre los datos");
         jButton4.setBorder(null);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +148,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Código Ubicación:");
 
-        cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cuenca", "Loja", "Machala", "Quito", "Sucumbios", "Morona Santiago" }));
+        cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cuenca", "Loja", "Machala", "Quito", "Sucumbios", "Morona Santiago" }));
 
         tmreloj.setForeground(new java.awt.Color(51, 102, 255));
         tmreloj.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -159,6 +158,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         });
 
         btnin.setText("Hora de inicio");
+        btnin.setToolTipText("Sirve para establecer la hora que va a finalizar el evento");
         btnin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btninActionPerformed(evt);
@@ -166,6 +166,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         });
 
         btnfin.setText("Hora de fin");
+        btnfin.setToolTipText("Sirve para establecer la hora que va a comenzar el evento");
         btnfin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnfinActionPerformed(evt);
@@ -192,14 +193,14 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         cbxtipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxtipoMouseClicked(evt);
             }
         });
 
-        cboxpatrocinador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxpatrocinador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         cboxpatrocinador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboxpatrocinadorMouseClicked(evt);
@@ -213,11 +214,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setText("jTextField1");
-
         fotolbl.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 1, 1, 1, new java.awt.Color(0, 0, 0)));
 
         jButton2.setText("Selecciona una foto");
+        jButton2.setToolTipText("Debe seleccionar una imagen que desee subir al sistema");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -238,74 +238,74 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(20, 20, 20)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel8))
+                                .addComponent(jLabel8)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
+                                    .addComponent(jLabel3)))
                             .addGap(32, 32, 32)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(14, 14, 14))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)))))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addComponent(btnguardar))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnguardar)
+                                .addGap(1, 1, 1)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(btnmodificar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
+                                .addGap(75, 75, 75)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnfin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfinal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(35, 35, 35)
+                                    .addComponent(txtfinal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnfin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(16, 16, 16)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(34, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(121, 121, 121)
+                                .addComponent(btnmodificar)))
+                        .addContainerGap(56, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jTextField1)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
+                                    .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtnombre))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4)
+                                    .addComponent(jButton1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(32, 32, 32)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton4))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(tmreloj, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(169, 169, 169))))))
+                                .addGap(169, 169, 169))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(tmreloj, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(138, 138, 138))))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(364, 364, 364)
                 .addComponent(jLabel9)
@@ -314,75 +314,72 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(tmreloj, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel8)
+                                                .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jButton1))
+                                        .addGap(47, 47, 47)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(cbxtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(43, 43, 43)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cbxubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel14))
+                                        .addGap(38, 38, 38)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jdtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5))))
+                                .addGap(33, 33, 33))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addGap(14, 14, 14))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addComponent(jButton4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cbxtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jdtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(15, 15, 15)
-                        .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tmreloj, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtfinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnfin)
+                            .addComponent(btnin)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtfinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnfin)
-                                    .addComponent(btnin))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnguardar)
                     .addComponent(btnmodificar))
-                .addGap(85, 85, 85))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -414,9 +411,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        mostrarDatosPatrocinadores(bases);
-        bases.close();        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cboxpatrocinadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxpatrocinadorMouseClicked
@@ -425,9 +420,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     private void cbxtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxtipoMouseClicked
         // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        cargar(base);
-        base.close();
+        cargar();
     }//GEN-LAST:event_cbxtipoMouseClicked
 
     private void txtfinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfinalActionPerformed
@@ -455,68 +448,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tmrelojMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-
-        txtinicio.setVisible(true);
-        txtfinal.setVisible(true);
-
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        String nombre = " ", tipo = " ", descripcion = " ", patrocinador = " ", horain = " ", horaf = " ";
-        Date fechai = null, fechaf = null;
-        int ed = 0;
-        Query query = base.query();
-        query
-                .constrain(Evento.class
-                );
-        query.descend(
-                "cod_evento").constrain(cod);
-        ObjectSet<Evento> result = query.execute();
-
-        if (!result.isEmpty()) {
-
-            for (Evento evento1 : result) {
-                nombre = evento1.getNombre();
-                descripcion = evento1.getDescripcion();
-                patrocinador = evento1.getCodigo_patrocinador();
-                fechai = evento1.getFecha_inicio();
-                fechaf = evento1.getFecha_fin();
-
-                horain = evento1.getHora_inicio();
-                horaf = evento1.getHora_fin();
-
-            }
-            txtnombre.setText(nombre.trim());
-            txadescripcion.setText(descripcion.trim());
-
-            jdtinicio.setDate(fechai);
-            jDateChooser2.setDate(fechaf);
-            txtinicio.setText(horain);
-            txtfinal.setText(horaf);
-
-            Deshabilitar();
-
-            int res = JOptionPane.showConfirmDialog(null, "Desea modificar los datos del evento", "confirmacion", JOptionPane.YES_NO_OPTION);
-            if (res == JOptionPane.YES_OPTION) {
-
-                btnmodificar.setEnabled(true);
-                habilitar();
-            } else if (res == JOptionPane.NO_OPTION) {
-                limpiar();
-                JOptionPane.showMessageDialog(null, "Se cancelo la modificacion de datos");
-            }
-
-            // lblcod.setText(cod.trim());
-        } else {
-
-            JOptionPane.showMessageDialog(null, "No se encontró ningún evento con el codigo ingresado");
-
-        }
-
-        base.close();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
 
@@ -536,8 +467,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-            try {
+
+        try {
 
             JFileChooser se = new JFileChooser();
             se.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -569,7 +500,76 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-     private byte[] obtenerBytesImagen() {
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+
+        btnguardar.setEnabled(false);
+        txtinicio.setVisible(true);
+        txtfinal.setVisible(true);
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        String nombre = " ", tipo = " ", descripcion = " ", patrocinador = " ", horain = " ", horaf = " ";
+        Date fechai = null, fechaf = null;
+        byte[] foto1;
+        int ed = 0;
+        Query query = base.query();
+        query.constrain(Evento.class);
+        query.descend("nombre").constrain(txtnombre.getText().trim());
+        ObjectSet<Evento> result = query.execute();
+
+        if (!result.isEmpty()) {
+
+            for (Evento evento1 : result) {
+                descripcion = evento1.getDescripcion();
+                patrocinador = evento1.getCodigo_patrocinador();
+                fechai = evento1.getFecha_inicio();
+                fechaf = evento1.getFecha_fin();
+
+                horain = evento1.getHora_inicio();
+                horaf = evento1.getHora_fin();
+                foto1 = evento1.getData();
+                if (foto1 != null) {
+                    ImageIcon icono = new ImageIcon(foto1);
+                    fotolbl.setIcon(icono);
+
+                }
+
+            }
+            txadescripcion.setText(descripcion.trim());
+
+            jdtinicio.setDate(fechai);
+            jDateChooser2.setDate(fechaf);
+            txtinicio.setText(horain);
+            txtfinal.setText(horaf);
+
+            Deshabilitar();
+
+            int res = JOptionPane.showConfirmDialog(null, "Desea modificar los datos del evento", "confirmacion", JOptionPane.YES_NO_OPTION);
+            if (res == JOptionPane.YES_OPTION) {
+
+                btnguardar.setEnabled(false);
+
+                btnmodificar.setEnabled(true);
+                habilitar();
+
+            } else if (res == JOptionPane.NO_OPTION) {
+                limpiar();
+                JOptionPane.showMessageDialog(null, "Se cancelo la modificacion de datos");
+                btnguardar.setEnabled(true);
+            }
+
+            // lblcod.setText(cod.trim());
+        } else {
+
+            JOptionPane.showMessageDialog(null, "No se encontró ningún evento con el codigo ingresado");
+
+        }
+
+        base.close();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private byte[] obtenerBytesImagen() {
         JFileChooser se = new JFileChooser();
         se.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int estado = se.showOpenDialog(null);
@@ -601,8 +601,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     public void seleccionarImagen() {
         foto = obtenerBytesImagen();
     }
-    
-    public void cargar(ObjectContainer base) {
+
+    public void cargar() {
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
         try {
             cbxtipo.removeAllItems();
@@ -611,6 +613,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
             ObjectSet<Tipo_evento> evento1 = query.execute();
 
+            cbxtipo.addItem("Seleccione");
             while (evento1.hasNext()) {
 
                 Tipo_evento mie = evento1.next();
@@ -633,7 +636,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+            String codi = String.format("%03d", ultimoCodigo);
 
             // Validar que la fecha de inicio sea anterior a la fecha de fin
             if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
@@ -642,9 +645,14 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
 
             // Verificar si ya existe una casa con el mismo código
-            resul = bd.queryByExample(new Evento(cod, null, null, null, null, null, null, null, null, null, null));
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null));
 
-            Evento evento1 = new Evento(cod, txtnombre.getText().trim(), txadescripcion.getText().trim(), cboxpatrocinador.getSelectedItem().toString(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai, horafinal, cbxtipo.getSelectedItem().toString(), foto);
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Este evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Evento evento1 = new Evento(cod.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), cbxtipo.getSelectedItem().toString().toLowerCase(), foto);
             bd.store(evento1);
 
             JOptionPane.showMessageDialog(null, "Se ha guardado el evento exitosamente");
@@ -655,21 +663,29 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         }
     }
 
+    public void validar() {
+
+//        if (!txtnombre.getText().trim().isEmpty() || ) {
+//            
+//        }
+    }
+
     public void ActualizarDatos(ObjectContainer base) {
 
-        Evento miagente = new Evento(cod, null, null, null, null, null, null, null, null, null, null);
+        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null);
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();
-        mievento1.setNombre(txtnombre.getText().trim());
-        mievento1.setDescripcion(txadescripcion.getText().trim());
-        mievento1.setTipo(cbxtipo.getSelectedItem().toString());
-        mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString());
+        mievento1.setNombre(txtnombre.getText().trim().toLowerCase());
+        mievento1.setDescripcion(txadescripcion.getText().trim().toLowerCase());
+        mievento1.setTipo(cbxtipo.getSelectedItem().toString().toLowerCase());
+        mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString().toLowerCase());
         mievento1.setFecha_inicio(jdtinicio.getDate());
-        mievento1.setHora_inicio(horai);
+        mievento1.setHora_inicio(horai.toLowerCase());
 
         mievento1.setFecha_fin(jDateChooser2.getDate());
-        mievento1.setHora_fin(horafinal);
+        mievento1.setHora_fin(horafinal.toLowerCase());
+        mievento1.setData(foto);
 
         base.set(mievento1);
 
@@ -685,6 +701,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jdtinicio.setDate(null);
         jDateChooser2.setDate(null);
         tmreloj.setToolTipText("12:00 AM");
+        fotolbl.setIcon(new ImageIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB)));
+        cbxtipo.setSelectedItem("Seleccione");
+        cbxubicacion.setSelectedItem("Seleccione");
+        cboxpatrocinador.setSelectedItem("Seleccione");
     }
 
     public void Deshabilitar() {
@@ -712,7 +732,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     }
 
-    private void mostrarDatosPatrocinadores(ObjectContainer bases) {
+    private void mostrarDatosPatrocinadores() {
+
+        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
+
         try {
             Object selectedItem = cboxpatrocinador.getSelectedItem();
 
@@ -766,8 +789,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         if (propi.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No existen Patrocinadores", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            cboxpatrocinador.addItem("Seleccione");
             while (propi.hasNext()) {
                 Patrocinador pro = propi.next();
+
                 cboxpatrocinador.addItem(pro.getCodigo_patri());
             }
         }
@@ -789,7 +814,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -800,7 +824,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private com.toedter.calendar.JDateChooser jdtinicio;
     private com.raven.swing.TimePicker tmreloj;
     private javax.swing.JTextArea txadescripcion;

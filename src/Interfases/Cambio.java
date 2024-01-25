@@ -19,7 +19,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
     crud_tipo tipo = new crud_tipo();
     Cruds_Eventos event = new Cruds_Eventos();
     Reporte_eventos co = new Reporte_eventos();
-    Reporte_evento re = new Reporte_evento();
 
     /**
      * Creates new form Cambio
@@ -30,14 +29,12 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         tipo.setVisible(true);
         event.setVisible(false);
         co.setVisible(false);
-        re.setVisible(false);
 
         desabilitarPanel();
 
         btnanterior.addActionListener(this);
         btnsiguente.addActionListener(this);
         btnconsulta.addActionListener(this);
-        btnreporte.addActionListener(this);
 
     }
 
@@ -46,27 +43,18 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
             btnanterior.setEnabled(true);
             btnsiguente.setEnabled(true);
             btnconsulta.setEnabled(true);
-            btnreporte.setEnabled(true);
 
         } else if (event.isVisible()) {
             btnanterior.setEnabled(true);
             btnsiguente.setEnabled(true);
             btnconsulta.setEnabled(true);
-            btnreporte.setEnabled(true);
 
         } else if (co.isVisible()) {
 
             btnanterior.setEnabled(true);
             btnsiguente.setEnabled(true);
             btnconsulta.setEnabled(true);
-            btnreporte.setEnabled(true);
-        } else if (re.isVisible()) {
-
-            btnanterior.setEnabled(true);
-            btnsiguente.setEnabled(true);
-            btnconsulta.setEnabled(true);
-            btnreporte.setEnabled(true);
-        }
+        } 
     }
 
     /**
@@ -84,7 +72,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         btnanterior = new javax.swing.JButton();
         btnsiguente = new javax.swing.JButton();
         btnconsulta = new javax.swing.JButton();
-        btnreporte = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,7 +88,7 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
         contenedor.setLayout(new java.awt.BorderLayout());
 
-        btnanterior.setText("Ingresartipo evento");
+        btnanterior.setText("Tipo de evento");
         btnanterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnanteriorActionPerformed(evt);
@@ -114,9 +101,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
         btnconsulta.setText("Consultar Evento");
         jPanel2.add(btnconsulta);
-
-        btnreporte.setText("Reporte general");
-        jPanel2.add(btnreporte);
 
         contenedor.add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
@@ -131,7 +115,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnanterior;
     private javax.swing.JButton btnconsulta;
-    private javax.swing.JButton btnreporte;
     private javax.swing.JButton btnsiguente;
     private javax.swing.JPanel contenedor;
     private javax.swing.JPanel jPanel1;
@@ -145,7 +128,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         if (evt.equals(btnanterior)) {
             event.setVisible(false);
             tipo.setVisible(true);
-            re.setVisible(false);
 
             co.setVisible(false);
             contenedor.add(tipo);
@@ -156,7 +138,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         } else if (evt.equals(btnsiguente)) {
             event.setVisible(true);
             tipo.setVisible(false);
-            re.setVisible(false);
 
             co.setVisible(false);
             contenedor.add(event);
@@ -167,7 +148,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
         } else if (evt.equals(btnconsulta)) {
             event.setVisible(false);
             tipo.setVisible(false);
-            re.setVisible(false);
 
             co.setVisible(true);
             contenedor.add(co);
@@ -175,17 +155,6 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
 
             desabilitarPanel();
 
-        } else if (evt.equals(btnreporte)) {
-            event.setVisible(false);
-            tipo.setVisible(false);
-            re.setVisible(true);
-
-            co.setVisible(false);
-            contenedor.add(re);
-            contenedor.validate();
-
-            desabilitarPanel();
-
-        }
+        } 
     }
 }

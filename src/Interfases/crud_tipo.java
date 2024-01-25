@@ -5,7 +5,6 @@
  */
 package Interfases;
 
-import Clases.Evento;
 import Clases.ImageTableCellRenderer;
 import Clases.Tipo_evento;
 import com.db4o.Db4o;
@@ -21,7 +20,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,7 +36,8 @@ public class crud_tipo extends javax.swing.JPanel {
      */
     public crud_tipo() {
         initComponents();
-        
+        jButton1.setEnabled(false);
+
         cargarTabla();
 
     }
@@ -57,7 +56,6 @@ public class crud_tipo extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         btnseleccionar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         fotolbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbtipo = new javax.swing.JTable();
@@ -72,6 +70,9 @@ public class crud_tipo extends javax.swing.JPanel {
             }
         });
         txttipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttipoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txttipoKeyTyped(evt);
             }
@@ -100,20 +101,15 @@ public class crud_tipo extends javax.swing.JPanel {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
-        jButton2.setText("REPORTE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, -1));
-
         fotolbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fotolbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fotolblMouseClicked(evt);
+            }
+        });
+        fotolbl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fotolblKeyReleased(evt);
             }
         });
         jPanel1.add(fotolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 250, 230));
@@ -211,24 +207,19 @@ public class crud_tipo extends javax.swing.JPanel {
 
         base.close();
 
+        cargarTabla();
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jButton2ActionPerformed
     public void cargarTabla() {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
-        
-        
 
         Tipo_evento ima = new Tipo_evento(null, null, null, null);
         ObjectSet result = BaseD.get(ima);
         mostrarDatos(result);
-        
+
         BaseD.close();
     }
 
@@ -280,8 +271,20 @@ public class crud_tipo extends javax.swing.JPanel {
             // lblcod.setText(cod);
 
             // Verificar si ya existe una casa con el mismo código
-            resul = base.queryByExample(new Tipo_evento(cod, null, null, null));
-            Tipo_evento im = new Tipo_evento(cod, txttipo.getText().trim(), null, foto);
+            resul = base.queryByExample(new Tipo_evento(cod.toLowerCase(), null, null, null));
+
+            validar();
+            
+             ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento(null, txttipo.getText().trim().toLowerCase(), null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Este tipo de evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            
+            
+            Tipo_evento im = new Tipo_evento(cod.toLowerCase(), txttipo.getText().trim().toLowerCase(), null, foto);
             base.store(im);
             JOptionPane.showMessageDialog(null, " Se guardo exitosamente");
 
@@ -293,6 +296,16 @@ public class crud_tipo extends javax.swing.JPanel {
             base.close();
         }
     }
+
+    public void validar() {
+
+        if (!txttipo.getText().trim().toLowerCase().isEmpty() && fotolbl.getIcon() != null) {
+            jButton1.setEnabled(true);
+        } else {
+            jButton1.setEnabled(false);
+
+        }
+    }
     private void fotolblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fotolblMouseClicked
         // TODO add your handling code here:
 
@@ -300,12 +313,32 @@ public class crud_tipo extends javax.swing.JPanel {
 
     private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
         // TODO add your handling code here:
+
+        char letra = evt.getKeyChar();
+        if (Character.isDigit(letra)) {
+            evt.consume();
+        }
+
+        if (txttipo.getText().trim().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txttipoKeyTyped
 
     private void tbtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtipoMouseClicked
         // TODO add your handling code here:
         tbtipo.setEnabled(false);
     }//GEN-LAST:event_tbtipoMouseClicked
+
+    private void txttipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyReleased
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_txttipoKeyReleased
+
+    private void fotolblKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fotolblKeyReleased
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_fotolblKeyReleased
 
     public void asignarVariables(ObjectContainer BaseD) {
         seleccionarImagen();
@@ -360,7 +393,6 @@ public class crud_tipo extends javax.swing.JPanel {
     private javax.swing.JButton btnseleccionar;
     private javax.swing.JLabel fotolbl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

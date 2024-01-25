@@ -6,7 +6,7 @@
 package Interfases;
 
 import Clases.Evento;
-import static Interfases.Reporte_evento.Listaeventos;
+import Clases.ImageTableCellRenderer;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -14,10 +14,12 @@ import com.db4o.query.Query;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -34,7 +36,8 @@ public class Reporte_eventos extends javax.swing.JPanel {
      */
     public Reporte_eventos() {
         initComponents();
-        CargarDatos();
+        cargarTabla();
+
     }
 
     /**
@@ -48,30 +51,17 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtconsulta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         cbxbusqueda = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Buscar por :");
@@ -111,6 +101,27 @@ public class Reporte_eventos extends javax.swing.JPanel {
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Raanana", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "CODIGO", "NOMBRE", "DESCRIPCION", "TIPO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "IMAGEN"
+            }
+        ));
+        jTable1.setRowHeight(100);
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -121,17 +132,19 @@ public class Reporte_eventos extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(585, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 227, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,12 +158,12 @@ public class Reporte_eventos extends javax.swing.JPanel {
                     .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 1090, 400));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 880, 540));
 
         jButton3.setText("VOLVER");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 137, -1));
@@ -159,11 +172,13 @@ public class Reporte_eventos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1206, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 967, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,7 +196,6 @@ public class Reporte_eventos extends javax.swing.JPanel {
             query.descend("cod_evento").constrain(Codigo);
 
             ObjectSet<Evento> result = query.execute();
-
 
             int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar algun evento", "Confirmacio", JOptionPane.YES_NO_OPTION);
 
@@ -258,6 +272,8 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             });
 
+        }else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Seleccione")) {
+            JOptionPane.showMessageDialog(null,"Debe escoger mediante que campo desea ver los registros");
         }
 
         trs = new TableRowSorter(jTable1.getModel());
@@ -281,58 +297,102 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             String fechaf = (String) jTable1.getModel().getValueAt(selectedRow, 7);
             String horaf = (String) jTable1.getModel().getValueAt(selectedRow, 8);
+            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 9);
 
-            JOptionPane.showMessageDialog(null, "Codigo del evento: " + Codigo + "\nNombre del evento: " + nombre + "\nDescripcion: " + descripcion + "\nTipo de evento: "
-                    + tipo + "\nPatrocinador: " + patrocinador + "\nFecha de inicio: " + Fechai + "\nHora de inicio: " + horai + "\nFecha final: " + fechaf + "\nhora final: " + horaf);
+            JLabel imageLabel = new JLabel(icono);
+            JPanel panel = new JPanel();
+            panel.add(imageLabel);
+
+            JOptionPane.showMessageDialog(null, new Object[]{"Codigo del evento: " + Codigo, "Nombre del evento: " + nombre, "Descripcion: " + descripcion, "Tipo de evento: "
+                + tipo, "Patrocinador: " + patrocinador, "Fecha de inicio: " + Fechai, "Hora de inicio: " + horai,
+                "Fecha final: " + fechaf, "hora final: " + horaf, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
 
+//        int selectedRow = jTable1.getSelectedRow();
+//        if (selectedRow != -1) {
+//            String Codigo = (String) jTable1.getModel().getValueAt(selectedRow, 0);
+//            String nombre = (String) jTable1.getModel().getValueAt(selectedRow, 1);
+//            String descripcion = (String) jTable1.getModel().getValueAt(selectedRow, 2);
+//            String tipo = (String) jTable1.getModel().getValueAt(selectedRow, 3);
+//            String patrocinador = (String) jTable1.getModel().getValueAt(selectedRow, 4);
+//            String Fechai = (String) jTable1.getModel().getValueAt(selectedRow, 5);
+//            String horai = (String) jTable1.getModel().getValueAt(selectedRow, 6);
+//
+//            String fechaf = (String) jTable1.getModel().getValueAt(selectedRow, 7);
+//            String horaf = (String) jTable1.getModel().getValueAt(selectedRow, 8);
+//            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 9);
+//            JLabel image = new JLabel(icono);
+//
+//            JOptionPane.showMessageDialog(null, "Codigo del evento: " + Codigo + "\nNombre del evento: " + nombre + "\nDescripcion: " + descripcion + "\nTipo de evento: "
+//                    + tipo + "\nPatrocinador: " + patrocinador + "\nFecha de inicio: " + Fechai + "\nHora de inicio: " + horai + 
+//                    "\nFecha final: " + fechaf + "\nhora final: " + horaf + "\nImagen: \n" + icono);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+//        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cbxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxbusquedaMouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_cbxbusquedaMouseClicked
 
     private void txtconsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtconsultaMouseClicked
         // TODO add your handling code here:
-         CargarDatos();
+        cargarTabla();
     }//GEN-LAST:event_txtconsultaMouseClicked
 
-    public void CargarDatos() {
+    public void cargarTabla() {
 
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        ObjectSet<Evento> result = base.queryByExample(new Evento());
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null);
+        ObjectSet result = BaseD.get(ima);
+        CargarDatos(result);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        BaseD.close();
+    }
 
-        String[] columnNames = {"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL"};
+    public void CargarDatos(ObjectSet result) {
+        Object[][] data = new Object[result.size()][10];
+        if (result.size() == 0) {
+            JOptionPane.showMessageDialog(null, "El evento no existe");
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        Object[][] data = new Object[result.size()][9];
+            for (int i = 0; i < result.size(); i++) {
+                Evento im = (Evento) result.get(i);
+                data[i][0] = im.getCod_evento();
+                data[i][1] = im.getNombre();
+                data[i][2] = im.getDescripcion();
+                data[i][3] = im.getTipo();
 
-        int i = 0;
-        for (Evento even : result) {
-            data[i][0] = even.getCod_evento();
-            data[i][1] = even.getNombre();
-            data[i][2] = even.getDescripcion();
-            data[i][3] = even.getTipo();
+                data[i][4] = im.getCodigo_patrocinador();
+                data[i][5] = im.getFecha_inicio() != null ? sdf.format(im.getFecha_inicio()) : null;
+                data[i][6] = im.getHora_inicio();
+                data[i][7] = im.getFecha_fin() != null ? sdf.format(im.getFecha_fin()) : null;
+                data[i][8] = im.getHora_fin();
 
-            data[i][4] = even.getCodigo_patrocinador();
-            data[i][5] = even.getFecha_inicio() != null ? sdf.format(even.getFecha_inicio()) : null;
-            data[i][6] = even.getHora_inicio();
-            data[i][7] = even.getFecha_fin() != null ? sdf.format(even.getFecha_fin()) : null;
-            data[i][8] = even.getHora_fin();
+                byte[] fotoBytes = im.getData();
+                if (fotoBytes != null) {
+                    ImageIcon icono = new ImageIcon(fotoBytes);
+                    data[i][9] = icono;
+                } else {
+                    data[i][9] = null;
+                }
 
-            i++;
+                // Configurar el modelo de la tabla con los datos y títulos de columna
+                jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                        data,
+                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "IMAGEN"}
+                ));
+
+                // Asignar el renderer personalizado a la columna de la foto (columna 3)
+                jTable1.getColumnModel().getColumn(9).setCellRenderer(new ImageTableCellRenderer());
+            }
         }
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
-
-        base.close();
 
     }
 
