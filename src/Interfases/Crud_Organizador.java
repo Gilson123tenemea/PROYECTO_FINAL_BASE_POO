@@ -79,21 +79,14 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtnombre = new javax.swing.JTextField();
-        txtapellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtcelular = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtdireccion = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txttelefono = new javax.swing.JTextField();
-        txtpresupuesto = new javax.swing.JTextField();
         btncrear = new javax.swing.JButton();
         rbnmasculino = new javax.swing.JRadioButton();
         rbnfemenino = new javax.swing.JRadioButton();
-        lblgenero = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblcorreo = new javax.swing.JLabel();
         lblnombre = new javax.swing.JLabel();
@@ -113,6 +106,13 @@ public class Crud_Organizador extends javax.swing.JPanel {
         lblcedula = new javax.swing.JLabel();
         lblcod = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtnombre = new javax.swing.JTextField();
+        txtapellido = new javax.swing.JTextField();
+        txtcelular = new javax.swing.JTextField();
+        txttelefono = new javax.swing.JTextField();
+        txtdireccion = new javax.swing.JTextField();
+        lblgenero = new javax.swing.JLabel();
+        txtpresupuesto = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,41 +128,11 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jLabel3.setText("NOMBRE:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtnombreKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 204, 160, -1));
-
-        txtapellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtapellidoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapellidoKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 252, 160, -1));
-
         jLabel4.setText("APELLDO:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
 
         jLabel5.setText("CELULAR:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
-
-        txtcelular.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtcelularKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcelularKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 301, 160, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
@@ -170,38 +140,8 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jLabel7.setText("DIRECCION:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, -1, 20));
 
-        txtdireccion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtdireccionKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtdireccionKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 400, 160, -1));
-
         jLabel11.setText("TELEFONO");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
-
-        txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txttelefonoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txttelefonoKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 353, 160, -1));
-
-        txtpresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtpresupuestoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtpresupuestoKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtpresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 180, -1));
 
         btncrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         btncrear.setText("CREAR");
@@ -228,14 +168,11 @@ public class Crud_Organizador extends javax.swing.JPanel {
         });
         jPanel1.add(rbnfemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, -1, -1));
 
-        lblgenero.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 160, 20));
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblcorreo.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel2.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 150, 20));
+        jPanel2.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 240, 150, 20));
 
         lblnombre.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 150, 20));
@@ -248,7 +185,7 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 txtcedulaKeyTyped(evt);
             }
         });
-        jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 160, -1));
+        jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 160, -1));
 
         lblapellido.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 150, 20));
@@ -286,10 +223,10 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, 50));
 
         lblpresupuesto.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel2.add(lblpresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 180, 20));
+        jPanel2.add(lblpresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 300, 180, 20));
 
         lblfecha.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel2.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, 180, 20));
+        jPanel2.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 180, 20));
 
         lbldireccion.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lbldireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 410, 150, 20));
@@ -301,7 +238,90 @@ public class Crud_Organizador extends javax.swing.JPanel {
         jLabel9.setText("GENERO:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 60, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 880, 540));
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 160, 20));
+
+        txtapellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtapellidoActionPerformed(evt);
+            }
+        });
+        txtapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtapellidoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapellidoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 160, 20));
+
+        txtcelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcelularActionPerformed(evt);
+            }
+        });
+        txtcelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcelularKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcelularKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 160, 20));
+
+        txttelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttelefonoActionPerformed(evt);
+            }
+        });
+        txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttelefonoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 160, 20));
+
+        txtdireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdireccionActionPerformed(evt);
+            }
+        });
+        txtdireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtdireccionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdireccionKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 160, -1));
+
+        lblgenero.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 480, 160, 20));
+
+        txtpresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtpresupuestoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtpresupuestoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtpresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 180, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -496,6 +516,22 @@ public class Crud_Organizador extends javax.swing.JPanel {
             evt.consume();
         }          // TODO add your handling code here:
     }//GEN-LAST:event_txtpresupuestoKeyTyped
+
+    private void txtapellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtapellidoActionPerformed
+
+    private void txtcelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcelularActionPerformed
+
+    private void txttelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttelefonoActionPerformed
+
+    private void txtdireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdireccionActionPerformed
 
     public static boolean esNumeroDecimal(String valor) {
         try {
