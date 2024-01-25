@@ -16,7 +16,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
 
     Info_Organizador inf = new Info_Organizador();
     Cruds_Eventos orgaeventos = new Cruds_Eventos();
-    Encuestaa_Organizor orgaencuesta = new Encuestaa_Organizor();
+    CRUD_Encuesta orgaencuesta = new CRUD_Encuesta();
     AceptarSolicitud orgasolicitud = new AceptarSolicitud();
     Crud_Patrocinado orgapatrocinador = new Crud_Patrocinado();
     Cruds_Personal orgapersonal = new Cruds_Personal();
@@ -24,7 +24,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_Puestos orgapuesto = new Crud_Puestos();
     Crud_tipo_comercio comerci = new Crud_tipo_comercio();
     Crud_Comerciante comerciante = new Crud_Comerciante();
-    Encuestaa_Organizor ecuesta = new Encuestaa_Organizor();
     Reporte_Publico publico = new Reporte_Publico();
     Tipo_Personal tippersonal = new Tipo_Personal ();
     
