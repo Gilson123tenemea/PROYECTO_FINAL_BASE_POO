@@ -466,7 +466,7 @@ public class Comerciante extends javax.swing.JFrame {
                 cboCodigoPuestoActionPerformed(evt);
             }
         });
-        jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 160, -1));
+        jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 160, -1));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("Género:");
@@ -510,7 +510,7 @@ public class Comerciante extends javax.swing.JFrame {
                 btnVerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 40, 30));
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 40, 40));
         jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 150, 20));
 
         txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
