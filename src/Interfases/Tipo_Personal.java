@@ -11,17 +11,27 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author ADMIN_01
  */
 public class Tipo_Personal extends javax.swing.JPanel {
+    private TableRowSorter trs;
 
     public Tipo_Personal() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close(); 
     }
     
     public void crearTipoPersona(ObjectContainer base) {
@@ -115,6 +125,57 @@ public class Tipo_Personal extends javax.swing.JPanel {
         base.close();
     }
     
+     public void deshabilitarParametros() {
+        txtcodigo.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+    }
+    
+    private void habilitarCamposBusqueda(String criterioSeleccionado) {
+
+        // Deshabilitar todos los campos de búsqueda
+        deshabilitarParametros();
+        // ...
+
+        // Habilitar el campo de búsqueda correspondiente al criterio seleccionado
+        if (criterioSeleccionado.equals("Nombre")) {
+            txtNombre.setEnabled(true);
+            limpiarCamposPatrocinador();
+       
+        } else if (criterioSeleccionado.equals("Seleccione")) {
+            txtcodigo.setEnabled(true);
+            txtNombre.setEnabled(true);
+            txtDescripcion.setEnabled(true);
+          
+
+        }
+
+    }
+    
+    private void limpiarCamposPatrocinador(){
+            
+            txtcodigo.setText("");
+            txtNombre.setText("");
+            txtDescripcion.setText("");
+    
+    
+    }
+    
+    public void Filtro() {
+
+       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtNombre.getText().trim(), Columnastabla));
+
+        }
+    }
+    
+    
+    
+    
+                                  
+    
+    
     private void limpiarTablaPersonal() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -158,6 +219,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
             base.set(miubipersonal);
 
             JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            cargarTablaPersonal(base);
             limpiar();
 
         } finally {
@@ -191,6 +253,8 @@ public class Tipo_Personal extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cboxbusqueda = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -215,6 +279,12 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         jLabel3.setText("Descripcion:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 150, -1));
 
         txtDescripcion.setColumns(20);
@@ -240,6 +310,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
+        jButton1.setToolTipText("GUARDAR TIPO DE PERSONAL");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -258,6 +329,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar (1).png"))); // NOI18N
         jButton3.setText("MODIFICAR");
+        jButton3.setToolTipText("MODIFICAR TIPO DE PERSONAL");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -267,6 +339,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton4.setText("ELIMINAR");
+        jButton4.setToolTipText("ELIMINAR TIPO DE PERSONAL");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -282,7 +355,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, -1, -1));
-        jPanel1.add(txtcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 120, 30));
+        jPanel1.add(txtcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 120, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/TipPersonal.jpg"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 350, 270));
@@ -298,6 +371,22 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/secretario.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
+
+        jLabel12.setText("Filtro de busqueda");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, -1, -1));
+
+        cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Nombre" }));
+        cboxbusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxbusquedaMouseClicked(evt);
+            }
+        });
+        cboxbusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxbusquedaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 300, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -359,11 +448,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        cargarTabla(base);
-
-        base.close(); 
+       
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -384,14 +469,51 @@ public class Tipo_Personal extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cboxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxbusquedaMouseClicked
+
+    }//GEN-LAST:event_cboxbusquedaMouseClicked
+
+    private void cboxbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxbusquedaActionPerformed
+
+        // Obtener el criterio seleccionado del JComboBox
+        String criterioSeleccionado = cboxbusqueda.getSelectedItem().toString();
+
+        // Habilitar o deshabilitar los campos de búsqueda según el criterio seleccionado
+        habilitarCamposBusqueda(criterioSeleccionado);
+    }//GEN-LAST:event_cboxbusquedaActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+
+            txtNombre.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtNombre.getText());
+
+                    txtNombre.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        }
+
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtNombreKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

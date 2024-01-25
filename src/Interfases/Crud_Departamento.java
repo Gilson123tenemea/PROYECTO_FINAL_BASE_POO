@@ -11,23 +11,34 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author eliza
  */
 public class Crud_Departamento extends javax.swing.JPanel {
-
+     
+    
+    private TableRowSorter trs;
     public static ArrayList<Departamento> listadepartamento = new ArrayList<>();
 
     public static ArrayList<Departamento> codigoseliminados = new ArrayList<>();
 
     public Crud_Departamento() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }
 
     /**
@@ -57,6 +68,9 @@ public class Crud_Departamento extends javax.swing.JPanel {
         lblIdDepartamento = new javax.swing.JLabel();
         btnConfirmarModificacion = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        cboxbusqueda = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -69,6 +83,12 @@ public class Crud_Departamento extends javax.swing.JPanel {
         jLabel3.setText("Nombre de Departamento: ");
 
         jLabel4.setText("Descripción:");
+
+        txtNombreDepartamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreDepartamentoKeyTyped(evt);
+            }
+        });
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -95,6 +115,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         btnGuardar.setText("GUARDAR");
+        btnGuardar.setToolTipText("GUARDAR DEPARTAMENTO EN LA BASE");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -103,6 +124,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar (1).png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
+        btnModificar.setToolTipText("MODIFICAR DEPARTAMENTO DE LA BASE");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -111,6 +133,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton-eliminar (1).png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.setToolTipText("ELIMINAR DATOS DEL DEPARTAMENTO");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -142,6 +165,20 @@ public class Crud_Departamento extends javax.swing.JPanel {
             }
         });
 
+        jLabel12.setText("Filtro de busqueda");
+
+        cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Nombre" }));
+        cboxbusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxbusquedaMouseClicked(evt);
+            }
+        });
+        cboxbusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxbusquedaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,28 +186,35 @@ public class Crud_Departamento extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1)
+                            .addComponent(jLabel5)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
+                                .addGap(28, 28, 28))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(lblIdDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                        .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(19, 19, 19)
                                         .addComponent(jButton12))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(123, 123, 123)
@@ -193,26 +237,34 @@ public class Crud_Departamento extends javax.swing.JPanel {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1)
                         .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton12)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton12)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(52, 52, 52)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnModificar)
@@ -254,11 +306,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        cargarTabla(base);
-
-        base.close();
+     
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -344,6 +392,49 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }
     
     
+    public void deshabilitarParametros() {
+        lblIdDepartamento.setEnabled(false);
+        txtNombreDepartamento.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+    }
+    
+    private void habilitarCamposBusqueda(String criterioSeleccionado) {
+
+        // Deshabilitar todos los campos de búsqueda
+        deshabilitarParametros();
+        // ...
+
+        // Habilitar el campo de búsqueda correspondiente al criterio seleccionado
+        if (criterioSeleccionado.equals("Nombre")) {
+            txtNombreDepartamento.setEnabled(true);
+            limpiarCamposPatrocinador();
+       
+        } else if (criterioSeleccionado.equals("Seleccione")) {
+            lblIdDepartamento.setEnabled(true);
+            txtNombreDepartamento.setEnabled(true);
+            txtDescripcion.setEnabled(true);
+          
+
+        }
+
+    }
+    
+    private void limpiarCamposPatrocinador(){
+            
+            lblIdDepartamento.setText("");
+            txtNombreDepartamento.setText("");
+            txtDescripcion.setText("");
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     private void btnConfirmarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarModificacionActionPerformed
@@ -360,6 +451,59 @@ public class Crud_Departamento extends javax.swing.JPanel {
         buscarActividad(base);
         base.close();
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void cboxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxbusquedaMouseClicked
+
+    }//GEN-LAST:event_cboxbusquedaMouseClicked
+
+    private void cboxbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxbusquedaActionPerformed
+
+        // Obtener el criterio seleccionado del JComboBox
+        String criterioSeleccionado = cboxbusqueda.getSelectedItem().toString();
+
+        // Habilitar o deshabilitar los campos de búsqueda según el criterio seleccionado
+        habilitarCamposBusqueda(criterioSeleccionado);
+    }//GEN-LAST:event_cboxbusquedaActionPerformed
+
+    public void Filtro() {
+
+       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtNombreDepartamento.getText().trim(), Columnastabla));
+
+        }
+    }
+    
+    
+    
+    
+    private void txtNombreDepartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDepartamentoKeyTyped
+        
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+
+            txtNombreDepartamento.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtNombreDepartamento.getText());
+
+                    txtNombreDepartamento.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        }
+
+        trs = new TableRowSorter(jTableDatos.getModel());
+        jTableDatos.setRowSorter(trs);
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_txtNombreDepartamentoKeyTyped
 
     public void modificarDepartamento(ObjectContainer base) {
         int filaSeleccionada = jTableDatos.getSelectedRow();
@@ -525,8 +669,10 @@ public class Crud_Departamento extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -534,6 +680,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableDatos;
     private javax.swing.JLabel lblIdDepartamento;
     private javax.swing.JTextArea txtDescripcion;

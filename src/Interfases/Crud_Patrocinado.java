@@ -6,6 +6,10 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -13,15 +17,24 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Crud_Patrocinado extends javax.swing.JPanel {
 
     String sexo;
+    private TableRowSorter trs;
 
     public Crud_Patrocinado() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargarTablaReporte(base);
+        base.close();
     }
 
     public void Agrupar() {
@@ -55,15 +68,19 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
-            
-            
-            
 
             if (masculino.isSelected()) {
                 sexo = "Masculino";
             } else if (femenino.isSelected()) {
                 sexo = "Femenino";
+            }
+
+            String cedula = txtCedula.getText();
+
+            // Verificar si la cédula ya existe en la base de datos
+            if (existeCedula(base, cedula)) {
+                JOptionPane.showMessageDialog(this, "La cédula ingresada ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
             // Obtener el último código incremental de patrocinador
@@ -82,7 +99,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             }
 
             // Crear un nuevo Patrocinador y almacenarlo en la base de datos
-            Patrocinador patro = new Patrocinador(nuevoCodigo, txtDescripcion.getText(), txtRedes.getText(), txtCedula.getText(), txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtDireccion.getText(), txtCelular.getText(), Seleccion, sexo);
+            Patrocinador patro = new Patrocinador(nuevoCodigo, txtDescripcion.getText(), txtRedes.getText(), cedula, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtDireccion.getText(), txtCelular.getText(), Seleccion, sexo);
 
             base.store(patro);
             JOptionPane.showMessageDialog(null, "Patrocinador creado exitosamente");
@@ -92,6 +109,13 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         }
 
         limpiarCamposPatrocinador();
+    }
+
+    private boolean existeCedula(ObjectContainer base, String cedula) {
+        // Realizar una consulta para verificar si la cédula ya existe en la base de datos
+        ObjectSet<Patrocinador> result = base.queryByExample(new Patrocinador(null, null, null, cedula, null, null, null, null, null, null, null, null));
+
+        return !result.isEmpty();
     }
 
     private void limpiarCamposPatrocinador() {
@@ -158,6 +182,58 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             model.addRow(row);
         }
         base.close();
+    }
+
+    public void deshabilitarParametros() {
+        codig_patrio.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtRedes.setEnabled(false);
+        txtCedula.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtApellido.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtCelular.setEnabled(false);
+        Date_patro.setEnabled(false);
+        masculino.setEnabled(false);
+        femenino.setEnabled(false);
+
+    }
+
+    private void habilitarCamposBusqueda(String criterioSeleccionado) {
+
+        // Deshabilitar todos los campos de búsqueda
+        deshabilitarParametros();
+        // ...
+
+        // Habilitar el campo de búsqueda correspondiente al criterio seleccionado
+        if (criterioSeleccionado.equals("Cedula")) {
+            txtCedula.setEnabled(true);
+            limpiarCamposPatrocinador();
+        } else if (criterioSeleccionado.equals("Nombre")) {
+            txtNombre.setEnabled(true);
+            limpiarCamposPatrocinador();
+        } else if (criterioSeleccionado.equals("Apellido")) {
+            txtApellido.setEnabled(true);
+            limpiarCamposPatrocinador();
+        } else if (criterioSeleccionado.equals("Seleccione")) {
+            codig_patrio.setEnabled(true);
+            txtDescripcion.setEnabled(true);
+            txtRedes.setEnabled(true);
+            txtCedula.setEnabled(true);
+            txtNombre.setEnabled(true);
+            txtApellido.setEnabled(true);
+            txtTelefono.setEnabled(true);
+            txtEmail.setEnabled(true);
+            txtDireccion.setEnabled(true);
+            txtCelular.setEnabled(true);
+            Date_patro.setEnabled(true);
+            masculino.setEnabled(true);
+            femenino.setEnabled(true);
+
+        }
+
     }
 
     private void buscarPatrocinadorPorCedula(String cedulaBusqueda, ObjectContainer base) {
@@ -377,50 +453,53 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         codig_patrio = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+        cboxbusqueda = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
 
         jTextField3.setText("jTextField3");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Cédula: ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Nombre: ");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Apellido:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Teléfono: ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Email: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Género: ");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Fecha de Nacimiento: ");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
         jPanel1.add(Date_patro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 180, -1));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Codigo Patrocinador:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Descripcion:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Redes Sociales:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
 
@@ -429,8 +508,25 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 txtCedulaActionPerformed(evt);
             }
         });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 130, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 130, -1));
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 130, -1));
         jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 130, -1));
         jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 130, -1));
@@ -452,19 +548,19 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, 360, 50));
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setText("Direccion:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("Celular:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 130, -1));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 130, -1));
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
+        jButton1.setToolTipText("GUARDAR PATROCINADOR EN LA BASE");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -472,9 +568,9 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 120, 40));
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         jButton2.setText("MODIFICAR");
+        jButton2.setToolTipText("MODIFICAR EL PATROCINADOR DE LA BASE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -482,9 +578,9 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 130, 40));
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton3.setText("ELIMINAR");
+        jButton3.setToolTipText("ELIMINAR EL PATROCINADOR DE BASE");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -533,6 +629,23 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 30));
+
+        cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Nombre", "Apellido" }));
+        cboxbusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxbusquedaMouseClicked(evt);
+            }
+        });
+        cboxbusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxbusquedaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 130, -1));
+
+        jLabel12.setText("Filtro de busqueda");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, -1, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 160, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -624,6 +737,100 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void Filtro() {
+
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+            int Columnastabla = 0;
+            trs.setRowFilter(RowFilter.regexFilter(txtCedula.getText().trim(), Columnastabla));
+
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtNombre.getText().trim(), Columnastabla));
+
+        }else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+            int Columnastabla = 2;
+            trs.setRowFilter(RowFilter.regexFilter(txtApellido.getText().trim(), Columnastabla));
+
+        }
+    }
+
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+
+            txtCedula.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtCedula.getText());
+
+                    txtCedula.setText(cadena);
+                    Filtro();
+
+                }
+            });
+        }
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+
+            txtNombre.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtNombre.getText());
+
+                    txtNombre.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        }
+
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+
+
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void cboxbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxbusquedaActionPerformed
+
+        // Obtener el criterio seleccionado del JComboBox
+        String criterioSeleccionado = cboxbusqueda.getSelectedItem().toString();
+
+        // Habilitar o deshabilitar los campos de búsqueda según el criterio seleccionado
+        habilitarCamposBusqueda(criterioSeleccionado);
+    }//GEN-LAST:event_cboxbusquedaActionPerformed
+
+    private void cboxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxbusquedaMouseClicked
+
+
+    }//GEN-LAST:event_cboxbusquedaMouseClicked
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+
+            txtApellido.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtApellido.getText());
+
+                    txtApellido.setText(cadena);
+                    Filtro();
+
+                }
+            });
+        }
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtApellidoKeyTyped
     public void vaciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         while (modelo.getRowCount() > 0) {
@@ -633,6 +840,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date_patro;
+    private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JLabel codig_patrio;
     private javax.swing.JRadioButton femenino;
     private javax.swing.JButton jButton1;
@@ -643,6 +851,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -658,6 +867,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JRadioButton masculino;
