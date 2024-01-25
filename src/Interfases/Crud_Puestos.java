@@ -38,50 +38,51 @@ public class Crud_Puestos extends javax.swing.JPanel {
         base.close();
     }
 
-    public void crearPuestos(ObjectContainer Base) {
-        // Verificar si todos los campos están llenos
-        if (txtnombrepuesto.getText().trim().isEmpty() || txttipopuesto.getText().trim().isEmpty() || txtdescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+public void crearPuestos(ObjectContainer base) {
+    // Verificar si todos los campos están llenos
+    if (txtnombrepuesto.getText().trim().isEmpty() || 
+        txttipopuesto.getText().trim().isEmpty() || 
+        txtdescripcion.getText().trim().isEmpty()) {
+
+        JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        Query query = base.query();
+        query.constrain(Puesto.class);
+        query.descend("Codigo_puesto").orderDescending();
+        ObjectSet<Puesto> result = query.execute();
+
+        int ultimoCodigo = 1;
+        if (!result.isEmpty()) {
+            Puesto ultimoPuesto = result.next();
+            ultimoCodigo = Integer.parseInt(ultimoPuesto.getCodigo_puesto().substring(4)) + 1;
+        }
+
+        // Formatear el código con ceros a la izquierda
+        String nuevoCodigo = String.format("PUE-%03d", ultimoCodigo);
+        lblcod.setText(nuevoCodigo);
+
+        // Verificar si ya existe un Puesto con el mismo código
+        result = base.queryByExample(new Puesto(nuevoCodigo, null, null, null));
+
+        if (!result.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ya existe un Puesto con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-            // Obtener el último código de puesto en la base de datos
-            ObjectSet<Puesto> resul = Base.queryByExample(new Puesto(null, null, null, null));
-            int ultimoCodigo = resul.size() + 4;
+        // Crear objeto Puesto y almacenar en la base de datos
+        Puesto puesto1 = new Puesto(nuevoCodigo, txtnombrepuesto.getText().trim(), txtdescripcion.getText().trim(), txttipopuesto.getText().trim());
+        base.store(puesto1);
 
-            // Formatear el código con ceros a la izquierda
-            String cod = "PUE-" + String.format("%03d", ultimoCodigo);
-            lblcod.setText(cod);
-
-            // Verificar si ya existe un Puesto con el mismo código
-            resul = Base.queryByExample(new Puesto(cod, null, null, null));
-
-            if (!resul.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un Puesto con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-//                public Puesto(String Codigo_puesto, String NombrePuesto, String DescripcionPuesto, String tipo_puesto) {
-            // Crear objeto Puesto y almacenar en la base de datos
-            Puesto puesto1 = new Puesto(cod, txtnombrepuesto.getText().trim(), txtdescripcion.getText().trim(), txttipopuesto.getText().trim());
-
-            Base.store(puesto1);
-
-            cargarTabla(Base);
-
-            JOptionPane.showMessageDialog(this, "Puesto Creado exitosamente");
-        } finally {
-
-            Base.close();
-
-        }
-
-        // Limpiar los campos después de almacenar
-        txtnombrepuesto.setText("");
-        txttipopuesto.setText("");
-        txtdescripcion.setText("");
+        JOptionPane.showMessageDialog(this, "Puesto creado exitosamente");
+        limpiar();
+        cargarTabla(base);
+    } finally {
+        base.close();
     }
+}
 
     public void modificarPuesto(ObjectContainer base) {
         int filaSeleccionada = tablapuesto.getSelectedRow();
