@@ -10,9 +10,13 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,9 +27,15 @@ public class Crud_Puestos extends javax.swing.JPanel {
     public static ArrayList<Puesto> listapuesto = new ArrayList<>();
 
     public static ArrayList<Puesto> codigoseliminados = new ArrayList<>();
+    private TableRowSorter trs;
 
     public Crud_Puestos() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
     }
 
     public void crearPuestos(ObjectContainer Base) {
@@ -201,6 +211,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         lblcod = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        cboxbusqueda = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -225,10 +236,20 @@ public class Crud_Puestos extends javax.swing.JPanel {
                 txtnombrepuestoActionPerformed(evt);
             }
         });
+        txtnombrepuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombrepuestoKeyTyped(evt);
+            }
+        });
 
         txttipopuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttipopuestoActionPerformed(evt);
+            }
+        });
+        txttipopuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttipopuestoKeyTyped(evt);
             }
         });
 
@@ -295,11 +316,14 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
+        btnBuscar.setToolTipText("ESTE BOTON SIRVE PARA CARGAR LOS DATOS PARA PODER MODIFICAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
+
+        cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Nombre", "Tipo" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -310,7 +334,9 @@ public class Crud_Puestos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 56, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -321,15 +347,20 @@ public class Crud_Puestos extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(57, 57, 57)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtnombrepuesto)
-                                                .addComponent(txttipopuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-                                        .addGap(129, 129, 129))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtnombrepuesto)
+                                                    .addComponent(txttipopuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 511, Short.MAX_VALUE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(273, 273, 273)
+                                                .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 56, Short.MAX_VALUE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -358,10 +389,15 @@ public class Crud_Puestos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel1)
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -484,7 +520,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed
-      public void buscarActividad(ObjectContainer base) {
+    public void buscarActividad(ObjectContainer base) {
         String cedulaBuscada = JOptionPane.showInputDialog("Ingrese el código del Puesto a Buscar:");
 
         if (cedulaBuscada != null && !cedulaBuscada.trim().isEmpty()) {
@@ -524,6 +560,76 @@ public class Crud_Puestos extends javax.swing.JPanel {
         buscarActividad(base);
         base.close();        // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+    public void Filtro() {
+
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("nombre")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtnombrepuesto.getText().trim(), Columnastabla));
+
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("tipo")) {
+            int Columnastabla = 2;
+            trs.setRowFilter(RowFilter.regexFilter(txttipopuesto.getText().trim(), Columnastabla));
+
+        }
+    }
+    private void txtnombrepuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombrepuestoKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("nombre")) {
+
+            txtnombrepuesto.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtnombrepuesto.getText());
+
+                    txtnombrepuesto.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        }
+
+//         else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("tipo")) {
+//            txttipopuesto.addKeyListener(new KeyAdapter() {
+//                @Override
+//                public void keyReleased(final KeyEvent e) {
+//
+//                    String cadena = (txttipopuesto.getText());
+//
+//                    txttipopuesto.setText(cadena);
+//                    Filtro();
+//
+//                }
+//
+//            });
+//
+//        }
+//
+        trs = new TableRowSorter(tablapuesto.getModel());
+        tablapuesto.setRowSorter(trs);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnombrepuestoKeyTyped
+
+    private void txttipopuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipopuestoKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("tipo")) {
+            txttipopuesto.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txttipopuesto.getText());
+
+                    txttipopuesto.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        }
+
+        trs = new TableRowSorter(tablapuesto.getModel());
+        tablapuesto.setRowSorter(trs);    // TODO add your handling code here:
+    }//GEN-LAST:event_txttipopuestoKeyTyped
 
     // Función para realizar la modificación
     public void cargarTabla(ObjectContainer base) {
@@ -547,6 +653,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
