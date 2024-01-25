@@ -39,8 +39,9 @@ public class Comerciante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         ObjectContainer bases = Db4o.openFile(Inicio.direccion);
         cargarTipoComercio(bases);
+        cargarPuesto();
         bases.close();
-        
+
     }
 
     public void Agrupar() {
@@ -50,8 +51,6 @@ public class Comerciante extends javax.swing.JFrame {
         mibuton.add(rbnFemenino);
 
     }
-    
-    
 
     public void crearOrganizador(ObjectContainer base) {
         try {
@@ -158,7 +157,10 @@ public class Comerciante extends javax.swing.JFrame {
         txtCelular.setText("");
     }
 
-    public void cargarPuesto(ObjectContainer Base) {
+    public void cargarPuesto() {
+
+        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
+
         cboCodigoPuesto.removeAllItems();
         Query query = Base.query();
         query.constrain(Puesto.class);
@@ -170,7 +172,7 @@ public class Comerciante extends javax.swing.JFrame {
         } else {
             while (puesto.hasNext()) {
                 Puesto pu = puesto.next();
-                cboCodigoPuesto.addItem(pu.getCodigo_puesto());
+                cboCodigoPuesto.addItem(pu.getNombrePuesto());
             }
         }
         Base.close();
@@ -209,7 +211,7 @@ public class Comerciante extends javax.swing.JFrame {
         } else {
             while (comercio.hasNext()) {
                 Tipo_Comercio com = comercio.next();
-                txtTipoComercio.addItem(com.getCod_tipocomercion());
+                txtTipoComercio.addItem(com.getNombre());
             }
         }
         Base.close();
@@ -336,9 +338,7 @@ public class Comerciante extends javax.swing.JFrame {
         txtCelular = new javax.swing.JTextField();
         btnVer = new javax.swing.JButton();
         lblCodigoComerciante = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         txtTipoComercio = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -510,30 +510,11 @@ public class Comerciante extends javax.swing.JFrame {
                 btnVerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 40, 30));
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 40, 30));
         jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 150, 20));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargardatos.jpg"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 370, 50, 30));
 
         txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jPanel1.add(txtTipoComercio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 170, -1));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargardatos.jpg"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 40, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -541,7 +522,7 @@ public class Comerciante extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 30, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -594,18 +575,6 @@ public class Comerciante extends javax.swing.JFrame {
         mostrarDatosPuestoSeleccionado(bases);
         bases.close();
     }//GEN-LAST:event_btnVerActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        cargarPuesto(bases);
-        bases.close();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-//        cargarTipoComercio(bases);
-//        bases.close();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         ObjectContainer bases = Db4o.openFile(Inicio.direccion);
@@ -697,8 +666,6 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JButton btnVer;
     private javax.swing.JComboBox<String> cboCodigoPuesto;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
