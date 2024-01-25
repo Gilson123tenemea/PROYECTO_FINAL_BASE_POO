@@ -45,6 +45,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         cargar();
         txtinicio.setVisible(false);
         txtfinal.setVisible(false);
+        btnguardar.setEnabled(false);
 
     }
 
@@ -102,17 +103,40 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Evento: ");
 
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnombreKeyReleased(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Fecha de Inicio: ");
 
+        jdtinicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdtinicioPropertyChange(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText("Fecha de Fin:");
+
+        jDateChooser2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser2PropertyChange(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Descripción:");
 
         txadescripcion.setColumns(20);
         txadescripcion.setRows(5);
+        txadescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txadescripcionKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(txadescripcion);
 
         btnguardar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -149,6 +173,11 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel14.setText("Código Ubicación:");
 
         cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cuenca", "Loja", "Machala", "Quito", "Sucumbios", "Morona Santiago" }));
+        cbxubicacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxubicacionItemStateChanged(evt);
+            }
+        });
 
         tmreloj.setForeground(new java.awt.Color(51, 102, 255));
         tmreloj.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,13 +223,28 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         });
 
         cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cbxtipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxtipoItemStateChanged(evt);
+            }
+        });
         cbxtipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxtipoMouseClicked(evt);
             }
         });
+        cbxtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cbxtipoKeyReleased(evt);
+            }
+        });
 
         cboxpatrocinador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cboxpatrocinador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxpatrocinadorItemStateChanged(evt);
+            }
+        });
         cboxpatrocinador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboxpatrocinadorMouseClicked(evt);
@@ -294,7 +338,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(32, 32, 32)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -435,6 +478,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         horafinal = tmreloj.getSelectedTime();
         JOptionPane.showMessageDialog(null, " El evento se  acabara a las :" + horafinal);
+        validar();
     }//GEN-LAST:event_btnfinActionPerformed
 
     private void btninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninActionPerformed
@@ -442,6 +486,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         horai = tmreloj.getSelectedTime();
         JOptionPane.showMessageDialog(null, " Hora de Inicio" + horai);
+        validar();
+
     }//GEN-LAST:event_btninActionPerformed
 
     private void tmrelojMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tmrelojMouseClicked
@@ -569,6 +615,46 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void txtnombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyReleased
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_txtnombreKeyReleased
+
+    private void txadescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txadescripcionKeyReleased
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_txadescripcionKeyReleased
+
+    private void cboxpatrocinadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxpatrocinadorItemStateChanged
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_cboxpatrocinadorItemStateChanged
+
+    private void cbxtipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxtipoKeyReleased
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbxtipoKeyReleased
+
+    private void cbxtipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxtipoItemStateChanged
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_cbxtipoItemStateChanged
+
+    private void cbxubicacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxubicacionItemStateChanged
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_cbxubicacionItemStateChanged
+
+    private void jdtinicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdtinicioPropertyChange
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_jdtinicioPropertyChange
+
+    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+        // TODO add your handling code here:
+        validar();
+    }//GEN-LAST:event_jDateChooser2PropertyChange
+
     private byte[] obtenerBytesImagen() {
         JFileChooser se = new JFileChooser();
         se.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -643,6 +729,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
                 return;  // Salir del método si las fechas son incorrectas
             }
+            
+            validar();
 
             // Verificar si ya existe una casa con el mismo código
             ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null));
@@ -652,6 +740,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 return;
             }
 
+            
             Evento evento1 = new Evento(cod.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), cbxtipo.getSelectedItem().toString().toLowerCase(), foto);
             bd.store(evento1);
 
@@ -665,9 +754,12 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void validar() {
 
-//        if (!txtnombre.getText().trim().isEmpty() || ) {
-//            
-//        }
+        if (!txtnombre.getText().trim().toLowerCase().isEmpty() || !txadescripcion.getText().trim().toLowerCase().isEmpty() || jdtinicio.getDate() != null || jdtinicio.getDate() != null || cbxtipo.getSelectedItem() != "Seleccione" || cbxubicacion.getSelectedItem() != "Seleccione" || cboxpatrocinador.getSelectedItem() != "Seleccione" || !btnin.getModel().isPressed() || btnfin.getModel().isPressed()) {
+
+            btnguardar.setEnabled(true);
+        } else {
+            btnguardar.setEnabled(false);
+        }
     }
 
     public void ActualizarDatos(ObjectContainer base) {
