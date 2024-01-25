@@ -17,6 +17,8 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -25,14 +27,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author eliza
  */
 public class Cruds_Personal extends javax.swing.JPanel {
-
+    private TableRowSorter trs;
     String sexo;
 
     /**
@@ -40,6 +44,12 @@ public class Cruds_Personal extends javax.swing.JPanel {
      */
     public Cruds_Personal() {
         initComponents();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        cargarTabla(base);
+
+        base.close();
+
     }
 
     public static ArrayList<Personal> listaagentes = new ArrayList<>();
@@ -102,6 +112,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
         txtcodigopersonal = new javax.swing.JLabel();
         txttipopersonal = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel16 = new javax.swing.JLabel();
+        cboxbusqueda = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,8 +162,25 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 txtapellidoActionPerformed(evt);
             }
         });
+        txtapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapellidoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 178, 200, -1));
+
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 131, 200, -1));
+
+        CedulaPersonal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CedulaPersonalKeyTyped(evt);
+            }
+        });
         jPanel1.add(CedulaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 88, 200, -1));
 
         txtdireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +236,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
+        jButton1.setToolTipText("GUARDAR PERSONAL BASE DE DATOS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -215,6 +246,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         jButton2.setText("MODIFICAR");
+        jButton2.setToolTipText("MODIFICAR PERSONAL BASE DATOS");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -224,6 +256,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-eliminar (1).png"))); // NOI18N
         jButton3.setText("ELIMINAR");
+        jButton3.setToolTipText("ELIMINAR PERSONAL BASE DATOS");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -301,6 +334,23 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 50, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, 180, 10));
+
+        jLabel16.setText("Filtro de busqueda");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 20, -1, -1));
+
+        cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Nombre", "Apellido" }));
+        cboxbusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxbusquedaMouseClicked(evt);
+            }
+        });
+        cboxbusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxbusquedaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -546,6 +596,59 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         return ban_confirmar;
     }
+    
+    
+    public void deshabilitarParametros() {
+        
+       
+        
+        CedulaPersonal.setEnabled(false);
+        txtnombre.setEnabled(false);
+        txtapellido.setEnabled(false);
+        txttelefono.setEnabled(false);
+        txtemail.setEnabled(false);
+        txtdireccion.setEnabled(false);
+        txtcodigopersonal.setEnabled(false);
+        txttipopersonal.setEnabled(false);
+        txtcelular.setEnabled(false);
+        jComboBoxdepartamento.setEnabled(false);
+        fechanac.setEnabled(false);
+        jComboBoxevento.setEnabled(false);
+        rbmasculinoPro.setEnabled(false);
+                rbfemeninoPro.setEnabled(false);
+
+    }
+
+    private void habilitarCamposBusqueda(String criterioSeleccionado) {
+
+        // Deshabilitar todos los campos de búsqueda
+        deshabilitarParametros();
+        // ...
+
+        // Habilitar el campo de búsqueda correspondiente al criterio seleccionado
+        if (criterioSeleccionado.equals("Cedula")) {
+            CedulaPersonal.setEnabled(true);
+            limpiar();
+        } else if (criterioSeleccionado.equals("Nombre")) {
+            txtnombre.setEnabled(true);
+            limpiar();
+        } else if (criterioSeleccionado.equals("Apellido")) {
+            txtapellido.setEnabled(true);
+            limpiar();
+        } else if (criterioSeleccionado.equals("Seleccione")) {
+            CedulaPersonal.setEnabled(true);
+        txtnombre.setEnabled(true);
+        txtapellido.setEnabled(true);
+        txttelefono.setEnabled(true);
+        txtemail.setEnabled(true);
+        txtdireccion.setEnabled(true);
+        txtcodigopersonal.setEnabled(true);
+        txttipopersonal.setEnabled(true);
+        txtcelular.setEnabled(true);
+
+        }
+
+    }
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
@@ -739,6 +842,96 @@ public class Cruds_Personal extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void cboxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxbusquedaMouseClicked
+
+    }//GEN-LAST:event_cboxbusquedaMouseClicked
+
+    private void cboxbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxbusquedaActionPerformed
+
+        // Obtener el criterio seleccionado del JComboBox
+        String criterioSeleccionado = cboxbusqueda.getSelectedItem().toString();
+
+        // Habilitar o deshabilitar los campos de búsqueda según el criterio seleccionado
+        habilitarCamposBusqueda(criterioSeleccionado);
+    }//GEN-LAST:event_cboxbusquedaActionPerformed
+
+    public void Filtro() {
+
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+            int Columnastabla = 0;
+            trs.setRowFilter(RowFilter.regexFilter(CedulaPersonal.getText().trim(), Columnastabla));
+
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtnombre.getText().trim(), Columnastabla));
+
+        }else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+            int Columnastabla = 2;
+            trs.setRowFilter(RowFilter.regexFilter(txtapellido.getText().trim(), Columnastabla));
+
+        }
+    }
+    
+    
+    
+    
+    private void CedulaPersonalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaPersonalKeyTyped
+         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+
+            CedulaPersonal.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (CedulaPersonal.getText());
+
+                    CedulaPersonal.setText(cadena);
+                    Filtro();
+
+                }
+            });
+        }
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_CedulaPersonalKeyTyped
+
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+
+            txtnombre.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtnombre.getText());
+
+                    txtnombre.setText(cadena);
+                    Filtro();
+
+                }
+            });
+        }
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+
+            txtapellido.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtapellido.getText());
+
+                    txtapellido.setText(cadena);
+                    Filtro();
+
+                }
+            });
+        }
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtapellidoKeyTyped
+
     public void crearPersonal(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         try {
@@ -923,6 +1116,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CedulaPersonal;
     private javax.swing.ButtonGroup botones;
+    private javax.swing.JComboBox<String> cboxbusqueda;
     private com.toedter.calendar.JDateChooser fechanac;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -940,6 +1134,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -950,6 +1145,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton rbfemeninoPro;
     private javax.swing.JRadioButton rbmasculinoPro;
