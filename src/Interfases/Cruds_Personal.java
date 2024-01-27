@@ -36,6 +36,7 @@ import javax.swing.table.TableRowSorter;
  * @author eliza
  */
 public class Cruds_Personal extends javax.swing.JPanel {
+
     private TableRowSorter trs;
     String sexo;
 
@@ -186,6 +187,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
         txtdireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdireccionActionPerformed(evt);
+            }
+        });
+        txtdireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdireccionKeyTyped(evt);
             }
         });
         jPanel1.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 308, 200, -1));
@@ -596,12 +602,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         return ban_confirmar;
     }
-    
-    
+
     public void deshabilitarParametros() {
-        
-       
-        
+
         CedulaPersonal.setEnabled(false);
         txtnombre.setEnabled(false);
         txtapellido.setEnabled(false);
@@ -615,7 +618,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         fechanac.setEnabled(false);
         jComboBoxevento.setEnabled(false);
         rbmasculinoPro.setEnabled(false);
-                rbfemeninoPro.setEnabled(false);
+        rbfemeninoPro.setEnabled(false);
 
     }
 
@@ -637,14 +640,14 @@ public class Cruds_Personal extends javax.swing.JPanel {
             limpiar();
         } else if (criterioSeleccionado.equals("Seleccione")) {
             CedulaPersonal.setEnabled(true);
-        txtnombre.setEnabled(true);
-        txtapellido.setEnabled(true);
-        txttelefono.setEnabled(true);
-        txtemail.setEnabled(true);
-        txtdireccion.setEnabled(true);
-        txtcodigopersonal.setEnabled(true);
-        txttipopersonal.setEnabled(true);
-        txtcelular.setEnabled(true);
+            txtnombre.setEnabled(true);
+            txtapellido.setEnabled(true);
+            txttelefono.setEnabled(true);
+            txtemail.setEnabled(true);
+            txtdireccion.setEnabled(true);
+            txtcodigopersonal.setEnabled(true);
+            txttipopersonal.setEnabled(true);
+            txtcelular.setEnabled(true);
 
         }
 
@@ -865,18 +868,16 @@ public class Cruds_Personal extends javax.swing.JPanel {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtnombre.getText().trim(), Columnastabla));
 
-        }else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
             int Columnastabla = 2;
             trs.setRowFilter(RowFilter.regexFilter(txtapellido.getText().trim(), Columnastabla));
 
         }
     }
-    
-    
-    
-    
+
+
     private void CedulaPersonalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaPersonalKeyTyped
-         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
 
             CedulaPersonal.addKeyListener(new KeyAdapter() {
                 @Override
@@ -895,7 +896,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_CedulaPersonalKeyTyped
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
-       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
 
             txtnombre.addKeyListener(new KeyAdapter() {
                 @Override
@@ -911,6 +912,27 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtnombre.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtnombre.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtnombre.setText(txtnombre.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtnombre.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtnombreKeyTyped
 
     private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
@@ -930,7 +952,51 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtapellido.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtapellido.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtapellido.setText(txtapellido.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtapellido.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtapellidoKeyTyped
+
+    private void txtdireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtdireccion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtdireccion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtdireccion.setText(txtdireccion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtdireccion.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdireccionKeyTyped
 
     public void crearPersonal(ObjectContainer base) {
         // Verificar si todos los campos están llenos

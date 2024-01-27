@@ -208,6 +208,11 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
                 txtusuarioMouseClicked(evt);
             }
         });
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyTyped(evt);
+            }
+        });
         add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 180, -1));
 
         txtpass.setText("jPasswordField1");
@@ -429,6 +434,29 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
 
         base.close();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtusuario.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtusuario.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtusuario.setText(txtusuario.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtusuario.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioKeyTyped
     public void inhabiltarDatos() {
 
         txtapellido.setEnabled(false);

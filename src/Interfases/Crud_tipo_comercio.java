@@ -143,6 +143,12 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Descripcion Tipo Comercio:");
 
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Nombre Tipo Comercio:");
 
@@ -511,7 +517,29 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
         }
 
         trs = new TableRowSorter(jTable2.getModel());
-        jTable2.setRowSorter(trs);          // TODO add your handling code here:
+        jTable2.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField1.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField1.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField1.setText(jTextField1.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField1.getText().length() > 19) {
+            evt.consume();
+        }
+
+// TODO add your handling code here:
     }//GEN-LAST:event_jTextField1KeyTyped
     private void habilitarCamposBusqueda(String criterioSeleccionado) {
         // Deshabilitar todos los campos de búsqueda
@@ -535,6 +563,29 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         habilitarcampos();// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField2.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField2.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField2.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2KeyTyped
     public void deshabilitarParametros() {
 
         jTextField2.setEnabled(false);

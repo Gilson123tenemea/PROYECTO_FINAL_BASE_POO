@@ -25,8 +25,7 @@ import javax.swing.table.TableRowSorter;
  * @author eliza
  */
 public class Crud_Departamento extends javax.swing.JPanel {
-     
-    
+
     private TableRowSorter trs;
     public static ArrayList<Departamento> listadepartamento = new ArrayList<>();
 
@@ -92,6 +91,11 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
@@ -264,7 +268,6 @@ public class Crud_Departamento extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnModificar)
@@ -306,7 +309,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -363,14 +366,13 @@ public class Crud_Departamento extends javax.swing.JPanel {
         }
         base.close();
     }
-     
-     private void limpiarTabla() {
+
+    private void limpiarTabla() {
         DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
         model.setRowCount(0);
     }
 
-     
-     private void cargarTabla(ObjectContainer base, Departamento actividadFiltrada) {
+    private void cargarTabla(ObjectContainer base, Departamento actividadFiltrada) {
         DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
 
         Object[] row = {
@@ -386,18 +388,15 @@ public class Crud_Departamento extends javax.swing.JPanel {
         lblIdDepartamento.setText(actividad.getId_departamento());
         txtNombreDepartamento.setText(actividad.getNombre());
         txtDescripcion.setText(actividad.getDescripcion());
-       
 
-     
     }
-    
-    
+
     public void deshabilitarParametros() {
         lblIdDepartamento.setEnabled(false);
         txtNombreDepartamento.setEnabled(false);
         txtDescripcion.setEnabled(false);
     }
-    
+
     private void habilitarCamposBusqueda(String criterioSeleccionado) {
 
         // Deshabilitar todos los campos de búsqueda
@@ -408,35 +407,25 @@ public class Crud_Departamento extends javax.swing.JPanel {
         if (criterioSeleccionado.equals("Nombre")) {
             txtNombreDepartamento.setEnabled(true);
             limpiarCamposPatrocinador();
-       
+
         } else if (criterioSeleccionado.equals("Seleccione")) {
             lblIdDepartamento.setEnabled(true);
             txtNombreDepartamento.setEnabled(true);
             txtDescripcion.setEnabled(true);
-          
 
         }
 
     }
-    
-    private void limpiarCamposPatrocinador(){
-            
-            lblIdDepartamento.setText("");
-            txtNombreDepartamento.setText("");
-            txtDescripcion.setText("");
-    
-    
+
+    private void limpiarCamposPatrocinador() {
+
+        lblIdDepartamento.setText("");
+        txtNombreDepartamento.setText("");
+        txtDescripcion.setText("");
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     private void btnConfirmarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarModificacionActionPerformed
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -467,18 +456,16 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
     public void Filtro() {
 
-       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtNombreDepartamento.getText().trim(), Columnastabla));
 
         }
     }
-    
-    
-    
-    
+
+
     private void txtNombreDepartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDepartamentoKeyTyped
-        
+
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
 
             txtNombreDepartamento.addKeyListener(new KeyAdapter() {
@@ -498,12 +485,52 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
         trs = new TableRowSorter(jTableDatos.getModel());
         jTableDatos.setRowSorter(trs);
-        
-        
-        
-        
-        
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtNombreDepartamento.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtNombreDepartamento.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtNombreDepartamento.setText(txtNombreDepartamento.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtNombreDepartamento.getText().length() > 19) {
+            evt.consume();
+        }
+
+
     }//GEN-LAST:event_txtNombreDepartamentoKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDescripcion.getText().length() > 80) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
     public void modificarDepartamento(ObjectContainer base) {
         int filaSeleccionada = jTableDatos.getSelectedRow();

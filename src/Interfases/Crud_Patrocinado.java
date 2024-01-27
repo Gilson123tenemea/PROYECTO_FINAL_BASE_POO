@@ -555,6 +555,12 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("Celular:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 130, -1));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 130, -1));
 
@@ -748,7 +754,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtNombre.getText().trim(), Columnastabla));
 
-        }else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
             int Columnastabla = 2;
             trs.setRowFilter(RowFilter.regexFilter(txtApellido.getText().trim(), Columnastabla));
 
@@ -796,6 +802,26 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
 
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtNombre.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtNombre.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtNombre.setText(txtNombre.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtNombre.getText().length() > 19) {
+            evt.consume();
+        }
+
 
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -830,7 +856,51 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         }
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtApellido.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtApellido.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtApellido.setText(txtApellido.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtApellido.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDireccion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDireccion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDireccion.setText(txtDireccion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDireccion.getText().length() > 50) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyTyped
     public void vaciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         while (modelo.getRowCount() > 0) {

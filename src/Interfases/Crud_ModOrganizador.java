@@ -482,78 +482,72 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
     }//GEN-LAST:event_txtpresupuestoKeyTyped
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtnombre.getText().length() >= 20 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtnombre.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtnombre.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtnombre.setText(txtnombre.getText() + Character.toLowerCase(letra));
             evt.consume();
-        } else if (txtnombre.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
         } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtnombre.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        }           // TODO add your handling code here:
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtnombre.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreKeyTyped
 
     private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtapellido.getText().length() >= 20 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtapellido.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtapellido.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtapellido.setText(txtapellido.getText() + Character.toLowerCase(letra));
             evt.consume();
-        } else if (txtapellido.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
         } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtapellido.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        }      // TODO add your handling code here:
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtapellido.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtapellidoKeyTyped
 
     private void txtdireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccionKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtdireccion.getText().length() >= 50 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtdireccion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtdireccion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtdireccion.setText(txtdireccion.getText() + Character.toLowerCase(letra));
             evt.consume();
-        } else if (txtdireccion.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
         } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtdireccion.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        }              // TODO add your handling code here:
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtdireccion.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtdireccionKeyTyped
 
     public static boolean esNumeroDecimal(String valor) {

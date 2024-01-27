@@ -240,6 +240,27 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
 
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra o un número y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra)) && txtconsulta.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtconsulta.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isDigit(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra, número o espacio y agregar al texto en minúscula
+            txtconsulta.setText(txtconsulta.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtconsulta.getText().length() > 19) {
+            evt.consume();
+        }
+
+
     }//GEN-LAST:event_txtconsultaKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
