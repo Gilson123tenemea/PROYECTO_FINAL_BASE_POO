@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class Login_Organizador extends javax.swing.JFrame {
 
+    
+    public static String nombre=" ",apellido=" ";
     String usuario = " ", password = " ";
 
     public Login_Organizador() {
@@ -194,6 +196,8 @@ public class Login_Organizador extends javax.swing.JFrame {
             for (Organizador organizador : result) {
                 usuario = organizador.getUsuario();
                 password = organizador.getContraseña();
+                nombre=organizador.getNombre();
+                apellido=organizador.getApellido();
 
             }
             base.close();
@@ -255,6 +259,8 @@ public class Login_Organizador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login_Organizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

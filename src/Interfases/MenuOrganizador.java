@@ -17,7 +17,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Info_Organizador inf = new Info_Organizador();
     Cruds_Eventos orgaeventos = new Cruds_Eventos();
     CRUD_Encuesta orgaencuesta = new CRUD_Encuesta();
-    AceptarSolicitud orgasolicitud = new AceptarSolicitud();
+    ReporteSolicitudes orgasolicitud = new ReporteSolicitudes();
     Crud_Patrocinado orgapatrocinador = new Crud_Patrocinado();
     Cruds_Personal orgapersonal = new Cruds_Personal();
     Crud_Departamento orgadepar = new Crud_Departamento();
@@ -410,6 +410,14 @@ public class MenuOrganizador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuOrganizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
