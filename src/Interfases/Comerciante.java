@@ -708,7 +708,7 @@ public class Comerciante extends javax.swing.JFrame {
         }
 
 // Limitar la longitud del texto a 20 caracteres
-        if (txtProductosC.getText().length() > 19) {
+        if (txtProductosC.getText().length() > 200) {
             evt.consume();
         }
         // TODO add your handling code here:
@@ -731,7 +731,7 @@ public class Comerciante extends javax.swing.JFrame {
         }
 
 // Limitar la longitud del texto a 20 caracteres
-        if (txtServiciosC.getText().length() > 19) {
+        if (txtServiciosC.getText().length() > 250) {
             evt.consume();
         }
         // TODO add your handling code here:
