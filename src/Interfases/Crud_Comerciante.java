@@ -6,15 +6,16 @@
 package Interfases;
 
 import Clases.Comerciantes;
+import Clases.Reporte_solicitudes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -22,10 +23,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -37,6 +35,7 @@ import javax.swing.table.TableRowSorter;
 public class Crud_Comerciante extends javax.swing.JPanel {
 
     private TableRowSorter trs;
+    boolean aceptacion = false;
 
     /**
      * Creates new form Crud_Comerciante
@@ -90,7 +89,6 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        REPORTE = new javax.swing.JButton();
         cbxbusqueda = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtconsulta = new javax.swing.JTextField();
@@ -124,18 +122,8 @@ public class Crud_Comerciante extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 900, 410));
 
-        REPORTE.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        REPORTE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
-        REPORTE.setText("REPORTE");
-        REPORTE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                REPORTEActionPerformed(evt);
-            }
-        });
-        jPanel1.add(REPORTE, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, -1, -1));
-
         cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Nombre" }));
-        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 140, -1));
+        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 140, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Buscar por:");
@@ -154,6 +142,11 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, -1));
 
         jButton1.setText("Rechazar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 110, -1));
 
         jButton2.setText("Aceptar");
@@ -180,10 +173,6 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void REPORTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPORTEActionPerformed
-
-    }//GEN-LAST:event_REPORTEActionPerformed
-
     private void txtconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtconsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtconsultaActionPerformed
@@ -201,6 +190,27 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         }
     }
 
+    public void crearSolicitud(boolean acepta, Date fecha, String nombre, String apellido) {
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        try {
+
+            String nombre_comerciante = nombre + "" + apellido;
+            String nombre_organizador = Login_Organizador.nombre + "" + Login_Organizador.apellido;
+            
+            ObjectSet<Reporte_solicitudes> lastResult = base.queryByExample(new Reporte_solicitudes());
+            int ultimoCodigo = lastResult.size() + 1;
+
+            // Formatear el nuevo código con ceros a la izquierda
+            String nuevoCodigo = String.format("PTR-%03d", ultimoCodigo);
+
+            Reporte_solicitudes repo = new Reporte_solicitudes(nombre_organizador, nombre_comerciante, null, acepta, fecha,nuevoCodigo);
+            base.store(repo);
+        } finally {
+            base.close();
+        }
+
+    }
     private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
         // TODO add your handling code here:
 
@@ -249,11 +259,14 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         if (selectedRow != -1) {
             String nombre = (String) jTable1.getModel().getValueAt(selectedRow, 1);
             String apellido = (String) jTable1.getModel().getValueAt(selectedRow, 2);
-
             String Correodestino = (String) jTable1.getModel().getValueAt(selectedRow, 3);
 
+            Date fechaaceptacion = new Date();
+            aceptacion = true;
+
+            crearSolicitud(aceptacion, fechaaceptacion, nombre, apellido);
             try {
-                enviargmail(Correodestino, nombre, apellido);
+                enviargmailCormimado(Correodestino, nombre, apellido);
 
             } catch (MessagingException ex) {
                 System.out.println(ex.getMessage());
@@ -264,7 +277,35 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void enviargmail(String Correodestino, String nombre, String apellido) throws AddressException, MessagingException {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            String nombre = (String) jTable1.getModel().getValueAt(selectedRow, 1);
+            String apellido = (String) jTable1.getModel().getValueAt(selectedRow, 2);
+
+            String Correodestino = (String) jTable1.getModel().getValueAt(selectedRow, 3);
+
+            aceptacion = false;
+
+            Date fechaaRechaso = new Date();
+
+            crearSolicitud(aceptacion, fechaaRechaso, nombre, apellido);
+
+            try {
+                enviargmailRechaza(Correodestino, nombre, apellido);
+
+            } catch (MessagingException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void enviargmailCormimado(String Correodestino, String nombre, String apellido) throws AddressException, MessagingException {
 
         String correoo = "eventosmunicipalessacy@gmail.com";
         String contra = "tunb mkea icns uyrz";
@@ -291,14 +332,41 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         t.sendMessage(mensaje, mensaje.getAllRecipients());
         t.close();
 
-        JOptionPane.showMessageDialog(null, "Mensaje de aceptacion enviada");
-
-        boolean aceptacion = true;
+        JOptionPane.showMessageDialog(null, "Se envio un correo donde aceptamos la solicitid al comerciante");
 
     }
 
+    public void enviargmailRechaza(String Correodestino, String nombre, String apellido) throws AddressException, MessagingException {
+
+        String correoo = "eventosmunicipalessacy@gmail.com";
+        String contra = "tunb mkea icns uyrz";
+        Properties p = new Properties();
+
+        p.put("mail.smtp.host", "smtp.gmail.com");
+        p.setProperty("mail.smtp.starttls.enable", "true");
+
+        p.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        p.setProperty("mail.smtp.port", "587");
+        p.setProperty("mail.smtp.user", correoo);
+        p.setProperty("mail.smtp.auth", "true");
+
+        Session s = Session.getDefaultInstance(p);
+
+        MimeMessage mensaje = new MimeMessage(s);
+        mensaje.setFrom(new InternetAddress(correoo));
+        mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(Correodestino));
+        mensaje.setSubject("Rechazo del puesto solicitado");
+        mensaje.setText("Estimado  " + nombre + " " + apellido + "\n Hemos analizado su solicitud y llegamos a la conclusion de que el puesto solicitado no cumple con los requisitos del evento");
+
+        Transport t = s.getTransport("smtp");
+        t.connect(correoo, contra);
+        t.sendMessage(mensaje, mensaje.getAllRecipients());
+        t.close();
+
+        JOptionPane.showMessageDialog(null, "Se envio un correo al comerciente");
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton REPORTE;
     private javax.swing.JComboBox<String> cbxbusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

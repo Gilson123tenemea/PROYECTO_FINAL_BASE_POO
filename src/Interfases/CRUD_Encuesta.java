@@ -21,9 +21,11 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
 public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private TableRowSorter trs;
+
     public CRUD_Encuesta() {
         initComponents();
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -35,55 +37,55 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     public void crearEncuesta(ObjectContainer base) {
         try {
-        // Obtener el último código de Encuesta en la base de datos
-        Query query = base.query();
-        query.constrain(Encuesta.class);
-        query.descend("cod_encuesta").orderDescending();
-        ObjectSet<Encuesta> result = query.execute();
+            // Obtener el último código de Encuesta en la base de datos
+            Query query = base.query();
+            query.constrain(Encuesta.class);
+            query.descend("cod_encuesta").orderDescending();
+            ObjectSet<Encuesta> result = query.execute();
 
-        int ultimoCodigo = 1; // Por defecto, si no hay registros previos
-        if (!result.isEmpty()) {
-            Encuesta ultimaEncuesta = result.next();
-            // Obtener la parte numérica del código y convertir a entero
-            String ultimoCodigoStr = ultimaEncuesta.getCod_encuesta().replaceAll("[^0-9]", "");
-            ultimoCodigo = Integer.parseInt(ultimoCodigoStr) + 1;
+            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            if (!result.isEmpty()) {
+                Encuesta ultimaEncuesta = result.next();
+                // Obtener la parte numérica del código y convertir a entero
+                String ultimoCodigoStr = ultimaEncuesta.getCod_encuesta().replaceAll("[^0-9]", "");
+                ultimoCodigo = Integer.parseInt(ultimoCodigoStr) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda
+            String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
+            txtcodigopersonal.setText(nuevoCodigo);
+
+            // Verificar si ya existe una Encuesta con el mismo código
+            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe una Encuesta con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Encuesta y almacenar en la base de datos
+            Encuesta nuevaEncuesta = new Encuesta(
+                    nuevoCodigo,
+                    jTextField1.getText().trim(),
+                    cboxevento.getSelectedItem().toString(),
+                    jTextArea1.getText().trim(),
+                    jDateChooser1.getDate(),
+                    jDateChooser2.getDate(),
+                    jTextField2.getText().trim(),
+                    jTextField3.getText().trim(),
+                    jTextField4.getText().trim(),
+                    jTextField5.getText().trim(),
+                    jTextField6.getText().trim()
+            );
+
+            base.store(nuevaEncuesta);
+
+            JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente");
+            limpiar();
+            cargarTabla(base);
+        } finally {
+            base.close();
         }
-
-        // Formatear el código con ceros a la izquierda
-        String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
-        txtcodigopersonal.setText(nuevoCodigo);
-
-        // Verificar si ya existe una Encuesta con el mismo código
-        result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
-
-        if (!result.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ya existe una Encuesta con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Crear objeto Encuesta y almacenar en la base de datos
-        Encuesta nuevaEncuesta = new Encuesta(
-                nuevoCodigo,
-                jTextField1.getText().trim(),
-                cboxevento.getSelectedItem().toString(),
-                jTextArea1.getText().trim(),
-                jDateChooser1.getDate(),
-                jDateChooser2.getDate(),
-                jTextField2.getText().trim(),
-                jTextField3.getText().trim(),
-                jTextField4.getText().trim(),
-                jTextField5.getText().trim(),
-                jTextField6.getText().trim()
-        );
-
-        base.store(nuevaEncuesta);
-
-        JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente");
-        limpiar();
-        cargarTabla(base);
-    } finally {
-        base.close();
-    }
     }
 
     public void cargarTabla(ObjectContainer base) {
@@ -150,7 +152,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             base.close();
         }
     }
-     public void limpiar() {
+
+    public void limpiar() {
         txtcodigopersonal.setText("");
         jTextField1.setText("");
         jTextArea1.setText("");
@@ -164,6 +167,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jDateChooser2.setDate(null);
 
     }
+
     private void buscarActividad(ObjectContainer base) {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la Encuesta a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
@@ -222,7 +226,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
     }
- public void cargar(ObjectContainer base) {
+
+    public void cargar(ObjectContainer base) {
 
         try {
             cboxevento.removeAllItems();
@@ -244,7 +249,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             base.close();
 
         }
-    }                                    
+    }
+
     private void mostrarDatosEventos(ObjectContainer bases) {
         try {
             Object selectedItem = cboxevento.getSelectedItem();
@@ -287,9 +293,6 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         }
     }
 
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -424,10 +427,40 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
         jLabel13.setText("Pregunta 5");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
         jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 540, -1));
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
         jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, 540, -1));
+
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
         jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 540, -1));
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
         jPanel3.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, 540, -1));
+
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
         jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 540, -1));
         jPanel3.add(txtcodigopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 180, 20));
 
@@ -646,7 +679,28 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         }
 
         trs = new TableRowSorter(jTable2.getModel());
-        jTable2.setRowSorter(trs);     
+        jTable2.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField1.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField1.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField1.setText(jTextField1.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField1.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void cboxbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxbusquedaActionPerformed
@@ -666,6 +720,120 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jTextField5.setEnabled(true);
         jTextField6.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField2.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField2.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField2.getText().length() > 400) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField3.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField3.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField3.setText(jTextField3.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField3.getText().length() > 400) {
+            evt.consume();
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField4.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField4.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField4.setText(jTextField4.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField4.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField5.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField5.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField5.setText(jTextField5.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField5.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && jTextField6.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField6.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            jTextField6.setText(jTextField6.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField6.getText().length() > 19) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboxbusqueda;
@@ -716,16 +884,17 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("nombre")) {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(jTextField1.getText().trim(), Columnastabla));
-        }  
+        }
     }
 
     private void habilitarCamposBusqueda(String criterioSeleccionado) {
         deshabilitarParametros();
         if (criterioSeleccionado.equals("nombre")) {
             jTextField1.setEnabled(true);
-        } }
-        
-        public void deshabilitarParametros() {
+        }
+    }
+
+    public void deshabilitarParametros() {
         cboxevento.setEnabled(false);
         jTextArea1.setEnabled(false);
         jDateChooser1.setEnabled(false);
@@ -737,14 +906,5 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jTextField6.setEnabled(false);
 
     }
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

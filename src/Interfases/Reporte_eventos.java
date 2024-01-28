@@ -276,8 +276,8 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             });
 
-        }else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Seleccione")) {
-            JOptionPane.showMessageDialog(null,"Debe escoger mediante que campo desea ver los registros");
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Seleccione")) {
+            JOptionPane.showMessageDialog(null, "Debe escoger mediante que campo desea ver los registros");
         }
 
         trs = new TableRowSorter(jTable1.getModel());

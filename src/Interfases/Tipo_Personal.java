@@ -23,6 +23,7 @@ import javax.swing.table.TableRowSorter;
  * @author ADMIN_01
  */
 public class Tipo_Personal extends javax.swing.JPanel {
+
     private TableRowSorter trs;
 
     public Tipo_Personal() {
@@ -31,9 +32,9 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         cargarTabla(base);
 
-        base.close(); 
+        base.close();
     }
-    
+
     public void crearTipoPersona(ObjectContainer base) {
         if (txtDescripcion.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()) {
 
@@ -47,7 +48,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
             query.descend("id_tip_peronal").orderDescending();
             ObjectSet<Tipos_Personales> result = query.execute();
 
-            int ultimoCodigo = 1; 
+            int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Tipos_Personales ultimaUbicacion = result.next();
                 ultimoCodigo = Integer.parseInt(ultimaUbicacion.getId_tip_peronal().substring(4)) + 1;
@@ -73,16 +74,17 @@ public class Tipo_Personal extends javax.swing.JPanel {
             base.close();
         }
     }
-    
+
     public void limpiar() {
         txtcodigo.setText("");
         txtNombre.setText("");
         txtDescripcion.setText(" ");
     }
+
     public void cargarTabla(ObjectContainer base) {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
 
         ObjectSet<Tipos_Personales> result = base.queryByExample(new Tipos_Personales());
 
@@ -97,6 +99,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
         }
 
     }
+
     private void buscarPersonal(ObjectContainer base) {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Tipo de Personal a buscar:", "Buscar Tipo de Personal", JOptionPane.QUESTION_MESSAGE);
 
@@ -105,7 +108,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
             if (!result.isEmpty()) {
                 Tipos_Personales ubicacionEncontrada = result.next();
-                txtcodigo.setText(ubicacionEncontrada.getId_tip_peronal());                             
+                txtcodigo.setText(ubicacionEncontrada.getId_tip_peronal());
                 txtNombre.setText(ubicacionEncontrada.getNombre());
                 txtDescripcion.setText(ubicacionEncontrada.getDescripcion());
                 limpiarTablaPersonal();
@@ -114,23 +117,22 @@ public class Tipo_Personal extends javax.swing.JPanel {
                 Object[] row = {
                     ubicacionEncontrada.getId_tip_peronal(),
                     ubicacionEncontrada.getNombre(),
-                    ubicacionEncontrada.getDescripcion(),
-                };
+                    ubicacionEncontrada.getDescripcion(),};
                 model.addRow(row);
-                jTable1.setModel(model);  
+                jTable1.setModel(model);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró ningun Tipo de Personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         base.close();
     }
-    
-     public void deshabilitarParametros() {
+
+    public void deshabilitarParametros() {
         txtcodigo.setEnabled(false);
         txtNombre.setEnabled(false);
         txtDescripcion.setEnabled(false);
     }
-    
+
     private void habilitarCamposBusqueda(String criterioSeleccionado) {
 
         // Deshabilitar todos los campos de búsqueda
@@ -141,54 +143,47 @@ public class Tipo_Personal extends javax.swing.JPanel {
         if (criterioSeleccionado.equals("Nombre")) {
             txtNombre.setEnabled(true);
             limpiarCamposPatrocinador();
-       
+
         } else if (criterioSeleccionado.equals("Seleccione")) {
             txtcodigo.setEnabled(true);
             txtNombre.setEnabled(true);
             txtDescripcion.setEnabled(true);
-          
 
         }
 
     }
-    
-    private void limpiarCamposPatrocinador(){
-            
-            txtcodigo.setText("");
-            txtNombre.setText("");
-            txtDescripcion.setText("");
-    
-    
+
+    private void limpiarCamposPatrocinador() {
+
+        txtcodigo.setText("");
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+
     }
-    
+
     public void Filtro() {
 
-       if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+        if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtNombre.getText().trim(), Columnastabla));
 
         }
     }
-    
-    
-    
-    
-                                  
-    
-    
+
     private void limpiarTablaPersonal() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
     }
-    
+
     private void cargarDatosPersonal(Tipos_Personales TipPer) {
         txtcodigo.setText(TipPer.getId_tip_peronal());
         txtNombre.setText(TipPer.getNombre());
         txtDescripcion.setText(TipPer.getDescripcion());
     }
-     public void cargarTablaPersonal(ObjectContainer base) {
+
+    public void cargarTablaPersonal(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
 
         ObjectSet<Tipos_Personales> result = base.queryByExample(new Tipos_Personales());
 
@@ -204,8 +199,9 @@ public class Tipo_Personal extends javax.swing.JPanel {
         }
         base.close();
     }
+
     public void ActualizarDatos(ObjectContainer base) {
-        if ( txtNombre.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty()) {
+        if (txtNombre.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -289,6 +285,11 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, -1, -1));
@@ -360,7 +361,6 @@ public class Tipo_Personal extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/TipPersonal.jpg"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 350, 270));
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 300, 20));
 
@@ -401,10 +401,19 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Tipo de Personal");
 
         try {
+            
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Tipo Personal porque está asociado a un Personal", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Query querypersonal = base.query();
             querypersonal.constrain(Personal.class);
             querypersonal.descend("id_tip_peronal").constrain(codigoEliminar);
@@ -440,7 +449,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
             limpiar();
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         } finally {
             cargarTabla(base);
             base.close();
@@ -448,7 +457,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -458,7 +467,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
         buscarPersonal(base);
         base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -502,7 +511,51 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtNombre.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtNombre.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtNombre.setText(txtNombre.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtNombre.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDescripcion.getText().length() > 100) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

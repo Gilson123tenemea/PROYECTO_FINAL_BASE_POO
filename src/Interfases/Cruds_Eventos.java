@@ -107,6 +107,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtnombreKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
         });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -135,6 +138,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         txadescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txadescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txadescripcionKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(txadescripcion);
@@ -526,7 +532,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                     // Leer la imagen seleccionada como bytes
                     byte[] buffer = new byte[this.longitudBytes];
-                    try ( FileInputStream fis = new FileInputStream(archivo)) {
+                    try (FileInputStream fis = new FileInputStream(archivo)) {
                         fis.read(buffer);
                     }
 
@@ -655,6 +661,15 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         validar();
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+
+
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txadescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txadescripcionKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txadescripcionKeyTyped
+
     private byte[] obtenerBytesImagen() {
         JFileChooser se = new JFileChooser();
         se.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -666,7 +681,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                 // Leer la imagen seleccionada como bytes
                 byte[] buffer = new byte[this.longitudBytes];
-                try ( FileInputStream fis = new FileInputStream(archivo)) {
+                try (FileInputStream fis = new FileInputStream(archivo)) {
                     fis.read(buffer);
                 }
 
@@ -729,7 +744,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
                 return;  // Salir del método si las fechas son incorrectas
             }
-            
+
             validar();
 
             // Verificar si ya existe una casa con el mismo código
@@ -740,7 +755,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 return;
             }
 
-            
             Evento evento1 = new Evento(cod.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), cbxtipo.getSelectedItem().toString().toLowerCase(), foto);
             bd.store(evento1);
 
@@ -884,8 +898,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             cboxpatrocinador.addItem("Seleccione");
             while (propi.hasNext()) {
                 Patrocinador pro = propi.next();
-
+                
                 cboxpatrocinador.addItem(pro.getCodigo_patri());
+                cboxpatrocinador.addItem(pro.getNombre());
             }
         }
         Base.close();

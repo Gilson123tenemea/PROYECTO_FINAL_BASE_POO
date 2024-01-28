@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Comerciantes;
 import Clases.Puesto;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -38,51 +39,51 @@ public class Crud_Puestos extends javax.swing.JPanel {
         base.close();
     }
 
-public void crearPuestos(ObjectContainer base) {
-    // Verificar si todos los campos están llenos
-    if (txtnombrepuesto.getText().trim().isEmpty() || 
-        txttipopuesto.getText().trim().isEmpty() || 
-        txtdescripcion.getText().trim().isEmpty()) {
+    public void crearPuestos(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        if (txtnombrepuesto.getText().trim().isEmpty()
+                || txttipopuesto.getText().trim().isEmpty()
+                || txtdescripcion.getText().trim().isEmpty()) {
 
-        JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    try {
-        Query query = base.query();
-        query.constrain(Puesto.class);
-        query.descend("Codigo_puesto").orderDescending();
-        ObjectSet<Puesto> result = query.execute();
-
-        int ultimoCodigo = 1;
-        if (!result.isEmpty()) {
-            Puesto ultimoPuesto = result.next();
-            ultimoCodigo = Integer.parseInt(ultimoPuesto.getCodigo_puesto().substring(4)) + 1;
-        }
-
-        // Formatear el código con ceros a la izquierda
-        String nuevoCodigo = String.format("PUE-%03d", ultimoCodigo);
-        lblcod.setText(nuevoCodigo);
-
-        // Verificar si ya existe un Puesto con el mismo código
-        result = base.queryByExample(new Puesto(nuevoCodigo, null, null, null));
-
-        if (!result.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ya existe un Puesto con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crear objeto Puesto y almacenar en la base de datos
-        Puesto puesto1 = new Puesto(nuevoCodigo, txtnombrepuesto.getText().trim(), txtdescripcion.getText().trim(), txttipopuesto.getText().trim());
-        base.store(puesto1);
+        try {
+            Query query = base.query();
+            query.constrain(Puesto.class);
+            query.descend("Codigo_puesto").orderDescending();
+            ObjectSet<Puesto> result = query.execute();
 
-        JOptionPane.showMessageDialog(this, "Puesto creado exitosamente");
-        limpiar();
-        cargarTabla(base);
-    } finally {
-        base.close();
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Puesto ultimoPuesto = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPuesto.getCodigo_puesto().substring(4)) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda
+            String nuevoCodigo = String.format("PUE-%03d", ultimoCodigo);
+            lblcod.setText(nuevoCodigo);
+
+            // Verificar si ya existe un Puesto con el mismo código
+            result = base.queryByExample(new Puesto(nuevoCodigo, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un Puesto con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Puesto y almacenar en la base de datos
+            Puesto puesto1 = new Puesto(nuevoCodigo, txtnombrepuesto.getText().trim(), txtdescripcion.getText().trim(), txttipopuesto.getText().trim());
+            base.store(puesto1);
+
+            JOptionPane.showMessageDialog(this, "Puesto creado exitosamente");
+            limpiar();
+            cargarTabla(base);
+        } finally {
+            base.close();
+        }
     }
-}
 
     public void modificarPuesto(ObjectContainer base) {
         int filaSeleccionada = tablapuesto.getSelectedRow();
@@ -223,16 +224,12 @@ public void crearPuestos(ObjectContainer base) {
         jLabel1.setText("PUESTO");
         jLabel1.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Código Puesto:");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Nombre de Puesto:");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Puesto: ");
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Descripción:");
 
         txtnombrepuesto.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +256,11 @@ public void crearPuestos(ObjectContainer base) {
 
         txtdescripcion.setColumns(20);
         txtdescripcion.setRows(5);
+        txtdescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtdescripcion);
 
         tablapuesto.setModel(new javax.swing.table.DefaultTableModel(
@@ -338,7 +340,6 @@ public void crearPuestos(ObjectContainer base) {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel10.setText("Filtro de Busqueda:");
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar (1).png"))); // NOI18N
@@ -514,8 +515,17 @@ public void crearPuestos(ObjectContainer base) {
         // TODO add your handling code here:
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del departamento a eliminar");
         boolean encontrado = false;
-
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        
+        try{
+        
+        Comerciantes actividadAsociada = new Comerciantes(null,null , null, null, codigoEliminar,null,null,null,null,null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Puesto porque está asociado a un Comerciante", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
         Query query = base.query();
         query.constrain(Puesto.class);
@@ -544,7 +554,11 @@ public void crearPuestos(ObjectContainer base) {
             cargarTabla(base);
         }
 
-        base.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
+        }
 
     }//GEN-LAST:event_jButton3ActionPerformed
     public void buscarActividad(ObjectContainer base) {
@@ -634,7 +648,28 @@ public void crearPuestos(ObjectContainer base) {
 //        }
 //
         trs = new TableRowSorter(tablapuesto.getModel());
-        tablapuesto.setRowSorter(trs);        // TODO add your handling code here:
+        tablapuesto.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtnombrepuesto.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtnombrepuesto.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtnombrepuesto.setText(txtnombrepuesto.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtnombrepuesto.getText().length() > 19) {
+            evt.consume();
+        }
+// TODO add your handling code here:
     }//GEN-LAST:event_txtnombrepuestoKeyTyped
     public void deshabilitarParametros() {
         txtnombrepuesto.setEnabled(false);
@@ -667,7 +702,28 @@ public void crearPuestos(ObjectContainer base) {
         }
 
         trs = new TableRowSorter(tablapuesto.getModel());
-        tablapuesto.setRowSorter(trs);    // TODO add your handling code here:
+        tablapuesto.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txttipopuesto.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txttipopuesto.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txttipopuesto.setText(txttipopuesto.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txttipopuesto.getText().length() > 19) {
+            evt.consume();
+        }
+// TODO add your handling code here:
     }//GEN-LAST:event_txttipopuestoKeyTyped
     private void habilitarCamposBusqueda(String criterioSeleccionado) {
         // Deshabilitar todos los campos de búsqueda
@@ -696,6 +752,29 @@ public void crearPuestos(ObjectContainer base) {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         limpiarcampos();// TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtdescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescripcionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtdescripcion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtdescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtdescripcion.setText(txtdescripcion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtdescripcion.getText().length() > 500) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdescripcionKeyTyped
 
     // Función para realizar la modificación
     public void cargarTabla(ObjectContainer base) {

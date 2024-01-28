@@ -103,7 +103,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
             base.store(patro);
             JOptionPane.showMessageDialog(null, "Patrocinador creado exitosamente");
-            cargarTabla(base, patro);
+            cargarTablaReporte(base);
         } finally {
             base.close();
         }
@@ -157,31 +157,38 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }
 
     private void cargarTablaReporte(ObjectContainer base) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Query query = base.query();
-        query.constrain(Patrocinador.class);
-        query.descend("cedula").orderAscending();
-        ObjectSet<Patrocinador> pro = query.execute();
-        while (pro.hasNext()) {
-            Patrocinador actividadFiltrada = pro.next();
-            Object[] row = {
-                actividadFiltrada.getCedula(),
-                actividadFiltrada.getNombre(),
-                actividadFiltrada.getApellido(),
-                actividadFiltrada.getTelefono(),
-                actividadFiltrada.getCorreo(),
-                actividadFiltrada.getDireccion(),
-                actividadFiltrada.getCelular(),
-                actividadFiltrada.getGenero(),
-                actividadFiltrada.getCodigo_patri(),
-                actividadFiltrada.getDescripcion_p(),
-                actividadFiltrada.getRedes_sociales(),
-                actividadFiltrada.getFecchaNaci() != null ? sdf.format(actividadFiltrada.getFecchaNaci()) : null,};
-            model.addRow(row);
-        }
-        base.close();
+         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    Query query = base.query();
+    query.constrain(Patrocinador.class);
+    query.descend("cedula").orderAscending();
+
+    ObjectSet<Patrocinador> result = query.execute();
+
+    while (result.hasNext()) {
+        Patrocinador patrocinador = result.next();
+
+        Object[] row = {
+            patrocinador.getCedula(),
+            patrocinador.getNombre(),
+            patrocinador.getApellido(),
+            patrocinador.getTelefono(),
+            patrocinador.getCorreo(),
+            patrocinador.getDireccion(),
+            patrocinador.getCelular(),
+            patrocinador.getGenero(),
+            patrocinador.getCodigo_patri(),
+            patrocinador.getDescripcion_p(),
+            patrocinador.getRedes_sociales(),
+            patrocinador.getFecchaNaci() != null ? sdf.format(patrocinador.getFecchaNaci()) : null
+        };
+
+        model.addRow(row);
+    }
+
+    base.close();
     }
 
     public void deshabilitarParametros() {
@@ -237,7 +244,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }
 
     private void buscarPatrocinadorPorCedula(String cedulaBusqueda, ObjectContainer base) {
-        txtCedula.setEditable(false);
+
         if (cedulaBusqueda != null && !cedulaBusqueda.isEmpty()) {
             ObjectSet<Patrocinador> result = base.queryByExample(new Patrocinador(null, null, null, cedulaBusqueda, null, null, null, null, null, null, null, null));
 
@@ -555,6 +562,12 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("Celular:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 130, -1));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 130, -1));
 
@@ -667,7 +680,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         ActualizarDatos(base);
         base.close();
-        txtCedula.setEditable(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -691,50 +704,36 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        Query query = base.query();
-        query.constrain(Patrocinador.class);
-        query.descend("cedula").constrain(txtCedula.getText().trim());
+        boolean encontrado = false;
 
-        ObjectSet<Patrocinador> result = query.execute();
+        try {
+            Query query = base.query();
+            query.constrain(Patrocinador.class);
+            query.descend("cedula").constrain(txtCedula.getText().trim());
 
-        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Telefono", "Email", "Dirección", "Celular", "Género", "Código", "Descripcion", "Redes Sociales", "Fecha de Nacimiento"};
-        Object[][] data = new Object[result.size()][12];
-        int i = 0;
-        for (Patrocinador propie : result) {
-            data[i][0] = propie.getCedula();
-            data[i][1] = propie.getNombre();
-            data[i][2] = propie.getApellido();
-            data[i][3] = propie.getTelefono();
-            data[i][4] = propie.getCorreo();
-            data[i][5] = propie.getDireccion();
-            data[i][6] = propie.getCelular();
-            data[i][7] = propie.getGenero();
-            data[i][8] = propie.getCodigo_patri();
-            data[i][9] = propie.getDescripcion_p();
-            data[i][10] = propie.getRedes_sociales();
-            data[i][11] = propie.getFecchaNaci();
-            i++;
-        }
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
+            ObjectSet<Patrocinador> result = query.execute();
+            cargarTablaReporte(base);
 
-        int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Patrocinador", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (result.size() > 0) {
+                encontrado = true;
 
-        if (resul == JOptionPane.YES_OPTION) {
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Patrocinador", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
-            for (Patrocinador PORBD : result) {
-
-                base.delete(PORBD);
-                JOptionPane.showMessageDialog(null, "Se estan borrando los datos del Patrocinador");
-
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Patrocinador patrocinadorDB : result) {
+                        base.delete(patrocinadorDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Patrocinador");
+                        cargarTablaReporte(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+                }
             }
-
-        } else if (resul == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
+        } finally {
+            base.close();
         }
-        vaciarTabla();
-        limpiarCamposPatrocinador();
-        base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -748,7 +747,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtNombre.getText().trim(), Columnastabla));
 
-        }else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
+        } else if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Apellido")) {
             int Columnastabla = 2;
             trs.setRowFilter(RowFilter.regexFilter(txtApellido.getText().trim(), Columnastabla));
 
@@ -796,6 +795,26 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
 
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtNombre.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtNombre.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtNombre.setText(txtNombre.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtNombre.getText().length() > 19) {
+            evt.consume();
+        }
+
 
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -830,7 +849,51 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         }
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
+
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtApellido.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtApellido.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtApellido.setText(txtApellido.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtApellido.getText().length() > 19) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDireccion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDireccion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDireccion.setText(txtDireccion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDireccion.getText().length() > 50) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyTyped
     public void vaciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         while (modelo.getRowCount() > 0) {

@@ -177,7 +177,7 @@ public class crud_tipo extends javax.swing.JPanel {
 
                     // Leer la imagen seleccionada como bytes
                     byte[] buffer = new byte[this.longitudBytes];
-                    try ( FileInputStream fis = new FileInputStream(archivo)) {
+                    try (FileInputStream fis = new FileInputStream(archivo)) {
                         fis.read(buffer);
                     }
 
@@ -274,16 +274,14 @@ public class crud_tipo extends javax.swing.JPanel {
             resul = base.queryByExample(new Tipo_evento(cod.toLowerCase(), null, null, null));
 
             validar();
-            
-             ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento(null, txttipo.getText().trim().toLowerCase(), null, null));
+
+            ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento(null, txttipo.getText().trim().toLowerCase(), null, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Este tipo de evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            
-            
             Tipo_evento im = new Tipo_evento(cod.toLowerCase(), txttipo.getText().trim().toLowerCase(), null, foto);
             base.store(im);
             JOptionPane.showMessageDialog(null, " Se guardo exitosamente");
@@ -312,16 +310,7 @@ public class crud_tipo extends javax.swing.JPanel {
     }//GEN-LAST:event_fotolblMouseClicked
 
     private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
-        // TODO add your handling code here:
 
-        char letra = evt.getKeyChar();
-        if (Character.isDigit(letra)) {
-            evt.consume();
-        }
-
-        if (txttipo.getText().trim().length() > 19) {
-            evt.consume();
-        }
 
     }//GEN-LAST:event_txttipoKeyTyped
 
@@ -368,7 +357,7 @@ public class crud_tipo extends javax.swing.JPanel {
 
                 // Leer la imagen seleccionada como bytes
                 byte[] buffer = new byte[this.longitudBytes];
-                try ( FileInputStream fis = new FileInputStream(archivo)) {
+                try (FileInputStream fis = new FileInputStream(archivo)) {
                     fis.read(buffer);
                 }
 
