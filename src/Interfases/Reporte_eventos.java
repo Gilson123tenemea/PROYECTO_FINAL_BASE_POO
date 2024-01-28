@@ -110,19 +110,19 @@ public class Reporte_eventos extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Raanana", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CODIGO", "NOMBRE", "DESCRIPCION", "TIPO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "IMAGEN"
+                "CODIGO", "NOMBRE", "DESCRIPCION", "TIPO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "Num puestos", "Precio", "IMAGEN"
             }
         ));
         jTable1.setRowHeight(100);
@@ -165,7 +165,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 880, 540));
@@ -373,7 +373,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null);
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null,0.0,0);
         ObjectSet result = BaseD.get(ima);
         CargarDatos(result);
 
@@ -381,7 +381,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
     }
 
     public void CargarDatos(ObjectSet result) {
-        Object[][] data = new Object[result.size()][10];
+        Object[][] data = new Object[result.size()][12];
         if (result.size() == 0) {
             JOptionPane.showMessageDialog(null, "El evento no existe");
         } else {
@@ -399,19 +399,21 @@ public class Reporte_eventos extends javax.swing.JPanel {
                 data[i][6] = im.getHora_inicio();
                 data[i][7] = im.getFecha_fin() != null ? sdf.format(im.getFecha_fin()) : null;
                 data[i][8] = im.getHora_fin();
+                data[i][9] = im.getNum_puestos();
+                data[i][10] = im.getPrecio();
 
                 byte[] fotoBytes = im.getData();
                 if (fotoBytes != null) {
                     ImageIcon icono = new ImageIcon(fotoBytes);
-                    data[i][9] = icono;
+                    data[i][11] = icono;
                 } else {
-                    data[i][9] = null;
+                    data[i][11] = null;
                 }
 
                 // Configurar el modelo de la tabla con los datos y títulos de columna
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         data,
-                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "IMAGEN"}
+                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "NUM PUESTOS", "PRECIO", "IMAGEN"}
                 ));
 
                 // Asignar el renderer personalizado a la columna de la foto (columna 3)

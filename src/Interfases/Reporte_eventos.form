@@ -91,7 +91,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace pref="17" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -159,7 +159,7 @@
                       <Font name="Raanana" size="14" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="10" rowCount="10">
+                      <Table columnCount="12" rowCount="10">
                         <Column editable="true" title="CODIGO" type="java.lang.Object"/>
                         <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
                         <Column editable="true" title="DESCRIPCION" type="java.lang.Object"/>
@@ -169,6 +169,8 @@
                         <Column editable="true" title="HORA DE INICIO" type="java.lang.Object"/>
                         <Column editable="true" title="FECHA FINAL" type="java.lang.Object"/>
                         <Column editable="true" title="HORA FINAL" type="java.lang.Object"/>
+                        <Column editable="true" title="Num puestos" type="java.lang.Object"/>
+                        <Column editable="true" title="Precio" type="java.lang.Object"/>
                         <Column editable="true" title="IMAGEN" type="java.lang.Object"/>
                       </Table>
                     </Property>

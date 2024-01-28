@@ -88,6 +88,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         fotolbl = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        numpuestosspn = new javax.swing.JSpinner();
+        jTextField1 = new javax.swing.JTextField();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -264,6 +268,16 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setText("Precio");
+
+        jLabel10.setText("Numero puestos");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -287,9 +301,12 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel4))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,19 +338,22 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
-                                    .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtnombre))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton1)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(32, 32, 32)))
+                                .addGap(32, 32, 32))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(numpuestosspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
+                                        .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtnombre))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton1)))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -372,19 +392,27 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                                                 .addComponent(jLabel8)
                                                 .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jButton1))
-                                        .addGap(47, 47, 47)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel4)
                                             .addComponent(cbxtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(43, 43, 43)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(numpuestosspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cbxubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel14))
-                                        .addGap(38, 38, 38)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jdtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))))
-                                .addGap(33, 33, 33))
+                                        .addGap(51, 51, 51)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jdtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addGap(18, 18, 18)
@@ -522,7 +550,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                     // Leer la imagen seleccionada como bytes
                     byte[] buffer = new byte[this.longitudBytes];
-                    try (FileInputStream fis = new FileInputStream(archivo)) {
+                    try ( FileInputStream fis = new FileInputStream(archivo)) {
                         fis.read(buffer);
                     }
 
@@ -660,6 +688,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txadescripcionKeyTyped
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     private byte[] obtenerBytesImagen() {
         JFileChooser se = new JFileChooser();
         se.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -671,7 +703,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                 // Leer la imagen seleccionada como bytes
                 byte[] buffer = new byte[this.longitudBytes];
-                try (FileInputStream fis = new FileInputStream(archivo)) {
+                try ( FileInputStream fis = new FileInputStream(archivo)) {
                     fis.read(buffer);
                 }
 
@@ -715,7 +747,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void CrearEvento(ObjectContainer bd) {
         try {
-            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null));
+            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0));
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
@@ -730,7 +762,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             validar();
 
             // Verificar si ya existe un evento con el mismo código
-            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null));
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null, 0.0, 0));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Este evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -739,8 +771,22 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
             // Obtener el código del tipo de evento seleccionado en el ComboBox
             String codigoTipoEvento = obtenerCodigoTipoEventoSeleccionado();
+            int numpuestos = (int) numpuestosspn.getValue();
 
-            Evento evento1 = new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), codigoTipoEvento.toLowerCase(), foto);
+            Evento evento1 = new Evento(codi.toLowerCase(),
+                    txtnombre.getText().trim().toLowerCase(),
+                    txadescripcion.getText().trim().toLowerCase(),
+                    cboxpatrocinador.getSelectedItem().toString().toLowerCase(),
+                    null,
+                    codigoTipoEvento.toLowerCase(),
+                    jdtinicio.getDate(),
+                    jDateChooser2.getDate(),
+                    horai.toLowerCase(),
+                    horafinal.toLowerCase(),
+                    foto,
+                    Double.parseDouble(jTextField1.getText()),
+                    numpuestos);
+
             bd.store(evento1);
 
             JOptionPane.showMessageDialog(null, "Se ha guardado el evento exitosamente");
@@ -777,7 +823,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
 
-        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null);
+        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0);
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();
@@ -919,7 +965,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -930,7 +978,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private com.toedter.calendar.JDateChooser jdtinicio;
+    private javax.swing.JSpinner numpuestosspn;
     private com.raven.swing.TimePicker tmreloj;
     private javax.swing.JTextArea txadescripcion;
     private javax.swing.JTextField txtfinal;

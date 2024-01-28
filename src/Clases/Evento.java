@@ -17,24 +17,29 @@ public class Evento {
     private Date fecha_inicio, Fecha_fin;
     private String hora_inicio, hora_fin;
     private byte[] data;
+    private double precio;
+    private int num_puestos;            
 
     public Evento() {
     }
 
-    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, String tipo,byte[] data) {
+    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, String tipo, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, byte[] data, double precio, int num_puestos) {
         this.cod_evento = cod_evento;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.codigo_patrocinador = codigo_patrocinador;
         this.codigo_agenda = codigo_agenda;
+        this.tipo = tipo;
         this.fecha_inicio = fecha_inicio;
         this.Fecha_fin = Fecha_fin;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
-        this.tipo = tipo;
-        this.data=data;
-
+        this.data = data;
+        this.precio = precio;
+        this.num_puestos = num_puestos;
     }
+
+    
 
     public String getCod_evento() {
         return cod_evento;
@@ -123,6 +128,24 @@ public class Evento {
     public void setData(byte[] data) {
         this.data = data;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getNum_puestos() {
+        return num_puestos;
+    }
+
+    public void setNum_puestos(int num_puestos) {
+        this.num_puestos = num_puestos;
+    }
+    
+    
 
     public String toString() {
         return cod_evento + " - " + nombre;
