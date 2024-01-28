@@ -97,10 +97,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/presentacion.png"))); // NOI18N
         jLabel1.setText("EVENTOS");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Nombre: ");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de Evento: ");
 
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -112,7 +110,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Fecha de Inicio: ");
 
         jdtinicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -121,7 +118,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText("Fecha de Fin:");
 
         jDateChooser2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -130,7 +126,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Descripción:");
 
         txadescripcion.setColumns(20);
@@ -145,7 +140,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(txadescripcion);
 
-        btnguardar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
         btnguardar.setToolTipText("Crear un nuevo registro");
@@ -155,7 +149,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        btnmodificar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar (1).png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
         btnmodificar.setToolTipText("Sirve para modificar algun campo de un registro");
@@ -175,7 +168,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Código Ubicación:");
 
         cbxubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cuenca", "Loja", "Machala", "Quito", "Sucumbios", "Morona Santiago" }));
@@ -208,10 +200,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Establece la hora");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Patrocinador");
 
         txtinicio.setEditable(false);
@@ -704,7 +694,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }
 
     public void cargar() {
-
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
         try {
@@ -712,22 +701,15 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             Query query = base.query();
             query.constrain(Tipo_evento.class);
 
-            ObjectSet<Tipo_evento> evento1 = query.execute();
+            ObjectSet<Tipo_evento> eventos = query.execute();
 
             cbxtipo.addItem("Seleccione");
-            while (evento1.hasNext()) {
-
-                Tipo_evento mie = evento1.next();
-                System.out.println("tipo:" + mie.getNombre());
-                cbxtipo.addItem(mie.getNombre());
-                cod = mie.getCodigo_tipo();
-
+            while (eventos.hasNext()) {
+                Tipo_evento tipoEvento = eventos.next();
+                cbxtipo.addItem(tipoEvento.toString());  // Añade el objeto tipoEvento al ComboBox
             }
-
         } finally {
-
             base.close();
-
         }
     }
 
@@ -747,7 +729,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
             validar();
 
-            // Verificar si ya existe una casa con el mismo código
+            // Verificar si ya existe un evento con el mismo código
             ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
@@ -755,7 +737,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 return;
             }
 
-            Evento evento1 = new Evento(cod.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), cbxtipo.getSelectedItem().toString().toLowerCase(), foto);
+            // Obtener el código del tipo de evento seleccionado en el ComboBox
+            String codigoTipoEvento = obtenerCodigoTipoEventoSeleccionado();
+
+            Evento evento1 = new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), txadescripcion.getText().trim().toLowerCase(), cboxpatrocinador.getSelectedItem().toString().toLowerCase(), null, jdtinicio.getDate(), jDateChooser2.getDate(), horai.toLowerCase(), horafinal.toLowerCase(), codigoTipoEvento.toLowerCase(), foto);
             bd.store(evento1);
 
             JOptionPane.showMessageDialog(null, "Se ha guardado el evento exitosamente");
@@ -763,6 +748,20 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             limpiar();
         } finally {
             bd.close();
+        }
+    }
+
+// Método para obtener el código del tipo de evento seleccionado en el ComboBox
+    private String obtenerCodigoTipoEventoSeleccionado() {
+        String tipoEventoSeleccionado = cbxtipo.getSelectedItem().toString();
+
+        // Asumiendo que el código del tipo de evento está al principio del string antes del espacio
+        String[] partes = tipoEventoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Puedes ajustar esto según la estructura real de tu ComboBox
         }
     }
 
@@ -898,7 +897,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             cboxpatrocinador.addItem("Seleccione");
             while (propi.hasNext()) {
                 Patrocinador pro = propi.next();
-                
+
                 cboxpatrocinador.addItem(pro.getCodigo_patri());
                 cboxpatrocinador.addItem(pro.getNombre());
             }

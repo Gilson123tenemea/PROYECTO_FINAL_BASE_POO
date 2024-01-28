@@ -51,6 +51,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         base.close();
 
+        cargarDepartamentos();
+        cargarTipoPersonal();
+        cargar();
     }
 
     public static ArrayList<Personal> listaagentes = new ArrayList<>();
@@ -223,17 +226,17 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cédula", "Nombre", "Apellido", "Teléfono", "Email", "Dirección", "Género", "Código Personal", "Tipo de Personal", "Departamento", "Contacto Adicional", "Fecha Nacimiento"
+                "Cédula", "Nombre", "Apellido", "Teléfono", "Email", "Dirección", "Género", "Código Personal", "Tipo de Personal", "Departamento", "Contacto Adicional", "Fecha Nacimiento", "Cod Evento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -737,14 +740,14 @@ public class Cruds_Personal extends javax.swing.JPanel {
         ObjectSet<Personal> result = query.execute();
         cargarTabla(base);
 
-         if (result.size() > 0) {
+        if (result.size() > 0) {
             encontrado = true;
 
             int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Personal", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Personal departamentoDB : result) {
-                    
+
                     base.delete(departamentoDB);
                     JOptionPane.showMessageDialog(null, "Se están borrando los datos del Personal");
                     cargarTabla(base);
@@ -777,58 +780,53 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton4ActionPerformed
     public void cargarDepartamentos() {
-        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
-        jComboBoxdepartamento.removeAllItems();
-        Query query = Base.query();
-        query.constrain(Departamento.class);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        ObjectSet<Departamento> propi = query.execute();
+        try {
+            jComboBoxdepartamento.removeAllItems();
+            Query query = base.query();
+            query.constrain(Departamento.class);
 
-        if (propi.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No existen Departamentos", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            while (propi.hasNext()) {
-                Departamento pro = propi.next();
-                jComboBoxdepartamento.addItem(pro.getId_departamento());
+            ObjectSet<Departamento> eventos = query.execute();
+
+            jComboBoxdepartamento.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Departamento tipoEvento = eventos.next();
+                jComboBoxdepartamento.addItem(tipoEvento.toString());
             }
+        } finally {
+            base.close();
         }
-        Base.close();
     }
     private void jComboBoxdepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxdepartamentoMouseClicked
-        cargarDepartamentos();           // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxdepartamentoMouseClicked
 
-    public void cargar(ObjectContainer base) {
+    public void cargar() {
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
         try {
             jComboBoxevento.removeAllItems();
             Query query = base.query();
             query.constrain(Evento.class);
 
-            ObjectSet<Evento> evento1 = query.execute();
+            ObjectSet<Evento> eventos = query.execute();
 
-            while (evento1.hasNext()) {
-
-                Evento mie = evento1.next();
-                System.out.println("tipo:" + mie.getNombre());
-                jComboBoxevento.addItem(mie.getCod_evento());
-
+            jComboBoxevento.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Evento tipoEvento = eventos.next();
+                jComboBoxevento.addItem(tipoEvento.toString());
             }
-
         } finally {
-
             base.close();
-
         }
     }
     private void jComboBoxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxeventoMouseClicked
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        cargar(base);
-        base.close();        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxeventoMouseClicked
 
     private void txttipopersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttipopersonalMouseClicked
-        cargarTipoPersonal();
+
     }//GEN-LAST:event_txttipopersonalMouseClicked
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -991,8 +989,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_txtdireccionKeyTyped
 
     public void crearPersonal(ObjectContainer base) {
-        // Verificar si todos los campos están llenos
         try {
+            // Verificar si todos los campos están llenos
             if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -1011,7 +1009,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
 
             // Formatear el código con ceros a la izquierda
-            String nuevoCodigo = String.format("%03d", ultimoCodigo);
+            String nuevoCodigo = String.format("PER-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
 
             // Verificar si ya existe un personal con el mismo código
@@ -1021,6 +1019,15 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            // Obtener el código del tipo de personal seleccionado en el ComboBox
+            String codigoTipoPersonal = obtenerCodigoTipoPersonalSeleccionado();
+
+            // Obtener el código del departamento seleccionado en el ComboBox
+            String codigoDepartamento = obtenerCodigoDepartamentoSeleccionado();
+
+            // Obtener el código del evento seleccionado en el ComboBox
+            String codigoEvento = obtenerCodigoEventoSeleccionado();
 
             if (rbmasculinoPro.isSelected()) {
                 sexo = "Masculino";
@@ -1037,14 +1044,14 @@ public class Cruds_Personal extends javax.swing.JPanel {
             // Crear objeto Personal y almacenar en la base de datos
             Personal nuevoPersonal = new Personal(
                     nuevoCodigo,
-                    txttipopersonal.getSelectedItem().toString(),
-                    jComboBoxdepartamento.getSelectedItem().toString(),
+                    codigoTipoPersonal, // Utiliza solo el código del tipo de personal
+                    codigoDepartamento, // Utiliza solo el código del departamento
                     null,
                     null,
                     null,
                     null,
                     null,
-                    jComboBoxevento.getSelectedItem().toString(),
+                    codigoEvento, // Utiliza solo el código del evento
                     CedulaPersonal.getText().trim(),
                     txtnombre.getText().trim(),
                     txtapellido.getText().trim(),
@@ -1063,6 +1070,45 @@ public class Cruds_Personal extends javax.swing.JPanel {
             cargarTabla(base);
         } finally {
             base.close();
+        }
+    }
+
+    private String obtenerCodigoDepartamentoSeleccionado() {
+        String departamentoSeleccionado = jComboBoxdepartamento.getSelectedItem().toString();
+
+        // Asumiendo que el código del departamento está al principio del string antes del espacio
+        String[] partes = departamentoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+
+    private String obtenerCodigoTipoPersonalSeleccionado() {
+        String tipoPersonalSeleccionado = txttipopersonal.getSelectedItem().toString();
+
+        // Asumiendo que el código del tipo de personal está al principio del string antes del espacio
+        String[] partes = tipoPersonalSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+
+    private String obtenerCodigoEventoSeleccionado() {
+        String eventoSeleccionado = jComboBoxevento.getSelectedItem().toString();
+
+        // Asumiendo que el código del evento está al principio del string antes del espacio
+        String[] partes = eventoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
         }
     }
 
@@ -1132,22 +1178,23 @@ public class Cruds_Personal extends javax.swing.JPanel {
     }
 
     public void cargarTipoPersonal() {
-        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
-        txttipopersonal.removeAllItems();
-        Query query = Base.query();
-        query.constrain(Tipos_Personales.class);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        ObjectSet<Tipos_Personales> propi = query.execute();
+        try {
+            txttipopersonal.removeAllItems();
+            Query query = base.query();
+            query.constrain(Tipos_Personales.class);
 
-        if (propi.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No existen Tipos de Personal", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            while (propi.hasNext()) {
-                Tipos_Personales pro = propi.next();
-                txttipopersonal.addItem(pro.getId_tip_peronal());
+            ObjectSet<Tipos_Personales> eventos = query.execute();
+
+            txttipopersonal.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Tipos_Personales tipoEvento = eventos.next();
+                txttipopersonal.addItem(tipoEvento.toString());
             }
+        } finally {
+            base.close();
         }
-        Base.close();
     }
 
     private void mostrarDatosTipoPersonal(ObjectContainer bases) {

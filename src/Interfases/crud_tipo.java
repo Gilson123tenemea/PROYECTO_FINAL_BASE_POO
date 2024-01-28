@@ -91,7 +91,6 @@ public class crud_tipo extends javax.swing.JPanel {
         });
         jPanel1.add(btnseleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +266,7 @@ public class crud_tipo extends javax.swing.JPanel {
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+            String cod = String.format("TPE-%03d", ultimoCodigo);
             // lblcod.setText(cod);
 
             // Verificar si ya existe una casa con el mismo código

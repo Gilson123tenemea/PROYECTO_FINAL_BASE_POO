@@ -58,5 +58,8 @@ public class Puesto {
     public void setTipo_puesto(String tipo_puesto) {
         this.tipo_puesto = tipo_puesto;
     }
+    public String toString() {
+        return Codigo_puesto + " - " + NombrePuesto;
+    }
 
 }

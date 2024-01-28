@@ -55,6 +55,8 @@ public class Tipo_evento {
     public void setData(byte[] data) {
         this.data = data;
     }
-
+ public String toString() {
+        return codigo_tipo + " - " + nombre;
+    }
   
 }

@@ -46,13 +46,8 @@ public class Tipo_Comercio {
         this.descripcion = descripcion;
     }
 
-    @Override
-    public String toString() {
-        return "Tipo_Comercio{" + "Cod_tipocomercion=" + Cod_tipocomercion + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+     public String toString() {
+        return Cod_tipocomercion + " - " + nombre;
     }
-    
-    
-    
-    
-    
+   
 }

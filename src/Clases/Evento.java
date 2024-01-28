@@ -124,6 +124,8 @@ public class Evento {
         this.data = data;
     }
 
-   
+    public String toString() {
+        return cod_evento + " - " + nombre;
+    }
 
 }

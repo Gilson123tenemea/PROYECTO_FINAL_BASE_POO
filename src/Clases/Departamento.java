@@ -48,9 +48,7 @@ public class Departamento {
         this.descripcion = descripcion;
     }
 
-    @Override
     public String toString() {
-        return "Departamento{" + "id_departamento=" + id_departamento + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return id_departamento + " - " + nombre;
     }
-
 }

@@ -4,18 +4,11 @@
  * and open the template in the editor.
  */
 package Interfases;
-
 import java.awt.CardLayout;
 import javax.swing.SwingUtilities;
-
-/**
- *
- * @author eliza
- */
 public class MenuOrganizador extends javax.swing.JFrame {
 
     Info_Organizador inf = new Info_Organizador();
-    
     Cruds_Eventos orgaeventos = new Cruds_Eventos();
     CRUD_Encuesta orgaencuesta = new CRUD_Encuesta();
     ReporteSolicitudes orgasolicitud = new ReporteSolicitudes();
@@ -36,7 +29,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
     public MenuOrganizador() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
+        txtOrganizador.setText(Login_Organizador.nombre);
+        txtApellido.setText(Login_Organizador.apellido);
+        
         vista = (CardLayout) pnldinamico.getLayout();
 
         inf.updateUI();
@@ -46,6 +42,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
         this.repaint();
     }
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +83,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
         pnldinamico = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        txtOrganizador = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -250,8 +251,17 @@ public class MenuOrganizador extends javax.swing.JFrame {
         pnldinamico.setLayout(new java.awt.CardLayout());
         pnldinamico.add(jSeparator7, "card2");
 
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MENU ORGANIZADOR");
+        jLabel1.setText("Bienvenido");
+
+        txtOrganizador.setFont(new java.awt.Font("Engravers MT", 1, 12)); // NOI18N
+        txtOrganizador.setForeground(new java.awt.Color(255, 255, 255));
+        txtOrganizador.setText("jLabel2");
+
+        txtApellido.setFont(new java.awt.Font("Engravers MT", 1, 12)); // NOI18N
+        txtApellido.setForeground(new java.awt.Color(255, 255, 255));
+        txtApellido.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -264,17 +274,24 @@ public class MenuOrganizador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnldinamico, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(406, 406, 406)
-                        .addComponent(jLabel1)))
+                        .addGap(255, 255, 255)
+                        .addComponent(jLabel1)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtOrganizador)
+                    .addComponent(txtApellido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(pnldinamico, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -427,6 +444,22 @@ public class MenuOrganizador extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -467,5 +500,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel pnldinamico;
+    private javax.swing.JLabel txtApellido;
+    private javax.swing.JLabel txtOrganizador;
     // End of variables declaration//GEN-END:variables
 }

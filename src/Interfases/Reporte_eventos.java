@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Encuesta;
 import Clases.Evento;
 import Clases.ImageTableCellRenderer;
 import com.db4o.Db4o;
@@ -188,13 +189,24 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
 
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
             String Codigo = (String) jTable1.getModel().getValueAt(selectedRow, 0);
             ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
+            try{
+            
+            Encuesta actividadAsociada = new Encuesta(null,null , Codigo, null, null,null,null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Evento porque está asociado a un Encuesta", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
             Query query = base.query();
             query.constrain(Evento.class);
             query.descend("cod_evento").constrain(Codigo);
@@ -218,11 +230,16 @@ public class Reporte_eventos extends javax.swing.JPanel {
             txtconsulta.setText(" ");
             vaciarTabla();
 
+            } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             base.close();
+        }
 
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -37,10 +37,8 @@ public class Comerciante extends javax.swing.JFrame {
         initComponents();
         Agrupar();
         setLocationRelativeTo(null);
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        cargarTipoComercio(bases);
+        cargarTipoComercio();
         cargarPuesto();
-        bases.close();
 
     }
 
@@ -97,31 +95,24 @@ public class Comerciante extends javax.swing.JFrame {
 
             String sexo = " ";
             if (rbnMasculino.isSelected()) {
-                sexo = "Femenino";
+                sexo = "Masculino";  // Cambiado de "Femenino" a "Masculino"
             } else if (rbnFemenino.isSelected()) {
-                sexo = "Masculino";
+                sexo = "Femenino";  // Cambiado de "Masculino" a "Femenino"
             }
 
-            // Incremental code
-            // Crear una instancia de Comerciantes con la cédula para verificar la existencia
-            Comerciantes exampleComerciante = new Comerciantes(null, null, null, null, null, txtCedula.getText().trim(), null, null, null, null, null, null, null, null);
+            // Obtener el código del tipo de comercio seleccionado en el ComboBox
+            String codigoTipoComercio = obtenerCodigoTipoComercioSeleccionado();
 
-            // Consultar la base de datos para verificar la existencia de registros
-            ObjectSet<Comerciantes> existingRecords = base.queryByExample(exampleComerciante);
+            // Obtener el código del puesto seleccionado en el ComboBox
+            String codigoPuesto = obtenerCodigoPuestoSeleccionado();
 
-            if (!existingRecords.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un comerciante con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Resto del código...
             // Crear y almacenar el organizador
             Comerciantes miorganizador = new Comerciantes(
                     lblCodigoComerciante.getText().trim(),
-                    txtTipoComercio.getSelectedItem().toString(),
+                    codigoTipoComercio, // Utiliza solo el código del tipo de comercio
                     txtProductosC.getText().trim(),
                     txtServiciosC.getText().trim(),
-                    cboCodigoPuesto.getSelectedItem().toString(),
+                    codigoPuesto, // Utiliza solo el código del puesto
                     txtCedula.getText().trim(),
                     txtNombre.getText().trim(),
                     txtApellido.getText().trim(),
@@ -157,25 +148,72 @@ public class Comerciante extends javax.swing.JFrame {
         txtCelular.setText("");
     }
 
+    private String obtenerCodigoTipoComercioSeleccionado() {
+        String tipoComercioSeleccionado = txtTipoComercio.getSelectedItem().toString();
+
+        // Asumiendo que el código del tipo de comercio está al principio del string antes del espacio
+        String[] partes = tipoComercioSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+
+// Método para obtener el código del puesto seleccionado en el ComboBox
+    private String obtenerCodigoPuestoSeleccionado() {
+        String puestoSeleccionado = cboCodigoPuesto.getSelectedItem().toString();
+
+        // Asumiendo que el código del puesto está al principio del string antes del espacio
+        String[] partes = puestoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+
     public void cargarPuesto() {
 
-        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        cboCodigoPuesto.removeAllItems();
-        Query query = Base.query();
-        query.constrain(Puesto.class);
+        try {
+            cboCodigoPuesto.removeAllItems();
+            Query query = base.query();
+            query.constrain(Puesto.class);
 
-        ObjectSet<Puesto> puesto = query.execute();
+            ObjectSet<Puesto> eventos = query.execute();
 
-        if (puesto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No existen Puestos Disponibles", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            while (puesto.hasNext()) {
-                Puesto pu = puesto.next();
-                cboCodigoPuesto.addItem(pu.getNombrePuesto());
+            cboCodigoPuesto.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Puesto tipoEvento = eventos.next();
+                cboCodigoPuesto.addItem(tipoEvento.toString());
             }
+        } finally {
+            base.close();
         }
-        Base.close();
+    }
+
+    public void cargarTipoComercio() {
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        try {
+            txtTipoComercio.removeAllItems();
+            Query query = base.query();
+            query.constrain(Tipo_Comercio.class);
+
+            ObjectSet<Tipo_Comercio> eventos = query.execute();
+
+            txtTipoComercio.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Tipo_Comercio tipoEvento = eventos.next();
+                txtTipoComercio.addItem(tipoEvento.toString());
+            }
+        } finally {
+            base.close();
+        }
     }
 
     private void mostrarDatosPuestoSeleccionado(ObjectContainer bases) {
@@ -197,24 +235,6 @@ public class Comerciante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay puestos con información que mostrar.", "Puestos no encontrados", JOptionPane.WARNING_MESSAGE);
         }
         bases.close();
-    }
-
-    public void cargarTipoComercio(ObjectContainer Base) {
-        txtTipoComercio.removeAllItems();  // Asegúrate de limpiar el ComboBox correcto
-        Query query = Base.query();
-        query.constrain(Tipo_Comercio.class);
-
-        ObjectSet<Tipo_Comercio> comercio = query.execute();
-
-        if (comercio.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No existen Tipos de comercios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            while (comercio.hasNext()) {
-                Tipo_Comercio com = comercio.next();
-                txtTipoComercio.addItem(com.getNombre());
-            }
-        }
-        Base.close();
     }
 
     public boolean validarCampos() {
@@ -346,35 +366,27 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Cedula:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Apellido:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Email:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Telefono:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Tipo Comercio:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText("Productos:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Servicios:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
         jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 170, -1));
@@ -478,7 +490,6 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 190, 50));
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Tipo de Puesto: ");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
 
@@ -490,7 +501,6 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 160, -1));
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("Género:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
 
@@ -505,16 +515,13 @@ public class Comerciante extends javax.swing.JFrame {
         rbnFemenino.setText("Femenino");
         jPanel1.add(rbnFemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel13.setText("Código Comerciante: ");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Fecha de Nacimiento: ");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
         jPanel1.add(jDateFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 420, 170, -1));
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setText("Dirección:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 294, -1, 20));
 
@@ -525,7 +532,6 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 170, -1));
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel16.setText("Celular:");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, -1));
         jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 160, -1));
@@ -762,6 +768,38 @@ public class Comerciante extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Comerciante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

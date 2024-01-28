@@ -38,5 +38,8 @@ public class Tipos_Personales {
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
     }
+     public String toString() {
+        return id_tip_peronal + " - " + nombre;
+    }
 
 }
