@@ -5,10 +5,12 @@
  */
 package Interfases;
 
+import Clases.Evento;
 import Clases.Publico_p;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class Publico extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         agrupar();
+        cargar();
         btncrear.setEnabled(false);
     }
 
@@ -317,7 +320,7 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Evento donde se solicitara el puesto");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 300, 30));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
 
         txtPreferencias.setColumns(20);
         txtPreferencias.setRows(5);
@@ -394,7 +397,7 @@ public class Publico extends javax.swing.JFrame {
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 270, 160));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 80, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -420,7 +423,7 @@ public class Publico extends javax.swing.JFrame {
             int ultimoCodigo = result.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+            String cod = String.format("PUB-%03d", ultimoCodigo);
             lblcod.setText(cod);
 
             String seleccion = null;
@@ -461,9 +464,12 @@ public class Publico extends javax.swing.JFrame {
             }
 
             Validar();
-
-            // public Publico_p(String codigo_publico, String estado_registro, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
-            Publico_p mipublico = new Publico_p(cod, txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
+            
+            String codigoEvento = obtenerCodigoEventoSeleccionado();
+            
+            
+//            public Publico_p(String codigo_publico, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+            Publico_p mipublico = new Publico_p(cod, txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, codigoEvento, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
                     txtCelular.getText().trim(), nacimiento, sexo);
 
             base.store(mipublico);
@@ -489,6 +495,40 @@ public class Publico extends javax.swing.JFrame {
         rbnFemenino.setSelected(false);
         rbnMasculino.setSelected(false);
 
+    }
+    
+    private String obtenerCodigoEventoSeleccionado() {
+        String eventoSeleccionado = jComboBox1.getSelectedItem().toString();
+
+        // Asumiendo que el código del evento está al principio del string antes del espacio
+        String[] partes = eventoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+    
+    
+    public void cargar() {
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        try {
+            jComboBox1.removeAllItems();
+            Query query = base.query();
+            query.constrain(Evento.class);
+
+            ObjectSet<Evento> eventos = query.execute();
+
+            jComboBox1.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Evento tipoEvento = eventos.next();
+                jComboBox1.addItem(tipoEvento.toString());
+            }
+        } finally {
+            base.close();
+        }
     }
 
     public void Validar() {
