@@ -729,38 +729,30 @@ public class Cruds_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_txtemailActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
-        boolean encontrado = false;
-
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
+        boolean encontrado = false;
         Query query = base.query();
         query.constrain(Personal.class);
-        query.descend("cedula").constrain(codigoEliminar);
-
+        query.descend("cedula").constrain(CedulaPersonal.getText().trim());
         ObjectSet<Personal> result = query.execute();
         cargarTabla(base);
 
-        if (result.size() > 0) {
+         if (result.size() > 0) {
             encontrado = true;
 
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Personal", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resul == JOptionPane.YES_OPTION) {
-                for (Personal vacacionalDB : result) {
-                    // Eliminar la Casa Vacacional de la base de datos db4o
-                    base.delete(vacacionalDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
+                for (Personal departamentoDB : result) {
+                    
+                    base.delete(departamentoDB);
+                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Personal");
                     cargarTabla(base);
                 }
             } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+                JOptionPane.showMessageDialog(null, "Datos de la persona no eliminados");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
-            cargarTabla(base);
         }
-
         base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed

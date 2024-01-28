@@ -898,8 +898,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             cboxpatrocinador.addItem("Seleccione");
             while (propi.hasNext()) {
                 Patrocinador pro = propi.next();
-
+                
                 cboxpatrocinador.addItem(pro.getCodigo_patri());
+                cboxpatrocinador.addItem(pro.getNombre());
             }
         }
         Base.close();

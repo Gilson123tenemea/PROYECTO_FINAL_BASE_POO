@@ -103,7 +103,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
             base.store(patro);
             JOptionPane.showMessageDialog(null, "Patrocinador creado exitosamente");
-            cargarTabla(base, patro);
+            cargarTablaReporte(base);
         } finally {
             base.close();
         }
@@ -157,31 +157,38 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }
 
     private void cargarTablaReporte(ObjectContainer base) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Query query = base.query();
-        query.constrain(Patrocinador.class);
-        query.descend("cedula").orderAscending();
-        ObjectSet<Patrocinador> pro = query.execute();
-        while (pro.hasNext()) {
-            Patrocinador actividadFiltrada = pro.next();
-            Object[] row = {
-                actividadFiltrada.getCedula(),
-                actividadFiltrada.getNombre(),
-                actividadFiltrada.getApellido(),
-                actividadFiltrada.getTelefono(),
-                actividadFiltrada.getCorreo(),
-                actividadFiltrada.getDireccion(),
-                actividadFiltrada.getCelular(),
-                actividadFiltrada.getGenero(),
-                actividadFiltrada.getCodigo_patri(),
-                actividadFiltrada.getDescripcion_p(),
-                actividadFiltrada.getRedes_sociales(),
-                actividadFiltrada.getFecchaNaci() != null ? sdf.format(actividadFiltrada.getFecchaNaci()) : null,};
-            model.addRow(row);
-        }
-        base.close();
+         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    Query query = base.query();
+    query.constrain(Patrocinador.class);
+    query.descend("cedula").orderAscending();
+
+    ObjectSet<Patrocinador> result = query.execute();
+
+    while (result.hasNext()) {
+        Patrocinador patrocinador = result.next();
+
+        Object[] row = {
+            patrocinador.getCedula(),
+            patrocinador.getNombre(),
+            patrocinador.getApellido(),
+            patrocinador.getTelefono(),
+            patrocinador.getCorreo(),
+            patrocinador.getDireccion(),
+            patrocinador.getCelular(),
+            patrocinador.getGenero(),
+            patrocinador.getCodigo_patri(),
+            patrocinador.getDescripcion_p(),
+            patrocinador.getRedes_sociales(),
+            patrocinador.getFecchaNaci() != null ? sdf.format(patrocinador.getFecchaNaci()) : null
+        };
+
+        model.addRow(row);
+    }
+
+    base.close();
     }
 
     public void deshabilitarParametros() {
@@ -237,7 +244,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }
 
     private void buscarPatrocinadorPorCedula(String cedulaBusqueda, ObjectContainer base) {
-        txtCedula.setEditable(false);
+
         if (cedulaBusqueda != null && !cedulaBusqueda.isEmpty()) {
             ObjectSet<Patrocinador> result = base.queryByExample(new Patrocinador(null, null, null, cedulaBusqueda, null, null, null, null, null, null, null, null));
 
@@ -673,7 +680,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         ActualizarDatos(base);
         base.close();
-        txtCedula.setEditable(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -697,50 +704,36 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        Query query = base.query();
-        query.constrain(Patrocinador.class);
-        query.descend("cedula").constrain(txtCedula.getText().trim());
+        boolean encontrado = false;
 
-        ObjectSet<Patrocinador> result = query.execute();
+        try {
+            Query query = base.query();
+            query.constrain(Patrocinador.class);
+            query.descend("cedula").constrain(txtCedula.getText().trim());
 
-        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Telefono", "Email", "Dirección", "Celular", "Género", "Código", "Descripcion", "Redes Sociales", "Fecha de Nacimiento"};
-        Object[][] data = new Object[result.size()][12];
-        int i = 0;
-        for (Patrocinador propie : result) {
-            data[i][0] = propie.getCedula();
-            data[i][1] = propie.getNombre();
-            data[i][2] = propie.getApellido();
-            data[i][3] = propie.getTelefono();
-            data[i][4] = propie.getCorreo();
-            data[i][5] = propie.getDireccion();
-            data[i][6] = propie.getCelular();
-            data[i][7] = propie.getGenero();
-            data[i][8] = propie.getCodigo_patri();
-            data[i][9] = propie.getDescripcion_p();
-            data[i][10] = propie.getRedes_sociales();
-            data[i][11] = propie.getFecchaNaci();
-            i++;
-        }
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
+            ObjectSet<Patrocinador> result = query.execute();
+            cargarTablaReporte(base);
 
-        int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Patrocinador", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (result.size() > 0) {
+                encontrado = true;
 
-        if (resul == JOptionPane.YES_OPTION) {
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Patrocinador", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
-            for (Patrocinador PORBD : result) {
-
-                base.delete(PORBD);
-                JOptionPane.showMessageDialog(null, "Se estan borrando los datos del Patrocinador");
-
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Patrocinador patrocinadorDB : result) {
+                        base.delete(patrocinadorDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Patrocinador");
+                        cargarTablaReporte(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+                }
             }
-
-        } else if (resul == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
+        } finally {
+            base.close();
         }
-        vaciarTabla();
-        limpiarCamposPatrocinador();
-        base.close();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

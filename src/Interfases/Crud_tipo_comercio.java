@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Comerciantes;
 import Clases.Tipo_Comercio;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -404,6 +405,18 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
+        try{
+        
+        Comerciantes actividadAsociada = new Comerciantes(null,codigoEliminar , null, null, null,null,null,null,null,null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Tipo de Comercio porque está asociado a un Comerciante", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
+        
+        
         Query query = base.query();
         query.constrain(Tipo_Comercio.class);
         query.descend("Cod_tipocomercion").constrain(codigoEliminar);
@@ -430,8 +443,11 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No se encontró el código");
             cargarTabla(base);
         }
-
-        base.close();
+         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
+        }
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void buscarActividad(ObjectContainer base) {

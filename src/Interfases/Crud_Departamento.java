@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Departamento;
 import Clases.Organizador;
+import Clases.Personal;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -318,6 +319,16 @@ public class Crud_Departamento extends javax.swing.JPanel {
         boolean encontrado = false;
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        try{
+        
+        Personal actividadAsociada = new Personal(null, null, codigoEliminar, null, null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Departamento porque está asociado a un Personal", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
 
         Query query = base.query();
         query.constrain(Departamento.class);
@@ -346,7 +357,12 @@ public class Crud_Departamento extends javax.swing.JPanel {
             cargarTabla(base);
         }
 
-        base.close();
+         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void buscarActividad(ObjectContainer base) {
@@ -638,7 +654,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
         try {
 
             ObjectSet<Departamento> resul = Base.queryByExample(new Departamento(null, null, null));
-            int ultimoCodigo = resul.size() + 4;
+            int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
             String cod = String.format("DEP-%03d", ultimoCodigo);

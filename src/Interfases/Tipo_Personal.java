@@ -405,6 +405,15 @@ public class Tipo_Personal extends javax.swing.JPanel {
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Tipo de Personal");
 
         try {
+            
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null,null,null,null,null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
+
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Tipo Personal porque está asociado a un Personal", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Query querypersonal = base.query();
             querypersonal.constrain(Personal.class);
             querypersonal.descend("id_tip_peronal").constrain(codigoEliminar);
