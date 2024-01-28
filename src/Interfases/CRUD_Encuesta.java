@@ -33,6 +33,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();
+        cargar();
     }
 
     public void crearEncuesta(ObjectContainer base) {
@@ -63,11 +64,14 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 return;
             }
 
+            // Obtener el código del evento seleccionado en el ComboBox
+            String codigoEvento = obtenerCodigoEventoSeleccionado();
+
             // Crear objeto Encuesta y almacenar en la base de datos
             Encuesta nuevaEncuesta = new Encuesta(
                     nuevoCodigo,
                     jTextField1.getText().trim(),
-                    cboxevento.getSelectedItem().toString(),
+                    codigoEvento, // Utiliza solo el código del evento
                     jTextArea1.getText().trim(),
                     jDateChooser1.getDate(),
                     jDateChooser2.getDate(),
@@ -85,6 +89,19 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             cargarTabla(base);
         } finally {
             base.close();
+        }
+    }
+
+    private String obtenerCodigoEventoSeleccionado() {
+        String eventoSeleccionado = cboxevento.getSelectedItem().toString();
+
+        // Asumiendo que el código del evento está al principio del string antes del espacio
+        String[] partes = eventoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
         }
     }
 
@@ -227,27 +244,23 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         model.setRowCount(0);
     }
 
-    public void cargar(ObjectContainer base) {
+    public void cargar() {
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
         try {
             cboxevento.removeAllItems();
             Query query = base.query();
             query.constrain(Evento.class);
 
-            ObjectSet<Evento> evento1 = query.execute();
+            ObjectSet<Evento> eventos = query.execute();
 
-            while (evento1.hasNext()) {
-
-                Evento mie = evento1.next();
-                System.out.println("tipo:" + mie.getCod_evento());
-                cboxevento.addItem(mie.getCod_evento());
-
+            cboxevento.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Evento tipoEvento = eventos.next();
+                cboxevento.addItem(tipoEvento.toString());
             }
-
         } finally {
-
             base.close();
-
         }
     }
 
@@ -584,9 +597,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxeventoMouseClicked
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        cargar(base);
-        base.close();        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_cboxeventoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
