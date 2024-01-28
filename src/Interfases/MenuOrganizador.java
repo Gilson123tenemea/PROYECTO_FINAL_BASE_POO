@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 public class MenuOrganizador extends javax.swing.JFrame {
 
     Info_Organizador inf = new Info_Organizador();
+    
     Cruds_Eventos orgaeventos = new Cruds_Eventos();
     CRUD_Encuesta orgaencuesta = new CRUD_Encuesta();
     AceptarSolicitud orgasolicitud = new AceptarSolicitud();

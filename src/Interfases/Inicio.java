@@ -30,6 +30,7 @@ public class Inicio extends javax.swing.JFrame {
     public static String nombre = " ", codigo = "";
     String usuario = " ", password = " ";
 
+    
     public Inicio() {
         initComponents();
         setLocationRelativeTo(null);
