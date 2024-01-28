@@ -212,6 +212,7 @@ public class Login_Organizador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
         }
 
+        base.close();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSecioActionPerformed
 

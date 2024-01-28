@@ -195,8 +195,8 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         try {
 
-            String nombre_comerciante = nombre + "" + apellido;
-            String nombre_organizador = Login_Organizador.nombre + "" + Login_Organizador.apellido;
+            String nombre_comerciante = nombre + "  " + apellido;
+            String nombre_organizador = Login_Organizador.nombre + "  " + Login_Organizador.apellido;
             
             ObjectSet<Reporte_solicitudes> lastResult = base.queryByExample(new Reporte_solicitudes());
             int ultimoCodigo = lastResult.size() + 1;

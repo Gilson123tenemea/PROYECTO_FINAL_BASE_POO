@@ -10,14 +10,21 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Lenovo.User
  */
 public class ReporteSolicitudes extends javax.swing.JPanel {
+
+    private TableRowSorter trs;
 
     /**
      * Creates new form ReporteSolicitudes
@@ -26,7 +33,22 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         initComponents();
         scpanel.setVisible(false);
         pnlinfo.setVisible(true);
+        
 
+    }
+    
+    
+    public void Filtro() {
+
+        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
+            int Columnastabla = 1;
+            trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
+
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Comerciante")) {
+            int Columnastabla = 2;
+            trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
+
+        }
     }
 
     /**
@@ -38,14 +60,20 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnaceptar = new javax.swing.JButton();
+        btnrechazar = new javax.swing.JButton();
+        txtconsulta = new javax.swing.JTextField();
+        cbxbusqueda = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         pnlinfo = new javax.swing.JPanel();
         scpanel = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        jButton3.setText("jButton3");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,19 +84,30 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Reporte de solicitudes");
 
-        jButton1.setText("Solicitudes aceptadas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnaceptar.setText("Solicitudes aceptadas");
+        btnaceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnaceptarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Solicitudes Rechazadas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnrechazar.setText("Solicitudes Rechazadas");
+        btnrechazar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnrechazarActionPerformed(evt);
             }
         });
+
+        txtconsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtconsultaKeyTyped(evt);
+            }
+        });
+
+        cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "organizador", "Comerciante" }));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Buscar por:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -77,25 +116,41 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(278, 278, 278)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(131, 131, 131)
+                                .addComponent(btnaceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(btnrechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(btnaceptar)
+                    .addComponent(btnrechazar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 100));
@@ -140,7 +195,7 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
         // TODO add your handling code here:
 
         pnlinfo.setVisible(false);
@@ -154,7 +209,7 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
 
         ObjectSet<Reporte_solicitudes> result = query.execute();
 
-        String[] columnNames = {"Solicitud","Organizador", "Comerciante", "Puesto", "Fecha de aceptacion"};
+        String[] columnNames = {"Solicitud", "Organizador", "Comerciante", "Puesto", "Fecha de aceptacion"};
 
         Object[][] data = new Object[result.size()][5];
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -177,9 +232,9 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         base.close();
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnaceptarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnrechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrechazarActionPerformed
         // TODO add your handling code here:
 
         pnlinfo.setVisible(false);
@@ -199,13 +254,14 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         Object[][] data = new Object[result.size()][5];
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+        String puesto = "ninguno";
         int i = 0;
         for (Reporte_solicitudes soli : result) {
             data[i][0] = soli.getCodigo_soli();
 
             data[i][1] = soli.getOrganizador();
             data[i][2] = soli.getComerciante();
-            data[i][3] = soli.getPuesto();
+            data[i][3] = puesto;
             data[i][4] = soli.getFecha_aceptacion() != null ? sdf.format(soli.getFecha_aceptacion()) : null;
 
             i++;
@@ -215,17 +271,61 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         jTable1.setModel(model);
 
         base.close();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnrechazarActionPerformed
+
+    private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
+        // TODO add your handling code here:
+        
+          if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
+
+            txtconsulta.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtconsulta.getText());
+
+                    txtconsulta.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Comerciante")) {
+            txtconsulta.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(final KeyEvent e) {
+
+                    String cadena = (txtconsulta.getText());
+
+                    txtconsulta.setText(cadena);
+                    Filtro();
+
+                }
+
+            });
+
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Seleccione")) {
+            JOptionPane.showMessageDialog(null, "Debe escoger mediante que campo desea ver los registros");
+        }
+
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
+    }//GEN-LAST:event_txtconsultaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnaceptar;
+    private javax.swing.JButton btnrechazar;
+    private javax.swing.JComboBox<String> cbxbusqueda;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlinfo;
     private javax.swing.JScrollPane scpanel;
+    private javax.swing.JTextField txtconsulta;
     // End of variables declaration//GEN-END:variables
 }

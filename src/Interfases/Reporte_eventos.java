@@ -190,56 +190,54 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
             String Codigo = (String) jTable1.getModel().getValueAt(selectedRow, 0);
             ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-            try{
-            
-            Encuesta actividadAsociada = new Encuesta(null,null , Codigo, null, null,null,null,null,null,null,null);
-            ObjectSet resultActividad = base.get(actividadAsociada);
+            try {
 
-            if (resultActividad.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar este Evento porque está asociado a un Encuesta", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            
-            Query query = base.query();
-            query.constrain(Evento.class);
-            query.descend("cod_evento").constrain(Codigo);
+                Encuesta actividadAsociada = new Encuesta(null, null, Codigo, null, null, null, null, null, null, null, null);
+                ObjectSet resultActividad = base.get(actividadAsociada);
 
-            ObjectSet<Evento> result = query.execute();
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar algun evento", "Confirmacio", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Evento evento1 : result) {
-
-                    // Eliminar el agente de la base de datos db4o
-                    base.delete(evento1);
-                    JOptionPane.showMessageDialog(null, "Se estan borrando los datos del evento");
-
+                if (resultActividad.size() > 0) {
+                    JOptionPane.showMessageDialog(this, "No se puede eliminar este Evento porque está asociado a un Encuesta", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Nose ha eliminado el veneto");
-            }
 
-            txtconsulta.setText(" ");
-            vaciarTabla();
+                Query query = base.query();
+                query.constrain(Evento.class);
+                query.descend("cod_evento").constrain(Codigo);
+
+                ObjectSet<Evento> result = query.execute();
+
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar algun evento", "Confirmacio", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Evento evento1 : result) {
+
+                        // Eliminar el agente de la base de datos db4o
+                        base.delete(evento1);
+                        JOptionPane.showMessageDialog(null, "Se estan borrando los datos del evento");
+
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Nose ha eliminado el veneto");
+                }
+
+                txtconsulta.setText(" ");
+                vaciarTabla();
 
             } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            base.close();
-        }
+                e.printStackTrace();
+            } finally {
+                base.close();
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -318,7 +316,10 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             String fechaf = (String) jTable1.getModel().getValueAt(selectedRow, 7);
             String horaf = (String) jTable1.getModel().getValueAt(selectedRow, 8);
-            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 9);
+            int cantidad = (int) jTable1.getModel().getValueAt(selectedRow, 9);
+
+            double precio = (double) jTable1.getModel().getValueAt(selectedRow, 10);
+            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 11);
 
             JLabel imageLabel = new JLabel(icono);
             JPanel panel = new JPanel();
@@ -326,7 +327,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, new Object[]{"Codigo del evento: " + Codigo, "Nombre del evento: " + nombre, "Descripcion: " + descripcion, "Tipo de evento: "
                 + tipo, "Patrocinador: " + patrocinador, "Fecha de inicio: " + Fechai, "Hora de inicio: " + horai,
-                "Fecha final: " + fechaf, "hora final: " + horaf, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
+                "Fecha final: " + fechaf, "hora final: " + horaf,"Cantidad de Puestos"+cantidad,"Precio del evento"+precio, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
@@ -373,7 +374,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null,0.0,0);
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0);
         ObjectSet result = BaseD.get(ima);
         CargarDatos(result);
 
@@ -417,7 +418,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
                 ));
 
                 // Asignar el renderer personalizado a la columna de la foto (columna 3)
-                jTable1.getColumnModel().getColumn(9).setCellRenderer(new ImageTableCellRenderer());
+                jTable1.getColumnModel().getColumn(11).setCellRenderer(new ImageTableCellRenderer());
             }
         }
 

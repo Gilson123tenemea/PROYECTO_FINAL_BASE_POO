@@ -97,6 +97,9 @@ public class Publico extends javax.swing.JFrame {
         lblpreferencia = new javax.swing.JLabel();
         txtCelular = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -236,7 +239,7 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Contraseña:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
 
         jPasswordPublico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordPublico.addActionListener(new java.awt.event.ActionListener() {
@@ -249,7 +252,7 @@ public class Publico extends javax.swing.JFrame {
                 jPasswordPublicoKeyReleased(evt);
             }
         });
-        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 180, -1));
+        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 180, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/REGRESAR.jpg"))); // NOI18N
@@ -263,10 +266,10 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Codigo Publico:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
 
         lblcod.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 170, 20));
+        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 170, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Fecha de Nacimiento: ");
@@ -310,11 +313,11 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Celular:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setText("Preferencias: ");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, 30));
+        jLabel15.setText("Evento donde se solicitara el puesto");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 300, 30));
 
         txtPreferencias.setColumns(20);
         txtPreferencias.setRows(5);
@@ -325,7 +328,7 @@ public class Publico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtPreferencias);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 180, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 180, 80));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Dirección:");
@@ -378,10 +381,20 @@ public class Publico extends javax.swing.JFrame {
 
         lblpreferencia.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 180, 20));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 180, 30));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 180, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 240, -1));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setText("Preferencias: ");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, 30));
+
+        jLabel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 270, 160));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -800,13 +813,16 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JButton btncrear;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateFechaNaci;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
