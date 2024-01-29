@@ -138,7 +138,7 @@
         <Component class="com.toedter.calendar.JDateChooser" name="Date_patro">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="270" width="180" height="-1"/>
+              <AbsoluteConstraints x="530" y="280" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -249,7 +249,7 @@
         <Component class="javax.swing.JTextField" name="txtRedes">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="220" width="190" height="-1"/>
+              <AbsoluteConstraints x="530" y="220" width="190" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
