@@ -11,6 +11,7 @@ public class Patrocinador extends Persona{
     public Patrocinador() {
         super();
     }
+    
 
     public Patrocinador(String codigo_patri, String Descripcion_p, String redes_sociales, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
         super(cedula, nombre, apellido, telefono, correo, direccion, celular, fecchaNaci, genero);
@@ -43,5 +44,8 @@ public class Patrocinador extends Persona{
         this.redes_sociales = redes_sociales;
     }
     
-    
+     public String toString() {
+        return codigo_patri + " - " + super.getNombre();
+    }
+
 }
