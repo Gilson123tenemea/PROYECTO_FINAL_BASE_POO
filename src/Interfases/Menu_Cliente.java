@@ -16,6 +16,9 @@ public class Menu_Cliente extends javax.swing.JFrame {
      */
     public Menu_Cliente() {
         initComponents();
+        txtNombre.setText(Inicio.nombre);
+        txtApellido.setText(Inicio.apellido);
+        
     }
 
     
@@ -42,6 +45,12 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
+        txtNombre = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        jSeparator13 = new javax.swing.JSeparator();
 
         jMenu1.setText("jMenu1");
 
@@ -69,7 +78,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 940, 600));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 580));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/paso-a-paso.png"))); // NOI18N
         jButton1.setText("Eentos Proximos");
@@ -111,7 +120,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 610, 10, 60));
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 610, 10, 60));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 10, 20));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,6 +141,28 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jSeparator10.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator10.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 160, 10));
+
+        txtNombre.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtNombre.setText("jLabel1");
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, 20));
+
+        txtApellido.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        txtApellido.setForeground(new java.awt.Color(0, 0, 0));
+        txtApellido.setText("jLabel2");
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, 20));
+
+        jLabel1.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Bienvenido");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
+        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 220, 10));
+
+        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 610, 10, 60));
+
+        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 10, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,12 +228,16 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -211,5 +246,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel txtApellido;
+    private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }

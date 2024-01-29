@@ -550,7 +550,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                     // Leer la imagen seleccionada como bytes
                     byte[] buffer = new byte[this.longitudBytes];
-                    try ( FileInputStream fis = new FileInputStream(archivo)) {
+                    try (FileInputStream fis = new FileInputStream(archivo)) {
                         fis.read(buffer);
                     }
 
@@ -703,7 +703,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
                 // Leer la imagen seleccionada como bytes
                 byte[] buffer = new byte[this.longitudBytes];
-                try ( FileInputStream fis = new FileInputStream(archivo)) {
+                try (FileInputStream fis = new FileInputStream(archivo)) {
                     fis.read(buffer);
                 }
 
@@ -751,7 +751,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String codi = String.format("%03d", ultimoCodigo);
+            String codi = String.format("EVE-%03d", ultimoCodigo);
 
             // Validar que la fecha de inicio sea anterior a la fecha de fin
             if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
@@ -762,7 +762,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             validar();
 
             // Verificar si ya existe un evento con el mismo código
-            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi.toLowerCase(), txtnombre.getText().trim().toLowerCase(), null, null, null, null, null, null, null, null, null, 0.0, 0));
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Este evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -773,16 +773,19 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             String codigoTipoEvento = obtenerCodigoTipoEventoSeleccionado();
             int numpuestos = (int) numpuestosspn.getValue();
 
-            Evento evento1 = new Evento(codi.toLowerCase(),
-                    txtnombre.getText().trim().toLowerCase(),
-                    txadescripcion.getText().trim().toLowerCase(),
-                    cboxpatrocinador.getSelectedItem().toString().toLowerCase(),
+            // Obtener el código del patrocinador seleccionado en el ComboBox
+            String codigoPatrocinador = obtenerCodigoPatrocinadorSeleccionado();
+
+            Evento evento1 = new Evento(codi,
+                    txtnombre.getText().trim(),
+                    txadescripcion.getText().trim(),
+                    codigoPatrocinador,
                     null,
-                    codigoTipoEvento.toLowerCase(),
+                    codigoTipoEvento,
                     jdtinicio.getDate(),
                     jDateChooser2.getDate(),
                     horai.toLowerCase(),
-                    horafinal.toLowerCase(),
+                    horafinal,
                     foto,
                     Double.parseDouble(jTextField1.getText()),
                     numpuestos);
@@ -811,9 +814,22 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         }
     }
 
+    private String obtenerCodigoPatrocinadorSeleccionado() {
+        String patrocinadorSeleccionado = cboxpatrocinador.getSelectedItem().toString();
+
+        // Asumiendo que el código del patrocinador está al principio del string antes del espacio
+        String[] partes = patrocinadorSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Puedes ajustar esto según la estructura real de tu ComboBox
+        }
+    }
+
     public void validar() {
 
-        if (!txtnombre.getText().trim().toLowerCase().isEmpty() || !txadescripcion.getText().trim().toLowerCase().isEmpty() || jdtinicio.getDate() != null || jdtinicio.getDate() != null || cbxtipo.getSelectedItem() != "Seleccione" || cbxubicacion.getSelectedItem() != "Seleccione" || cboxpatrocinador.getSelectedItem() != "Seleccione" || !btnin.getModel().isPressed() || btnfin.getModel().isPressed()) {
+        if (!txtnombre.getText().trim().isEmpty() || !txadescripcion.getText().trim().isEmpty() || jdtinicio.getDate() != null || jdtinicio.getDate() != null || cbxtipo.getSelectedItem() != "Seleccione" || cbxubicacion.getSelectedItem() != "Seleccione" || cboxpatrocinador.getSelectedItem() != "Seleccione" || !btnin.getModel().isPressed() || btnfin.getModel().isPressed()) {
 
             btnguardar.setEnabled(true);
         } else {
@@ -827,15 +843,15 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();
-        mievento1.setNombre(txtnombre.getText().trim().toLowerCase());
-        mievento1.setDescripcion(txadescripcion.getText().trim().toLowerCase());
-        mievento1.setTipo(cbxtipo.getSelectedItem().toString().toLowerCase());
-        mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString().toLowerCase());
+        mievento1.setNombre(txtnombre.getText().trim());
+        mievento1.setDescripcion(txadescripcion.getText().trim());
+        mievento1.setTipo(cbxtipo.getSelectedItem().toString());
+        mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString());
         mievento1.setFecha_inicio(jdtinicio.getDate());
         mievento1.setHora_inicio(horai.toLowerCase());
 
         mievento1.setFecha_fin(jDateChooser2.getDate());
-        mievento1.setHora_fin(horafinal.toLowerCase());
+        mievento1.setHora_fin(horafinal);
         mievento1.setData(foto);
 
         base.set(mievento1);
@@ -930,25 +946,23 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }
 
     public void cargarPatrocinadores() {
-        ObjectContainer Base = Db4o.openFile(Inicio.direccion);
-        cboxpatrocinador.removeAllItems();
-        Query query = Base.query();
-        query.constrain(Patrocinador.class);
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        ObjectSet<Patrocinador> propi = query.execute();
+        try {
+            cboxpatrocinador.removeAllItems();
+            Query query = base.query();
+            query.constrain(Patrocinador.class);
 
-        if (propi.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No existen Patrocinadores", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+            ObjectSet<Patrocinador> eventos = query.execute();
+
             cboxpatrocinador.addItem("Seleccione");
-            while (propi.hasNext()) {
-                Patrocinador pro = propi.next();
-
-                cboxpatrocinador.addItem(pro.getCodigo_patri());
-                cboxpatrocinador.addItem(pro.getNombre());
+            while (eventos.hasNext()) {
+                Patrocinador tipoEvento = eventos.next();
+                cboxpatrocinador.addItem(tipoEvento.toString());  // Añade el objeto tipoEvento al ComboBox
             }
+        } finally {
+            base.close();
         }
-        Base.close();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
