@@ -705,94 +705,162 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        buscarActividad(base);
+
+        String nombre = "", apellido = "", email = "", telefono = "", codigo = "";
+        Date fecha = null;
+        int edad = 0;
+
+        Query query = base.query();
+        query.constrain(Patrocinador.class);
+        query.descend("cedula").constrain(txtCedula.getText().trim());
+
+        ObjectSet<Patrocinador> result = query.execute();
+
+        if (!result.isEmpty()) {
+            // Si se encontraron resultados, cargarlos en la tabla
+            //String[] columnNames = {"CEDULA", "NOMBRE", "APELLIDO", "EMAIL", "TELEFONO", "OCUPACION", "GENERO", "CODIGO", "F.NACIMIENTO"};
+            Object[][] data = new Object[result.size()][12];
+            int i = 0;
+
+            for (Patrocinador propietario : result) {
+                data[i][0] = propietario.getCedula();
+                data[i][1] = propietario.getNombre();
+                data[i][2] = propietario.getApellido();
+                data[i][3] = propietario.getCorreo();
+                data[i][4] = propietario.getTelefono();
+                data[i][5] = propietario.getDireccion();
+                data[i][6] = propietario.getGenero();
+                data[i][7] = propietario.getCelular();
+                data[i][8] = propietario.getCodigo_patri();
+                data[i][9] = propietario.getDescripcion_p();
+                data[i][10] = propietario.getRedes_sociales();
+                data[i][11] = propietario.getFecchaNaci();
+                i++;
+            }
+
+            //DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            //// jTable1.setModel(model);
+            jTable1.repaint();
+
+            // Obtener el primer resultado para mostrar los datos en los campos
+            Patrocinador primerResultado = result.get(0);
+            txtNombre.setText(primerResultado.getNombre().trim());
+            txtApellido.setText(primerResultado.getApellido().trim());
+            txtEmail.setText(primerResultado.getCorreo().trim());
+            txtTelefono.setText(primerResultado.getTelefono().trim());
+            txtDireccion.setText(primerResultado.getDireccion().trim());
+            txtCelular.setText(primerResultado.getCelular().trim());
+            Date_patro.setDate(primerResultado.getFecchaNaci());
+            codig_patrio.setText(primerResultado.getCodigo_patri().trim());
+            txtDescripcion.setText(primerResultado.getDescripcion_p().trim());
+            txtRedes.setText(primerResultado.getRedes_sociales().trim());
+
+        } else {
+            // Si no se encontraron resultados, mostrar un mensaje de error
+            JOptionPane.showMessageDialog(null, "No se encontró ningún propietario con la cedula ingresada");
+        }
+
+        base.close();
+
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void buscarActividad(ObjectContainer base) {
-        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese la cédula del Patrocinador a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
-
-        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            try {
-                // Crear y ejecutar la Query
-                Query query = base.query();
-                query.constrain(Patrocinador.class);
-                query.descend("cedula").constrain(codigoBusqueda.trim());
-                ObjectSet<Patrocinador> result = query.execute();
-
-                if (!result.isEmpty()) {
-                    Patrocinador patrocinadorEncontrado = result.next();
-                    cargarDatosPatrocinador(patrocinadorEncontrado);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró ningún Patrocinador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error durante la búsqueda. Consulta los registros para obtener más detalles.", "Error", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                // Cargar la tabla antes de cerrar la base de datos
-                cargarTablaReporte(base);
-
-                // Asegúrate de cerrar la base de datos solo si está abierta
-                if (!base.ext().isClosed()) {
-                    base.close();
-                }
-            }
-        } else {
-            // El usuario canceló la operación o no ingresó un código válido
-            JOptionPane.showMessageDialog(this, "Operación cancelada o código no válido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-    }
+    public void limpiar() {
+        
+        txtCedula.setText("");
+    txtNombre.setText("");
+    txtApellido.setText("");
+    txtEmail.setText("");
+    txtTelefono.setText("");
+    txtDireccion.setText("");
+    txtCelular.setText("");
+    Date_patro.setDate(null); // Limpiar la fecha
+    codig_patrio.setText("");
+    txtDescripcion.setText("");
+    txtRedes.setText("");
+}
+    
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         cargarTablaReporte(base);
         base.close();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    
+    
+    
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String cedulaEliminar = JOptionPane.showInputDialog("Ingrese la cédula del Patrocinador a eliminar");
 
-        // No cierres la base de datos aquí, mantenla abierta hasta que hayas completado las operaciones.
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        String codigopro = codig_patrio.getText().trim();
+
         try {
+            // Verificar si el propietario tiene una Casa Vacacional asociada
+            Evento casaAsociada = new Evento(null, null, null, codigopro, null, null, null, null, null, null, null, 0.0, 0);
+            ObjectSet resultCasa = base.get(casaAsociada);
 
-            Evento actividadAsociada = new Evento(null, null, null, cedulaEliminar, null, null, null, null, null, null, null, 0.0, 0);
-            ObjectSet resultActividad = base.get(actividadAsociada);
-
-            if (resultActividad.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar este Patrocinador porque está asociado a un Evento", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (resultCasa.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar el Propietario porque tiene una Casa en Alquiler", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Query query = base.query();
-            query.constrain(Patrocinador.class);
-            query.descend("cedula").constrain(cedulaEliminar);
+            // Buscar y mostrar datos del Propietario
+            Query queryPropietario = base.query();
+            queryPropietario.constrain(Patrocinador.class);
+            queryPropietario.descend("codigo_patri").constrain(codigopro);
 
-            ObjectSet<Patrocinador> result = query.execute();
-            cargarTablaReporte(base);
+            ObjectSet<Patrocinador> resultPropietario = queryPropietario.execute();
 
-            if (result.size() > 0) {
-                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos del Patrocinador?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (resultPropietario.size() > 0) {
+                //String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "FGénero"};
+                Object[][] data = new Object[resultPropietario.size()][12];
+
+                int i = 0;
+                for (Patrocinador propie : resultPropietario) {
+                    data[i][0] = propie.getCedula();
+                    data[i][1] = propie.getNombre();
+                    data[i][2] = propie.getApellido();
+                    data[i][3] = propie.getCorreo();
+                    data[i][4] = propie.getTelefono();
+                    data[i][5] = propie.getDireccion();
+                    data[i][6] = propie.getGenero();
+                    data[i][7] = propie.getCelular();
+                    data[i][8] = propie.getCodigo_patri();
+                    data[i][9] = propie.getDescripcion_p();
+                    data[i][10] = propie.getRedes_sociales();
+                    data[i][11] = propie.getFecchaNaci();
+                    i++;
+                }
+
+                // DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                //jTable1.setModel(model);
+                // Preguntar al usuario si desea eliminar al Propietario
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos del Propietario?", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
                 if (resul == JOptionPane.YES_OPTION) {
-                    for (Patrocinador patrocinadorDB : result) {
-                        // Eliminar la Casa Vacacional de la base de datos db4o
-                        base.delete(patrocinadorDB);
-                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Patrocinador");
+                    // Eliminar al Propietario
+                    for (Patrocinador PORBD : resultPropietario) {
+                        base.delete(PORBD);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Propietario");
                     }
-                    cargarTablaReporte(base);
                 } else if (resul == JOptionPane.NO_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Datos del Patrocinador no eliminados");
+                    JOptionPane.showMessageDialog(null, "Datos del Propietario no eliminados");
                 }
+
+                // Limpiar la tabla después de la eliminación
+                vaciarTabla();
+                 limpiar();
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la cédula");
+                JOptionPane.showMessageDialog(null, "No se encontró el Propietario con la cédula ingresada", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Manejar la excepción de manera adecuada
         } finally {
-            base.close(); // Cierra la base de datos después de completar las operaciones.
+            base.close();
         }
+
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -954,7 +1022,10 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionKeyTyped
     public void vaciarTabla() {
+        // Obtenemos el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+        // Borramos las filas antiguas del modelo de tabla
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
