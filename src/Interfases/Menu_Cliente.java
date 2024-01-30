@@ -5,21 +5,85 @@
  */
 package Interfases;
 
+import Clases.Tipo_evento;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 /**
  *
  * @author ADMIN_01
  */
 public class Menu_Cliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu_Cliente
-     */
+    private List <JButton> botones;
+    private int indice;
+    byte[] foto1;
+    
     public Menu_Cliente() {
         initComponents();
         txtNombre.setText(Inicio.nombre);
         txtApellido.setText(Inicio.apellido);
         
+        botones = new ArrayList <> ();
+        indice = 0;
+        ObtenerEvento();
+        
     }
+    
+    public void ObtenerEvento (){
+    ObjectContainer base = Db4o.openFile(Inicio.direccion);
+    ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento());
+
+    for (Tipo_evento tipoevento1 : result) {
+        // Asegúrate de tener un método getData() en la clase Tipo_evento
+        byte[] foto = tipoevento1.getData();
+
+        if (foto != null) {
+            ImageIcon iconoOriginal = new ImageIcon(foto);
+
+            // Escalar la imagen
+            int nuevaAnchura = 50;  // Establece la nueva anchura deseada
+            int nuevaAltura = -1;   // Mantén la proporción original en la altura
+            Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
+                    nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
+
+            // Crea un nuevo ImageIcon escalado
+            ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
+
+            JButton boton = new JButton();
+            boton.setIcon(iconoEscalado);
+            panel.add(boton);
+            botones.add(boton);
+            indice++;
+        }
+    }
+
+    // Actualiza la interfaz gráfica después de agregar los botones
+    panel.updateUI();
+
+    base.close();
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     @SuppressWarnings("unchecked")
@@ -31,6 +95,8 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -67,21 +133,30 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setLayout(new java.awt.GridLayout(0, 3));
+        jScrollPane1.setViewportView(panel);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 940, 580));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/paso-a-paso.png"))); // NOI18N
         jButton1.setText("Eentos Proximos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calificacion-de-estrellas.png"))); // NOI18N
@@ -186,6 +261,10 @@ public class Menu_Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +292,8 @@ public class Menu_Cliente extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -233,6 +314,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -246,6 +328,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JPanel panel;
     private javax.swing.JLabel txtApellido;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
