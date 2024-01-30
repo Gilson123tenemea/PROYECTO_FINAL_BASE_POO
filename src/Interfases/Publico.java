@@ -5,12 +5,10 @@
  */
 package Interfases;
 
-import Clases.Evento;
 import Clases.Publico_p;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ public class Publico extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         agrupar();
-        cargar();
         btncrear.setEnabled(false);
     }
 
@@ -100,9 +97,6 @@ public class Publico extends javax.swing.JFrame {
         lblpreferencia = new javax.swing.JLabel();
         txtCelular = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,7 +236,7 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Contraseña:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
 
         jPasswordPublico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordPublico.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +249,7 @@ public class Publico extends javax.swing.JFrame {
                 jPasswordPublicoKeyReleased(evt);
             }
         });
-        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 180, -1));
+        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 180, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/REGRESAR.jpg"))); // NOI18N
@@ -269,10 +263,10 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Codigo Publico:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
         lblcod.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 170, 20));
+        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 170, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Fecha de Nacimiento: ");
@@ -316,11 +310,11 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Celular:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setText("Evento donde se solicitara el puesto");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
+        jLabel15.setText("Preferencias: ");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, 30));
 
         txtPreferencias.setColumns(20);
         txtPreferencias.setRows(5);
@@ -331,7 +325,7 @@ public class Publico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtPreferencias);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 180, 80));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 180, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Dirección:");
@@ -384,20 +378,10 @@ public class Publico extends javax.swing.JFrame {
 
         lblpreferencia.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 180, 20));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 180, 30));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 180, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 240, -1));
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel17.setText("Preferencias: ");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, 30));
-
-        jLabel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 270, 160));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -423,7 +407,7 @@ public class Publico extends javax.swing.JFrame {
             int ultimoCodigo = result.size() + 1;
 
             // Formatear el código con ceros a la izquierda
-            String cod = String.format("PUB-%03d", ultimoCodigo);
+            String cod = String.format("%03d", ultimoCodigo);
             lblcod.setText(cod);
 
             String seleccion = null;
@@ -464,12 +448,9 @@ public class Publico extends javax.swing.JFrame {
             }
 
             Validar();
-            
-            String codigoEvento = obtenerCodigoEventoSeleccionado();
-            
-            
-//            public Publico_p(String codigo_publico, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
-            Publico_p mipublico = new Publico_p(cod, txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, codigoEvento, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
+
+            // public Publico_p(String codigo_publico, String estado_registro, String preferencias_p, String contraseña, String codigo_encuesta, String codigo_cali_even, String cedula_persona, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+            Publico_p mipublico = new Publico_p(cod, txtPreferencias.getText().trim(), jPasswordPublico.getText().trim(), null, null, null, txtCedula.getText().trim(), txtNombre.getText().trim(), txtApellido.getText().trim(), txtTelefono.getText().trim(), txtEmail.getText().trim(), txtDireccion.getText().trim(),
                     txtCelular.getText().trim(), nacimiento, sexo);
 
             base.store(mipublico);
@@ -495,40 +476,6 @@ public class Publico extends javax.swing.JFrame {
         rbnFemenino.setSelected(false);
         rbnMasculino.setSelected(false);
 
-    }
-    
-    private String obtenerCodigoEventoSeleccionado() {
-        String eventoSeleccionado = jComboBox1.getSelectedItem().toString();
-
-        // Asumiendo que el código del evento está al principio del string antes del espacio
-        String[] partes = eventoSeleccionado.split(" ");
-
-        if (partes.length > 0) {
-            return partes[0];
-        } else {
-            return "";  // Ajusta esto según la estructura real de tu ComboBox
-        }
-    }
-    
-    
-    public void cargar() {
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        try {
-            jComboBox1.removeAllItems();
-            Query query = base.query();
-            query.constrain(Evento.class);
-
-            ObjectSet<Evento> eventos = query.execute();
-
-            jComboBox1.addItem("Seleccione");
-            while (eventos.hasNext()) {
-                Evento tipoEvento = eventos.next();
-                jComboBox1.addItem(tipoEvento.toString());
-            }
-        } finally {
-            base.close();
-        }
     }
 
     public void Validar() {
@@ -853,16 +800,13 @@ public class Publico extends javax.swing.JFrame {
     private javax.swing.JButton btncrear;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateFechaNaci;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

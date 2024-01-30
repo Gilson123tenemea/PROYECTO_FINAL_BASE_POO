@@ -519,7 +519,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         
         try{
         
-        Comerciantes actividadAsociada = new Comerciantes(null,null , null, null, codigoEliminar,null,null,null,null,null,null,null,null,null);
+        Comerciantes actividadAsociada = new Comerciantes(null,null , null, null, codigoEliminar,null,null,null,null,null,null,null,null,null,null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {

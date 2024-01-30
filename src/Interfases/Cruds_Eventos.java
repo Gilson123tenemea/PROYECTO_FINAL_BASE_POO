@@ -787,7 +787,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     horai.toLowerCase(),
                     horafinal,
                     foto,
-                    Double.parseDouble(jTextField1.getText()),
+                    Double.valueOf(jTextField1.getText()),
                     numpuestos);
 
             bd.store(evento1);

@@ -6,15 +6,18 @@
 package Interfases;
 
 import Clases.Comerciantes;
+import Clases.Evento;
 import Clases.Reporte_solicitudes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -71,7 +74,8 @@ public class Crud_Comerciante extends javax.swing.JPanel {
                 comerciante.getProductos_c(),
                 comerciante.getServicio_c(),
                 comerciante.getCodigo_puesto(),
-                comerciante.getCelular()
+                comerciante.getCelular(),
+                comerciante.getEvetoSolicita()
             };
             model.addRow(row);
         }
@@ -109,13 +113,13 @@ public class Crud_Comerciante extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Email", "Telefono", "Direccion", "Tipo.Comercio", "Genero", "F.Nacimiento", "Codigo.Comerciente", "Productos", "Servicios", "Codigo.Puesto", "Celular"
+                "Cedula", "Nombre", "Apellido", "Email", "Telefono", "Direccion", "Tipo.Comercio", "Genero", "F.Nacimiento", "Codigo.Comerciente", "Productos", "Servicios", "Codigo.Puesto", "Celular", "Evento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -190,21 +194,24 @@ public class Crud_Comerciante extends javax.swing.JPanel {
         }
     }
 
-    public void crearSolicitud(boolean acepta, Date fecha, String nombre, String apellido) {
+    public void crearSolicitud(boolean acepta, Date fecha, String nombre, String apellido, String evento, int puesto) {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         try {
 
             String nombre_comerciante = nombre + "  " + apellido;
             String nombre_organizador = Login_Organizador.nombre + "  " + Login_Organizador.apellido;
-            
+
             ObjectSet<Reporte_solicitudes> lastResult = base.queryByExample(new Reporte_solicitudes());
             int ultimoCodigo = lastResult.size() + 1;
 
             // Formatear el nuevo código con ceros a la izquierda
             String nuevoCodigo = String.format("PTR-%03d", ultimoCodigo);
 
-            Reporte_solicitudes repo = new Reporte_solicitudes(nombre_organizador, nombre_comerciante, null, acepta, fecha,nuevoCodigo);
+            String puestoa = String.valueOf(puesto);
+            
+
+            Reporte_solicitudes repo = new Reporte_solicitudes(nombre_organizador, nombre_comerciante, puestoa, acepta, fecha, nuevoCodigo, evento);
             base.store(repo);
         } finally {
             base.close();
@@ -252,6 +259,7 @@ public class Crud_Comerciante extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtconsultaKeyTyped
 
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
@@ -260,11 +268,39 @@ public class Crud_Comerciante extends javax.swing.JPanel {
             String nombre = (String) jTable1.getModel().getValueAt(selectedRow, 1);
             String apellido = (String) jTable1.getModel().getValueAt(selectedRow, 2);
             String Correodestino = (String) jTable1.getModel().getValueAt(selectedRow, 3);
+            String evento = (String) jTable1.getModel().getValueAt(selectedRow, 14);
 
+            ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+            Query query = base.query();
+            query.constrain(Evento.class);
+            query.descend("cod_evento").constrain(evento);
+            ObjectSet<Evento> result = query.execute();
+
+            int Puestoaleatorio = 0;
+            if (!result.isEmpty()) {
+
+                int cantidadpuesto = 0;
+                for (Evento evento1 : result) {
+                    cantidadpuesto = evento1.getNum_puestos();
+
+                }
+
+                Random random = new Random();
+                Puestoaleatorio = random.nextInt(cantidadpuesto) + 1; // genera un número aleatorio
+                
+                System.out.println("Número aleatorio: " + Puestoaleatorio);
+
+            }
+
+            base.close();
             Date fechaaceptacion = new Date();
             aceptacion = true;
+            
+            
 
-            crearSolicitud(aceptacion, fechaaceptacion, nombre, apellido);
+            crearSolicitud(aceptacion, fechaaceptacion, nombre, apellido, evento, Puestoaleatorio);
+
             try {
                 enviargmailCormimado(Correodestino, nombre, apellido);
 
@@ -286,12 +322,15 @@ public class Crud_Comerciante extends javax.swing.JPanel {
             String apellido = (String) jTable1.getModel().getValueAt(selectedRow, 2);
 
             String Correodestino = (String) jTable1.getModel().getValueAt(selectedRow, 3);
+            String evento = (String) jTable1.getModel().getValueAt(selectedRow, 14);
 
             aceptacion = false;
 
             Date fechaaRechaso = new Date();
 
-            crearSolicitud(aceptacion, fechaaRechaso, nombre, apellido);
+            int puesto = 0;
+
+            crearSolicitud(aceptacion, fechaaRechaso, nombre, apellido, evento, puesto);
 
             try {
                 enviargmailRechaza(Correodestino, nombre, apellido);

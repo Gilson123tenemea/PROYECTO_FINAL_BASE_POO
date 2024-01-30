@@ -13,20 +13,21 @@ import java.util.Date;
  */
 public class Reporte_solicitudes {
     
-    private String organizador,comerciante,puesto,codigo_soli;
+    private String organizador,comerciante,puesto,codigo_soli,evento;
     private boolean aceptacion;
     private Date fecha_aceptacion;
 
     public Reporte_solicitudes() {
     }
 
-    public Reporte_solicitudes(String organizador, String comerciante, String puesto, boolean aceptacion, Date fecha_aceptacion,String codigo_soli) {
+    public Reporte_solicitudes(String organizador, String comerciante, String puesto, boolean aceptacion, Date fecha_aceptacion,String codigo_soli,String evento) {
         this.organizador = organizador;
         this.comerciante = comerciante;
         this.puesto = puesto;
         this.aceptacion = aceptacion;
         this.fecha_aceptacion = fecha_aceptacion;
         this.codigo_soli=codigo_soli;
+        this.evento=evento;
     }
 
     public String getOrganizador() {
@@ -77,12 +78,17 @@ public class Reporte_solicitudes {
         this.codigo_soli = codigo_soli;
     }
 
-    @Override
-    public String toString() {
-        return "Reporte_solicitudes{" + "organizador=" + organizador + ", comerciante=" + comerciante + ", puesto=" + puesto + ", codigo_soli=" + codigo_soli + ", aceptacion=" + aceptacion + ", fecha_aceptacion=" + fecha_aceptacion + '}';
+    public String getEvento() {
+        return evento;
     }
 
+    public void setEvento(String evento) {
+        this.evento = evento;
+    }
     
+    
+
+  
     
    
     

@@ -7,18 +7,20 @@ public class Comerciantes extends Persona {
     private String codigo_participante;//llave primaria
     private String Tipo_Comercio, Productos_c, Servicio_c;
     private String codigo_puesto;//llave secundaria
+    private String evetoSolicita;
 
     public Comerciantes() {
         super();
     }
 
-    public Comerciantes(String codigo_participante, String Tipo_Comercio, String Productos_c, String Servicio_c, String codigo_puesto, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+    public Comerciantes(String codigo_participante, String Tipo_Comercio, String Productos_c, String Servicio_c, String codigo_puesto, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero,String evetoSolicita) {
         super(cedula, nombre, apellido, telefono, correo, direccion, celular, fecchaNaci, genero);
         this.codigo_participante = codigo_participante;
         this.Tipo_Comercio = Tipo_Comercio;
         this.Productos_c = Productos_c;
         this.Servicio_c = Servicio_c;
         this.codigo_puesto = codigo_puesto;
+        this.evetoSolicita=evetoSolicita;
     }
 
     public String getCodigo_participante() {
@@ -60,5 +62,15 @@ public class Comerciantes extends Persona {
     public void setCodigo_puesto(String codigo_puesto) {
         this.codigo_puesto = codigo_puesto;
     }
+
+    public String getEvetoSolicita() {
+        return evetoSolicita;
+    }
+
+    public void setEvetoSolicita(String evetoSolicita) {
+        this.evetoSolicita = evetoSolicita;
+    }
+    
+    
 
 }

@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Comerciantes;
+import Clases.Evento;
 import Clases.Puesto;
 import Clases.Tipo_Comercio;
 import Clases.Validaciones;
@@ -19,8 +20,9 @@ import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import com.db4o.Db4o;
-import java.time.LocalDate;
+import java.awt.event.ItemEvent;
 import java.util.Calendar;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,15 +30,15 @@ import java.util.Calendar;
  */
 public class Comerciante extends javax.swing.JFrame {
 
-    public static ArrayList<Comerciantes> listaagentes = new ArrayList<>();
-
-    public static ArrayList<Comerciantes> codigoseliminados = new ArrayList<>();
     String sexo;
+    byte[] foto1;
 
     public Comerciante() {
         initComponents();
         Agrupar();
         setLocationRelativeTo(null);
+        cargar();
+
         cargarTipoComercio();
         cargarPuesto();
 
@@ -105,6 +107,7 @@ public class Comerciante extends javax.swing.JFrame {
 
             // Obtener el código del puesto seleccionado en el ComboBox
             String codigoPuesto = obtenerCodigoPuestoSeleccionado();
+            String evento=obtenerCodigoEventoSeleccionado();
 
             // Crear y almacenar el organizador
             Comerciantes miorganizador = new Comerciantes(
@@ -121,7 +124,10 @@ public class Comerciante extends javax.swing.JFrame {
                     txtDireccion.getText().trim(),
                     txtCelular.getText().trim(),
                     nacimiento,
-                    sexo
+                    sexo,
+                    evento
+                    
+                    
             );
 
             base.store(miorganizador);
@@ -175,6 +181,70 @@ public class Comerciante extends javax.swing.JFrame {
         }
     }
 
+    private String obtenerCodigoEventoSeleccionado() {
+        String eventoSeleccionado = jComboBox1.getSelectedItem().toString();
+
+        // Asumiendo que el código del evento está al principio del string antes del espacio
+        String[] partes = eventoSeleccionado.split(" ");
+
+        if (partes.length > 0) {
+            return partes[0];
+        } else {
+            return "";  // Ajusta esto según la estructura real de tu ComboBox
+        }
+    }
+
+    public void cargar() {
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        try {
+            jComboBox1.removeAllItems();
+            Query query = base.query();
+            query.constrain(Evento.class);
+
+            ObjectSet<Evento> eventos = query.execute();
+
+            jComboBox1.addItem("Seleccione");
+            while (eventos.hasNext()) {
+                Evento tipoEvento = eventos.next();
+                jComboBox1.addItem(tipoEvento.toString());
+            }
+
+        } finally {
+            base.close();
+        }
+    }
+
+////    public void obtenerEvento() {
+////        if (jComboBox1.getSelectedItem() != "Seleccione") {
+////            String datocombo = jComboBox1.getSelectedItem().toString().substring(0, 6);
+////            ObjectContainer base = Db4o.openFile(Inicio.direccion);
+////
+////            try{
+////            Query query = base.query();
+////            query.constrain(Evento.class);
+////            query.descend("cod_evento").constrain(datocombo);
+////            ObjectSet<Evento> result = query.execute();
+////
+////            if (!result.isEmpty()) {
+////
+////                for (Evento evento1 : result) {
+////                    foto1 = evento1.getData();
+////
+////                }
+////                
+////                if (foto1 != null) {
+////                    ImageIcon icono = new ImageIcon(foto1);
+////                    fotolbl.setIcon(icono);
+////
+////                }
+////
+////            }
+////            }finally{
+////                base.close();
+////            }
+////        }
+////    }
     public void cargarPuesto() {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -349,7 +419,6 @@ public class Comerciante extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         rbnMasculino = new javax.swing.JRadioButton();
         rbnFemenino = new javax.swing.JRadioButton();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jDateFecha = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
@@ -360,6 +429,11 @@ public class Comerciante extends javax.swing.JFrame {
         lblCodigoComerciante = new javax.swing.JLabel();
         txtTipoComercio = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        fotolbl = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -385,10 +459,10 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
         jLabel7.setText("Productos:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
 
         jLabel8.setText("Servicios:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, -1, -1));
         jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 170, -1));
 
         txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -468,7 +542,7 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(txtServiciosC);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 220, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 220, 70));
 
         txtProductosC.setColumns(20);
         txtProductosC.setRows(5);
@@ -479,7 +553,7 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtProductosC);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 220, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 240, 220, 70));
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         btnGuardar.setText("SOLICITAR PUESTO");
@@ -491,7 +565,7 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 190, 50));
 
         jLabel11.setText("Tipo de Puesto: ");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, -1));
 
         cboCodigoPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCodigoPuesto.addActionListener(new java.awt.event.ActionListener() {
@@ -499,7 +573,7 @@ public class Comerciante extends javax.swing.JFrame {
                 cboCodigoPuestoActionPerformed(evt);
             }
         });
-        jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 160, -1));
+        jPanel1.add(cboCodigoPuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 410, 160, -1));
 
         jLabel12.setText("Género:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
@@ -514,9 +588,6 @@ public class Comerciante extends javax.swing.JFrame {
 
         rbnFemenino.setText("Femenino");
         jPanel1.add(rbnFemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, -1));
-
-        jLabel13.setText("Código Comerciante: ");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
 
         jLabel14.setText("Fecha de Nacimiento: ");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
@@ -533,8 +604,8 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 170, -1));
 
         jLabel16.setText("Celular:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, -1));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 160, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, -1));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 160, -1));
 
         btnVer.setBackground(new java.awt.Color(255, 255, 255));
         btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
@@ -544,8 +615,8 @@ public class Comerciante extends javax.swing.JFrame {
                 btnVerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 40, 40));
-        jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 150, 20));
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 400, 40, 40));
+        jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 150, 20));
 
         txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jPanel1.add(txtTipoComercio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 170, -1));
@@ -557,6 +628,50 @@ public class Comerciante extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 30, 30));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setText("Evento donde se solicitara el puesto");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 270, 30));
+
+        fotolbl.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(fotolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 220, 130));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 70, 140, -1));
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(0, 102, 51));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -614,6 +729,9 @@ public class Comerciante extends javax.swing.JFrame {
         ObjectContainer bases = Db4o.openFile(Inicio.direccion);
         crearOrganizador(bases);
         bases.close();
+        this.dispose();
+        Inicio in = new Inicio();
+        in.setVisible(true);
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -743,6 +861,56 @@ public class Comerciante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtServiciosCKeyTyped
 
+    public void obtenerImagen(ObjectContainer base) {
+        String datocombo = jComboBox1.getSelectedItem().toString().substring(0, 7);
+        System.out.println(datocombo);
+
+        Query query = base.query();
+        query.constrain(Evento.class);
+        query.descend("cod_evento").constrain(datocombo);
+        ObjectSet<Evento> result = query.execute();
+
+        if (!result.isEmpty()) {
+
+            for (Evento evento1 : result) {
+                foto1 = evento1.getData();
+
+            }
+
+            if (foto1 != null) {
+                ImageIcon icono = new ImageIcon(foto1);
+                fotolbl.setIcon(icono);
+
+            }
+
+        }
+
+        base.close();
+
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+//        obtenerEvento();
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        obtenerImagen(base);
+
+        base.close();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+
+       
+
+
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -846,17 +1014,20 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnVer;
     private javax.swing.JComboBox<String> cboCodigoPuesto;
+    private javax.swing.JLabel fotolbl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -868,6 +1039,7 @@ public class Comerciante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
