@@ -29,7 +29,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     public Menu_Cliente() {
         initComponents();
         txtNombre.setText(Inicio.nombre);
-        txtApellido.setText(Inicio.apellido);
+        //txtApellido.setText(Inicio.apellido);
         
         botones = new ArrayList <> ();
         indice = 0;
@@ -49,7 +49,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
             ImageIcon iconoOriginal = new ImageIcon(foto);
 
             // Escalar la imagen
-            int nuevaAnchura = 50;  // Establece la nueva anchura deseada
+            int nuevaAnchura = 200;  // Establece la nueva anchura deseada
             int nuevaAltura = -1;   // Mantén la proporción original en la altura
             Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
                     nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
@@ -58,6 +58,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
             ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
 
             JButton boton = new JButton();
+            boton.setSize(200,200);
             boton.setIcon(iconoEscalado);
             panel.add(boton);
             botones.add(boton);
