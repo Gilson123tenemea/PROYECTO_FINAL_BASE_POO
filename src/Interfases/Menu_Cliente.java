@@ -27,7 +27,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private List<JButton> botones;
     private int indice;
     byte[] foto1;
-    public static String codigotipo = " ",tip=" ";
+    public static String codigotipo = " ", tip = " ";
     String tipoEvento = " ";
 
     public Menu_Cliente() {
@@ -62,11 +62,10 @@ public class Menu_Cliente extends javax.swing.JFrame {
 
                 // Crea un nuevo ImageIcon escalado
                 ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
-                
 
-                tip=codigotipo.toUpperCase()+" "+tipoEvento.toUpperCase();
+                tip = codigotipo.toUpperCase() + " " + tipoEvento.toUpperCase();
                 JButton boton = new JButton(tip);
-                
+
                 boton.setSize(200, 200);
                 boton.setIcon(iconoEscalado);
                 panel.add(boton);
@@ -78,25 +77,24 @@ public class Menu_Cliente extends javax.swing.JFrame {
                         String tipoEvento = e.getActionCommand();
                         System.out.println("Tipo de evento presionado: " + tipoEvento);
 
-                        base.close();
+                        
                         Eventos ev = new Eventos(tipoEvento);
                         ev.setVisible(true);
-
+                        // Cierra la interfaz principal ("Menu_Cliente")
+                        Menu_Cliente.this.dispose();
+                       
                     }
                 });
 
                 indice++;
 
-
             }
         }
 
-        // Actualiza la interfaz gráfica después de agregar los botones
+        
         panel.updateUI();
-
+       base.close();
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

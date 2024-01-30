@@ -57,13 +57,9 @@ public class Eventos extends javax.swing.JFrame {
         ObjectSet<Evento> result = query.execute();
 
         if (result.size() == 0) {
-
             JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
-
             base.close();
-            this.dispose();
-            Menu_Cliente men = new Menu_Cliente();
-            men.setVisible(true);
+            return; 
 
         }
 
@@ -88,9 +84,16 @@ public class Eventos extends javax.swing.JFrame {
                 }
             }
             panel.updateUI();
-            base.close();
+            
         }
 
+        // Cerrar la interfaz actual (this)
+        this.dispose();
+        base.close();
+
+        // Crear y mostrar la nueva interfaz
+        Menu_Cliente men = new Menu_Cliente();
+        men.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -262,10 +265,15 @@ public class Eventos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+
+        // Crear y mostrar la nueva interfaz
+        Menu_Cliente men = new Menu_Cliente();
+        men.setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
