@@ -5,10 +5,14 @@
  */
 package Interfases;
 
+import Clases.Evento;
 import Clases.Tipo_evento;
+import static Interfases.Menu_Cliente.codigotipo;
+import static Interfases.Menu_Cliente.tip;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,86 +21,77 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ADMIN_01
  */
-public class Menu_Cliente extends javax.swing.JFrame {
+public class Eventos extends javax.swing.JFrame {
 
     private List<JButton> botones;
     private int indice;
-    byte[] foto1;
-    public static String codigotipo = " ",tip=" ";
-    String tipoEvento = " ";
 
-    public Menu_Cliente() {
+    byte[] foto1;
+
+    String tipo, nombre, codigo;
+
+    public Eventos(String tipo) {
         initComponents();
+        this.tipo = tipo;
+        String tip = tipo.substring(0, 7);
+        indice = 0;
+        botones = new ArrayList<>();
+        ObtenerEvento(tip.toLowerCase());
+
         txtNombre.setText(Inicio.nombre);
         //txtApellido.setText(Inicio.apellido);
 
-        botones = new ArrayList<>();
-        indice = 0;
-        ObtenerEvento();
-
     }
 
-    public void ObtenerEvento() {
+    public void ObtenerEvento(String tipo) {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento());
+        Query query = base.query();
+        query.constrain(Evento.class);
+        query.descend("tipo").constrain(tipo);
+        ObjectSet<Evento> result = query.execute();
 
-        for (Tipo_evento tipoevento1 : result) {
-            // Asegúrate de tener un método getData() en la clase Tipo_evento
-            byte[] foto = tipoevento1.getData();
-            tipoEvento = tipoevento1.getNombre();
-            codigotipo = tipoevento1.getCodigo_tipo();
+        if (result.size() == 0) {
 
-            if (foto != null) {
-                ImageIcon iconoOriginal = new ImageIcon(foto);
+            JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
 
-                // Escalar la imagen
-                int nuevaAnchura = 200;  // Establece la nueva anchura deseada
-                int nuevaAltura = -1;   // Mantén la proporción original en la altura
-                Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
-                        nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
+            base.close();
+            this.dispose();
+            Menu_Cliente men = new Menu_Cliente();
+            men.setVisible(true);
 
-                // Crea un nuevo ImageIcon escalado
-                ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
-                
-
-                tip=codigotipo.toUpperCase()+" "+tipoEvento.toUpperCase();
-                JButton boton = new JButton(tip);
-                
-                boton.setSize(200, 200);
-                boton.setIcon(iconoEscalado);
-                panel.add(boton);
-                botones.add(boton);
-                boton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        String tipoEvento = e.getActionCommand();
-                        System.out.println("Tipo de evento presionado: " + tipoEvento);
-
-                        base.close();
-                        Eventos ev = new Eventos(tipoEvento);
-                        ev.setVisible(true);
-
-                    }
-                });
-
-                indice++;
-
-
-            }
         }
 
-        // Actualiza la interfaz gráfica después de agregar los botones
-        panel.updateUI();
+        if (!result.isEmpty()) {
+            int indice = 0;
+            for (Evento tipoevento1 : result) {
+                System.out.println("Adding button for evento: " + tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
+                byte[] foto = tipoevento1.getData();
+                if (foto != null) {
+                    ImageIcon iconoOriginal = new ImageIcon(foto);
+                    int nuevaAnchura = 200;
+                    int nuevaAltura = -1;
+                    Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
+                            nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
+                    ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
+
+                    JButton boton = new JButton(tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
+                    boton.setSize(200, 200);
+                    boton.setIcon(iconoEscalado);
+                    panel.add(boton);
+                    indice++;
+                }
+            }
+            panel.updateUI();
+            base.close();
+        }
 
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -234,7 +229,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, 20));
 
         jLabel1.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel1.setText("TIPOS DE EVENTOS");
+        jLabel1.setText("EVENTOS DISPONIBLES");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 240, -1));
         jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 220, 10));
 
@@ -277,40 +272,6 @@ public class Menu_Cliente extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu_Cliente().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

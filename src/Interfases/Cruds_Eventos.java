@@ -781,7 +781,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     txadescripcion.getText().trim(),
                     codigoPatrocinador,
                     null,
-                    codigoTipoEvento,
+                    codigoTipoEvento.toLowerCase(),
                     jdtinicio.getDate(),
                     jDateChooser2.getDate(),
                     horai.toLowerCase(),
@@ -789,6 +789,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     foto,
                     Double.valueOf(jTextField1.getText()),
                     numpuestos);
+            
+            System.out.println(evento1);
 
             bd.store(evento1);
 
