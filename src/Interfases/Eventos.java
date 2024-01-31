@@ -60,15 +60,16 @@ public class Eventos extends javax.swing.JFrame {
 
         if (result.size() == 0) {
             JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
+            Eventos.this.dispose();
+
             base.close();
-            return;
 
         }
 
         if (!result.isEmpty()) {
             int indice = 0;
             for (Evento tipoevento1 : result) {
-                String nombre = tipoevento1.getNombre();
+                String nom = tipoevento1.getNombre();
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Date fechaf = tipoevento1.getFecha_inicio();
                 String fechai = formato.format(fechaf);
@@ -77,7 +78,7 @@ public class Eventos extends javax.swing.JFrame {
                 Date fechafin = tipoevento1.getFecha_fin();
                 String horafi = tipoevento1.getHora_fin();
 
-                String fechafi = formato.format(fechaf);
+                String fechafi = formato.format(fechafin);
 
                 System.out.println("Adding button for evento: " + tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                 byte[] foto = tipoevento1.getData();
@@ -101,13 +102,19 @@ public class Eventos extends javax.swing.JFrame {
 //                            mostrarInformacionEvento(tipoevento1);
 
                             String[] arreglo = {"Quiero asisitir", "encuesta", "Califica el evento", "Mi blog"};
-                            int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nombre + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asisitir");
+                            int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nom + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asisitir");
 
                             System.out.println(opcion);
                             System.out.println(arreglo[opcion]);
 
                             switch (opcion) {
                                 case 0:
+
+                                    boolean asistir = true;
+
+                                    
+                                    String publico=Inicio.nombre+" "+Inicio.apellido;
+                                    ConfirmarAsistencia(asistir,nom,publico);
 
                                     break;
                                 case 1:
@@ -146,6 +153,18 @@ public class Eventos extends javax.swing.JFrame {
         // Crear y mostrar la nueva interfaz
         Menu_Cliente men = new Menu_Cliente();
         men.setVisible(false);
+    }
+
+    public void ConfirmarAsistencia(boolean asistencia,String nombreEvento,String publi) {
+        
+        
+        if (asistencia==true) {
+            
+            System.out.println(asistencia+nombreEvento+publi);
+            
+            // aqui se crea la asistencia db4o con los datos ya extraidos
+        }
+
     }
 
 //    private void mostrarInformacionEvento(Evento evento) {

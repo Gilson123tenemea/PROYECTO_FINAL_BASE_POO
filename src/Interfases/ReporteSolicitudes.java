@@ -38,8 +38,6 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
 
     public void Filtro() {
 
-        trs.setRowFilter(RowFilter.regexFilter(""));
-
         if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
             int Columnastabla = 1;
             trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
@@ -208,6 +206,8 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         cbxbusqueda.setSelectedIndex(0);
 
         txtconsulta.setText(" ");
+        Filtro();
+
         pnlinfo.setVisible(false);
 
         scpanel.setVisible(true);
@@ -249,6 +249,7 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
 
         cbxbusqueda.setSelectedIndex(0);
         txtconsulta.setText(" ");
+        Filtro();
 
         pnlinfo.setVisible(false);
 

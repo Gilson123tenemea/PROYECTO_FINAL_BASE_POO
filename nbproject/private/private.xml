@@ -4,19 +4,30 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Clases/Evento.java</file>
-            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/ReporteSolicitudes.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Eventos.java</file>
-            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/MenuOrganizador.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/imagenes/hogar.png</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Mi_blog.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Inicio.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Reporte_eventos.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Crud_Organizador.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Cruds_Eventos.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Crud_Comerciante.java</file>
-            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Clases/Tipo_evento.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Comerciante.java</file>
-            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Menu_Publico.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Blog_publico.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/crud_tipo.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Publico.java</file>
             <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Menu_Cliente.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Menu_Administradorr.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/ReporteSolicitudes.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/imagenes/Festividad.jpg</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/imagenes/calificacion-de-estrellas.png</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/MenuOrganizador.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Calificar.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Clases/Tipo_evento.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/imagenes/fondo_login.png</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Menu_Publico.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Clases/Encuesta.java</file>
+            <file>file:/C:/Users/Lenovo.User/Desktop/PROYECTO_FINAL_BASE_POO/src/Interfases/Calificar_eventos.java</file>
         </group>
     </open-files>
 </project-private>

@@ -27,7 +27,7 @@ public class Inicio extends javax.swing.JFrame {
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
 
-    public static String nombre = " ", codigo = "";
+    public static String nombre = " ", codigo = "",apellido;
     String usuario = " ", password = " ";
 
     
@@ -334,12 +334,13 @@ public class Inicio extends javax.swing.JFrame {
                 password = publico.getContraseña();
                 nombre = publico.getNombre();
                 codigo = publico.getCodigo_publico();
+                apellido=publico.getApellido();
 
             }
 
             base.close();
             this.dispose();
-            Menu_Publico admin = new Menu_Publico();
+            Menu_Cliente admin = new Menu_Cliente();
             admin.setVisible(true);
 
             txtCedula.setText(usuario.trim());
