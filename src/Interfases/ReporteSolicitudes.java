@@ -33,12 +33,12 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         initComponents();
         scpanel.setVisible(false);
         pnlinfo.setVisible(true);
-        
 
     }
-    
-    
+
     public void Filtro() {
+
+        trs.setRowFilter(RowFilter.regexFilter(""));
 
         if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
             int Columnastabla = 1;
@@ -49,6 +49,8 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
             trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
 
         }
+        // Limpiar el filtro
+
     }
 
     /**
@@ -98,6 +100,11 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
             }
         });
 
+        txtconsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtconsultaActionPerformed(evt);
+            }
+        });
         txtconsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtconsultaKeyTyped(evt);
@@ -198,6 +205,9 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
     private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
         // TODO add your handling code here:
 
+        cbxbusqueda.setSelectedIndex(0);
+
+        txtconsulta.setText(" ");
         pnlinfo.setVisible(false);
 
         scpanel.setVisible(true);
@@ -237,6 +247,9 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
     private void btnrechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrechazarActionPerformed
         // TODO add your handling code here:
 
+        cbxbusqueda.setSelectedIndex(0);
+        txtconsulta.setText(" ");
+
         pnlinfo.setVisible(false);
 
         scpanel.setVisible(true);
@@ -275,8 +288,8 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
 
     private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
         // TODO add your handling code here:
-        
-          if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
+
+        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Organizador")) {
 
             txtconsulta.addKeyListener(new KeyAdapter() {
                 @Override
@@ -312,6 +325,10 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         trs = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trs);
     }//GEN-LAST:event_txtconsultaKeyTyped
+
+    private void txtconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtconsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtconsultaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

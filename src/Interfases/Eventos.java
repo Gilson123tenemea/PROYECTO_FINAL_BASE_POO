@@ -16,7 +16,9 @@ import com.db4o.query.Query;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,6 +68,17 @@ public class Eventos extends javax.swing.JFrame {
         if (!result.isEmpty()) {
             int indice = 0;
             for (Evento tipoevento1 : result) {
+                String nombre = tipoevento1.getNombre();
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaf = tipoevento1.getFecha_inicio();
+                String fechai = formato.format(fechaf);
+
+                String horaini = tipoevento1.getHora_inicio();
+                Date fechafin = tipoevento1.getFecha_fin();
+                String horafi = tipoevento1.getHora_fin();
+
+                String fechafi = formato.format(fechaf);
+
                 System.out.println("Adding button for evento: " + tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                 byte[] foto = tipoevento1.getData();
                 if (foto != null) {
@@ -85,7 +98,38 @@ public class Eventos extends javax.swing.JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Mostrar JOptionPane con la información del evento
-                            mostrarInformacionEvento(tipoevento1);
+//                            mostrarInformacionEvento(tipoevento1);
+
+                            String[] arreglo = {"Quiero asisitir", "encuesta", "Califica el evento", "Mi blog"};
+                            int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nombre + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asisitir");
+
+                            System.out.println(opcion);
+                            System.out.println(arreglo[opcion]);
+
+                            switch (opcion) {
+                                case 0:
+
+                                    break;
+                                case 1:
+
+                                    break;
+                                case 2:
+                                    Eventos.this.dispose();
+
+                                    Calificar cal = new Calificar();
+                                    cal.setVisible(true);
+                                    break;
+                                case 3:
+
+                                    Eventos.this.dispose();
+
+                                    Blog_publico blog = new Blog_publico();
+                                    blog.setVisible(true);
+                                    System.out.println("holaa");
+                                    break;
+
+                            }
+
                         }
                     });
 
@@ -104,35 +148,34 @@ public class Eventos extends javax.swing.JFrame {
         men.setVisible(false);
     }
 
-    private void mostrarInformacionEvento(Evento evento) {
-        String mensaje = "Nombre: " + evento.getNombre() + "\n"
-                + "Descripción: " + evento.getDescripcion() + "\n"
-                + "Fecha de inicio: " + evento.getFecha_inicio() + "\n"
-                + "Fecha de fin: " + evento.getFecha_fin() + "\n"
-                + "Hora de inicio: " + evento.getHora_inicio() + "\n"
-                + "Hora de fin: " + evento.getHora_fin() + "\n"
-                + "Precio: " + evento.getPrecio() + "\n"
-                + "Número de puestos: " + evento.getNum_puestos();
-
-        // Agregar un botón personalizado
-        Object[] options = {"Quiero asistir", "Cancelar"};
-        int choice = JOptionPane.showOptionDialog(
-                null,
-                mensaje,
-                "Información del evento",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                options,
-                options[0]
-        );
-
-        // Manejar la elección del usuario
-        if (choice == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "¡Les esperamos en el evento!");
-        }
-    }
-
+//    private void mostrarInformacionEvento(Evento evento) {
+//        String mensaje = "Nombre4: " + evento.getNombre() + "\n"
+//                + "Descripción: " + evento.getDescripcion() + "\n"
+//                + "Fecha de inicio: " + evento.getFecha_inicio() + "\n"
+//                + "Fecha de fin: " + evento.getFecha_fin() + "\n"
+//                + "Hora de inicio: " + evento.getHora_inicio() + "\n"
+//                + "Hora de fin: " + evento.getHora_fin() + "\n"
+//                + "Precio: " + evento.getPrecio() + "\n"
+//                + "Número de puestos: " + evento.getNum_puestos();
+//
+//        // Agregar un botón personalizado
+//        Object[] options = {"Quiero asistir", "Cancelar"};
+//        int choice = JOptionPane.showOptionDialog(
+//                null,
+//                mensaje,
+//                "Información del evento",
+//                JOptionPane.YES_NO_OPTION,
+//                JOptionPane.INFORMATION_MESSAGE,
+//                null,
+//                options,
+//                options[0]
+//        );
+//
+//        // Manejar la elección del usuario
+//        if (choice == JOptionPane.YES_OPTION) {
+//            JOptionPane.showMessageDialog(null, "¡Les esperamos en el evento!");
+//        }
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

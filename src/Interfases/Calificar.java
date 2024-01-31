@@ -17,14 +17,14 @@ import javax.swing.JOptionPane;
  *
  * @author Lenovo.User
  */
-public class Calificar_eventos extends javax.swing.JPanel {
+public class Calificar extends javax.swing.JFrame {
 
     int calificacion = 0;
 
     /**
-     * Creates new form Calificar_eventos
+     * Creates new form Calificar
      */
-    public Calificar_eventos() {
+    public Calificar() {
         initComponents();
     }
 
@@ -38,6 +38,7 @@ public class Calificar_eventos extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblemoji = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,10 +49,14 @@ public class Calificar_eventos extends javax.swing.JPanel {
         lbl4 = new javax.swing.JLabel();
         lbl5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0,100));
         jPanel2.setForeground(new java.awt.Color(204, 153, 0));
@@ -179,21 +184,20 @@ public class Calificar_eventos extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 640, 410));
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 930, 570));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblEstrella1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstrella1MouseClicked
@@ -201,16 +205,15 @@ public class Calificar_eventos extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEstrella1MouseClicked
 
     private void lbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl1MouseClicked
-//
-//        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-//        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-//        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-//        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-//        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-//
-//        calificacion = 1;
-//        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara123.png"));
-
+        
+                lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+                lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+                lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+                lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+                lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        
+                calificacion = 1;
+                lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara123.png"));
 
     }//GEN-LAST:event_lbl1MouseClicked
 
@@ -224,8 +227,52 @@ public class Calificar_eventos extends javax.swing.JPanel {
 
         calificacion = 2;
         lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara123.png"));
-
     }//GEN-LAST:event_lbl2MouseClicked
+
+    private void lbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl3MouseClicked
+        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        calificacion = 3;
+        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara4.png"));
+
+    }//GEN-LAST:event_lbl3MouseClicked
+
+    private void lbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl4MouseClicked
+        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+
+        calificacion = 4;
+
+        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara4.png"));
+
+    }//GEN-LAST:event_lbl4MouseClicked
+
+    private void lbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl5MouseClicked
+        // TODO add your handling code here:
+        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+
+        calificacion = 2;
+        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara5.png"));
+
+    }//GEN-LAST:event_lbl5MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        GuardarCalificacion(base, calificacion);
+        base.close();
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     public void GuardarCalificacion(ObjectContainer base, int calificacion) {
 
@@ -263,54 +310,41 @@ public class Calificar_eventos extends javax.swing.JPanel {
         lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
 
     }
-    private void lbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl3MouseClicked
-        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-        calificacion = 3;
-        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara4.png"));
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    }//GEN-LAST:event_lbl3MouseClicked
-
-    private void lbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl4MouseClicked
-        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-
-        calificacion = 4;
-
-        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara4.png"));
-
-
-    }//GEN-LAST:event_lbl4MouseClicked
-
-    private void lbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl5MouseClicked
-        // TODO add your handling code here:
-        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-
-        calificacion = 2;
-        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara5.png"));
-
-
-    }//GEN-LAST:event_lbl5MouseClicked
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        GuardarCalificacion(base, calificacion);
-        base.close();
-    }//GEN-LAST:event_jLabel3MouseClicked
-
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Calificar().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
