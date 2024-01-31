@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Evento;
 import Clases.Tipo_evento;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -27,7 +28,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     private List<JButton> botones;
     private int indice;
     byte[] foto1;
-    public static String codigotipo = " ", tip = " ";
+    public static String codigotipo = " ", tip = " ", fechafin = "";
     String tipoEvento = " ";
 
     public Menu_Cliente() {
@@ -44,6 +45,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
     public void ObtenerEvento() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         ObjectSet<Tipo_evento> result = base.queryByExample(new Tipo_evento());
+        
 
         for (Tipo_evento tipoevento1 : result) {
             // Asegúrate de tener un método getData() en la clase Tipo_evento
@@ -77,12 +79,11 @@ public class Menu_Cliente extends javax.swing.JFrame {
                         String tipoEvento = e.getActionCommand();
                         System.out.println("Tipo de evento presionado: " + tipoEvento);
 
-                        
                         Eventos ev = new Eventos(tipoEvento);
                         ev.setVisible(true);
                         // Cierra la interfaz principal ("Menu_Cliente")
                         Menu_Cliente.this.dispose();
-                       
+
                     }
                 });
 
@@ -91,9 +92,8 @@ public class Menu_Cliente extends javax.swing.JFrame {
             }
         }
 
-        
         panel.updateUI();
-       base.close();
+        base.close();
     }
 
     @SuppressWarnings("unchecked")

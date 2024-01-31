@@ -59,7 +59,7 @@ public class Eventos extends javax.swing.JFrame {
         if (result.size() == 0) {
             JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
             base.close();
-            return; 
+            return;
 
         }
 
@@ -81,10 +81,18 @@ public class Eventos extends javax.swing.JFrame {
                     boton.setIcon(iconoEscalado);
                     panel.add(boton);
                     indice++;
+                    boton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Mostrar JOptionPane con la información del evento
+                            mostrarInformacionEvento(tipoevento1);
+                        }
+                    });
+
                 }
             }
             panel.updateUI();
-            
+
         }
 
         // Cerrar la interfaz actual (this)
@@ -94,6 +102,35 @@ public class Eventos extends javax.swing.JFrame {
         // Crear y mostrar la nueva interfaz
         Menu_Cliente men = new Menu_Cliente();
         men.setVisible(false);
+    }
+
+    private void mostrarInformacionEvento(Evento evento) {
+        String mensaje = "Nombre: " + evento.getNombre() + "\n"
+                + "Descripción: " + evento.getDescripcion() + "\n"
+                + "Fecha de inicio: " + evento.getFecha_inicio() + "\n"
+                + "Fecha de fin: " + evento.getFecha_fin() + "\n"
+                + "Hora de inicio: " + evento.getHora_inicio() + "\n"
+                + "Hora de fin: " + evento.getHora_fin() + "\n"
+                + "Precio: " + evento.getPrecio() + "\n"
+                + "Número de puestos: " + evento.getNum_puestos();
+
+        // Agregar un botón personalizado
+        Object[] options = {"Quiero asistir", "Cancelar"};
+        int choice = JOptionPane.showOptionDialog(
+                null,
+                mensaje,
+                "Información del evento",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        // Manejar la elección del usuario
+        if (choice == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "¡Les esperamos en el evento!");
+        }
     }
 
     @SuppressWarnings("unchecked")
