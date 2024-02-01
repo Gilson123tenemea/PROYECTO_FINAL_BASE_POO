@@ -15,7 +15,7 @@ public class Encuesta {
 
     private String Cod_encuesta;
     private String Nombre_encuesta;
-    private String Tipo_evento;
+    private String evento;
     private String Descrpcion_encuesta;
     private Date fecha_inicio;
     private Date Fecha_fin;
@@ -25,10 +25,13 @@ public class Encuesta {
     private String Pregunta4;
     private String Pregunta5;
 
-    public Encuesta(String Cod_encuesta, String Nombre_encuesta, String Tipo_evento, String Descrpcion_encuesta, Date fecha_inicio, Date Fecha_fin, String Pregunta1, String Pregunta2, String Pregunta3, String Pregunta4, String Pregunta5) {
+    public Encuesta() {
+    }
+
+    public Encuesta(String Cod_encuesta, String Nombre_encuesta, String evento, String Descrpcion_encuesta, Date fecha_inicio, Date Fecha_fin, String Pregunta1, String Pregunta2, String Pregunta3, String Pregunta4, String Pregunta5) {
         this.Cod_encuesta = Cod_encuesta;
         this.Nombre_encuesta = Nombre_encuesta;
-        this.Tipo_evento = Tipo_evento;
+        this.evento = evento;
         this.Descrpcion_encuesta = Descrpcion_encuesta;
         this.fecha_inicio = fecha_inicio;
         this.Fecha_fin = Fecha_fin;
@@ -37,9 +40,6 @@ public class Encuesta {
         this.Pregunta3 = Pregunta3;
         this.Pregunta4 = Pregunta4;
         this.Pregunta5 = Pregunta5;
-    }
-
-    public Encuesta() {
     }
 
     public String getCod_encuesta() {
@@ -58,12 +58,12 @@ public class Encuesta {
         this.Nombre_encuesta = Nombre_encuesta;
     }
 
-    public String getTipo_evento() {
-        return Tipo_evento;
+    public String getEvento() {
+        return evento;
     }
 
-    public void setTipo_evento(String Tipo_evento) {
-        this.Tipo_evento = Tipo_evento;
+    public void setEvento(String evento) {
+        this.evento = evento;
     }
 
     public String getDescrpcion_encuesta() {
@@ -132,8 +132,7 @@ public class Encuesta {
 
     @Override
     public String toString() {
-        return "Encuesta{" + "Cod_encuesta=" + Cod_encuesta + ", Nombre_encuesta=" + Nombre_encuesta + ", Tipo_evento=" + Tipo_evento + ", Descrpcion_encuesta=" + Descrpcion_encuesta + ", fecha_inicio=" + fecha_inicio + ", Fecha_fin=" + Fecha_fin + ", Pregunta1=" + Pregunta1 + ", Pregunta2=" + Pregunta2 + ", Pregunta3=" + Pregunta3 + ", Pregunta4=" + Pregunta4 + ", Pregunta5=" + Pregunta5 + '}';
+        return "Encuesta{" + "Cod_encuesta=" + Cod_encuesta + ", Nombre_encuesta=" + Nombre_encuesta + ", evento=" + evento + ", Descrpcion_encuesta=" + Descrpcion_encuesta + ", fecha_inicio=" + fecha_inicio + ", Fecha_fin=" + Fecha_fin + ", Pregunta1=" + Pregunta1 + ", Pregunta2=" + Pregunta2 + ", Pregunta3=" + Pregunta3 + ", Pregunta4=" + Pregunta4 + ", Pregunta5=" + Pregunta5 + '}';
     }
- 
 
 }
