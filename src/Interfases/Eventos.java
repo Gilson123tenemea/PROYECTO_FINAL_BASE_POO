@@ -14,10 +14,14 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,116 +52,140 @@ public class Eventos extends javax.swing.JFrame {
         ObtenerEvento(tip.toLowerCase());
 
         txtNombre.setText(Inicio.nombre);
-        //txtApellido.setText(Inicio.apellido);
+        txtApellido.setText(Inicio.apellido);
+        extraerfechaactu();
+
+        Date fecha = new Date();
+
+        // Convertir a LocalDate
+        LocalDate fechaLocal = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Hacer algo con la fechaLocal
+        System.out.println("Fecha actual: " + fechaLocal);
+
+    }
+
+    public void extraerfechaactu() {
+        LocalDate fechaFinEvento = LocalDate.of(2024, 12, 31);
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaFormateada = fechaFinEvento.format(formato);
+        txtFechaactual.setText(fechaFormateada);
+
+        LocalDate fechaActual = LocalDate.now();
+        if (fechaFinEvento.isBefore(fechaActual)) {
+            System.out.println("La fecha fin ya pasó.");
+        } else {
+            System.out.println("La fecha fin aún no ha pasado.");
+        }
 
     }
 
     public void ObtenerEvento(String tipo) {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        Query query = base.query();
-        query.constrain(Evento.class);
-        query.descend("tipo").constrain(tipo);
-        ObjectSet<Evento> result = query.execute();
+        LocalDate fechaActual = LocalDate.now();
 
-        if (result.size() == 0) {
-            JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
-            Eventos.this.dispose();
+        try {
+            Query query = base.query();
+            query.constrain(Evento.class);
+            query.descend("tipo").constrain(tipo);
+            ObjectSet<Evento> result = query.execute();
 
-            base.close();
+            if (result.size() == 0) {
+                JOptionPane.showMessageDialog(null, "No existen eventos vinculados al tipo de evento");
+                Eventos.this.dispose();
+            }
 
-        }
+            if (!result.isEmpty()) {
+                int indice = 0;
+                for (Evento tipoevento1 : result) {
+                    String nom = tipoevento1.getNombre();
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fechaf = tipoevento1.getFecha_inicio();
+                    String fechai = formato.format(fechaf);
 
-        if (!result.isEmpty()) {
-            int indice = 0;
-            for (Evento tipoevento1 : result) {
-                String nom = tipoevento1.getNombre();
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Date fechaf = tipoevento1.getFecha_inicio();
-                String fechai = formato.format(fechaf);
+                    String horaini = tipoevento1.getHora_inicio();
+                    Date fechafin = tipoevento1.getFecha_fin();
+                    String horafi = tipoevento1.getHora_fin();
 
-                String horaini = tipoevento1.getHora_inicio();
-                Date fechafin = tipoevento1.getFecha_fin();
-                String horafi = tipoevento1.getHora_fin();
-
-                String fechafi = formato.format(fechafin);
-
-                System.out.println("Adding button for evento: " + tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
-                byte[] foto = tipoevento1.getData();
-                if (foto != null) {
-                    ImageIcon iconoOriginal = new ImageIcon(foto);
-                    int nuevaAnchura = 200;
-                    int nuevaAltura = -1;
-                    Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
-                            nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
-                    ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
+                    String fechafi = formato.format(fechafin);
 
                     JButton boton = new JButton(tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                     boton.setSize(200, 200);
-                    boton.setIcon(iconoEscalado);
-                    panel.add(boton);
-                    indice++;
-                    boton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // Mostrar JOptionPane con la información del evento
-//                            mostrarInformacionEvento(tipoevento1);
 
-                            String[] arreglo = {"Quiero asisitir", "encuesta", "Califica el evento", "Mi blog"};
-                            int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nom + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asisitir");
+                    // Convertir fechafin (Date) a LocalDate
+                    LocalDate fechaFinLocal = fechafin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    if (fechaFinLocal.isBefore(fechaActual)) {
+                        boton.setBackground(Color.RED);
+                    } else {
+                        // Otro color o acciones si la fecha no ha pasado
+                    }
 
-                            System.out.println(opcion);
-                            System.out.println(arreglo[opcion]);
+                    byte[] foto = tipoevento1.getData();
+                    if (foto != null) {
+                        ImageIcon iconoOriginal = new ImageIcon(foto);
+                        int nuevaAnchura = 200;
+                        int nuevaAltura = -1;
+                        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
+                                nuevaAnchura, nuevaAltura, Image.SCALE_SMOOTH);
+                        ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
 
-                            switch (opcion) {
-                                case 0:
+                        boton.setIcon(iconoEscalado);
+                        panel.add(boton);
+                        indice++;
 
-                                    boolean asistir = true;
+                        boton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // Mostrar JOptionPane con la información del evento
+                                String[] arreglo = {"Quiero asistir", "encuesta", "Califica el evento", "Mi blog"};
+                                int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nom + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asistir");
 
-                                    String publico = Inicio.nombre + " " + Inicio.apellido;
-                                    ConfirmarAsistencia(asistir, nom, publico);
+                                System.out.println(opcion);
 
-                                    break;
-                                case 1:
-                                    Eventos.this.dispose();
-                                    Encuesta_Pregunt let = new Encuesta_Pregunt();
+                                if (opcion >= 0) {
+                                    System.out.println(arreglo[opcion]);
 
-                                    let.setVisible(true);
-                                    System.out.println("sdda");
-
-                                    break;
-                                case 2:
-                                    Eventos.this.dispose();
-
-                                    Calificar cal = new Calificar();
-                                    cal.setVisible(true);
-                                    break;
-                                case 3:
-
-                                    Eventos.this.dispose();
-
-                                    Blog_publico blog = new Blog_publico();
-                                    blog.setVisible(true);
-                                    System.out.println("holaa");
-                                    break;
-
+                                    switch (opcion) {
+                                        case 0:
+                                            boolean asistir = true;
+                                            String publico = Inicio.nombre + " " + Inicio.apellido;
+                                            ConfirmarAsistencia(asistir, nom, publico);
+                                            break;
+                                        case 1:
+                                            Eventos.this.dispose();
+                                            Encuesta_Pregunt let = new Encuesta_Pregunt();
+                                            let.setVisible(true);
+                                            break;
+                                        case 2:
+                                            Eventos.this.dispose();
+                                            Calificar cal = new Calificar();
+                                            cal.setVisible(true);
+                                            break;
+                                        case 3:
+                                            Eventos.this.dispose();
+                                            Blog_publico blog = new Blog_publico();
+                                            blog.setVisible(true);
+                                            break;
+                                        default:
+                                            JOptionPane.showMessageDialog(null, "Escoja una opcion");
+                                    }
+                                } else {
+                                    // El usuario cerró el JOptionPane sin seleccionar ninguna opción
+                                    // Manejar esta situación según tus necesidades
+                                }
                             }
-
-                        }
-                    });
-
+                        });
+                    }
                 }
+                panel.updateUI();
             }
-            panel.updateUI();
-
+        } finally {
+            // Cerrar la interfaz actual (this)
+            this.dispose();
+            base.close();
         }
 
-        // Cerrar la interfaz actual (this)
-        this.dispose();
-        base.close();
-
-        // Crear y mostrar la nueva interfaz
-        Menu_Cliente men = new Menu_Cliente();
-        men.setVisible(false);
     }
 
     public void ConfirmarAsistencia(boolean asistencia, String nombreEvento, String publi) {
@@ -249,6 +277,9 @@ public class Eventos extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JLabel();
+        lblcodigo = new javax.swing.JLabel();
+        txtFechaactual = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -367,6 +398,15 @@ public class Eventos extends javax.swing.JFrame {
         jLabel2.setText("Bienvenido");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
 
+        txtCedula.setText("jLabel3");
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        lblcodigo.setText("jLabel3");
+        jPanel1.add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+
+        txtFechaactual.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(txtFechaactual, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 130, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -428,8 +468,11 @@ public class Eventos extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel lblcodigo;
     private javax.swing.JPanel panel;
     private javax.swing.JLabel txtApellido;
+    private javax.swing.JLabel txtCedula;
+    private javax.swing.JLabel txtFechaactual;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }
