@@ -5,7 +5,6 @@
  */
 package Interfases;
 
-import Clases.Asisitencia;
 import Clases.Asistencia;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;

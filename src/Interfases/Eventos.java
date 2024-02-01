@@ -100,6 +100,7 @@ public class Eventos extends javax.swing.JFrame {
                 int indice = 0;
                 for (Evento tipoevento1 : result) {
                     String nom = tipoevento1.getNombre();
+                    String cod=tipoevento1.getCod_evento();
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaf = tipoevento1.getFecha_inicio();
                     String fechai = formato.format(fechaf);
@@ -154,7 +155,7 @@ public class Eventos extends javax.swing.JFrame {
                                             break;
                                         case 1:
                                             Eventos.this.dispose();
-                                            Encuesta_Pregunt let = new Encuesta_Pregunt();
+                                            Encuesta_Pregunt let = new Encuesta_Pregunt(cod);
                                             let.setVisible(true);
                                             break;
                                         case 2:
@@ -164,7 +165,7 @@ public class Eventos extends javax.swing.JFrame {
                                             break;
                                         case 3:
                                             Eventos.this.dispose();
-                                            Blog_publico blog = new Blog_publico();
+                                            Blog_publico blog = new Blog_publico(cod);
                                             blog.setVisible(true);
                                             break;
                                         default:

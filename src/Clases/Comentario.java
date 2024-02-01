@@ -13,17 +13,18 @@ import java.util.Date;
  */
 public class Comentario {
     
-    private String comentario,codigo_evento,codigo_publico;
+    private String comentario,codigo_evento,codigo_publico,cliente;
     private Date fecha_comentario;
 
     public Comentario() {
     }
 
-    public Comentario(String comentario, String codigo_evento, String codigo_publico, Date fecha_comentario) {
+    public Comentario(String comentario, String codigo_evento, String codigo_publico, Date fecha_comentario,String cliente) {
         this.comentario = comentario;
         this.codigo_evento = codigo_evento;
         this.codigo_publico = codigo_publico;
         this.fecha_comentario = fecha_comentario;
+        this.cliente=cliente;
     }
     
     
@@ -59,6 +60,16 @@ public class Comentario {
     public void setFecha_comentario(Date fecha_comentario) {
         this.fecha_comentario = fecha_comentario;
     }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+    
+    
 
     @Override
     public String toString() {

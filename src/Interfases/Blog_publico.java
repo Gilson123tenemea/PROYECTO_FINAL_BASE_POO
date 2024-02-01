@@ -8,16 +8,19 @@ package Interfases;
 import Clases.Comentario;
 import Clases.Evento;
 import Clases.Imagen;
-import Clases.Tipo_evento;
+import Clases.Publico_p;
+import static Interfases.Menu_Cliente.tip;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.Image;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -32,14 +35,17 @@ public class Blog_publico extends javax.swing.JFrame {
 
     String tipo = "", codigo = " ";
     byte[] foto;
+    String comentario = " ", nombre = " ", nombrep = " ", apellido = " ";
 
     int longitudBytes;
 
     /**
      * Creates new form Blog_publico
      */
-    public Blog_publico() {
+    public Blog_publico(String codigo) {
         initComponents();
+        cargarComentarios();
+        System.out.println(codigo);
     }
 
     /**
@@ -53,9 +59,6 @@ public class Blog_publico extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cbxeventos = new javax.swing.JComboBox<>();
-        lbl1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         fotolbl = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -66,7 +69,6 @@ public class Blog_publico extends javax.swing.JFrame {
         txtcomentario = new javax.swing.JTextField();
         btnenviar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
 
@@ -79,31 +81,16 @@ public class Blog_publico extends javax.swing.JFrame {
         jLabel1.setText("MI BLOG");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 270, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("SELECCIONE UN EVENTO");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 230, -1));
-
-        cbxeventos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbxeventosMouseClicked(evt);
-            }
-        });
-        jPanel2.add(cbxeventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 140, -1));
-
-        lbl1.setBackground(new java.awt.Color(255, 255, 255));
-        lbl1.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 230, 120));
-
-        jButton1.setText("SUBE UNA IMAGEN");
+        jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 220, 20));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 260, 30));
 
-        fotolbl.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(fotolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 230, 110));
+        fotolbl.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.add(fotolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 280, 330));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,6 +99,7 @@ public class Blog_publico extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setText("REALIZA UN COMENTARIO");
 
+        txachat.setEditable(false);
         txachat.setColumns(20);
         txachat.setRows(5);
         jScrollPane1.setViewportView(txachat);
@@ -158,9 +146,8 @@ public class Blog_publico extends javax.swing.JFrame {
         );
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 640, 430));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 322, 290, 30));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 132, 290, 10));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 290, 10));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 290, 30));
+        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 330, 10));
 
         jButton2.setText("SUBE UNA IMAGEN");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +155,7 @@ public class Blog_publico extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 220, 20));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 220, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,15 +173,6 @@ public class Blog_publico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxeventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxeventosMouseClicked
-        // TODO add your handling code here:
-
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        cargar(base);
-        ObtenerTipo();
-        base.close();
-    }//GEN-LAST:event_cbxeventosMouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -209,17 +187,18 @@ public class Blog_publico extends javax.swing.JFrame {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        String comentario = txtcomentario.getText().trim();
-        if (comentario.isEmpty()) {
+        String comenta = txtcomentario.getText().trim();
+        if (comenta.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un comentario");
-        } else if (!comentario.isEmpty()) {
+        } else if (!comenta.isEmpty()) {
 
             btnenviar.setEnabled(true);
             try {
 
                 Date fecha = new Date();
+                String publico = Inicio.nombre + " " + Inicio.apellido;
 
-                Comentario comentario1 = new Comentario(comentario, null, Inicio.codigo, fecha);
+                Comentario comentario1 = new Comentario(comenta, null, Inicio.codigo, fecha, publico);
                 base.store(comentario1);
 
             } finally {
@@ -227,7 +206,10 @@ public class Blog_publico extends javax.swing.JFrame {
                 base.close();
             }
 
-            txachat.setText(Inicio.nombre + ":\n" + comentario + "\n Organizador:" + "\n Gracias por su comentario");
+            cargarComentarios();
+
+            txtcomentario.setText(" ");
+
         }
     }//GEN-LAST:event_btnenviarActionPerformed
 
@@ -268,39 +250,45 @@ public class Blog_publico extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Blog_publico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Blog_publico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Blog_publico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Blog_publico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+  
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Blog_publico().setVisible(true);
+    public void cargarComentarios() {
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        ObjectSet<Comentario> result = base.queryByExample(new Comentario());
+
+        System.out.println(result.size());
+        if (!result.isEmpty()) {
+
+            StringBuilder sb = new StringBuilder();
+            for (Comentario tipoevento1 : result) {
+                // Asegúrate de tener un método getData() en la clase Tipo_evento
+                comentario = tipoevento1.getComentario();
+                nombre = tipoevento1.getCodigo_publico();
+                nombrep = tipoevento1.getCliente();
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechas = tipoevento1.getFecha_comentario();
+                String fechita = formato.format(fechas);
+
+                sb.append(nombrep).append("       ");
+                sb.append("Publicado :").append(" ");
+                sb.append(fechita).append("\n");
+                sb.append(comentario).append("\n" + "\n" + "\n");
             }
-        });
+
+            // Utiliza el método setText() para establecer el contenido del TextArea
+            txachat.setText(sb.toString());
+
+        } else {
+            txachat.setText("se el primero en ingresar un comentario");
+        }
+        base.close();
     }
-    
-     public void crearImagen(ObjectContainer base) {
+
+   
+
+    public void crearImagen(ObjectContainer base) {
 
         try {
 
@@ -358,81 +346,20 @@ public class Blog_publico extends javax.swing.JFrame {
         foto = obtenerBytesImagen();
     }
 
-    public void ObtenerTipo() {
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        try {
-            Query q = base.query();
-            q.constrain(Tipo_evento.class);
-            q.descend("codigo_evento").constrain(cbxeventos.getSelectedItem());
-            ObjectSet<Tipo_evento> result = q.execute();
-
-            
-            
-            if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Si ingresa jJjjajajjaja");
-                for (Tipo_evento servi : result) {
-                    foto = servi.getData();
-
-                    if (foto != null) {
-                        ImageIcon icono = new ImageIcon(foto);
-                        lbl1.setIcon(icono);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "no se ha subido imagen al tipo de evento");
-                    }
-
-                }
-
-            }
-        } finally {
-            base.close();
-        }
-    }
-
-    public void cargar(ObjectContainer base) {
-
-        try {
-            cbxeventos.removeAllItems();
-            Query query = base.query();
-            query.constrain(Evento.class);
-
-            ObjectSet<Evento> evento1 = query.execute();
-
-            while (evento1.hasNext()) {
-
-                Evento mie = evento1.next();
-                tipo = mie.getTipo();
-                codigo = mie.getCod_evento();
-                System.out.println(tipo);
-
-                cbxeventos.addItem(mie.getNombre());
-
-            }
-
-        } finally {
-
-            base.close();
-
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnenviar;
-    private javax.swing.JComboBox<String> cbxeventos;
     private javax.swing.JLabel fotolbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel lbl1;
     private javax.swing.JTextArea txachat;
     private javax.swing.JTextField txtcomentario;
     // End of variables declaration//GEN-END:variables

@@ -18,25 +18,21 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
     String encuesta = "", pregunta1 = "", pregunta2 = "", pregunta3 = "", pregunta4 = "", pregunta5 = "";
     private Evento eventoSeleccionado;
 
-    public Encuesta_Pregunt() {
+    public Encuesta_Pregunt(String codigo) {
         initComponents();
+        obtenerPreguntas(codigo);
         
 
     }
 
-    public void obtenerPreguntas() {
+    public void obtenerPreguntas(String codigo) {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        if (eventoSeleccionado == null) {
-            System.out.println("No se ha seleccionado un evento.");
-            base.close();
-            return;
-        }
-
+       
         // Obtener la encuesta asociada al evento
         Query encuestaQuery = base.query();
         encuestaQuery.constrain(Encuesta.class);
-        encuestaQuery.descend("evento").constrain(eventoSeleccionado);
+        encuestaQuery.descend("evento").constrain(codigo);
         ObjectSet<Encuesta> encuestaResult = encuestaQuery.execute();
 
         if (!encuestaResult.isEmpty()) {
@@ -62,10 +58,10 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         base.close();
     }
 
-    public void EventoSeleccionado(Evento evento) {
-        this.eventoSeleccionado = evento;
-        obtenerPreguntas();
-    }
+//    public void EventoSeleccionado(Evento evento) {
+//        this.eventoSeleccionado = evento;
+//        obtenerPreguntas(codigo);
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -199,38 +195,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Encuesta_Pregunt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Encuesta_Pregunt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Encuesta_Pregunt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Encuesta_Pregunt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Encuesta_Pregunt().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
