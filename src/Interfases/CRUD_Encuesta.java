@@ -118,7 +118,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             Object[] row = {
                 personal1.getCod_encuesta(),
                 personal1.getNombre_encuesta(),
-                personal1.getTipo_evento(),
+                personal1.getEvento(),
                 personal1.getDescrpcion_encuesta(),
                 personal1.getFecha_inicio(),
                 personal1.getFecha_fin(),
@@ -158,7 +158,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             micasita.setFecha_inicio(jDateChooser1.getDate());
             micasita.setFecha_fin(jDateChooser2.getDate());
 
-            micasita.setTipo_evento(cboxevento.getSelectedItem().toString());
+            micasita.setEvento(cboxevento.getSelectedItem().toString());
 
             base.set(micasita);
 
@@ -215,7 +215,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jDateChooser1.setDate(actividad.getFecha_inicio());
         jDateChooser1.setDate(actividad.getFecha_fin());
 
-        cboxevento.setSelectedItem(actividad.getTipo_evento());
+        cboxevento.setSelectedItem(actividad.getEvento());
 
     }
 
@@ -225,7 +225,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         Object[] row = {
             actividadFiltrada.getCod_encuesta(),
             actividadFiltrada.getNombre_encuesta(),
-            actividadFiltrada.getTipo_evento(),
+            actividadFiltrada.getEvento(),
             actividadFiltrada.getDescrpcion_encuesta(),
             actividadFiltrada.getFecha_inicio(),
             actividadFiltrada.getFecha_fin(),
@@ -395,7 +395,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jLabel3.setText("Descripción: ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        jLabel4.setText("Tipo de Evento: ");
+        jLabel4.setText("Evento:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
         jPanel3.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 240, -1));
 
