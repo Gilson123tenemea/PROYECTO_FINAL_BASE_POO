@@ -38,7 +38,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     public void crearEncuesta(ObjectContainer base) {
         try {
-           Query query = base.query();
+            Query query = base.query();
             query.constrain(Encuesta.class);
             query.descend("Cod_encuesta").orderDescending();
             ObjectSet<Encuesta> result = query.execute();
@@ -731,116 +731,91 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && jTextField2.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
+        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             jTextField2.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
+            evt.consume();
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
             jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
             evt.consume();
         } else {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
         if (jTextField2.getText().length() > 400) {
             evt.consume();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2KeyTyped
 
-    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-        char letra = evt.getKeyChar();
+    private boolean isSignoEspecial(char c) {
+        return (c == '?' || c == '!' || c == '¿' || c == '¡');
+    }
 
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && jTextField3.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+       char letra = evt.getKeyChar();
+        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             jTextField3.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            jTextField3.setText(jTextField3.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
             evt.consume();
         } else {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
-        if (jTextField3.getText().length() > 400) {
+        if (jTextField2.getText().length() > 400) {
             evt.consume();
-        } // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
-        char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && jTextField4.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
+       char letra = evt.getKeyChar();
+        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             jTextField4.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            jTextField4.setText(jTextField4.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
             evt.consume();
         } else {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
-        if (jTextField4.getText().length() > 19) {
+        if (jTextField2.getText().length() > 400) {
             evt.consume();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && jTextField5.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
+       char letra = evt.getKeyChar();
+        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             jTextField5.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            jTextField5.setText(jTextField5.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
             evt.consume();
         } else {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
-        if (jTextField5.getText().length() > 19) {
+        if (jTextField2.getText().length() > 400) {
             evt.consume();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
-        char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && jTextField6.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
+       char letra = evt.getKeyChar();
+        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             jTextField6.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            jTextField6.setText(jTextField6.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
+            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
             evt.consume();
         } else {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
-        if (jTextField6.getText().length() > 19) {
+        if (jTextField2.getText().length() > 400) {
             evt.consume();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
