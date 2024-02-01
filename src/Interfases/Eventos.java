@@ -160,7 +160,7 @@ public class Eventos extends javax.swing.JFrame {
                                             break;
                                         case 2:
                                             Eventos.this.dispose();
-                                            Calificar cal = new Calificar();
+                                            Calificar cal = new Calificar(cod);
                                             cal.setVisible(true);
                                             break;
                                         case 3:

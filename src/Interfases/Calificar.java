@@ -20,12 +20,15 @@ import javax.swing.JOptionPane;
 public class Calificar extends javax.swing.JFrame {
 
     int calificacion = 0;
+    String codigo_evento=" ";
 
     /**
      * Creates new form Calificar
      */
-    public Calificar() {
+    public Calificar(String codigo) {
         initComponents();
+        this.codigo_evento=codigo;
+        
     }
 
     /**
@@ -276,6 +279,8 @@ public class Calificar extends javax.swing.JFrame {
 
     public void GuardarCalificacion(ObjectContainer base, int calificacion) {
 
+        System.out.println(codigo_evento+" "+calificacion);
+        
         try {
 
             SimpleDateFormat forma = new SimpleDateFormat("dd/MM/yyyy ");
@@ -285,7 +290,7 @@ public class Calificar extends javax.swing.JFrame {
             int resultado = JOptionPane.showConfirmDialog(null, "Esta de acuerdo con esa calificacion", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resultado == JOptionPane.YES_OPTION) {
-                Calificar_evento califi = new Calificar_evento(null, null, null, calificacion, fecha);
+                Calificar_evento califi = new Calificar_evento(codigo_evento, null, null, calificacion, fecha);
                 base.store(califi);
                 JOptionPane.showMessageDialog(null, "Gracias por apoyarnos , tu opinion nos ayuda a crecer");
                 LimopiarCalificaion();
@@ -311,40 +316,7 @@ public class Calificar extends javax.swing.JFrame {
 
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Calificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Calificar().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

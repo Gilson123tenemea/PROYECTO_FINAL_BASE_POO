@@ -44,8 +44,9 @@ public class Blog_publico extends javax.swing.JFrame {
      */
     public Blog_publico(String codigo) {
         initComponents();
+        this.codigo=codigo;
         cargarComentarios();
-        System.out.println(codigo);
+        
     }
 
     /**
@@ -198,7 +199,7 @@ public class Blog_publico extends javax.swing.JFrame {
                 Date fecha = new Date();
                 String publico = Inicio.nombre + " " + Inicio.apellido;
 
-                Comentario comentario1 = new Comentario(comenta, null, Inicio.codigo, fecha, publico);
+                Comentario comentario1 = new Comentario(comenta,codigo, Inicio.codigo, fecha, publico);
                 base.store(comentario1);
 
             } finally {
@@ -301,7 +302,7 @@ public class Blog_publico extends javax.swing.JFrame {
 
             // Verificar si ya existe una casa con el mismo código
             resul = base.queryByExample(new Imagen(cod, null, null, null));
-            Imagen im = new Imagen(null, Inicio.codigo, cod, foto);
+            Imagen im = new Imagen(codigo, Inicio.codigo, cod, foto);
             base.store(im);
             JOptionPane.showMessageDialog(null, " Se guardo exitosamente, no te olvides de comentar  el evento");
 
