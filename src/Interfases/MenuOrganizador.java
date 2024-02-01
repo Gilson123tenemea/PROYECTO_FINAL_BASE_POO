@@ -20,7 +20,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Crud_Comerciante comerciante = new Crud_Comerciante();
     Reporte_Publico publico = new Reporte_Publico();
     Tipo_Personal tippersonal = new Tipo_Personal ();
-    
+    Reporte_Asistencias asiten = new Reporte_Asistencias ();
     
     Cambio tip = new Cambio();
 
@@ -80,6 +80,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
+        jButton13 = new javax.swing.JButton();
         pnldinamico = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -247,6 +248,14 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jPanel2.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 200, 10));
         jPanel2.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, 10));
 
+        jButton13.setText("ASISTENCIAS AL EVENTO");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 200, -1));
+
         pnldinamico.setBackground(new java.awt.Color(255, 255, 255));
         pnldinamico.setLayout(new java.awt.CardLayout());
         pnldinamico.add(jSeparator7, "card2");
@@ -403,6 +412,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+       pnldinamico.add(asiten, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +491,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

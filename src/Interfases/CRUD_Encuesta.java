@@ -38,18 +38,15 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     public void crearEncuesta(ObjectContainer base) {
         try {
-            // Obtener el último código de Encuesta en la base de datos
-            Query query = base.query();
+           Query query = base.query();
             query.constrain(Encuesta.class);
-            query.descend("cod_encuesta").orderDescending();
+            query.descend("Cod_encuesta").orderDescending();
             ObjectSet<Encuesta> result = query.execute();
 
-            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            int ultimoCodigo = 1;
             if (!result.isEmpty()) {
-                Encuesta ultimaEncuesta = result.next();
-                // Obtener la parte numérica del código y convertir a entero
-                String ultimoCodigoStr = ultimaEncuesta.getCod_encuesta().replaceAll("[^0-9]", "");
-                ultimoCodigo = Integer.parseInt(ultimoCodigoStr) + 1;
+                Encuesta ultimoPuesto = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPuesto.getCod_encuesta().substring(4)) + 1;
             }
 
             // Formatear el código con ceros a la izquierda
