@@ -93,6 +93,7 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -152,8 +153,8 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
         });
         jPanel1.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 301, 140, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 180, -1));
 
         jLabel7.setText("DIRECCION:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, -1, 20));
@@ -214,7 +215,7 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
                 btncrearActionPerformed(evt);
             }
         });
-        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, -1, -1));
+        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 520, -1, -1));
 
         rbnmasculino.setText("Masculino");
         rbnmasculino.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -287,13 +288,11 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
