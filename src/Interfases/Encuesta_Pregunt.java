@@ -18,10 +18,17 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     String encuesta = "", pregunta1 = "", pregunta2 = "", pregunta3 = "", pregunta4 = "", pregunta5 = "";
 
+    String cod=" ";
     public Encuesta_Pregunt(String codigo) {
         initComponents();
+        this.cod=codigo;
         txtCedula.setText(Inicio.cedula);
         obtenerPreguntas(codigo);
+        Agrupar1();
+        Agrupar2();
+        Agrupar3();
+        Agrupar4();
+        Agrupar5();
 
     }
 
@@ -89,6 +96,8 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     public void crearRespuestas(ObjectContainer base) {
         try {
+            
+            System.out.println(cod);
             ObjectSet<RespuestasEncuesta> result = base.queryByExample(new RespuestasEncuesta(null, null, null, null, null, null, null, null));
             Query query = base.query();
             query.constrain(RespuestasEncuesta.class);
@@ -144,7 +153,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
                 res5 = "NO";
             }
 
-            RespuestasEncuesta respuestas = new RespuestasEncuesta(nuevoCodigo, txtCedula.getText().trim(), null, res1, res2, res3, res4, res5);
+            RespuestasEncuesta respuestas = new RespuestasEncuesta(nuevoCodigo, txtCedula.getText().trim(), cod, res1, res2, res3, res4, res5);
             base.store(respuestas);
 
             JOptionPane.showMessageDialog(this, "Puesto creado exitosamente");
