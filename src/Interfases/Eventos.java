@@ -117,7 +117,7 @@ public class Eventos extends javax.swing.JFrame {
                     // Convertir fechafin (Date) a LocalDate
                     LocalDate fechaFinLocal = fechafin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     if (fechaFinLocal.isBefore(fechaActual)) {
-                        boton.setBackground(Color.RED);
+                        boton.setBackground(Color.GREEN);
                     } else {
                         // Otro color o acciones si la fecha no ha pasado
                     }
