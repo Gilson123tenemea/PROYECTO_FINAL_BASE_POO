@@ -714,6 +714,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             micasita.setCelular(txtcelular.getText().trim());
             micasita.setFecchaNaci(fechanac.getDate());
             micasita.setCod_evento(jComboBoxevento.getSelectedItem().toString());
+            micasita.setGenero(sexo);
 
             base.set(micasita);
 
