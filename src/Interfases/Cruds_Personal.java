@@ -50,7 +50,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();
-
+        Agrupar();
         cargarDepartamentos();
         cargarTipoPersonal();
         cargar();
@@ -565,12 +565,22 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
+        
+        
 
         if (txtapellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el apellido ");
             ban_confirmar = false;
         } else if (!miValidaciones.ValidarNomApe(txtapellido.getText())) {
             JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        
+         if (txttelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese telefono ");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarTelefono(txttelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
 
@@ -581,12 +591,21 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
+        
+         if (txtdireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Direccion");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtdireccion.getText())) {
+            JOptionPane.showMessageDialog(this, "Direccion incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        
 
         // Validar otros campos aquí...
-        if (txttelefono.getText().isEmpty()) {
+        if (txtcelular.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el celular ");
             ban_confirmar = false;
-        } else if (!miValidaciones.validarCedula(txttelefono.getText())) {
+        } else if (!miValidaciones.validarCedula(txtcelular.getText())) {
             JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
