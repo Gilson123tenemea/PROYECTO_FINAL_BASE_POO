@@ -18,6 +18,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Tipo_Personal tippersonal = new Tipo_Personal ();
     Reporte_Asistencias asiten = new Reporte_Asistencias ();
     Reporte_Encuesta respuestas = new Reporte_Encuesta ();
+    Reporte_Comentario cometario = new Reporte_Comentario ();
+    Reporte_Calificacion cali = new Reporte_Calificacion ();
+    
     
     Cambio tip = new Cambio();
 
@@ -257,9 +260,19 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 200, 20));
 
         jButton15.setText("CALIFICACIONES");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 200, 20));
 
         jButton16.setText("MI BLOG");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 200, 20));
 
         pnldinamico.setBackground(new java.awt.Color(255, 255, 255));
@@ -431,6 +444,20 @@ public class MenuOrganizador extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        pnldinamico.add(cometario, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        pnldinamico.add(cali, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
