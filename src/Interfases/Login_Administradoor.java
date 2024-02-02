@@ -20,7 +20,9 @@ public class Login_Administradoor extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    
+    
+    //Ingreso administrador
     public void validarU_Admnistrador() {
         String auxUsuario = txtUsuario.getText();
         String auxPassword = txtPassword.getText();
