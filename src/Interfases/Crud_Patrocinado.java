@@ -36,6 +36,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         cargarTablaReporte(base);
         base.close();
+        Agrupar();
     }
 
     public void Agrupar() {
@@ -64,6 +65,11 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }
 
     public void crearPatrocinador(ObjectContainer Base) {
+
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Verificar si todos los campos están llenos
         if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty() || txtTelefono.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty()
                 || txtCelular.getText().trim().isEmpty() || (masculino.getText().trim().isEmpty() || femenino.getText().trim().isEmpty()) || txtDescripcion.getText().trim().isEmpty()
@@ -93,6 +99,11 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
                 return;
             }
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad1(Date_patro.getDate())) {
+                JOptionPane.showMessageDialog(this, "El Patrocinador debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             // Crear objeto CasaVacacional y almacenar en la base de datos
             Patrocinador casa1 = new Patrocinador(
                     codig_patrio.getText().trim(),
@@ -399,6 +410,30 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             ban_confirmar = false;
         }
 
+        if (txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Descripcion del patrocinador");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtDescripcion.getText())) {
+            JOptionPane.showMessageDialog(this, "Descripcion incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtRedes.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese las Redes Sociales del patrocinador");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtRedes.getText())) {
+            JOptionPane.showMessageDialog(this, "Red Social incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Direccion del patrocinador");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtDireccion.getText())) {
+            JOptionPane.showMessageDialog(this, "Direccion incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
         if (txtEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el correo del patrocinador");
             ban_confirmar = false;
@@ -409,9 +444,17 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         // Validar otros campos aquí...
         if (txtTelefono.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el celular del patrocinador");
+            JOptionPane.showMessageDialog(this, "Ingrese el Telefono del patrocinador");
             ban_confirmar = false;
-        } else if (!miValidaciones.validarCedula(txtTelefono.getText())) {
+        } else if (!miValidaciones.validarTelefono(txtTelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtCelular.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Celular del patrocinador");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtCelular.getText())) {
             JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
@@ -766,31 +809,28 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     public void limpiar() {
-        
+
         txtCedula.setText("");
-    txtNombre.setText("");
-    txtApellido.setText("");
-    txtEmail.setText("");
-    txtTelefono.setText("");
-    txtDireccion.setText("");
-    txtCelular.setText("");
-    Date_patro.setDate(null); // Limpiar la fecha
-    codig_patrio.setText("");
-    txtDescripcion.setText("");
-    txtRedes.setText("");
-}
-    
-    
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEmail.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtCelular.setText("");
+        Date_patro.setDate(null); // Limpiar la fecha
+        codig_patrio.setText("");
+        txtDescripcion.setText("");
+        txtRedes.setText("");
+    }
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         cargarTablaReporte(base);
         base.close();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    
-    
-    
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -851,7 +891,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
                 // Limpiar la tabla después de la eliminación
                 vaciarTabla();
-                 limpiar();
+                limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el Propietario con la cédula ingresada", "Error", JOptionPane.ERROR_MESSAGE);
             }
