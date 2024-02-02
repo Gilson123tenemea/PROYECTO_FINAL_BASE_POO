@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Comerciantes;
+import Clases.Departamento;
 import Clases.Puesto;
 import Clases.Validaciones;
 import com.db4o.Db4o;
@@ -92,40 +93,65 @@ public class Crud_Puestos extends javax.swing.JPanel {
         }
     }
 
-    public void modificarPuesto(ObjectContainer base) {
-        int filaSeleccionada = tablapuesto.getSelectedRow();
-
-        if (filaSeleccionada != -1) {
-
-            String codigoModificar = tablapuesto.getValueAt(filaSeleccionada, 0).toString();
-
-            try {
-
-                Query query = base.query();
-                query.constrain(Puesto.class);
-                query.descend("Codigo_puesto").constrain(codigoModificar);
-                ObjectSet<Puesto> result = query.execute();
-
-                if (!result.isEmpty()) {
-
-                    Puesto puesto = result.get(0);
-
-                    lblcod.setEnabled(false);
-                    lblcod.setText(puesto.getCodigo_puesto());
-                    txtnombrepuesto.setText(puesto.getNombrePuesto());
-                    txttipopuesto.setText(puesto.getTipo_puesto());
-                    txtdescripcion.setText(puesto.getDescripcionPuesto());
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró del Puesto en la base de datos.");
-                }
-            } finally {
-                // No cierres la base de datos aquí; déjalo abierto para que puedas usarlo en el método que llama a modificarDepartamento
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No has seleccionado ninguna fila.");
+    public void ActualizarDatos(ObjectContainer base) {
+        if (txtnombrepuesto.getText().trim().isEmpty() || txttipopuesto.getText().trim().isEmpty() || txtdescripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        try {
+            Puesto miubi = new Puesto(lblcod.getText().trim(), null, null, null);
+            ObjectSet res = base.get(miubi);
+            Puesto miubipersonal = (Puesto) res.next();
+            miubipersonal.setNombrePuesto(txtnombrepuesto.getText().trim());
+            miubipersonal.setTipo_puesto(txttipopuesto.getText().trim());
+
+            miubipersonal.setDescripcionPuesto(txtdescripcion.getText().trim());
+
+            base.set(miubipersonal);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            cargarTabla(base);
+            limpiar();
+
+        } finally {
+            base.close();
+        }
+
     }
 
+//    public void modificarPuesto(ObjectContainer base) {
+//        int filaSeleccionada = tablapuesto.getSelectedRow();
+//
+//        if (filaSeleccionada != -1) {
+//
+//            String codigoModificar = tablapuesto.getValueAt(filaSeleccionada, 0).toString();
+//
+//            try {
+//
+//                Query query = base.query();
+//                query.constrain(Puesto.class);
+//                query.descend("Codigo_puesto").constrain(codigoModificar);
+//                ObjectSet<Puesto> result = query.execute();
+//
+//                if (!result.isEmpty()) {
+//
+//                    Puesto puesto = result.get(0);
+//
+//                    lblcod.setEnabled(false);
+//                    lblcod.setText(puesto.getCodigo_puesto());
+//                    txtnombrepuesto.setText(puesto.getNombrePuesto());
+//                    txttipopuesto.setText(puesto.getTipo_puesto());
+//                    txtdescripcion.setText(puesto.getDescripcionPuesto());
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "No se encontró del Puesto en la base de datos.");
+//                }
+//            } finally {
+//                // No cierres la base de datos aquí; déjalo abierto para que puedas usarlo en el método que llama a modificarDepartamento
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No has seleccionado ninguna fila.");
+//        }
+//    }
     public boolean validarCampos() {
         Validaciones miValidaciones = new Validaciones();
         boolean ban_confirmar = true;
@@ -249,7 +275,6 @@ public class Crud_Puestos extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lblcod = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         cboxbusqueda = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -352,15 +377,6 @@ public class Crud_Puestos extends javax.swing.JPanel {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lOGO1.png"))); // NOI18N
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/confirmacion.png"))); // NOI18N
-        jButton5.setText("Confirmar Modificar");
-        jButton5.setToolTipText("ESTE BOTON SIRVE PARA CONFIRMAR LA MODIFICACION QUE HAGAMOS");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.setToolTipText("ESTE BOTON SIRVE PARA CARGAR LOS DATOS PARA PODER MODIFICAR");
@@ -440,9 +456,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar)
-                .addGap(14, 14, 14)
-                .addComponent(jButton5)
-                .addGap(82, 82, 82))
+                .addGap(153, 153, 153))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,15 +496,14 @@ public class Crud_Puestos extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton6)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(52, 52, 52)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(28, 28, 28)
+                .addGap(34, 34, 34)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -526,7 +539,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        modificarPuesto(base);
+        ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -539,15 +552,6 @@ public class Crud_Puestos extends javax.swing.JPanel {
         base.close();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        confirmarModificacion(base);
-
-        base.close();
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -599,40 +603,70 @@ public class Crud_Puestos extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
-    public void buscarActividad(ObjectContainer base) {
-        String cedulaBuscada = JOptionPane.showInputDialog("Ingrese el código del Puesto a Buscar:");
 
-        if (cedulaBuscada != null && !cedulaBuscada.trim().isEmpty()) {
+    private void buscarActividad(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Puesto a buscar:", "Buscar Tipo de Departamento", JOptionPane.QUESTION_MESSAGE);
 
-            String nombre = " ", tipo = " ", descripcion = " ", cod = " ";
-
-            Query query = base.query();
-            query.constrain(Puesto.class);
-            query.descend("Codigo_puesto").constrain(cedulaBuscada.trim());
-            ObjectSet<Puesto> result = query.execute();
-
-            DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
-            model.setRowCount(0);  // Limpiar la tabla antes de agregar la nueva fila
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Puesto> result = base.queryByExample(new Puesto(codigoBusqueda, null, null, null));
 
             if (!result.isEmpty()) {
-                for (Puesto puesto : result) {
-                    nombre = puesto.getNombrePuesto();
-                    tipo = puesto.getTipo_puesto();
-                    descripcion = puesto.getDescripcionPuesto();
+                Puesto ubicacionEncontrada = result.next();
+                lblcod.setText(ubicacionEncontrada.getCodigo_puesto());
+                txtnombrepuesto.setText(ubicacionEncontrada.getNombrePuesto());
+                txttipopuesto.setText(ubicacionEncontrada.getTipo_puesto());
+                txtdescripcion.setText(ubicacionEncontrada.getDescripcionPuesto());
+                limpiarTabla();
+                DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
 
-                    // Agregar la fila a la tabla
-                    model.addRow(new Object[]{cedulaBuscada.trim(), nombre.trim(), tipo.trim(), descripcion.trim()});
-                }
+                Object[] row = {
+                    ubicacionEncontrada.getCodigo_puesto(),
+                    ubicacionEncontrada.getNombrePuesto(),
+                    ubicacionEncontrada.getTipo_puesto(),
+                    ubicacionEncontrada.getDescripcionPuesto(),};
+                model.addRow(row);
+                tablapuesto.setModel(model);
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ningún Puesto con el código ingresado", "Error", JOptionPane.ERROR_MESSAGE);
-                cargarTabla(base);
+                JOptionPane.showMessageDialog(this, "No se encontró ningun Puesto con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            base.close();
-        } else {
-            JOptionPane.showMessageDialog(null, "El código ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        base.close();
     }
+//
+//    public void buscarActividad(ObjectContainer base) {
+//        String cedulaBuscada = JOptionPane.showInputDialog("Ingrese el código del Puesto a Buscar:");
+//
+//        if (cedulaBuscada != null && !cedulaBuscada.trim().isEmpty()) {
+//
+//            String nombre = " ", tipo = " ", descripcion = " ", cod = " ";
+//
+//            Query query = base.query();
+//            query.constrain(Puesto.class);
+//            query.descend("Codigo_puesto").constrain(cedulaBuscada.trim());
+//            ObjectSet<Puesto> result = query.execute();
+//
+//            DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
+//            model.setRowCount(0);  // Limpiar la tabla antes de agregar la nueva fila
+//
+//            if (!result.isEmpty()) {
+//                for (Puesto puesto : result) {
+//                    nombre = puesto.getNombrePuesto();
+//                    tipo = puesto.getTipo_puesto();
+//                    descripcion = puesto.getDescripcionPuesto();
+//
+//                    // Agregar la fila a la tabla
+//                    model.addRow(new Object[]{cedulaBuscada.trim(), nombre.trim(), tipo.trim(), descripcion.trim()});
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No se encontró ningún Puesto con el código ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+//                cargarTabla(base);
+//            }
+//
+//            base.close();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "El código ingresado no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -722,6 +756,12 @@ public class Crud_Puestos extends javax.swing.JPanel {
         txtdescripcion.setEnabled(true);
 
     }
+
+    private void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
+        model.setRowCount(0);
+    }
+
     private void txttipopuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipopuestoKeyTyped
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("tipo")) {
             txttipopuesto.addKeyListener(new KeyAdapter() {
@@ -843,7 +883,6 @@ public class Crud_Puestos extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -58,8 +58,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             // Formatear el código con ceros a la izquierda
             String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
-            
-             // Validar que la fecha de inicio sea anterior a la fecha de fin
+
+            // Validar que la fecha de inicio sea anterior a la fecha de fin
             if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null || jDateChooser1.getDate().after(jDateChooser2.getDate())) {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
                 return;  // Salir del método si las fechas son incorrectas
@@ -313,7 +313,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jTextField5.setText(actividad.getPregunta4());
         jTextField6.setText(actividad.getPregunta5());
         jDateChooser1.setDate(actividad.getFecha_inicio());
-        jDateChooser1.setDate(actividad.getFecha_fin());
+        jDateChooser2.setDate(actividad.getFecha_fin());
 
         cboxevento.setSelectedItem(actividad.getEvento());
 
@@ -321,14 +321,16 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private void cargarTabla(ObjectContainer base, Encuesta actividadFiltrada) {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        jTable2.repaint();
 
         Object[] row = {
             actividadFiltrada.getCod_encuesta(),
             actividadFiltrada.getNombre_encuesta(),
             actividadFiltrada.getEvento(),
             actividadFiltrada.getDescrpcion_encuesta(),
-            actividadFiltrada.getFecha_inicio(),
-            actividadFiltrada.getFecha_fin(),
+            actividadFiltrada.getFecha_inicio() != null ? sdf.format(actividadFiltrada.getFecha_inicio()) : null,
+            actividadFiltrada.getFecha_fin() != null ? sdf.format(actividadFiltrada.getFecha_fin()) : null,
             actividadFiltrada.getPregunta1(),
             actividadFiltrada.getPregunta2(),
             actividadFiltrada.getPregunta3(),
@@ -336,7 +338,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             actividadFiltrada.getPregunta5(),};
         model.addRow(row);
 
-        base.close();
+        
     }
 
     private void limpiarTabla() {
