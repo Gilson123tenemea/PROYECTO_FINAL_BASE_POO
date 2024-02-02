@@ -509,6 +509,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         horai = tmreloj.getSelectedTime();
+        
         JOptionPane.showMessageDialog(null, " Hora de Inicio" + horai);
         validar();
 
@@ -522,6 +523,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        
         ActualizarDatos(base);
 
         base.close();
@@ -544,6 +546,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             se.setFileSelectionMode(JFileChooser.FILES_ONLY);
             int estado = se.showOpenDialog(null);
             if (estado == JFileChooser.APPROVE_OPTION) {
+                
                 try {
                     File archivo = se.getSelectedFile();
                     this.longitudBytes = (int) archivo.length();
