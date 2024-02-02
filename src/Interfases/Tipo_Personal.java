@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Personal;
 import Clases.Tipos_Personales;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -36,9 +37,8 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }
 
     public void crearTipoPersona(ObjectContainer base) {
-        if (txtDescripcion.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -73,6 +73,28 @@ public class Tipo_Personal extends javax.swing.JPanel {
         } finally {
             base.close();
         }
+    }
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtNombre.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        if (txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la descripción del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtDescripcion.getText())) {
+            JOptionPane.showMessageDialog(this, "Descripción incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        return ban_confirmar;
     }
 
     public void limpiar() {
@@ -405,8 +427,8 @@ public class Tipo_Personal extends javax.swing.JPanel {
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Tipo de Personal");
 
         try {
-            
-            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null,null,null,null,null);
+
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {
@@ -535,25 +557,25 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-        char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
-            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
-            evt.consume();
-        } else {
-            evt.consume();
-        }
-
-// Limitar la longitud del texto a 20 caracteres
-        if (txtDescripcion.getText().length() > 100) {
-            evt.consume();
-        }
+//        char letra = evt.getKeyChar();
+//
+//// Verificar si es una letra y si es la primera letra
+//        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
+//            // Convertir la letra a mayúscula y agregarla al texto existente
+//            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+//            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+//        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+//            // Verificar si es letra o espacio y agregar al texto en minúscula
+//            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
+//            evt.consume();
+//        } else {
+//            evt.consume();
+//        }
+//
+//// Limitar la longitud del texto a 20 caracteres
+//        if (txtDescripcion.getText().length() > 100) {
+//            evt.consume();
+//        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionKeyTyped
 

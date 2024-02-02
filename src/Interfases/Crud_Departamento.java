@@ -8,6 +8,7 @@ package Interfases;
 import Clases.Departamento;
 import Clases.Organizador;
 import Clases.Personal;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -319,50 +320,49 @@ public class Crud_Departamento extends javax.swing.JPanel {
         boolean encontrado = false;
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        try{
-        
-        Personal actividadAsociada = new Personal(null, null, codigoEliminar, null, null,null,null,null,null);
+        try {
+
+            Personal actividadAsociada = new Personal(null, null, codigoEliminar, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {
                 JOptionPane.showMessageDialog(this, "No se puede eliminar este Departamento porque está asociado a un Personal", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-        
 
-        Query query = base.query();
-        query.constrain(Departamento.class);
-        query.descend("id_departamento").constrain(codigoEliminar);
+            Query query = base.query();
+            query.constrain(Departamento.class);
+            query.descend("id_departamento").constrain(codigoEliminar);
 
-        ObjectSet<Departamento> result = query.execute();
-        cargarTabla(base);
-
-        if (result.size() > 0) {
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Departamento", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Departamento departamentoDB : result) {
-                    // Eliminar la Casa Vacacional de la base de datos db4o
-                    base.delete(departamentoDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Departamento");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Departamento no eliminados");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
+            ObjectSet<Departamento> result = query.execute();
             cargarTabla(base);
-        }
 
-         } catch (Exception e) {
+            if (result.size() > 0) {
+                encontrado = true;
+
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Departamento", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Departamento departamentoDB : result) {
+                        // Eliminar la Casa Vacacional de la base de datos db4o
+                        base.delete(departamentoDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Departamento");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Departamento no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+                cargarTabla(base);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             base.close();
         }
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void buscarActividad(ObjectContainer base) {
@@ -526,25 +526,25 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreDepartamentoKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-        char letra = evt.getKeyChar();
-
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
-            // Convertir la letra a mayúscula y agregarla al texto existente
-            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
-            evt.consume();
-        } else {
-            evt.consume();
-        }
-
-// Limitar la longitud del texto a 20 caracteres
-        if (txtDescripcion.getText().length() > 80) {
-            evt.consume();
-        }
+//        char letra = evt.getKeyChar();
+//
+//// Verificar si es una letra y si es la primera letra
+//        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
+//            // Convertir la letra a mayúscula y agregarla al texto existente
+//            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+//            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+//        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+//            // Verificar si es letra o espacio y agregar al texto en minúscula
+//            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
+//            evt.consume();
+//        } else {
+//            evt.consume();
+//        }
+//
+//// Limitar la longitud del texto a 20 caracteres
+//        if (txtDescripcion.getText().length() > 80) {
+//            evt.consume();
+//        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
@@ -645,9 +645,8 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
     public void crearDepartamento(ObjectContainer Base) {
         // Verificar si todos los campos están llenos
-        if (txtNombreDepartamento.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -679,6 +678,28 @@ public class Crud_Departamento extends javax.swing.JPanel {
         } finally {
             Base.close();
         }
+    }
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtNombreDepartamento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtNombreDepartamento.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+        if (txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la descripción del cliente");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtDescripcion.getText())) {
+            JOptionPane.showMessageDialog(this, "Descripción incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        return ban_confirmar;
     }
 
     public void limpiar() {
