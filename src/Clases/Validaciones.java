@@ -54,6 +54,15 @@ public class Validaciones {
         return ciudad.matches("[A-Za-z\\s]*");
     }
 
+    public boolean validarDireccion(String direccion) {
+        direccion = direccion.trim();
+
+        // Expresión regular básica para direcciones
+        String regex = "^[A-Za-z0-9\\s.,'-]+$";
+
+        return direccion.matches(regex);
+    }
+
     public boolean ValidarCorreo(String mail) {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{1,30})$");
         Matcher matcher = pattern.matcher(mail);
