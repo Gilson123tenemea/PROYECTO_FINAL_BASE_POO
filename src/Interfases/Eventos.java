@@ -38,7 +38,9 @@ public class Eventos extends javax.swing.JFrame {
 
     private List<JButton> botones;
     private int indice;
-
+    private boolean asistenciaConfirmada = false;
+    private boolean encuestaRealizada = false;
+    private boolean calificacionRealizada = false;
     byte[] foto1;
 
     String tipo, nombre, codigo;
@@ -56,11 +58,7 @@ public class Eventos extends javax.swing.JFrame {
         extraerfechaactu();
 
         Date fecha = new Date();
-
-        // Convertir a LocalDate
         LocalDate fechaLocal = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        // Hacer algo con la fechaLocal
         System.out.println("Fecha actual: " + fechaLocal);
 
     }
@@ -97,10 +95,9 @@ public class Eventos extends javax.swing.JFrame {
             }
 
             if (!result.isEmpty()) {
-                int indice = 0;
                 for (Evento tipoevento1 : result) {
                     String nom = tipoevento1.getNombre();
-                    String cod=tipoevento1.getCod_evento();
+                    String cod = tipoevento1.getCod_evento();
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaf = tipoevento1.getFecha_inicio();
                     String fechai = formato.format(fechaf);
@@ -113,13 +110,11 @@ public class Eventos extends javax.swing.JFrame {
 
                     JButton boton = new JButton(tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                     boton.setSize(200, 200);
-
-                    // Convertir fechafin (Date) a LocalDate
                     LocalDate fechaFinLocal = fechafin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     if (fechaFinLocal.isBefore(fechaActual)) {
                         boton.setBackground(Color.GREEN);
                     } else {
-                        // Otro color o acciones si la fecha no ha pasado
+
                     }
 
                     byte[] foto = tipoevento1.getData();
@@ -133,35 +128,44 @@ public class Eventos extends javax.swing.JFrame {
 
                         boton.setIcon(iconoEscalado);
                         panel.add(boton);
-                        indice++;
 
                         boton.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                // Mostrar JOptionPane con la información del evento
-                                String[] arreglo = {"Quiero asistir", "encuesta", "Califica el evento", "Mi blog"};
+                                String[] arreglo = {"Quiero asistir", "Encuesta", "Califica el evento", "Mi blog"};
                                 int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nom + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asistir");
 
-                                System.out.println(opcion);
-
                                 if (opcion >= 0) {
-                                    System.out.println(arreglo[opcion]);
-
                                     switch (opcion) {
                                         case 0:
-                                            boolean asistir = true;
-                                            String publico = Inicio.nombre + " " + Inicio.apellido;
-                                            ConfirmarAsistencia(asistir, nom, publico);
+                                            if (!asistenciaConfirmada) {
+                                                asistenciaConfirmada = true;
+                                                boolean asistir = true;
+                                                String publico = Inicio.nombre + " " + Inicio.apellido;
+                                                ConfirmarAsistencia(asistir, nom, publico);
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Ya has confirmado asistencia para este evento.");
+                                            }
                                             break;
                                         case 1:
-                                            Eventos.this.dispose();
-                                            Encuesta_Pregunt let = new Encuesta_Pregunt(cod);
-                                            let.setVisible(true);
+                                            if (!encuestaRealizada) {
+                                                encuestaRealizada = true;
+                                                Eventos.this.dispose();
+                                                Encuesta_Pregunt let = new Encuesta_Pregunt(cod);
+                                                let.setVisible(true);
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Ya has realizado la encuesta para este evento.");
+                                            }
                                             break;
                                         case 2:
-                                            Eventos.this.dispose();
-                                            Calificar cal = new Calificar(cod);
-                                            cal.setVisible(true);
+                                            if (!calificacionRealizada) {
+                                                calificacionRealizada = true;
+                                                Eventos.this.dispose();
+                                                Calificar cal = new Calificar(cod);
+                                                cal.setVisible(true);
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Ya has realizado la calificación para este evento.");
+                                            }
                                             break;
                                         case 3:
                                             Eventos.this.dispose();
@@ -172,8 +176,7 @@ public class Eventos extends javax.swing.JFrame {
                                             JOptionPane.showMessageDialog(null, "Escoja una opcion");
                                     }
                                 } else {
-                                    // El usuario cerró el JOptionPane sin seleccionar ninguna opción
-                                    // Manejar esta situación según tus necesidades
+                                   
                                 }
                             }
                         });
@@ -182,11 +185,9 @@ public class Eventos extends javax.swing.JFrame {
                 panel.updateUI();
             }
         } finally {
-            // Cerrar la interfaz actual (this)
             this.dispose();
             base.close();
         }
-
     }
 
     public void ConfirmarAsistencia(boolean asistencia, String nombreEvento, String publi) {
@@ -194,26 +195,31 @@ public class Eventos extends javax.swing.JFrame {
             ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
             Query query = base.query();
-            query.constrain(Asistencia.class);
-            query.descend("Cod_aistencia").orderDescending();
+            query.constrain(Asistencia.class
+            );
+            query.descend("cod_aistencia").orderDescending();
             ObjectSet<Asistencia> result = query.execute();
 
             int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Asistencia ultimoAsistencia = result.next();
-                ultimoCodigo = Integer.parseInt(ultimoAsistencia.getCod_aistencia().substring(4)) + 1;
-            }
-            String nuevoCodigo = String.format("ASI-%03d", ultimoCodigo);
 
-            // Crear nueva instancia de Asistencia
+                try {
+                    ultimoCodigo = Integer.parseInt(ultimoAsistencia.getCod_aistencia().substring(4)) + 1;
+                } catch (NumberFormatException e) {
+                    System.err.println("Error al convertir el código a un entero: " + e.getMessage());
+                }
+            }
+
+            String nuevoCodigo = String.format("ASI-%03d", ultimoCodigo);
             Asistencia nuevaAsistencia = new Asistencia(nuevoCodigo, nombreEvento, publi);
 
-            // Guardar la nueva Asistencia en la base de datos
             base.store(nuevaAsistencia);
+            JOptionPane.showMessageDialog(null, "Le esperamos en el evento");
 
             System.out.println("Asistencia confirmada: " + asistencia + ", Evento: " + nombreEvento + ", Cliente: " + publi);
 
-            base.commit(); // Confirmar los cambios en la base de datos
+            base.commit(); 
             base.close();
         }
     }
@@ -428,10 +434,8 @@ public class Eventos extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
-
-        // Crear y mostrar la nueva interfaz
         Menu_Cliente men = new Menu_Cliente();
-        men.setVisible(true); // TODO add your handling code here:
+        men.setVisible(true); 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
