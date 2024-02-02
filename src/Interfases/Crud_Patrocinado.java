@@ -79,6 +79,12 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             return;
         }
 
+        // Validar campo de radio buttons
+        if (!validarRadioButton(masculino, femenino)) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en el grupo de género", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         try {
 
             ObjectSet<Patrocinador> resul = Base.queryByExample(new Patrocinador(null, null, null, null, null, null, null, null, null, null, null, null));
@@ -127,6 +133,16 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         } finally {
             Base.close();
         }
+    }
+
+    private boolean validarRadioButton(JRadioButton... buttons) {
+        // Verificar si al menos uno de los radio buttons está seleccionado
+        for (JRadioButton button : buttons) {
+            if (button.isSelected()) {
+                return true;  // Al menos uno está seleccionado, retorno exitoso
+            }
+        }
+        return false;  // Ninguno está seleccionado
     }
 
     private boolean existeCedula(ObjectContainer base, String cedula) {
