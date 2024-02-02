@@ -33,6 +33,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
 
     public Menu_Cliente() {
         initComponents();
+        this.setLocationRelativeTo(null);
         txtNombre.setText(Inicio.nombre);
         //txtApellido.setText(Inicio.apellido);
 

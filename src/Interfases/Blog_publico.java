@@ -44,9 +44,9 @@ public class Blog_publico extends javax.swing.JFrame {
      */
     public Blog_publico(String codigo) {
         initComponents();
-        this.codigo=codigo;
+        this.codigo = codigo;
         cargarComentarios();
-        
+
     }
 
     /**
@@ -58,6 +58,7 @@ public class Blog_publico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -72,6 +73,19 @@ public class Blog_publico extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,6 +172,17 @@ public class Blog_publico extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 220, 20));
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, -1));
+
+        jButton4.setText("Galeria");
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 130, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,7 +224,7 @@ public class Blog_publico extends javax.swing.JFrame {
                 Date fecha = new Date();
                 String publico = Inicio.nombre + " " + Inicio.apellido;
 
-                Comentario comentario1 = new Comentario(comenta,codigo, Inicio.codigo, fecha, publico);
+                Comentario comentario1 = new Comentario(comenta, codigo, Inicio.codigo, fecha, publico);
                 base.store(comentario1);
 
             } finally {
@@ -248,17 +273,23 @@ public class Blog_publico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-  
-
     public void cargarComentarios() {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        ObjectSet<Comentario> result = base.queryByExample(new Comentario());
-
+        Query query = base.query();
+        query.constrain(Comentario.class);
+        query.descend("codigo_evento").constrain(codigo);
+        ObjectSet<Comentario> result = query.execute();
         System.out.println(result.size());
         if (!result.isEmpty()) {
 
@@ -286,8 +317,6 @@ public class Blog_publico extends javax.swing.JFrame {
         }
         base.close();
     }
-
-   
 
     public void crearImagen(ObjectContainer base) {
 
@@ -353,10 +382,13 @@ public class Blog_publico extends javax.swing.JFrame {
     private javax.swing.JLabel fotolbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
