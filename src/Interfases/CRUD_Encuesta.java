@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Encuesta;
 import Clases.Evento;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -37,6 +38,11 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     }
 
     public void crearEncuesta(ObjectContainer base) {
+
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             Query query = base.query();
             query.constrain(Encuesta.class);
@@ -129,6 +135,96 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             model.addRow(row);
         }
 
+    }
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Nombre de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(jTextField1.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre de la Encuesta incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextArea1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la descripcion de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextArea1.getText())) {
+            JOptionPane.showMessageDialog(this, "Descripcion de la encuesta incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la pregunta 1 de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextField2.getText())) {
+            JOptionPane.showMessageDialog(this, "Pregunta 1 incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextField3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la pergunta 2 de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextField3.getText())) {
+            JOptionPane.showMessageDialog(this, "Pregunta 2 incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextField4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la pregunta 3 de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextField4.getText())) {
+            JOptionPane.showMessageDialog(this, "Pregunta 3 incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextField5.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la pregunta 4 de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextField5.getText())) {
+            JOptionPane.showMessageDialog(this, "Pregunta 4 incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jTextField6.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Pregunta 5 de la Encuesta");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(jTextField6.getText())) {
+            JOptionPane.showMessageDialog(this, "Pregunta 5 incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
+            ban_confirmar = false;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaComoCadena = sdf.format(jDateChooser1.getDate());
+
+            if (!miValidaciones.validarFecha(fechaComoCadena)) {
+                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
+                ban_confirmar = false;
+            }
+        }
+
+        if (jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
+            ban_confirmar = false;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaComoCadena = sdf.format(jDateChooser2.getDate());
+
+            if (!miValidaciones.validarFecha(fechaComoCadena)) {
+                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
+                ban_confirmar = false;
+            }
+        }
+
+        return ban_confirmar;
     }
 
     public void ActualizarDatos(ObjectContainer base) {
@@ -369,6 +465,11 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTextArea1);
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 250, -1));
@@ -731,17 +832,22 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         char letra = evt.getKeyChar();
-        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
-            jTextField2.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
-            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField2.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextField2.setText(jTextField2.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
         }
 
-        if (jTextField2.getText().length() > 400) {
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField2.getText().length() > 500) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField2KeyTyped
@@ -751,73 +857,118 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     }
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-       char letra = evt.getKeyChar();
-        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
-            jTextField3.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
-            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField3.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField3.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextField3.setText(jTextField3.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
         }
 
-        if (jTextField2.getText().length() > 400) {
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField3.getText().length() > 500) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
-       char letra = evt.getKeyChar();
-        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
-            jTextField4.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
-            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField4.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField4.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextField4.setText(jTextField4.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
         }
 
-        if (jTextField2.getText().length() > 400) {
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField4.getText().length() > 500) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-       char letra = evt.getKeyChar();
-        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
-            jTextField5.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
-            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField5.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField5.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextField5.setText(jTextField5.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
         }
 
-        if (jTextField2.getText().length() > 400) {
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField5.getText().length() > 500) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
-       char letra = evt.getKeyChar();
-        if ((Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
-            jTextField6.setText(String.valueOf(Character.toUpperCase(letra)));
-            evt.consume();
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra) || isSignoEspecial(letra)) {
-            jTextField2.setText(jTextField2.getText() + Character.toLowerCase(letra));
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField6.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextField6.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextField6.setText(jTextField6.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
         }
 
-        if (jTextField2.getText().length() > 400) {
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextField6.getText().length() > 500) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField6KeyTyped
 
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextArea1.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            jTextArea1.setText(String.valueOf(letra));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            jTextArea1.setText(jTextArea1.getText() + letra);
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (jTextArea1.getText().length() > 500) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextArea1KeyTyped
+    private boolean esCaracterEspecial(char caracter) {
+        // Puedes ajustar esta lógica según los caracteres especiales que quieras permitir
+        return "!@#$%^&*()_-+=<>?/".indexOf(caracter) != -1;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JComboBox<String> cboxevento;
