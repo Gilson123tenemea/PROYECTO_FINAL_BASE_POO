@@ -8,6 +8,7 @@ package Interfases;
 import Clases.Departamento;
 import Clases.Organizador;
 import Clases.Personal;
+import Clases.Tipos_Personales;
 import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -67,7 +68,6 @@ public class Crud_Departamento extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         btnReporte = new javax.swing.JButton();
         lblIdDepartamento = new javax.swing.JLabel();
-        btnConfirmarModificacion = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         cboxbusqueda = new javax.swing.JComboBox<>();
@@ -154,14 +154,6 @@ public class Crud_Departamento extends javax.swing.JPanel {
             }
         });
 
-        btnConfirmarModificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/confirmacion.png"))); // NOI18N
-        btnConfirmarModificacion.setText("Confirmar Modificar");
-        btnConfirmarModificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarModificacionActionPerformed(evt);
-            }
-        });
-
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton12.setBorder(null);
@@ -198,7 +190,8 @@ public class Crud_Departamento extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
                             .addComponent(jLabel5)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -215,25 +208,21 @@ public class Crud_Departamento extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnGuardar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnModificar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEliminar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnReporte))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lblIdDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(19, 19, 19)
                                         .addComponent(jButton12))
                                     .addComponent(txtNombreDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(btnGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnModificar)
-                .addGap(18, 18, 18)
-                .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(btnReporte)
-                .addGap(18, 18, 18)
-                .addComponent(btnConfirmarModificacion)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,13 +259,13 @@ public class Crud_Departamento extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cboxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnReporte)
-                    .addComponent(btnConfirmarModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(btnReporte))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -297,7 +286,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
         // TODO add your handling code here:
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        modificarDepartamento(base);
+        ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -315,14 +304,11 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del departamento a eliminar");
-        boolean encontrado = false;
-
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        try {
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Departamento");
 
-            Personal actividadAsociada = new Personal(null, null, codigoEliminar, null, null, null, null, null, null);
+        try {
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {
@@ -330,52 +316,70 @@ public class Crud_Departamento extends javax.swing.JPanel {
                 return;
             }
 
-            Query query = base.query();
-            query.constrain(Departamento.class);
-            query.descend("id_departamento").constrain(codigoEliminar);
+            Query queryPersonal = base.query();
+            queryPersonal.constrain(Personal.class);
+            queryPersonal.descend("id_tip_personal").constrain(codigoEliminar);
 
-            ObjectSet<Departamento> result = query.execute();
-            cargarTabla(base);
+            ObjectSet<Personal> resultPersonal = queryPersonal.execute();
 
-            if (result.size() > 0) {
-                encontrado = true;
+            if (resultPersonal.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar el Departamento porque tiene a un personal asociada", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Departamento", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            Query queryDepartamento = base.query();
+            queryDepartamento.constrain(Departamento.class);
+            queryDepartamento.descend("id_departamento").constrain(codigoEliminar);
+
+            ObjectSet<Departamento> resultDepartamento = queryDepartamento.execute();
+
+            if (resultDepartamento.size() > 0) {
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos del Departamento?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                 if (resul == JOptionPane.YES_OPTION) {
-                    for (Departamento departamentoDB : result) {
-                        // Eliminar la Casa Vacacional de la base de datos db4o
-                        base.delete(departamentoDB);
-                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Departamento");
-                        cargarTabla(base);
+                    for (Departamento departamento : resultDepartamento) {
+                        base.delete(departamento);
                     }
+                    JOptionPane.showMessageDialog(null, "Se han borrado los datos del Departamento");
+                    cargarTabla(base);
                 } else if (resul == JOptionPane.NO_OPTION) {
                     JOptionPane.showMessageDialog(null, "Datos del Departamento no eliminados");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el código");
-                cargarTabla(base);
             }
 
+            limpiar();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            cargarTabla(base);
             base.close();
         }
+
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void buscarActividad(ObjectContainer base) {
-        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Departamento a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Departamento a buscar:", "Buscar Tipo de Departamento", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
             ObjectSet<Departamento> result = base.queryByExample(new Departamento(codigoBusqueda, null, null));
 
             if (!result.isEmpty()) {
-                Departamento actividadEncontrada = result.next();
-                cargarDatosActividad(actividadEncontrada);
+                Departamento ubicacionEncontrada = result.next();
+                lblIdDepartamento.setText(ubicacionEncontrada.getId_departamento());
+                txtNombreDepartamento.setText(ubicacionEncontrada.getNombre());
+                txtDescripcion.setText(ubicacionEncontrada.getDescripcion());
                 limpiarTabla();
-                cargarTabla(base, actividadEncontrada);
+                DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
+
+                Object[] row = {
+                    ubicacionEncontrada.getId_departamento(),
+                    ubicacionEncontrada.getNombre(),
+                    ubicacionEncontrada.getDescripcion(),};
+                model.addRow(row);
+                jTableDatos.setModel(model);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró ningun Departamento con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -383,6 +387,23 @@ public class Crud_Departamento extends javax.swing.JPanel {
         base.close();
     }
 
+//    private void buscarActividad(ObjectContainer base) {
+//        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código del Departamento a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+//
+//        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+//            ObjectSet<Departamento> result = base.queryByExample(new Departamento(codigoBusqueda, null, null));
+//
+//            if (!result.isEmpty()) {
+//                Departamento actividadEncontrada = result.next();
+//                cargarDatosActividad(actividadEncontrada);
+//                limpiarTabla();
+//                cargarTabla(base, actividadEncontrada);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "No se encontró ningun Departamento con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+//        base.close();
+//    }
     private void limpiarTabla() {
         DefaultTableModel model = (DefaultTableModel) jTableDatos.getModel();
         model.setRowCount(0);
@@ -441,15 +462,6 @@ public class Crud_Departamento extends javax.swing.JPanel {
 
     }
 
-
-    private void btnConfirmarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarModificacionActionPerformed
-        // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
-        confirmarModificacion(base);
-
-        base.close();
-    }//GEN-LAST:event_btnConfirmarModificacionActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -548,40 +560,63 @@ public class Crud_Departamento extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
-    public void modificarDepartamento(ObjectContainer base) {
-        int filaSeleccionada = jTableDatos.getSelectedRow();
-
-        if (filaSeleccionada != -1) {
-            // Obtener el código del departamento seleccionado en la tabla
-            String codigoModificar = jTableDatos.getValueAt(filaSeleccionada, 0).toString();
-
-            try {
-                // Realizar la búsqueda en la base de datos
-                Query query = base.query();
-                query.constrain(Departamento.class);
-                query.descend("id_departamento").constrain(codigoModificar);
-                ObjectSet<Departamento> result = query.execute();
-
-                if (!result.isEmpty()) {
-                    // Solo tomará el primer resultado si hay más de uno (debería haber solo uno)
-                    Departamento depar = result.get(0);
-
-                    // Cargar los datos del departamento en los campos correspondientes
-                    lblIdDepartamento.setEnabled(false);
-                    lblIdDepartamento.setText(depar.getId_departamento());
-                    txtNombreDepartamento.setText(depar.getNombre());
-                    txtDescripcion.setText(depar.getDescripcion());
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró el departamento en la base de datos.");
-                }
-            } finally {
-                // No cierres la base de datos aquí; déjalo abierto para que puedas usarlo en el método que llama a modificarDepartamento
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No has seleccionado ninguna fila.");
+    public void ActualizarDatos(ObjectContainer base) {
+        if (txtNombreDepartamento.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        try {
+            Departamento miubi = new Departamento(lblIdDepartamento.getText().trim(), null, null);
+            ObjectSet res = base.get(miubi);
+            Departamento miubipersonal = (Departamento) res.next();
+            miubipersonal.setNombre(txtNombreDepartamento.getText().trim());
+            miubipersonal.setDescripcion(txtDescripcion.getText().trim());
+
+            base.set(miubipersonal);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            cargarTabla(base);
+            limpiar();
+
+        } finally {
+            base.close();
+        }
+
     }
 
+//    public void modificarDepartamento(ObjectContainer base) {
+//        int filaSeleccionada = jTableDatos.getSelectedRow();
+//
+//        if (filaSeleccionada != -1) {
+//            // Obtener el código del departamento seleccionado en la tabla
+//            String codigoModificar = jTableDatos.getValueAt(filaSeleccionada, 0).toString();
+//
+//            try {
+//                // Realizar la búsqueda en la base de datos
+//                Query query = base.query();
+//                query.constrain(Departamento.class);
+//                query.descend("id_departamento").constrain(codigoModificar);
+//                ObjectSet<Departamento> result = query.execute();
+//
+//                if (!result.isEmpty()) {
+//                    // Solo tomará el primer resultado si hay más de uno (debería haber solo uno)
+//                    Departamento depar = result.get(0);
+//
+//                    // Cargar los datos del departamento en los campos correspondientes
+//                    lblIdDepartamento.setEnabled(false);
+//                    lblIdDepartamento.setText(depar.getId_departamento());
+//                    txtNombreDepartamento.setText(depar.getNombre());
+//                    txtDescripcion.setText(depar.getDescripcion());
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "No se encontró el departamento en la base de datos.");
+//                }
+//            } finally {
+//                // No cierres la base de datos aquí; déjalo abierto para que puedas usarlo en el método que llama a modificarDepartamento
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No has seleccionado ninguna fila.");
+//        }
+//    }
     public void confirmarModificacion(ObjectContainer base) {
         int filaSeleccionada = jTableDatos.getSelectedRow();
 
@@ -728,7 +763,6 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfirmarModificacion;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
