@@ -196,20 +196,18 @@ public class Comerciante extends javax.swing.JFrame {
 
     public void cargar() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
         try {
             jComboBox1.removeAllItems();
             Query query = base.query();
             query.constrain(Evento.class);
-
             ObjectSet<Evento> eventos = query.execute();
-
             jComboBox1.addItem("Seleccione");
             while (eventos.hasNext()) {
                 Evento tipoEvento = eventos.next();
-                jComboBox1.addItem(tipoEvento.toString());
+                if (tipoEvento.getFecha_fin() == null || !tipoEvento.getFecha_fin().before(new Date())) {
+                    jComboBox1.addItem(tipoEvento.toString());
+                }
             }
-
         } finally {
             base.close();
         }
