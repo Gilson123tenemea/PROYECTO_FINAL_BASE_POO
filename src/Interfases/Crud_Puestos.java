@@ -7,12 +7,14 @@ package Interfases;
 
 import Clases.Comerciantes;
 import Clases.Puesto;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -40,6 +42,11 @@ public class Crud_Puestos extends javax.swing.JPanel {
     }
 
     public void crearPuestos(ObjectContainer base) {
+
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Verificar si todos los campos están llenos
         if (txtnombrepuesto.getText().trim().isEmpty()
                 || txttipopuesto.getText().trim().isEmpty()
@@ -117,6 +124,37 @@ public class Crud_Puestos extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado ninguna fila.");
         }
+    }
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtnombrepuesto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del Puesto");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtnombrepuesto.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre del Puesto incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txttipopuesto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Tipo de Puesto");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txttipopuesto.getText())) {
+            JOptionPane.showMessageDialog(this, "Tipo de Puesto incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtdescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Descripcion del Puesto");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtdescripcion.getText())) {
+            JOptionPane.showMessageDialog(this, "Descripcion del Puesto incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        return ban_confirmar;
     }
 
     public void confirmarModificacion(ObjectContainer base) {
@@ -516,10 +554,10 @@ public class Crud_Puestos extends javax.swing.JPanel {
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del departamento a eliminar");
         boolean encontrado = false;
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        
-        try{
-        
-        Comerciantes actividadAsociada = new Comerciantes(null,null , null, null, codigoEliminar,null,null,null,null,null,null,null,null,null,null);
+
+        try {
+
+            Comerciantes actividadAsociada = new Comerciantes(null, null, null, null, codigoEliminar, null, null, null, null, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {
@@ -527,32 +565,32 @@ public class Crud_Puestos extends javax.swing.JPanel {
                 return;
             }
 
-        Query query = base.query();
-        query.constrain(Puesto.class);
-        query.descend("Codigo_puesto").constrain(codigoEliminar);
+            Query query = base.query();
+            query.constrain(Puesto.class);
+            query.descend("Codigo_puesto").constrain(codigoEliminar);
 
-        ObjectSet<Puesto> result = query.execute();
-        cargarTabla(base);
-
-        if (result.size() > 0) {
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Puesto", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Puesto puestoBD : result) {
-
-                    base.delete(puestoBD);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Puesto");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Puesto no eliminados");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
+            ObjectSet<Puesto> result = query.execute();
             cargarTabla(base);
-        }
+
+            if (result.size() > 0) {
+                encontrado = true;
+
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Puesto", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Puesto puestoBD : result) {
+
+                        base.delete(puestoBD);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Puesto");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Puesto no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+                cargarTabla(base);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -756,14 +794,14 @@ public class Crud_Puestos extends javax.swing.JPanel {
     private void txtdescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescripcionKeyTyped
         char letra = evt.getKeyChar();
 
-// Verificar si es una letra y si es la primera letra
-        if (Character.isLetter(letra) && txtdescripcion.getText().trim().isEmpty()) {
+// Verificar si es una letra, número o caracter especial y si es la primera letra
+        if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && txtdescripcion.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            txtdescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+            txtdescripcion.setText(String.valueOf(letra));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-            // Verificar si es letra o espacio y agregar al texto en minúscula
-            txtdescripcion.setText(txtdescripcion.getText() + Character.toLowerCase(letra));
+        } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
+            // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
+            txtdescripcion.setText(txtdescripcion.getText() + letra);
             evt.consume();
         } else {
             evt.consume();
@@ -773,10 +811,12 @@ public class Crud_Puestos extends javax.swing.JPanel {
         if (txtdescripcion.getText().length() > 500) {
             evt.consume();
         }
+        // Método para verificar si es un carácter especial
+
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdescripcionKeyTyped
 
-    // Función para realizar la modificación
+// Función para realizar la modificación
     public void cargarTabla(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) tablapuesto.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
@@ -821,5 +861,8 @@ public class Crud_Puestos extends javax.swing.JPanel {
     private javax.swing.JTextField txtnombrepuesto;
     private javax.swing.JTextField txttipopuesto;
     // End of variables declaration//GEN-END:variables
-
+private boolean esCaracterEspecial(char caracter) {
+        // Puedes ajustar esta lógica según los caracteres especiales que quieras permitir
+        return "!@#$%^&*()_-+=<>?/".indexOf(caracter) != -1;
+    }
 }
