@@ -5,109 +5,121 @@
  */
 package Interfases;
 
-import Clases.Asistencia;
+import Clases.Calificar_evento;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class Reporte_Asistencias extends javax.swing.JPanel {
+/**
+ *
+ * @author ADMIN_01
+ */
+public class Reporte_Calificacion extends javax.swing.JPanel {
 
     private TableRowSorter trs;
-    private DefaultTableModel modeloTabla;
-
-    public Reporte_Asistencias() {
+    public Reporte_Calificacion() {
         initComponents();
-        cargarDatosEnTabla();
 
+        cargarCalificacionesEnTabla();
     }
 
-    private void cargarDatosEnTabla() {
+    private void cargarCalificacionesEnTabla() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        DefaultTableModel model = (DefaultTableModel) Tablarepor.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
-        ObjectSet<Asistencia> result = base.queryByExample(new Asistencia());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Query query = base.query();
+        query.constrain(Calificar_evento.class);
+        ObjectSet<Calificar_evento> result = query.execute();
 
         while (result.hasNext()) {
-            Asistencia acti = result.next();
+            Calificar_evento calificacion = result.next();
             Object[] row = {
-                acti.getCod_aistencia(),
-                acti.getCliente(),
-                acti.getEvento()
-
+                calificacion.getCod_calificacion(),
+                calificacion.getCod_evento(), // Código del evento
+                calificacion.getValoracion(),
+                calificacion.getCod_cliente(),
+                calificacion.getFecha_calificacion() // Fecha de calificación
             };
             model.addRow(row);
         }
         base.close();
-
     }
-
+    
     public void Filtro() {
 
-        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cliente")) {
-            int Columnastabla = 1;
+        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+            int Columnastabla = 3;
             trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
 
-        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Evento")) {
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Valoracion")) {
             int Columnastabla = 2;
             trs.setRowFilter(RowFilter.regexFilter(txtconsulta.getText().trim(), Columnastabla));
 
         }
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablarepor = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        jTable1 = new javax.swing.JTable();
         cbxbusqueda = new javax.swing.JComboBox<>();
         txtconsulta = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Tablarepor.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigon Asistencia", "Cliente", "Evento"
+                "Calificacion", "Evento", "Valoracion", "Cedula", "Fecha"
             }
         ));
-        jScrollPane1.setViewportView(Tablarepor);
+        jScrollPane1.setViewportView(jTable1);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 930, 390));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 840, 230));
 
-        jLabel1.setText("REPORTE DE LAS ASISTENCIAS");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, -1));
-
-        cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cliente", "Evento" }));
-        add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, -1, -1));
+        cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Valoracion" }));
+        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 180, 120, -1));
 
         txtconsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtconsultaKeyTyped(evt);
             }
         });
-        add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 120, -1));
+        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 180, 80, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
-        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cliente")) {
+         if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
 
             txtconsulta.addKeyListener(new KeyAdapter() {
                 @Override
@@ -122,7 +134,7 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
 
             });
 
-        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Evento")) {
+        } else if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Valoracion")) {
             txtconsulta.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(final KeyEvent e) {
@@ -140,16 +152,16 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe escoger mediante que campo desea ver los registros");
         }
 
-        trs = new TableRowSorter(Tablarepor.getModel());
-        Tablarepor.setRowSorter(trs);
+        trs = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trs);
     }//GEN-LAST:event_txtconsultaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tablarepor;
     private javax.swing.JComboBox<String> cbxbusqueda;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtconsulta;
     // End of variables declaration//GEN-END:variables
 }

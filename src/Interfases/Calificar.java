@@ -8,6 +8,8 @@ package Interfases;
 import Clases.Calificar_evento;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -21,12 +23,15 @@ public class Calificar extends javax.swing.JFrame {
 
     int calificacion = 0;
     String codigo_evento=" ";
+    
+    
 
     /**
      * Creates new form Calificar
      */
     public Calificar(String codigo) {
         initComponents();
+        txtcedula.setText(Inicio.cedula);
         this.codigo_evento=codigo;
         
     }
@@ -41,7 +46,7 @@ public class Calificar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        txtcedula = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblemoji = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -52,14 +57,17 @@ public class Calificar extends javax.swing.JFrame {
         lbl4 = new javax.swing.JLabel();
         lbl5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
+        txtcedula.setBackground(new java.awt.Color(255, 255, 255));
+        txtcedula.setForeground(new java.awt.Color(255, 255, 255));
+        txtcedula.setText("jLabel1");
+        jPanel1.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0,100));
         jPanel2.setForeground(new java.awt.Color(204, 153, 0));
@@ -187,6 +195,9 @@ public class Calificar extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 640, 410));
 
+        jLabel4.setText("jLabel4");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -282,6 +293,19 @@ public class Calificar extends javax.swing.JFrame {
         System.out.println(codigo_evento+" "+calificacion);
         
         try {
+            Query query = base.query();
+            query.constrain(Calificar_evento.class);
+            query.descend("cod_evento").orderDescending();
+            ObjectSet<Calificar_evento> result = query.execute();
+            
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Calificar_evento ultimoPuesto = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPuesto.getCod_evento().substring(4)) + 1;
+            }
+
+            String nuevoCodigo = String.format("CAL-%03d", ultimoCodigo);
+            
 
             SimpleDateFormat forma = new SimpleDateFormat("dd/MM/yyyy ");
             Date fecha = new Date();
@@ -290,7 +314,7 @@ public class Calificar extends javax.swing.JFrame {
             int resultado = JOptionPane.showConfirmDialog(null, "Esta de acuerdo con esa calificacion", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resultado == JOptionPane.YES_OPTION) {
-                Calificar_evento califi = new Calificar_evento(codigo_evento, null, null, calificacion, fecha);
+                Calificar_evento califi = new Calificar_evento(codigo_evento, txtcedula.getText().trim(), nuevoCodigo, calificacion, fecha);
                 base.store(califi);
                 JOptionPane.showMessageDialog(null, "Gracias por apoyarnos , tu opinion nos ayuda a crecer");
                 LimopiarCalificaion();
@@ -319,9 +343,9 @@ public class Calificar extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl1;
@@ -331,5 +355,6 @@ public class Calificar extends javax.swing.JFrame {
     private javax.swing.JLabel lbl5;
     private javax.swing.JLabel lblEstrella1;
     private javax.swing.JLabel lblemoji;
+    private javax.swing.JLabel txtcedula;
     // End of variables declaration//GEN-END:variables
 }

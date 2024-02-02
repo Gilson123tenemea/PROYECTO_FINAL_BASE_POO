@@ -66,7 +66,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("REPORTE DE ENCUESTA");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 44, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
 
         tablares.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +81,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablares);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 830, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 830, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
