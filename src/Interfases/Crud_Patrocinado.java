@@ -367,6 +367,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             micasita.setCelular(txtCelular.getText().trim());
             micasita.setFecchaNaci(Date_patro.getDate());
             micasita.setRedes_sociales(txtRedes.getText().trim());
+            micasita.setGenero(sexo);
 
             base.set(micasita);
 
@@ -765,7 +766,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        String nombre = "", apellido = "", email = "", telefono = "", codigo = "";
+        String nombre = "", apellido = "", email = "", telefono = "", codigo = "",genero = "";
         Date fecha = null;
         int edad = 0;
 
@@ -807,6 +808,12 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             txtApellido.setText(primerResultado.getApellido().trim());
             txtEmail.setText(primerResultado.getCorreo().trim());
             txtTelefono.setText(primerResultado.getTelefono().trim());
+            genero = primerResultado.getGenero();
+             if (genero.equalsIgnoreCase("Masculino")) {
+                masculino.setSelected(true);
+            } else if (genero.equalsIgnoreCase("Femenino")) {
+                femenino.setSelected(true);
+            }
             txtDireccion.setText(primerResultado.getDireccion().trim());
             txtCelular.setText(primerResultado.getCelular().trim());
             Date_patro.setDate(primerResultado.getFecchaNaci());

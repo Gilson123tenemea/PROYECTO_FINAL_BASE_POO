@@ -58,6 +58,12 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             // Formatear el código con ceros a la izquierda
             String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
+            
+             // Validar que la fecha de inicio sea anterior a la fecha de fin
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null || jDateChooser1.getDate().after(jDateChooser2.getDate())) {
+                JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
+                return;  // Salir del método si las fechas son incorrectas
+            }
 
             // Verificar si ya existe una Encuesta con el mismo código
             result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
@@ -114,6 +120,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         ObjectSet<Encuesta> result = base.queryByExample(new Encuesta());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         while (result.hasNext()) {
             Encuesta personal1 = result.next();
@@ -123,8 +130,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 personal1.getNombre_encuesta(),
                 personal1.getEvento(),
                 personal1.getDescrpcion_encuesta(),
-                personal1.getFecha_inicio(),
-                personal1.getFecha_fin(),
+                personal1.getFecha_inicio() != null ? sdf.format(personal1.getFecha_inicio()) : null,
+                personal1.getFecha_fin() != null ? sdf.format(personal1.getFecha_fin()) : null,
                 personal1.getPregunta1(),
                 personal1.getPregunta2(),
                 personal1.getPregunta3(),

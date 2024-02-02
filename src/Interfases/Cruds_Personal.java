@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -565,8 +566,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
-        
 
         if (txtapellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el apellido ");
@@ -575,8 +574,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
-         if (txttelefono.getText().isEmpty()) {
+
+        if (txttelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese telefono ");
             ban_confirmar = false;
         } else if (!miValidaciones.validarTelefono(txttelefono.getText())) {
@@ -591,15 +590,14 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
-         if (txtdireccion.getText().isEmpty()) {
+
+        if (txtdireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese la Direccion");
             ban_confirmar = false;
         } else if (!miValidaciones.ValidarNomApe(txtdireccion.getText())) {
             JOptionPane.showMessageDialog(this, "Direccion incorrecta. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
 
         // Validar otros campos aquí...
         if (txtcelular.getText().isEmpty()) {
@@ -1015,6 +1013,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            // Validar campo de radio buttons
+            if (!validarRadioButton(rbmasculinoPro, rbfemeninoPro)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en el grupo de género", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Obtener el último código de personal en la base de datos
             Query query = base.query();
@@ -1091,6 +1094,16 @@ public class Cruds_Personal extends javax.swing.JPanel {
         } finally {
             base.close();
         }
+    }
+
+    private boolean validarRadioButton(JRadioButton... buttons) {
+        // Verificar si al menos uno de los radio buttons está seleccionado
+        for (JRadioButton button : buttons) {
+            if (button.isSelected()) {
+                return true;  // Al menos uno está seleccionado, retorno exitoso
+            }
+        }
+        return false;  // Ninguno está seleccionado
     }
 
     private String obtenerCodigoDepartamentoSeleccionado() {
