@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -134,7 +135,25 @@ public class Eventos extends javax.swing.JFrame {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 String[] arreglo = {"Quiero asistir", "Encuesta", "Califica el evento", "Mi blog"};
-                                int opcion = JOptionPane.showOptionDialog(null, new Object[]{"Evento:\n " + nom + "Fecha de inicio\n: " + fechai + "Fecha de fin: \n" + fechafi + "hora de inicio: \n" + horaini + "hora final:\n " + horafi}, "Escoje un boton..", 0, JOptionPane.QUESTION_MESSAGE, null, arreglo, "Quiero asistir");
+
+                                // Construir el mensaje con formato
+                                StringBuilder mensaje = new StringBuilder();
+                                mensaje.append("Evento: ").append(nom).append("\n");
+                                mensaje.append("Fecha de inicio: ").append(fechai).append("\n");
+                                mensaje.append("Fecha de fin: ").append(fechafi).append("\n");
+                                mensaje.append("Hora de inicio: ").append(horaini).append("\n");
+                                mensaje.append("Hora final: ").append(horafi).append("\n");
+
+                                int opcion = JOptionPane.showOptionDialog(
+                                        null,
+                                        mensaje.toString(),
+                                        "Escoje un botón...",
+                                        0,
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        null,
+                                        arreglo,
+                                        arreglo[0] // Seleccionar la primera opción por defecto
+                                );
 
                                 if (opcion >= 0) {
                                     switch (opcion) {
@@ -177,7 +196,7 @@ public class Eventos extends javax.swing.JFrame {
                                             JOptionPane.showMessageDialog(null, "Escoja una opcion");
                                     }
                                 } else {
-                                   
+
                                 }
                             }
                         });
@@ -220,7 +239,7 @@ public class Eventos extends javax.swing.JFrame {
 
             System.out.println("Asistencia confirmada: " + asistencia + ", Evento: " + nombreEvento + ", Cliente: " + publi);
 
-            base.commit(); 
+            base.commit();
             base.close();
         }
     }
@@ -385,7 +404,7 @@ public class Eventos extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
         Menu_Cliente men = new Menu_Cliente();
-        men.setVisible(true); 
+        men.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
