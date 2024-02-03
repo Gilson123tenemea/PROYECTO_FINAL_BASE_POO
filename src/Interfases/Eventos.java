@@ -30,11 +30,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
-/**
- *
- * @author ADMIN_01
- */
 public class Eventos extends javax.swing.JFrame {
 
     private List<JButton> botones;
@@ -62,7 +59,6 @@ public class Eventos extends javax.swing.JFrame {
         Date fecha = new Date();
         LocalDate fechaLocal = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         System.out.println("Fecha actual: " + fechaLocal);
-
     }
 
     public void extraerfechaactu() {
@@ -79,6 +75,12 @@ public class Eventos extends javax.swing.JFrame {
             System.out.println("La fecha fin aún no ha pasado.");
         }
 
+    }
+
+    private void setButtonColor(JButton button, Color color) {
+        button.setOpaque(true);
+        button.setBackground(color);
+        button.setForeground(Color.white);
     }
 
     public void ObtenerEvento(String tipo) {
@@ -134,6 +136,22 @@ public class Eventos extends javax.swing.JFrame {
                         boton.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                JButton btn1 = new JButton("Quiero asistir");
+                                btn1.setBackground(Color.red);
+                                btn1.setForeground(Color.white);
+
+                                JButton btn2 = new JButton("Encuesta");
+                                btn2.setBackground(Color.yellow);
+                                btn2.setForeground(Color.white);
+
+                                JButton btn3 = new JButton("Califica el evento");
+                                btn3.setBackground(Color.green);
+                                btn3.setForeground(Color.white);
+
+                                JButton btn4 = new JButton("Mi blog");
+                                btn4.setBackground(Color.orange);
+                                btn4.setForeground(Color.white);
+
                                 String[] arreglo = {"Quiero asistir", "Encuesta", "Califica el evento", "Mi blog"};
 
                                 // Construir el mensaje con formato
@@ -143,7 +161,7 @@ public class Eventos extends javax.swing.JFrame {
                                 mensaje.append("Fecha de fin: ").append(fechafi).append("\n");
                                 mensaje.append("Hora de inicio: ").append(horaini).append("\n");
                                 mensaje.append("Hora final: ").append(horafi).append("\n");
-
+                                UIManager.put("Button.background", Color.YELLOW);
                                 int opcion = JOptionPane.showOptionDialog(
                                         null,
                                         mensaje.toString(),
@@ -152,8 +170,10 @@ public class Eventos extends javax.swing.JFrame {
                                         JOptionPane.QUESTION_MESSAGE,
                                         null,
                                         arreglo,
-                                        arreglo[0] // Seleccionar la primera opción por defecto
+                                        arreglo[0] 
                                 );
+
+                                UIManager.put("Button.background", UIManager.get("OptionPane.background"));
 
                                 if (opcion >= 0) {
                                     switch (opcion) {
@@ -235,7 +255,9 @@ public class Eventos extends javax.swing.JFrame {
             Asistencia nuevaAsistencia = new Asistencia(nuevoCodigo, nombreEvento, publi);
 
             base.store(nuevaAsistencia);
-            JOptionPane.showMessageDialog(null, "Le esperamos en el evento");
+            JOptionPane.showMessageDialog(null,
+                    "<html><style>body {color: green; font-size: 15px;}</style>"
+                    + "<body>Le esperamos en el evento !</body></html>");
 
             System.out.println("Asistencia confirmada: " + asistencia + ", Evento: " + nombreEvento + ", Cliente: " + publi);
 
