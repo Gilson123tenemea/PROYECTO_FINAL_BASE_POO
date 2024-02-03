@@ -52,9 +52,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         base.close();
         Agrupar();
-        cargarDepartamentos();
-        cargarTipoPersonal();
-        cargar();
+        
+        
+        
     }
 
     public static ArrayList<Personal> listaagentes = new ArrayList<>();
@@ -823,7 +823,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
     }
     private void jComboBoxdepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxdepartamentoMouseClicked
-        // TODO add your handling code here:
+        cargarDepartamentos();
     }//GEN-LAST:event_jComboBoxdepartamentoMouseClicked
 
     public void cargar() {
@@ -846,11 +846,11 @@ public class Cruds_Personal extends javax.swing.JPanel {
         }
     }
     private void jComboBoxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxeventoMouseClicked
-        // TODO add your handling code here:
+        cargar();
     }//GEN-LAST:event_jComboBoxeventoMouseClicked
 
     private void txttipopersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttipopersonalMouseClicked
-
+        cargarTipoPersonal();
     }//GEN-LAST:event_txttipopersonalMouseClicked
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

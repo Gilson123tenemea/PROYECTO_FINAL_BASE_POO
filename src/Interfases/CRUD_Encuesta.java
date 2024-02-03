@@ -34,7 +34,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();
-        cargar();
+        
     }
 
     public void crearEncuesta(ObjectContainer base) {
@@ -704,7 +704,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboxeventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxeventoMouseClicked
-        // TODO add your handling code here:
+        cargar();
     }//GEN-LAST:event_cboxeventoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
