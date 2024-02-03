@@ -865,7 +865,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             ObjectSet resultCasa = base.get(casaAsociada);
 
             if (resultCasa.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar el Propietario porque tiene una Casa en Alquiler", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se puede eliminar el Patrocinador porque tiene una Evento Asociado", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
