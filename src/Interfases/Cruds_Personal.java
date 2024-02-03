@@ -160,6 +160,12 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 266, 200, -1));
+
+        txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttelefonoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 224, 200, -1));
 
         txtapellido.addActionListener(new java.awt.event.ActionListener() {
@@ -903,6 +909,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jTable1.setRowSorter(trs);
     }//GEN-LAST:event_CedulaPersonalKeyTyped
 
+    
+    
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
 
@@ -999,43 +1007,45 @@ public class Cruds_Personal extends javax.swing.JPanel {
             evt.consume();
         }
 
-// Limitar la longitud del texto a 20 caracteres
         if (txtdireccion.getText().length() > 19) {
             evt.consume();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtdireccionKeyTyped
+
+    private void txttelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyTyped
+
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) || txttelefono.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txttelefonoKeyTyped
 
     public void crearPersonal(ObjectContainer base) {
         try {
-            // Verificar si todos los campos están llenos
             if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            // Validar campo de radio buttons
             if (!validarRadioButton(rbmasculinoPro, rbfemeninoPro)) {
                 JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en el grupo de género", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            // Obtener el último código de personal en la base de datos
             Query query = base.query();
             query.constrain(Personal.class);
             query.descend("codigo_perso").orderDescending();
             ObjectSet<Personal> result = query.execute();
 
-            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Personal ultimoPersonal = result.next();
-                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCodigo_perso()) + 1;
+                String codigoPersonal = ultimoPersonal.getCodigo_perso();
+                String parteNumerica = codigoPersonal.substring(4);
+                ultimoCodigo = Integer.parseInt(parteNumerica) + 1;
             }
 
-            // Formatear el código con ceros a la izquierda
             String nuevoCodigo = String.format("PER-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
 
-            // Verificar si ya existe un personal con el mismo código
             result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
@@ -1043,13 +1053,15 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 return;
             }
 
-            // Obtener el código del tipo de personal seleccionado en el ComboBox
+            result = base.queryByExample(new Personal(null, null, null, null, null, null, null, null, null,  CedulaPersonal.getText().trim(), null,null, null, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un personal con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             String codigoTipoPersonal = obtenerCodigoTipoPersonalSeleccionado();
-
-            // Obtener el código del departamento seleccionado en el ComboBox
             String codigoDepartamento = obtenerCodigoDepartamentoSeleccionado();
-
-            // Obtener el código del evento seleccionado en el ComboBox
             String codigoEvento = obtenerCodigoEventoSeleccionado();
 
             if (rbmasculinoPro.isSelected()) {
@@ -1058,23 +1070,21 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 sexo = "Femenino";
             }
 
-            // Validar edad (mayor a 18 años)
             if (!esMayorDeEdad1(fechanac.getDate())) {
                 JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Crear objeto Personal y almacenar en la base de datos
             Personal nuevoPersonal = new Personal(
                     nuevoCodigo,
-                    codigoTipoPersonal, // Utiliza solo el código del tipo de personal
-                    codigoDepartamento, // Utiliza solo el código del departamento
+                    codigoTipoPersonal,
+                    codigoDepartamento,
                     null,
                     null,
                     null,
                     null,
                     null,
-                    codigoEvento, // Utiliza solo el código del evento
+                    codigoEvento,
                     CedulaPersonal.getText().trim(),
                     txtnombre.getText().trim(),
                     txtapellido.getText().trim(),
@@ -1091,19 +1101,20 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Personal creado exitosamente");
             limpiar();
             cargarTabla(base);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener el último código de personal.", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             base.close();
         }
     }
 
     private boolean validarRadioButton(JRadioButton... buttons) {
-        // Verificar si al menos uno de los radio buttons está seleccionado
         for (JRadioButton button : buttons) {
             if (button.isSelected()) {
-                return true;  // Al menos uno está seleccionado, retorno exitoso
+                return true;  
             }
         }
-        return false;  // Ninguno está seleccionado
+        return false;  
     }
 
     private String obtenerCodigoDepartamentoSeleccionado() {
