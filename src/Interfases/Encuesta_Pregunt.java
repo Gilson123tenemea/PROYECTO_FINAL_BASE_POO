@@ -21,6 +21,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
     String cod=" ";
     public Encuesta_Pregunt(String codigo) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.cod=codigo;
         txtCedula.setText(Inicio.cedula);
         obtenerPreguntas(codigo);
@@ -207,98 +208,152 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         txtCedula = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("PREGUNTA 1:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setText("Pregunta 1:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
 
-        txt1.setText("jTextField1");
-        jPanel1.add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 498, -1));
+        txt1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jPanel1.add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 498, -1));
 
-        txt2.setText("jTextField2");
-        jPanel1.add(txt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 498, -1));
+        txt2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jPanel1.add(txt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 498, -1));
 
-        jLabel3.setText("PREGUNTA 2:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setText("Pregunta 2:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, -1, -1));
 
-        txt3.setText("jTextField3");
-        jPanel1.add(txt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 498, -1));
+        txt3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txt3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 498, -1));
 
-        jLabel4.setText("PREGUNTA 3:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel4.setText("Pregunta 3:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, -1, -1));
 
-        jLabel6.setText("PREGUNTA 4:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel6.setText("Pregunta 4:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
 
-        txt4.setText("jTextField3");
-        jPanel1.add(txt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 500, -1));
+        txt4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jPanel1.add(txt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 500, -1));
 
-        jLabel5.setText("PREGUNTA 5:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setText("Pregunta 5:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, -1, 20));
 
-        txt5.setText("jTextField3");
-        jPanel1.add(txt5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 500, -1));
+        txt5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txt5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, 500, -1));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inmigracion.png"))); // NOI18N
         jLabel1.setText("ENCUESTA");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, -1));
 
+        SI1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         SI1.setText("SI");
-        jPanel1.add(SI1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
+        jPanel1.add(SI1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
+        NO1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         NO1.setText("NO");
-        jPanel1.add(NO1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
+        jPanel1.add(NO1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
 
+        SI2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         SI2.setText("SI");
-        jPanel1.add(SI2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
+        jPanel1.add(SI2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
+        NO2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         NO2.setText("NO");
-        jPanel1.add(NO2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, -1, -1));
+        jPanel1.add(NO2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
+        SI3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         SI3.setText("SI");
-        jPanel1.add(SI3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, -1));
+        jPanel1.add(SI3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
 
+        NO3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         NO3.setText("NO");
-        jPanel1.add(NO3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
+        jPanel1.add(NO3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, -1, -1));
 
+        SI4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         SI4.setText("SI");
-        jPanel1.add(SI4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, -1, -1));
+        jPanel1.add(SI4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
+        NO4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         NO4.setText("NO");
-        jPanel1.add(NO4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, -1, -1));
+        jPanel1.add(NO4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, -1, -1));
 
+        SI5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         SI5.setText("SI");
-        jPanel1.add(SI5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, -1, -1));
+        jPanel1.add(SI5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 500, -1, -1));
 
+        NO5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         NO5.setText("NO");
-        jPanel1.add(NO5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 120, 20));
+        jPanel1.add(NO5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, -1, -1));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 120, 20));
 
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 560, -1, -1));
 
-        jButton2.setText("REGRESAR");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salida (2).png"))); // NOI18N
+        jButton2.setToolTipText("DA CLICK PARA SALIR AL MENÚ CLIENTE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pregunta.png"))); // NOI18N
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/charlar.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 310, -1, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pregunta (1).png"))); // NOI18N
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 510, -1, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/charlar (1).png"))); // NOI18N
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, -1, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hablando.png"))); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,6 +377,14 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt3ActionPerformed
+
+    private void txt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton NO1;
@@ -337,11 +400,17 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt2;

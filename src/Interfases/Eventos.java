@@ -47,6 +47,7 @@ public class Eventos extends javax.swing.JFrame {
 
     public Eventos(String tipo) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.tipo = tipo;
         String tip = tipo.substring(0, 7);
         indice = 0;
@@ -264,28 +265,17 @@ public class Eventos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
         txtNombre = new javax.swing.JLabel();
         txtApellido = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JLabel();
-        lblcodigo = new javax.swing.JLabel();
         txtFechaactual = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -315,36 +305,19 @@ public class Eventos extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 940, 560));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 940, 530));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/paso-a-paso.png"))); // NOI18N
-        jButton1.setText("Eentos Proximos");
+        jButton1.setText("Eventos Próximos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, 30));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calificacion-de-estrellas.png"))); // NOI18N
-        jButton2.setText("Calificacion");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 620, 140, 30));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda-de-datos.png"))); // NOI18N
-        jButton3.setText("Mi Blog");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, 140, 30));
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mapa.png"))); // NOI18N
-        jButton4.setText("Ubicacion");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 620, 140, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 590, 160, 40));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/no.png"))); // NOI18N
         jButton5.setText("Salir");
@@ -353,65 +326,46 @@ public class Eventos extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 620, 90, 30));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 160, 40));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 610, 10, 60));
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 610, 10, 60));
-
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 610, 10, 60));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 580, 10, 70));
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 10, 20));
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 660, 100, 10));
-
-        jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, 160, 10));
-
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 660, 160, 10));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 640, 160, 10));
 
         jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 660, 160, 10));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 640, 160, 10));
 
-        jSeparator10.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 160, 10));
-
-        txtNombre.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setText("jLabel1");
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, 20));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, -1, 20));
 
-        txtApellido.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        txtApellido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtApellido.setForeground(new java.awt.Color(255, 255, 255));
         txtApellido.setText("jLabel2");
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, 20));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, -1, 20));
 
-        jLabel1.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("EVENTOS DISPONIBLES");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 240, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 170, -1));
         jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 220, 10));
-
-        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 610, 10, 60));
 
         jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 10, 20));
 
-        jLabel2.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel2.setText("Bienvenido");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("BIENVENIDO:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
 
-        txtCedula.setText("jLabel3");
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
-
-        lblcodigo.setText("jLabel3");
-        jPanel1.add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
-
-        txtFechaactual.setForeground(new java.awt.Color(0, 0, 0));
+        txtFechaactual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtFechaactual.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtFechaactual, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 130, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -427,10 +381,6 @@ public class Eventos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
@@ -449,9 +399,6 @@ public class Eventos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -460,23 +407,15 @@ public class Eventos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JLabel lblcodigo;
     private javax.swing.JPanel panel;
     private javax.swing.JLabel txtApellido;
-    private javax.swing.JLabel txtCedula;
     private javax.swing.JLabel txtFechaactual;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
