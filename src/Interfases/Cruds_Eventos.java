@@ -50,6 +50,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         txtfinal.setVisible(false);
         btnguardar.setEnabled(false);
         numpuestosspn.setModel(new SpinnerNumberModel(0, 0, 100, 1));
+        txtorga.setText(Login_Organizador.cod_orga);
 
     }
 
@@ -96,6 +97,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         numpuestosspn = new javax.swing.JSpinner();
         jTextField1 = new javax.swing.JTextField();
+        txtorga = new javax.swing.JLabel();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -287,6 +289,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
+        txtorga.setText("jLabel11");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -308,13 +312,15 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             .addGap(32, 32, 32)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel14))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtorga)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel14)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -455,7 +461,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnguardar)
                     .addComponent(btnmodificar))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(txtorga)
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -832,7 +840,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     foto,
                     Double.valueOf(jTextField1.getText()),
                     numpuestos,
-                    null
+                    txtorga.getText().trim()
             );
 
             System.out.println(evento1);
@@ -1072,5 +1080,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JTextField txtfinal;
     private javax.swing.JTextField txtinicio;
     private javax.swing.JTextField txtnombre;
+    private javax.swing.JLabel txtorga;
     // End of variables declaration//GEN-END:variables
 }

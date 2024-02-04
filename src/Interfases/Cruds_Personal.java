@@ -52,6 +52,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         base.close();
         Agrupar();
+        txtorga.setText(Login_Organizador.cod_orga);
 
     }
 
@@ -118,6 +119,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         cboxbusqueda = new javax.swing.JComboBox<>();
+        txtorga = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -365,6 +367,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 130, -1));
+
+        txtorga.setText("jLabel10");
+        jPanel1.add(txtorga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1043,6 +1048,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
             String nuevoCodigo = String.format("PER-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
+            // public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cod_organizador, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
 
             result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
 
@@ -1073,6 +1079,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 return;
             }
 
+            // public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cod_organizador, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
             Personal nuevoPersonal = new Personal(
                     nuevoCodigo,
                     codigoTipoPersonal,
@@ -1082,8 +1089,8 @@ public class Cruds_Personal extends javax.swing.JPanel {
                     null,
                     null,
                     null,
-                    null,
                     codigoEvento,
+                    txtorga.getText().trim(),
                     CedulaPersonal.getText().trim(),
                     txtnombre.getText().trim(),
                     txtapellido.getText().trim(),
@@ -1303,6 +1310,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JTextField txtdireccion;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtnombre;
+    private javax.swing.JLabel txtorga;
     private javax.swing.JTextField txttelefono;
     private javax.swing.JComboBox<String> txttipopersonal;
     // End of variables declaration//GEN-END:variables
