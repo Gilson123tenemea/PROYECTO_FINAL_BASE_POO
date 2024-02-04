@@ -544,15 +544,16 @@ public class Crud_Organizador extends javax.swing.JPanel {
                 return;
             }
 
+            // public Organizador(String cod_organizador, String usuario, String contraseña, double Presupuesto, String codigo_evento, String codigo_perso, String codigo_encuesta, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
             // Verificar si ya existe un Organizador con la misma cédula
-            ObjectSet<Organizador> resul = base.queryByExample(new Organizador(null, null, null, 0.0, txtcedula.getText().trim(), null, null, null, null, null, null, null, null));
+            ObjectSet<Organizador> resul = base.queryByExample(new Organizador(null, null, null, 0.0, null, null, null, txtcedula.getText().trim(), null, null, null, null, null, null, null, null));
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un organizador con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Obtener el último código
-            resul = base.queryByExample(new Organizador(null, null, null, 0.0, null, null, null, null, null, null, null, null, null));
+            resul = base.queryByExample(new Organizador(null, null, null, 0.0, null, null, null, null, null, null, null, null, null, null, null, null));
             int ultimoCodigo = resul.size() + 1;
 
             // Formatear el código con ceros a la izquierda
@@ -581,8 +582,8 @@ public class Crud_Organizador extends javax.swing.JPanel {
 
             // Resto del código...
             Validar();
-
-            Organizador miorganizador = new Organizador(cod, null, null, presupuesto, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txttelefono.getText().trim(), txtcorreo.getText().trim(), txtdireccion.getText().trim(), txtcelular.getText().trim(), fechaNacimiento, sexo);
+            // public Organizador(String cod_organizador, String usuario, String contraseña, double Presupuesto, String codigo_evento, String codigo_perso, String codigo_encuesta, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+            Organizador miorganizador = new Organizador(cod, null, null, presupuesto, null, null, null, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txttelefono.getText().trim(), txtcorreo.getText().trim(), txtdireccion.getText().trim(), txtcelular.getText().trim(), fechaNacimiento, sexo);
 
             base.store(miorganizador);
 

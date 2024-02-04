@@ -62,34 +62,34 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
 
         jTableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Cédula", "Nombre", "Apellido", "Celular", "Teléfono", "Dirección", "Género", "Correo", "Usuario", "Contraseña", "Presupuesto", "Fecha de nacimiento"
+                "Código", "Cédula", "Nombre", "Apellido", "Celular", "Teléfono", "Dirección", "Género", "Correo", "Presupuesto", "Fecha de nacimiento"
             }
         ));
         jScrollPane1.setViewportView(jTableDatos);
@@ -191,9 +191,9 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
                 // Si no se encuentra la cédula en la base de datos
                 JOptionPane.showMessageDialog(null, "El número de cédula no se encuentra en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                String[] columnNames = {"Código", "Cédula", "Nombre", "Apellido", "Celular", "Telefono", "Dirección", "Género", "Correo", "Usuario", "Contraseña", "Presupuesto", "Fecha de Nacimiento"};
+                String[] columnNames = {"Código", "Cédula", "Nombre", "Apellido", "Celular", "Telefono", "Dirección", "Género", "Correo", "Presupuesto", "Fecha de Nacimiento"};
 
-                Object[][] data = new Object[result.size()][13];
+                Object[][] data = new Object[result.size()][11];
 
                 int i = 0;
                 for (Organizador organizador : result) {
@@ -206,11 +206,9 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
                     data[i][6] = organizador.getDireccion();
                     data[i][7] = organizador.getGenero();
                     data[i][8] = organizador.getCorreo();
-                    data[i][9] = organizador.getUsuario();
-                    data[i][10] = organizador.getContraseña();
 
-                    data[i][11] = organizador.getPresupuesto();
-                    data[i][12] = organizador.getFecchaNaci() != null ? sdf.format(organizador.getFecchaNaci()) : null;
+                    data[i][9] = organizador.getPresupuesto();
+                    data[i][10] = organizador.getFecchaNaci() != null ? sdf.format(organizador.getFecchaNaci()) : null;
 
                     i++;
                 }
@@ -264,8 +262,6 @@ public class ConsultarOrganizador extends javax.swing.JPanel {
                 organizador.getDireccion(),
                 organizador.getGenero(),
                 organizador.getCorreo(),
-                organizador.getUsuario(),
-                organizador.getContraseña(),
                 organizador.getPresupuesto(),
                 organizador.getFecchaNaci() != null ? sdf.format(organizador.getFecchaNaci()) : null
             };

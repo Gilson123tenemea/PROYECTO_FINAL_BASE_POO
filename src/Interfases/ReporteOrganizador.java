@@ -204,9 +204,9 @@ public class ReporteOrganizador extends javax.swing.JPanel {
         jTableDatos.setModel(new DefaultTableModel());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        String[] columnNames = {"Código", "Cédula", "Nombre", "Apellido", "Celular", "Telefono", "Dirección", "Género", "Correo", " Usuario", "Contraseña", "Presupuesto", "Fecha de Nacimiento"};
+        String[] columnNames = {"Código", "Cédula", "Nombre", "Apellido", "Celular", "Telefono", "Dirección", "Género", "Correo", "Presupuesto", "Fecha de Nacimiento"};
 
-        Object[][] data = new Object[listaagentes.size()][13];
+        Object[][] data = new Object[listaagentes.size()][11];
 
         for (int i = 0; i < listaagentes.size(); i++) {
             data[i][0] = listaagentes.get(i).getCod_organizador();
@@ -218,12 +218,9 @@ public class ReporteOrganizador extends javax.swing.JPanel {
             data[i][6] = listaagentes.get(i).getDireccion();
             data[i][7] = listaagentes.get(i).getGenero();
             data[i][8] = listaagentes.get(i).getCorreo();
-            data[i][9] = listaagentes.get(i).getUsuario();
 
-            data[i][10] = listaagentes.get(i).getContraseña();
-
-            data[i][11] = listaagentes.get(i).getPresupuesto();
-            data[i][12] = listaagentes.get(i).getFecchaNaci()  != null ? sdf.format(listaagentes.get(i).getFecchaNaci()) : null ;
+            data[i][9] = listaagentes.get(i).getPresupuesto();
+            data[i][10] = listaagentes.get(i).getFecchaNaci() != null ? sdf.format(listaagentes.get(i).getFecchaNaci()) : null;
         }
 
         this.validate();
