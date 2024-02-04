@@ -197,7 +197,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             try {
 
-                Encuesta actividadAsociada = new Encuesta(null, null, Codigo, null, null, null, null, null, null, null, null,null);
+                Encuesta actividadAsociada = new Encuesta(null, null, Codigo, null, null, null, null, null, null, null, null, null);
                 ObjectSet resultActividad = base.get(actividadAsociada);
 
                 if (resultActividad.size() > 0) {
@@ -327,7 +327,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, new Object[]{"Codigo del evento: " + Codigo, "Nombre del evento: " + nombre, "Descripcion: " + descripcion, "Tipo de evento: "
                 + tipo, "Patrocinador: " + patrocinador, "Fecha de inicio: " + Fechai, "Hora de inicio: " + horai,
-                "Fecha final: " + fechaf, "hora final: " + horaf,"Cantidad de Puestos"+cantidad,"Precio del evento"+precio, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
+                "Fecha final: " + fechaf, "hora final: " + horaf, "Cantidad de Puestos" + cantidad, "Precio del evento" + precio, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
@@ -374,7 +374,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0);
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null);
         ObjectSet result = BaseD.get(ima);
         CargarDatos(result);
 

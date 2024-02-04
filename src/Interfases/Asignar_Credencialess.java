@@ -44,7 +44,7 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
         habiltarDatos();
 
         // Crear objeto Organizador con la cédula ingresada
-        Organizador miOrganizador = new Organizador(null, null, null, 0.0, null, null, null, txtconsulta.getText().trim(), null, null, null, null, null, null, null, null);
+        Organizador miOrganizador = new Organizador(null, null, null, 0.0, txtconsulta.getText().trim(), null, null, null, null, null, null, null, null);
 
         // Obtener el objeto existente desde la base de datos
         ObjectSet result = base.get(miOrganizador);

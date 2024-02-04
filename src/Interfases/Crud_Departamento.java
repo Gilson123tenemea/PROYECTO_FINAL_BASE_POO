@@ -308,7 +308,9 @@ public class Crud_Departamento extends javax.swing.JPanel {
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del Departamento");
 
         try {
-            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null, null, null);
+
+            // public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cod_organizador, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {

@@ -428,7 +428,7 @@ public class Tipo_Personal extends javax.swing.JPanel {
 
         try {
 
-            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null, null, null);
+            Personal actividadAsociada = new Personal(null, codigoEliminar, null, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {

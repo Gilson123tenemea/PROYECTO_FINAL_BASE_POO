@@ -509,8 +509,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     private void btnfinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfinActionPerformed
         horafinal = tmreloj.getSelectedTime();
-    JOptionPane.showMessageDialog(null, "Hora final: " + horafinal);
-    validar();
+        JOptionPane.showMessageDialog(null, "Hora final: " + horafinal);
+        validar();
     }//GEN-LAST:event_btnfinActionPerformed
 
     private void btninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninActionPerformed
@@ -791,7 +791,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             return;
         }
         try {
-            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0));
+            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null));
             int ultimoCodigo = resul.size() + 1;
             String codi = String.format("EVE-%03d", ultimoCodigo);
             if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
@@ -800,14 +800,14 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
 
             validar();
-            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Este evento ya existe, ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             ObjectSet<Evento> eventosExistentes = bd.queryByExample(
-                    new Evento(null, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
+                    new Evento(null, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0, null));
 
             for (Evento eventoExistente : eventosExistentes) {
                 if (fechasCoinciden(eventoExistente)) {
@@ -831,7 +831,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     horafinal,
                     foto,
                     Double.valueOf(jTextField1.getText()),
-                    numpuestos);
+                    numpuestos,
+                    null
+            );
 
             System.out.println(evento1);
 
@@ -909,7 +911,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
 
-        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0);
+        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0,null);
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();

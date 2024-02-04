@@ -52,9 +52,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
 
         base.close();
         Agrupar();
-        
-        
-        
+
     }
 
     public static ArrayList<Personal> listaagentes = new ArrayList<>();
@@ -693,8 +691,9 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 sexo = "Femenino";
             }
 
+            //public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cod_organizador, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
             // Obtener valores de los campos
-            Personal micasa = new Personal(null, null, null, null, null, null, null, null, null, CedulaPersonal.getText().trim(), null, null, null, null, null, null, null, null);
+            Personal micasa = new Personal(null, null, null, null, null, null, null, CedulaPersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null, null);
 
             ObjectSet res = base.get(micasa);
             Personal micasita = (Personal) res.next();
@@ -909,8 +908,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jTable1.setRowSorter(trs);
     }//GEN-LAST:event_CedulaPersonalKeyTyped
 
-    
-    
+
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
 
@@ -1046,14 +1044,14 @@ public class Cruds_Personal extends javax.swing.JPanel {
             String nuevoCodigo = String.format("PER-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
 
-            result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+            result = base.queryByExample(new Personal(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            result = base.queryByExample(new Personal(null, null, null, null, null, null, null, null, null,  CedulaPersonal.getText().trim(), null,null, null, null, null, null, null, null));
+            result = base.queryByExample(new Personal(null, null, null, null, null, null, null, CedulaPersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un personal con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1079,6 +1077,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
                     nuevoCodigo,
                     codigoTipoPersonal,
                     codigoDepartamento,
+                    null,
                     null,
                     null,
                     null,
@@ -1111,10 +1110,10 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private boolean validarRadioButton(JRadioButton... buttons) {
         for (JRadioButton button : buttons) {
             if (button.isSelected()) {
-                return true;  
+                return true;
             }
         }
-        return false;  
+        return false;
     }
 
     private String obtenerCodigoDepartamentoSeleccionado() {

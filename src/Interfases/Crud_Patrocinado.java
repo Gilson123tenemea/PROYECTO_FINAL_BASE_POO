@@ -766,7 +766,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        String nombre = "", apellido = "", email = "", telefono = "", codigo = "",genero = "";
+        String nombre = "", apellido = "", email = "", telefono = "", codigo = "", genero = "";
         Date fecha = null;
         int edad = 0;
 
@@ -809,7 +809,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
             txtEmail.setText(primerResultado.getCorreo().trim());
             txtTelefono.setText(primerResultado.getTelefono().trim());
             genero = primerResultado.getGenero();
-             if (genero.equalsIgnoreCase("Masculino")) {
+            if (genero.equalsIgnoreCase("Masculino")) {
                 masculino.setSelected(true);
             } else if (genero.equalsIgnoreCase("Femenino")) {
                 femenino.setSelected(true);
@@ -861,7 +861,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         try {
             // Verificar si el propietario tiene una Casa Vacacional asociada
-            Evento casaAsociada = new Evento(null, null, null, codigopro, null, null, null, null, null, null, null, 0.0, 0);
+            Evento casaAsociada = new Evento(null, null, null, codigopro, null, null, null, null, null, null, null, 0.0, 0, null);
             ObjectSet resultCasa = base.get(casaAsociada);
 
             if (resultCasa.size() > 0) {

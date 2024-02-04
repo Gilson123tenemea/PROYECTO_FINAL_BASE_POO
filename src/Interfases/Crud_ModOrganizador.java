@@ -590,7 +590,7 @@ public class Crud_ModOrganizador extends javax.swing.JPanel {
             sexo = "Masculino";
         }
 
-        Organizador miorganizador = new Organizador(null, null, null, 0.0, null, null, null, txtcedula.getText().trim(), null, null, null, null, null, null, null, null);
+        Organizador miorganizador = new Organizador(null, null, null, 0.0, txtcedula.getText().trim(), null, null, null, null, null, null, null, null);
 
         ObjectSet res = base.get(miorganizador);
         Organizador organizador1 = (Organizador) res.next();

@@ -5,12 +5,15 @@
  */
 package Interfases;
 
+import Clases.Evento;
 import Clases.Organizador;
+import Clases.Personal;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -210,17 +213,17 @@ public class EliminarOrganizador extends javax.swing.JPanel {
 
             encontrado = true;
 
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Cliente", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Organizador", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Organizador ClienteDB : result) {
                     // Eliminar el Cliente de la base de datos db4o
                     base.delete(ClienteDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Cliente");
+                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Organizador");
                     cargarTabla(base);
                 }
             } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Cliente no eliminados");
+                JOptionPane.showMessageDialog(null, "Datos del Organizador no eliminados");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró la cédula");
@@ -282,8 +285,6 @@ private void cargarTabla(ObjectContainer base) {
                 organizador.getDireccion(),
                 organizador.getGenero(),
                 organizador.getCorreo(),
-                organizador.getUsuario(),
-                organizador.getContraseña(),
                 organizador.getPresupuesto(),
                 organizador.getFecchaNaci() != null ? sdf.format(organizador.getFecchaNaci()) : null
             };
