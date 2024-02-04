@@ -897,29 +897,31 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }
 
     public void ActualizarDatos(ObjectContainer base) {
+        try {
+            Evento miagente = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null);
 
-        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0, null);
+            ObjectSet<Evento> res = base.get(miagente);
+            if (!res.isEmpty()) {
+                Evento mievento1 = res.next();
 
-        ObjectSet res = base.get(miagente);
-        Evento mievento1 = (Evento) res.next();
-        mievento1.setNombre(txtnombre.getText().trim());
-        mievento1.setDescripcion(txadescripcion.getText().trim());
-        mievento1.setTipo(cbxtipo.getSelectedItem().toString());
-        mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString());
-        mievento1.setFecha_inicio(jdtinicio.getDate());
-        mievento1.setHora_inicio(horai.toLowerCase());
+                mievento1.setNombre(txtnombre.getText().trim());
+                mievento1.setDescripcion(txadescripcion.getText().trim());
+                mievento1.setTipo(cbxtipo.getSelectedItem().toString());
+                mievento1.setCodigo_patrocinador(cboxpatrocinador.getSelectedItem().toString());
+                mievento1.setFecha_inicio(jdtinicio.getDate());
+                mievento1.setHora_inicio(horai);
+                mievento1.setFecha_fin(jDateChooser2.getDate());
+                mievento1.setHora_fin(horafinal);
 
-        mievento1.setFecha_fin(jDateChooser2.getDate());
-        mievento1.setHora_fin(horafinal);
-        mievento1.setData(foto);
-
-        base.set(mievento1);
-
-        JOptionPane.showMessageDialog(this, "Modificacion exitosa");
-
-        limpiar();
-        base.close();
-
+                base.store(mievento1);
+                JOptionPane.showMessageDialog(this, "Modificación exitosa");
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Evento no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } finally {
+            base.close();
+        }
     }
 
     public void limpiar() {
