@@ -18,11 +18,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -30,9 +35,7 @@ import javax.swing.JOptionPane;
  */
 public class Cruds_Eventos extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Cruds_Eventos
-     */
+    Boolean primeraMayusculaIngresada;
     String horai = " ", horafinal = " ", cod = " ";
 
     byte[] foto;
@@ -46,6 +49,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         txtinicio.setVisible(false);
         txtfinal.setVisible(false);
         btnguardar.setEnabled(false);
+        numpuestosspn.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 
     }
 
@@ -277,6 +281,11 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -499,21 +508,24 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtinicioActionPerformed
 
     private void btnfinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfinActionPerformed
-
         horafinal = tmreloj.getSelectedTime();
-        JOptionPane.showMessageDialog(null, " El evento se  acabara a las :" + horafinal);
-        validar();
+    JOptionPane.showMessageDialog(null, "Hora final: " + horafinal);
+    validar();
     }//GEN-LAST:event_btnfinActionPerformed
 
     private void btninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninActionPerformed
-        // TODO add your handling code here:
-
         horai = tmreloj.getSelectedTime();
-        
-        JOptionPane.showMessageDialog(null, " Hora de Inicio" + horai);
+        JOptionPane.showMessageDialog(null, "Hora de Inicio: " + horai);
         validar();
 
     }//GEN-LAST:event_btninActionPerformed
+
+    private LocalDateTime convertirFechaLocalDateTime(Date fecha, String hora) {
+        Instant instant = fecha.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
+        return localDateTime.withHour(Integer.parseInt(hora.split(":")[0])).withMinute(Integer.parseInt(hora.split(":")[1]));
+    }
 
     private void tmrelojMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tmrelojMouseClicked
 
@@ -523,7 +535,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        
+
         ActualizarDatos(base);
 
         base.close();
@@ -546,7 +558,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             se.setFileSelectionMode(JFileChooser.FILES_ONLY);
             int estado = se.showOpenDialog(null);
             if (estado == JFileChooser.APPROVE_OPTION) {
-                
+
                 try {
                     File archivo = se.getSelectedFile();
                     this.longitudBytes = (int) archivo.length();
@@ -684,6 +696,23 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
 
+        char c = evt.getKeyChar();
+        String textoActual = txtnombre.getText();
+
+        if ((!Character.isLetter(c) || (Character.isLowerCase(c) && textoActual.length() >= 20) || c == ' ')) {
+            evt.consume();
+        } else if (textoActual.length() == 0) {
+            if (!Character.isUpperCase(c)) {
+                evt.setKeyChar(Character.toUpperCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        } else {
+            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
+            if (Character.isUpperCase(ultimoCaracter)) {
+                evt.setKeyChar(Character.toLowerCase(c));
+                primeraMayusculaIngresada = true;
+            }
+        }
 
     }//GEN-LAST:event_txtnombreKeyTyped
 
@@ -694,6 +723,14 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) || jTextField1.getText().length() >= 3) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     private byte[] obtenerBytesImagen() {
         JFileChooser se = new JFileChooser();
@@ -749,34 +786,37 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     }
 
     public void CrearEvento(ObjectContainer bd) {
+        if (!validarCamposObligatorios()) {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0));
             int ultimoCodigo = resul.size() + 1;
-
-            // Formatear el código con ceros a la izquierda
             String codi = String.format("EVE-%03d", ultimoCodigo);
-
-            // Validar que la fecha de inicio sea anterior a la fecha de fin
             if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
-                return;  // Salir del método si las fechas son incorrectas
-            }
-
-            validar();
-
-            // Verificar si ya existe un evento con el mismo código
-            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
-
-            if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Este evento ya existe,ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Obtener el código del tipo de evento seleccionado en el ComboBox
+            validar();
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Este evento ya existe, ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            ObjectSet<Evento> eventosExistentes = bd.queryByExample(
+                    new Evento(null, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0));
+
+            for (Evento eventoExistente : eventosExistentes) {
+                if (fechasCoinciden(eventoExistente)) {
+                    JOptionPane.showMessageDialog(this, "Ya existe un evento con el mismo nombre en estas fechas.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
             String codigoTipoEvento = obtenerCodigoTipoEventoSeleccionado();
             int numpuestos = (int) numpuestosspn.getValue();
-
-            // Obtener el código del patrocinador seleccionado en el ComboBox
             String codigoPatrocinador = obtenerCodigoPatrocinadorSeleccionado();
 
             Evento evento1 = new Evento(codi,
@@ -792,7 +832,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     foto,
                     Double.valueOf(jTextField1.getText()),
                     numpuestos);
-            
+
             System.out.println(evento1);
 
             bd.store(evento1);
@@ -803,6 +843,31 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         } finally {
             bd.close();
         }
+    }
+
+    private boolean fechasCoinciden(Evento eventoExistente) {
+        LocalDate nuevaFechaInicio = jdtinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate nuevaFechaFin = jDateChooser2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        LocalDate existenteFechaInicio = eventoExistente.getFecha_inicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate existenteFechaFin = eventoExistente.getFecha_fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Verificar si las fechas coinciden
+        return (nuevaFechaInicio.isEqual(existenteFechaInicio) || nuevaFechaInicio.isAfter(existenteFechaInicio))
+                && (nuevaFechaInicio.isEqual(existenteFechaFin) || nuevaFechaInicio.isBefore(existenteFechaFin))
+                || (nuevaFechaFin.isEqual(existenteFechaInicio) || nuevaFechaFin.isAfter(existenteFechaInicio))
+                && (nuevaFechaFin.isEqual(existenteFechaFin) || nuevaFechaFin.isBefore(existenteFechaFin));
+    }
+
+    private boolean validarCamposObligatorios() {
+        return !txtnombre.getText().trim().isEmpty()
+                && cboxpatrocinador.getSelectedItem() != null
+                && obtenerCodigoTipoEventoSeleccionado() != null
+                && jdtinicio.getDate() != null
+                && jDateChooser2.getDate() != null
+                && !horai.trim().isEmpty()
+                && !horafinal.trim().isEmpty()
+                && !jTextField1.getText().trim().isEmpty();
     }
 
 // Método para obtener el código del tipo de evento seleccionado en el ComboBox
