@@ -1,34 +1,23 @@
-
 package Clases;
 
 import Clases.Persona;
 import java.util.Date;
 
-public class Personal extends Persona{
+public class Personal extends Persona {
+
     private String codigo_perso;//llave primraria
     private String Tipo_personal, Departamento_p, contanto_p, Calificacion_p;
     private Date Fecha_contrato_inicio;
     private Date Fecha_contrato_fin;
     private String cedula_perso;//llave secundaria de persona
     private String cod_evento;//llave secundaria de persona
+    private String cod_organizador;
 
     public Personal() {
         super();
     }
 
-    public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento) {
-        this.codigo_perso = codigo_perso;
-        this.Tipo_personal = Tipo_personal;
-        this.Departamento_p = Departamento_p;
-        this.contanto_p = contanto_p;
-        this.Calificacion_p = Calificacion_p;
-        this.Fecha_contrato_inicio = Fecha_contrato_inicio;
-        this.Fecha_contrato_fin = Fecha_contrato_fin;
-        this.cedula_perso = cedula_perso;
-        this.cod_evento = cod_evento;
-    }
-
-    public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
+    public Personal(String codigo_perso, String Tipo_personal, String Departamento_p, String contanto_p, String Calificacion_p, Date Fecha_contrato_inicio, Date Fecha_contrato_fin, String cedula_perso, String cod_evento, String cod_organizador, String cedula, String nombre, String apellido, String telefono, String correo, String direccion, String celular, Date fecchaNaci, String genero) {
         super(cedula, nombre, apellido, telefono, correo, direccion, celular, fecchaNaci, genero);
         this.codigo_perso = codigo_perso;
         this.Tipo_personal = Tipo_personal;
@@ -39,6 +28,7 @@ public class Personal extends Persona{
         this.Fecha_contrato_fin = Fecha_contrato_fin;
         this.cedula_perso = cedula_perso;
         this.cod_evento = cod_evento;
+        this.cod_organizador = cod_organizador;
     }
 
     public String getCodigo_perso() {
@@ -113,12 +103,17 @@ public class Personal extends Persona{
         this.cod_evento = cod_evento;
     }
 
-    @Override
-    public String toString() {
-        return "Personal{" + "codigo_perso=" + codigo_perso + ", Tipo_personal=" + Tipo_personal + ", Departamento_p=" + Departamento_p + ", contanto_p=" + contanto_p + ", Calificacion_p=" + Calificacion_p + ", Fecha_contrato_inicio=" + Fecha_contrato_inicio + ", Fecha_contrato_fin=" + Fecha_contrato_fin + ", cedula_perso=" + cedula_perso + ", cod_evento=" + cod_evento + '}';
+    public String getCod_organizador() {
+        return cod_organizador;
     }
 
-    
-    
-      
+    public void setCod_organizador(String cod_organizador) {
+        this.cod_organizador = cod_organizador;
+    }
+
+    @Override
+    public String toString() {
+        return "Personal{" + "codigo_perso=" + codigo_perso + ", Tipo_personal=" + Tipo_personal + ", Departamento_p=" + Departamento_p + ", contanto_p=" + contanto_p + ", Calificacion_p=" + Calificacion_p + ", Fecha_contrato_inicio=" + Fecha_contrato_inicio + ", Fecha_contrato_fin=" + Fecha_contrato_fin + ", cedula_perso=" + cedula_perso + ", cod_evento=" + cod_evento + ", cod_organizador=" + cod_organizador + '}';
+    }
+
 }

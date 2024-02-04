@@ -18,12 +18,13 @@ public class Evento {
     private String hora_inicio, hora_fin;
     private byte[] data;
     private double precio;
-    private int num_puestos;            
+    private int num_puestos;
+    private String cod_organizador;
 
     public Evento() {
     }
 
-    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, String tipo, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, byte[] data, double precio, int num_puestos) {
+    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, String tipo, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, byte[] data, double precio, int num_puestos, String cod_organizador) {
         this.cod_evento = cod_evento;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -37,9 +38,8 @@ public class Evento {
         this.data = data;
         this.precio = precio;
         this.num_puestos = num_puestos;
+        this.cod_organizador = cod_organizador;
     }
-
-    
 
     public String getCod_evento() {
         return cod_evento;
@@ -81,6 +81,14 @@ public class Evento {
         this.codigo_agenda = codigo_agenda;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Date getFecha_inicio() {
         return fecha_inicio;
     }
@@ -113,14 +121,6 @@ public class Evento {
         this.hora_fin = hora_fin;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public byte[] getData() {
         return data;
     }
@@ -144,10 +144,16 @@ public class Evento {
     public void setNum_puestos(int num_puestos) {
         this.num_puestos = num_puestos;
     }
-    
-    
 
-    public String toString() {
+    public String getCod_organizador() {
+        return cod_organizador;
+    }
+
+    public void setCod_organizador(String cod_organizador) {
+        this.cod_organizador = cod_organizador;
+    }
+
+     public String toString() {
         return cod_evento + " - " + nombre;
     }
 
