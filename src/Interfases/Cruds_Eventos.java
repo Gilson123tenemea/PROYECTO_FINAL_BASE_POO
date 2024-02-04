@@ -90,7 +90,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         txtfinal = new javax.swing.JTextField();
         cbxtipo = new javax.swing.JComboBox<>();
         cboxpatrocinador = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         fotolbl = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -257,13 +256,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         fotolbl.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 1, 1, 1, new java.awt.Color(0, 0, 0)));
 
         jButton2.setText("Selecciona una foto");
@@ -289,6 +281,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             }
         });
 
+        txtorga.setBackground(new java.awt.Color(255, 255, 255));
+        txtorga.setForeground(new java.awt.Color(255, 255, 255));
         txtorga.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -355,20 +349,20 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(32, 32, 32))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(numpuestosspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
-                                        .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtnombre))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton4)
-                                        .addComponent(jButton1)))
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(numpuestosspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jdtinicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbxubicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 151, Short.MAX_VALUE)
+                                            .addComponent(cbxtipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cboxpatrocinador, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtnombre))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fotolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -401,12 +395,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel3))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel8)
-                                                .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jButton1))
+                                        .addGap(32, 32, 32)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel8)
+                                            .addComponent(cboxpatrocinador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel4)
@@ -493,10 +485,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cboxpatrocinadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxpatrocinadorMouseClicked
         cargarPatrocinadores();        // TODO add your handling code here:
@@ -707,19 +695,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         char c = evt.getKeyChar();
         String textoActual = txtnombre.getText();
 
-        if ((!Character.isLetter(c) || (Character.isLowerCase(c) && textoActual.length() >= 20) || c == ' ')) {
+        if ((!Character.isLetter(c) && c != ' ') || (Character.isLowerCase(c) && textoActual.length() >= 20)) {
             evt.consume();
-        } else if (textoActual.length() == 0) {
-            if (!Character.isUpperCase(c)) {
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
-        } else {
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
+        } else if (textoActual.length() == 0 || (Character.isWhitespace(textoActual.charAt(textoActual.length() - 1)))) {
+            evt.setKeyChar(Character.toUpperCase(c));
         }
 
     }//GEN-LAST:event_txtnombreKeyTyped
@@ -919,7 +898,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
 
-        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0,null);
+        Evento miagente = new Evento(cod.toLowerCase(), null, null, null, null, null, null, null, null, null, null, 0.0, 0, null);
 
         ObjectSet res = base.get(miagente);
         Evento mievento1 = (Evento) res.next();
@@ -939,6 +918,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Modificacion exitosa");
 
         limpiar();
+        base.close();
 
     }
 
@@ -1054,7 +1034,6 @@ public class Cruds_Eventos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbxtipo;
     private javax.swing.JComboBox<String> cbxubicacion;
     private javax.swing.JLabel fotolbl;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
