@@ -5,6 +5,7 @@
  */
 package Interfases;
 
+import Clases.Encuesta;
 import Clases.Evento;
 import Clases.Organizador;
 import Clases.Personal;
@@ -61,40 +62,37 @@ public class EliminarOrganizador extends javax.swing.JPanel {
 
         jTableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Cédula", "Nombre", "Apellido", "Celular", "Teléfono", "Dirección", "Género", "Correo", "Usuario", "Contraseña", "Presupuesto", "Fecha de nacimiento"
+                "Código", "Cédula", "Nombre", "Apellido", "Celular", "Teléfono", "Dirección", "Género", "Correo", "Presupuesto", "Fecha de nacimiento"
             }
         ));
         jScrollPane1.setViewportView(jTableDatos);
-        if (jTableDatos.getColumnModel().getColumnCount() > 0) {
-            jTableDatos.getColumnModel().getColumn(10).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,80 +155,68 @@ public class EliminarOrganizador extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        // TODO add your handling code here:
-//        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-//
-//        String cedula = txtCedulaOrganizador.getText().trim();
-//
-//        if (cedula.isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "Ingrese la cédula del organizador", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//
-//            Query query = base.query();
-//            query.constrain(Organizador.class);
-//            query.descend("cedula").constrain(cedula);
-//
-//            ObjectSet<Organizador> result = query.execute();
-//
-//            String[] columnNames = {"Código", "Cédula", "Nombre", "Apellido", "Celular", "Telefono", "Dirección", "Género", "Correo", "Usuario", "Contraseña", "Presupuesto", "Fecha de Nacimiento"};
-//
-//            Object[][] data = new Object[result.size()][13];
-//
-//            int i = 0;
-//            for (Organizador organizador : result) {
-//                data[i][0] = organizador.getCod_organizador();
-//                data[i][1] = organizador.getCedula();
-//                data[i][2] = organizador.getNombre();
-//                data[i][3] = organizador.getApellido();
-//                data[i][4] = organizador.getCelular();
-//                data[i][5] = organizador.getTelefono();
-//                data[i][6] = organizador.getDireccion();
-//                data[i][7] = organizador.getGenero();
-//                data[i][10] = organizador.getContraseña();
-//                data[i][11] = organizador.getPresupuesto();
-//                data[i][12] = organizador.getFecchaNaci();
-//
-//                i++;
-//            }
-//
-//            DefaultTableModel model = new DefaultTableModel(data, columnNames);
-//            jTableDatos.setModel(model);
-//
-//            base.close();
-//        }
 
-        String cedulaEliminar = JOptionPane.showInputDialog("Ingrese la cedula a eliminar");
+        String codEliminar = JOptionPane.showInputDialog("Ingrese el código del Organizador");
         boolean encontrado = false;
+
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
-        Query query = base.query();
-        query.constrain(Organizador.class);
-        query.descend("cedula").constrain(cedulaEliminar);
+        try {
 
-        ObjectSet<Organizador> result = query.execute();
-        cargarTabla(base);
-        if (result.size() > 0) {
+            Evento eventoAsociado = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, codEliminar);
+            ObjectSet resultadoEvento = base.get(eventoAsociado);
 
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Organizador", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Organizador ClienteDB : result) {
-                    // Eliminar el Cliente de la base de datos db4o
-                    base.delete(ClienteDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Organizador");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Organizador no eliminados");
+            if (resultadoEvento.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Organizador porque está asociado a un Evento", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró la cédula");
-            cargarTabla(base);
-        }
 
-        base.close();
+            Encuesta encuestaAsociada = new Encuesta(null, null, null, null, null, null, null, null, null, null, null, codEliminar);
+            ObjectSet resultadoEncuesta = base.get(encuestaAsociada);
+
+            if (resultadoEncuesta.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar a este Organizador porque está asociado a una Encuesta", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Personal personalAsociado = new Personal(null, null, null, null, null, null, null, null, null, codEliminar, null, null, null, null, null, null, null, null, null);
+            ObjectSet resultadoPersonal = base.get(personalAsociado);
+
+            if (resultadoPersonal.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar a este Organizador porque está asociado a un Personal", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Query query = base.query();
+            query.constrain(Organizador.class);
+            query.descend("cod_organizador").constrain(codEliminar);
+            ObjectSet<Organizador> resultadoOrganizador = query.execute();
+
+            cargarTabla(base);
+
+            if (resultadoOrganizador.size() > 0) {
+                encontrado = true;
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Organizador", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Organizador org : resultadoOrganizador) {
+                        base.delete(org);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Organizador");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Organizador no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+                cargarTabla(base);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
+        } finally {
+            base.close();
+        }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
