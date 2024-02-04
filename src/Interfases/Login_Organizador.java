@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class Login_Organizador extends javax.swing.JFrame {
 
     
-    public static String nombre=" ",apellido=" ";
+    public static String nombre=" ",apellido=" ", cod_orga = "";
     String usuario = " ", password = " ";
 
     public Login_Organizador() {
@@ -198,7 +198,7 @@ public class Login_Organizador extends javax.swing.JFrame {
                 password = organizador.getContraseña();
                 nombre=organizador.getNombre();
                 apellido=organizador.getApellido();
-
+                cod_orga=organizador.getCod_organizador();
             }
             base.close();
             this.dispose();

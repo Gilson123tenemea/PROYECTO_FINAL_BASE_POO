@@ -24,11 +24,12 @@ public class Encuesta {
     private String Pregunta3;
     private String Pregunta4;
     private String Pregunta5;
+    private String cod_organizador;
 
     public Encuesta() {
     }
 
-    public Encuesta(String Cod_encuesta, String Nombre_encuesta, String evento, String Descrpcion_encuesta, Date fecha_inicio, Date Fecha_fin, String Pregunta1, String Pregunta2, String Pregunta3, String Pregunta4, String Pregunta5) {
+    public Encuesta(String Cod_encuesta, String Nombre_encuesta, String evento, String Descrpcion_encuesta, Date fecha_inicio, Date Fecha_fin, String Pregunta1, String Pregunta2, String Pregunta3, String Pregunta4, String Pregunta5, String cod_organizador) {
         this.Cod_encuesta = Cod_encuesta;
         this.Nombre_encuesta = Nombre_encuesta;
         this.evento = evento;
@@ -40,7 +41,10 @@ public class Encuesta {
         this.Pregunta3 = Pregunta3;
         this.Pregunta4 = Pregunta4;
         this.Pregunta5 = Pregunta5;
+        this.cod_organizador = cod_organizador;
     }
+
+    
 
     public String getCod_encuesta() {
         return Cod_encuesta;
@@ -129,6 +133,16 @@ public class Encuesta {
     public void setPregunta5(String Pregunta5) {
         this.Pregunta5 = Pregunta5;
     }
+
+    public String getCod_organizador() {
+        return cod_organizador;
+    }
+
+    public void setCod_organizador(String cod_organizador) {
+        this.cod_organizador = cod_organizador;
+    }
+    
+    
 
     @Override
     public String toString() {

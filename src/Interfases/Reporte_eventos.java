@@ -197,7 +197,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             try {
 
-                Encuesta actividadAsociada = new Encuesta(null, null, Codigo, null, null, null, null, null, null, null, null);
+                Encuesta actividadAsociada = new Encuesta(null, null, Codigo, null, null, null, null, null, null, null, null,null);
                 ObjectSet resultActividad = base.get(actividadAsociada);
 
                 if (resultActividad.size() > 0) {
