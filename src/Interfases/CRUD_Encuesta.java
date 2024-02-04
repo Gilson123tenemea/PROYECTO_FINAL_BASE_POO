@@ -26,11 +26,11 @@ import javax.swing.table.TableRowSorter;
 public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private TableRowSorter trs;
-
+    
     public CRUD_Encuesta() {
         initComponents();
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
+        txtorga.setText(Login_Organizador.cod_orga);
         cargarTabla(base);
 
         base.close();
@@ -55,18 +55,15 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 ultimoCodigo = Integer.parseInt(ultimoPuesto.getCod_encuesta().substring(4)) + 1;
             }
 
-            // Formatear el código con ceros a la izquierda
             String nuevoCodigo = String.format("ENC-%03d", ultimoCodigo);
             txtcodigopersonal.setText(nuevoCodigo);
 
-            // Validar que la fecha de inicio sea anterior a la fecha de fin
             if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null || jDateChooser1.getDate().after(jDateChooser2.getDate())) {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
-                return;  // Salir del método si las fechas son incorrectas
+                return;
             }
 
-            // Verificar si ya existe una Encuesta con el mismo código
-            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null));
+            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null,null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una Encuesta con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -88,7 +85,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                     jTextField3.getText().trim(),
                     jTextField4.getText().trim(),
                     jTextField5.getText().trim(),
-                    jTextField6.getText().trim()
+                    jTextField6.getText().trim(),
+                    txtorga.getText().trim()
             );
 
             base.store(nuevaEncuesta);
@@ -103,14 +101,12 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private String obtenerCodigoEventoSeleccionado() {
         String eventoSeleccionado = cboxevento.getSelectedItem().toString();
-
-        // Asumiendo que el código del evento está al principio del string antes del espacio
         String[] partes = eventoSeleccionado.split(" ");
 
         if (partes.length > 0) {
             return partes[0];
         } else {
-            return "";  // Ajusta esto según la estructura real de tu ComboBox
+            return ""; 
         }
     }
 
@@ -244,7 +240,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         }
 
         try {
-            Encuesta micasa = new Encuesta(txtcodigopersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null);
+            Encuesta micasa = new Encuesta(txtcodigopersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null,null);
 
             ObjectSet res = base.get(micasa);
             Encuesta micasita = (Encuesta) res.next();
@@ -289,7 +285,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la Encuesta a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectSet<Encuesta> result = base.queryByExample(new Encuesta(codigoBusqueda, null, null, null, null, null, null, null, null, null, null));
+            ObjectSet<Encuesta> result = base.queryByExample(new Encuesta(codigoBusqueda, null, null, null, null, null, null, null, null, null, null,null));
 
             if (!result.isEmpty()) {
                 Encuesta actividadEncontrada = result.next();
@@ -372,10 +368,9 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
             if (selectedItem != null) {
                 String cedulaSeleccionada = selectedItem.toString();
-
                 Query query = bases.query();
                 query.constrain(Evento.class);
-                query.descend("cod_evento").constrain(cedulaSeleccionada);
+                query.descend("Cod_evento"+"Nombre_encuesta").constrain(cedulaSeleccionada);
                 ObjectSet<Evento> result = query.execute();
 
                 if (!result.isEmpty()) {
@@ -453,6 +448,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         cboxbusqueda = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        txtorga = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -667,6 +663,11 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             }
         });
         jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 170, 40));
+
+        txtorga.setBackground(new java.awt.Color(255, 255, 255));
+        txtorga.setForeground(new java.awt.Color(255, 255, 255));
+        txtorga.setText("jLabel16");
+        jPanel3.add(txtorga, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1020,6 +1021,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel txtcodigopersonal;
+    private javax.swing.JLabel txtorga;
     // End of variables declaration//GEN-END:variables
 
     public void Filtro() {
