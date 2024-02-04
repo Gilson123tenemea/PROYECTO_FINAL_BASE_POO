@@ -540,26 +540,26 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreDepartamentoKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-//        char letra = evt.getKeyChar();
-//
-//// Verificar si es una letra y si es la primera letra
-//        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
-//            // Convertir la letra a mayúscula y agregarla al texto existente
-//            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
-//            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
-//        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
-//            // Verificar si es letra o espacio y agregar al texto en minúscula
-//            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
-//            evt.consume();
-//        } else {
-//            evt.consume();
-//        }
-//
-//// Limitar la longitud del texto a 20 caracteres
-//        if (txtDescripcion.getText().length() > 80) {
-//            evt.consume();
-//        }
-        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDescripcion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDescripcion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDescripcion.setText(txtDescripcion.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDescripcion.getText().length() > 80) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
     public void ActualizarDatos(ObjectContainer base) {

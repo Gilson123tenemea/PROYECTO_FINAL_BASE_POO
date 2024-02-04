@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Publico_p;
+import Clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -322,6 +324,9 @@ public class Publico extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPreferenciasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPreferenciasKeyTyped(evt);
+            }
         });
         jScrollPane1.setViewportView(txtPreferencias);
 
@@ -402,6 +407,15 @@ public class Publico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCedulaActionPerformed
     public void crearPublico(ObjectContainer base) {
         try {
+
+            if (!validarCampos()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!validarRadioButton(rbnMasculino, rbnFemenino)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en el grupo de género", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             // Obtener el último código
             ObjectSet<Publico_p> result = base.queryByExample(new Publico_p());
             int ultimoCodigo = result.size() + 1;
@@ -478,6 +492,100 @@ public class Publico extends javax.swing.JFrame {
 
     }
 
+    private boolean validarRadioButton(JRadioButton... buttons) {
+        for (JRadioButton button : buttons) {
+            if (button.isSelected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validarCampos() {
+        Validaciones miValidaciones = new Validaciones();
+        boolean ban_confirmar = true;
+
+        if (txtCedula.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Cédula");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtCedula.getText())) {
+            JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Nombre");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtNombre.getText())) {
+            JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtApellido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Apellido");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarNomApe(txtApellido.getText())) {
+            JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Correo");
+            ban_confirmar = false;
+        } else if (!miValidaciones.ValidarCorreo(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Telefono");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarTelefono(txtTelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la Direccion");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtDireccion.getText())) {
+            JOptionPane.showMessageDialog(this, "Direccion incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (jDateFechaNaci.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese una Fecha");
+            ban_confirmar = false;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaComoCadena = sdf.format(jDateFechaNaci.getDate());
+
+            if (!miValidaciones.validarFecha(fechaComoCadena)) {
+                JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
+                ban_confirmar = false;
+            }
+        }
+
+        if (txtCelular.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Celular");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtCelular.getText())) {
+            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        if (txtPreferencias.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese las Preferencias");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtPreferencias.getText())) {
+            JOptionPane.showMessageDialog(this, "Preferencia incorrecta. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        return ban_confirmar;
+    }
+
     public void Validar() {
 
         if (txtCedula.getText().trim().isEmpty()) {
@@ -516,7 +624,7 @@ public class Publico extends javax.swing.JFrame {
             lbltelefono.setText("");
 
         }
-       
+
         if (txtPreferencias.getText().trim().isEmpty()) {
             lblpreferencia.setText("Campo obligatorio");
 
@@ -734,32 +842,54 @@ public class Publico extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
-
+    private boolean esCaracterEspecial(char caracter) {
+        // Puedes ajustar esta lógica según los caracteres especiales que quieras permitir
+        return "!@#$%^&*()_-+=<>?/".indexOf(caracter) != -1;
+    }
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        // Verificar si es una letra minúscula y si la longitud actual es menor que 50 y si no es un espacio en blanco
-        if ((!Character.isLetter(c) || !Character.isLowerCase(c) && primeraMayusculaIngresada) || txtDireccion.getText().length() >= 50 || c == ' ') {
-            // Si no es una letra minúscula, o no es la primera letra mayúscula, o la longitud es mayor o igual a 50, o el caracter es un espacio en blanco, se consume el evento para evitar que se agregue al campo de texto
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtDireccion.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtDireccion.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtDireccion.setText(txtDireccion.getText() + Character.toLowerCase(letra));
             evt.consume();
-        } else if (txtDireccion.getText().length() == 0) {
-            // Si es el primer caracter del campo de texto, verificar que sea mayúscula
-            if (!Character.isUpperCase(c)) {
-                // Si no es mayúscula, convertirla a mayúscula
-                evt.setKeyChar(Character.toUpperCase(c));
-                primeraMayusculaIngresada = true;
-            }
         } else {
-            // Si no es el primer caracter del campo de texto, verificar que sea minúscula
-            String textoActual = txtDireccion.getText();
-            char ultimoCaracter = textoActual.charAt(textoActual.length() - 1);
-            if (Character.isUpperCase(ultimoCaracter)) {
-                // Si es mayúscula, convertirla a minúscula
-                evt.setKeyChar(Character.toLowerCase(c));
-                primeraMayusculaIngresada = true;
-            }
+            evt.consume();
         }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtDireccion.getText().length() > 80) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtDireccionKeyTyped
+
+    private void txtPreferenciasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPreferenciasKeyTyped
+        char letra = evt.getKeyChar();
+
+// Verificar si es una letra y si es la primera letra
+        if (Character.isLetter(letra) && txtPreferencias.getText().trim().isEmpty()) {
+            // Convertir la letra a mayúscula y agregarla al texto existente
+            txtPreferencias.setText(String.valueOf(Character.toUpperCase(letra)));
+            evt.consume();  // Consumir el evento para evitar que la letra original se muestre
+        } else if (Character.isLetter(letra) || Character.isSpaceChar(letra)) {
+            // Verificar si es letra o espacio y agregar al texto en minúscula
+            txtPreferencias.setText(txtPreferencias.getText() + Character.toLowerCase(letra));
+            evt.consume();
+        } else {
+            evt.consume();
+        }
+
+// Limitar la longitud del texto a 20 caracteres
+        if (txtPreferencias.getText().length() > 80) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPreferenciasKeyTyped
 
     /**
      * @param args the command line arguments

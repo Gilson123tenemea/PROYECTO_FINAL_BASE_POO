@@ -343,10 +343,10 @@ public class Comerciante extends javax.swing.JFrame {
 
         // Validar otros campos aquí...
         if (txtTelefono.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el celular del cliente");
+            JOptionPane.showMessageDialog(this, "Ingrese el Telefono");
             ban_confirmar = false;
-        } else if (!miValidaciones.validarCedula(txtTelefono.getText())) {
-            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
+        } else if (!miValidaciones.validarTelefono(txtTelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Telefono incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
         if (jDateFecha.getDate() == null) {
