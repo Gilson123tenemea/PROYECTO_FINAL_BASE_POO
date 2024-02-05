@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Comerciantes;
 import Clases.Tipo_Comercio;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -495,10 +496,12 @@ public class Crud_tipo_comercio extends javax.swing.JPanel {
 
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
         cargarTabla(base);
-
         base.close();      // TODO add your handling code here:
+        
+        
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionTipoComercial();
     }//GEN-LAST:event_btnreporteActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

@@ -10,6 +10,7 @@ import Clases.Organizador;
 import Clases.Personal;
 import Clases.Tipos_Personales;
 import Clases.Validaciones;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -299,7 +300,8 @@ public class Crud_Departamento extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        // TODO add your handling code here:
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionDepartamento();
 
     }//GEN-LAST:event_btnReporteActionPerformed
 

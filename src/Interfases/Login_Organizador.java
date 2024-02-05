@@ -21,6 +21,7 @@ public class Login_Organizador extends javax.swing.JFrame {
     
     public static String nombre=" ",apellido=" ", cod_orga = "";
     String usuario = " ", password = " ";
+    public static Organizador organizador;
 
     public Login_Organizador() {
         initComponents();
@@ -194,6 +195,7 @@ public class Login_Organizador extends javax.swing.JFrame {
         if (!result.isEmpty()) {
 
             for (Organizador organizador : result) {
+                this.organizador = organizador;
                 usuario = organizador.getUsuario();
                 password = organizador.getContraseña();
                 nombre=organizador.getNombre();

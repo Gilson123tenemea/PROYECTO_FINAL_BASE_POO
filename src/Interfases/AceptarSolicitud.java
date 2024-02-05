@@ -41,15 +41,19 @@ public class AceptarSolicitud extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aceptado.png"))); // NOI18N
         jLabel1.setText("ACEPTAR SOLICITUD");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(623, 6, -1, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButton1.setText("ACTUALIZAR REPORTE");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 107, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,10 +68,13 @@ public class AceptarSolicitud extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 188, 823, 289));
+
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/visto (1).png"))); // NOI18N
         jButton2.setText("ACEPTAR");
         jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 512, 101, -1));
 
         jButton3.setBackground(new java.awt.Color(204, 204, 204));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/rechazar.png"))); // NOI18N
@@ -78,52 +85,7 @@ public class AceptarSolicitud extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 17, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jButton3)
-                .addGap(310, 310, 310))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel1)
-                        .addGap(13, 13, 13)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addGap(62, 62, 62))
-        );
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 512, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 880, 610));
 

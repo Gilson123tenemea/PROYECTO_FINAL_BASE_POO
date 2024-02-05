@@ -6,6 +6,7 @@
 package Interfases;
 
 import Clases.Organizador;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -48,6 +49,7 @@ public class ReporteOrganizador extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnActualizatDatos = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
@@ -100,7 +102,7 @@ public class ReporteOrganizador extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -120,6 +122,15 @@ public class ReporteOrganizador extends javax.swing.JPanel {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/curriculum.png"))); // NOI18N
+        jButton4.setText("Guardar");
+        jButton4.setToolTipText("MUESTRA LOS DATOS QUE EXISTEN EN LA TABLA");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,7 +143,10 @@ public class ReporteOrganizador extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(btnActualizatDatos))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnActualizatDatos)
+                                .addGap(39, 39, 39)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -144,7 +158,9 @@ public class ReporteOrganizador extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnActualizatDatos)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(btnActualizatDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -194,6 +210,12 @@ public class ReporteOrganizador extends javax.swing.JPanel {
         jTableDatos.setModel(model);
         base.close();*/
     }//GEN-LAST:event_btnActualizatDatosActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionOrganizadores();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void actualizarDatos() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -249,6 +271,7 @@ public class ReporteOrganizador extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizatDatos;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

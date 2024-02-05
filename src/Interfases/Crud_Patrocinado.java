@@ -3,11 +3,13 @@ package Interfases;
 import Clases.Evento;
 import Clases.Patrocinador;
 import Clases.Validaciones;
+import base.ReportePatrocinador;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import com.toedter.calendar.JDateChooser;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,9 +22,11 @@ import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -856,6 +860,17 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
         cargarTablaReporte(base);
         base.close();
+        
+        ReportePatrocinador reporte = new ReportePatrocinador();
+        JPanel contenedorPrincipal = (JPanel) this.getParent();
+        contenedorPrincipal.add(reporte, "reporte");
+        
+        CardLayout vista;
+        vista = (CardLayout) contenedorPrincipal.getLayout();
+        vista.show(contenedorPrincipal, "reporte");
+        SwingUtilities.updateComponentTreeUI(contenedorPrincipal);
+        contenedorPrincipal.repaint();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

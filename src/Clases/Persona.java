@@ -1,12 +1,18 @@
 
 package Clases;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Persona {
     private String cedula, nombre, apellido, telefono, correo, direccion, celular;
     private Date fecchaNaci;
     private String genero;
+    
+    private Integer edad; // Esta variable se definira solo en los casos que se necesiten
 
     public Persona() {
     }
@@ -94,6 +100,16 @@ public class Persona {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+    
+    public Integer getEdad() {
+        return edad;
+    }
+    
+    public void setEdad() {
+        Date fechaActual = new Date();
+        LocalDateTime fechaNacimiento = LocalDateTime.ofInstant(getFecchaNaci().toInstant(), ZoneId.systemDefault());
+        this.edad = Period.between(fechaNacimiento.toLocalDate(), LocalDate.now()).getYears();
     }
 
     @Override

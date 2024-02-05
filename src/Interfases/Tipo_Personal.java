@@ -8,6 +8,7 @@ package Interfases;
 import Clases.Personal;
 import Clases.Tipos_Personales;
 import Clases.Validaciones;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -479,7 +480,8 @@ public class Tipo_Personal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionTipoPersonal();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

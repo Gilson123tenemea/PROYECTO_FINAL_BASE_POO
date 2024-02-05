@@ -13,10 +13,12 @@ import Clases.Personal;
 import Clases.Tipo_evento;
 import Clases.Tipos_Personales;
 import Clases.Validaciones;
+import base.ReportePersonal;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.CardLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -27,8 +29,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -800,10 +804,18 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
         cargarTabla(base);
-
         base.close();
+        
+        ReportePersonal reporte = new ReportePersonal();
+        JPanel contenedorPrincipal = (JPanel) this.getParent();
+        contenedorPrincipal.add(reporte, "reporte");
+        
+        CardLayout vista;
+        vista = (CardLayout) contenedorPrincipal.getLayout();
+        vista.show(contenedorPrincipal, "reporte");
+        SwingUtilities.updateComponentTreeUI(contenedorPrincipal);
+        contenedorPrincipal.repaint();
 
 
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -8,15 +8,19 @@ package Interfases;
 import Clases.Encuesta;
 import Clases.Evento;
 import Clases.Validaciones;
+import base.ReporteEncuesta;
+import base.ReportePatrocinador;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.CardLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
@@ -760,10 +764,20 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
         cargarTabla(base);
-
         base.close();
+        
+        ReporteEncuesta reporte = new ReporteEncuesta();
+        JPanel contenedorPrincipal = (JPanel) this.getParent();
+        contenedorPrincipal.add(reporte, "reporte");
+        
+        CardLayout vista;
+        vista = (CardLayout) contenedorPrincipal.getLayout();
+        vista.show(contenedorPrincipal, "reporte");
+        SwingUtilities.updateComponentTreeUI(contenedorPrincipal);
+        contenedorPrincipal.repaint();
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

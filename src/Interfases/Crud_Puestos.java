@@ -9,6 +9,7 @@ import Clases.Comerciantes;
 import Clases.Departamento;
 import Clases.Puesto;
 import Clases.Validaciones;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -546,11 +547,11 @@ public class Crud_Puestos extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-
         cargarTabla(base);
-
         base.close();
-        // TODO add your handling code here:
+
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionPuesto();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
