@@ -21,16 +21,15 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\proyecto_fin.yap";
+    //public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\proyecto_fin.yap";
     //  public static String direccion = "C:\\Users\\ADMIN_01\\Documents\\SEGUNDO CICLO\\pro.yap";
     //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
-    //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\final.yap";
+    public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\re.yap";
 
-    public static String nombre = " ", codigo = "",apellido, cedula = "";
+    public static String nombre = " ", codigo = "", apellido, cedula = "";
     String usuario = " ", password = " ";
 
-    
     public Inicio() {
         initComponents();
         setLocationRelativeTo(null);
@@ -309,15 +308,7 @@ public class Inicio extends javax.swing.JFrame {
         le.setVisible(true);
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
-        // TODO add your handling code here:
-        mostrarInformacionProyecto();
-    }//GEN-LAST:event_btnHelpActionPerformed
-
-    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+    public void EntrarPublico(ObjectContainer base) {
 
         setLocationRelativeTo(null);
         Query query = base.query();
@@ -334,11 +325,10 @@ public class Inicio extends javax.swing.JFrame {
                 password = publico.getContraseña();
                 nombre = publico.getNombre();
                 codigo = publico.getCodigo_publico();
-                apellido=publico.getApellido();
+                apellido = publico.getApellido();
                 cedula = publico.getCedula();
 
             }
-
             base.close();
             this.dispose();
             Menu_Cliente admin = new Menu_Cliente();
@@ -351,6 +341,19 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
         }
 
+    }
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
+        // TODO add your handling code here:
+        mostrarInformacionProyecto();
+    }//GEN-LAST:event_btnHelpActionPerformed
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        // TODO add your handling code here:}
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+
+        EntrarPublico(base);
+
+        base.close();
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
