@@ -57,8 +57,8 @@ public class Validaciones {
     public boolean validarDireccion(String direccion) {
         direccion = direccion.trim();
 
-        // Expresión regular básica para direcciones
-        String regex = "^[A-Za-z0-9\\s.,'-]+$";
+        // Expresión regular que permite cualquier tipo de carácter
+        String regex = "^[A-Za-z0-9\\s.,'-?¿!¡]+$";
 
         return direccion.matches(regex);
     }
