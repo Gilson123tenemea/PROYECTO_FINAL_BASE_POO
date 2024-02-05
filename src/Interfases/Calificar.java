@@ -286,7 +286,7 @@ public class Calificar extends javax.swing.JFrame {
         lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
         lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
 
-        calificacion = 2;
+        calificacion = 5;
         lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara5.png"));
 
     }//GEN-LAST:event_lbl5MouseClicked

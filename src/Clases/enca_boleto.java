@@ -12,17 +12,18 @@ import java.util.Date;
  * @author Lenovo.User
  */
 public class enca_boleto {
-    
-    private String cod_publico,nombre_publico,nobre_evento;
+
+    private String cod_publico, nombre_publico, nobre_evento, codigo_encabezado;
     private Date fecha;
 
     public enca_boleto() {
     }
 
-    public enca_boleto(String cod_publico, String nombre_publico, String nobre_evento, Date fecha) {
+    public enca_boleto(String cod_publico, String nombre_publico, String nobre_evento, String codigo_encabezado, Date fecha) {
         this.cod_publico = cod_publico;
         this.nombre_publico = nombre_publico;
         this.nobre_evento = nobre_evento;
+        this.codigo_encabezado = codigo_encabezado;
         this.fecha = fecha;
     }
 
@@ -50,6 +51,14 @@ public class enca_boleto {
         this.nobre_evento = nobre_evento;
     }
 
+    public String getCodigo_encabezado() {
+        return codigo_encabezado;
+    }
+
+    public void setCodigo_encabezado(String codigo_encabezado) {
+        this.codigo_encabezado = codigo_encabezado;
+    }
+
     public Date getFecha() {
         return fecha;
     }
@@ -60,9 +69,7 @@ public class enca_boleto {
 
     @Override
     public String toString() {
-        return "enca_boleto{" + "cod_publico=" + cod_publico + ", nombre_publico=" + nombre_publico + ", nobre_evento=" + nobre_evento + ", fecha=" + fecha + '}';
+        return "enca_boleto{" + "cod_publico=" + cod_publico + ", nombre_publico=" + nombre_publico + ", nobre_evento=" + nobre_evento + ", codigo_encabezado=" + codigo_encabezado + ", fecha=" + fecha + '}';
     }
-    
-    
-    
+
 }
