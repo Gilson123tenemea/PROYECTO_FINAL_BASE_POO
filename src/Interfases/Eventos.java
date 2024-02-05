@@ -30,6 +30,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 public class Eventos extends javax.swing.JFrame {
@@ -105,15 +107,13 @@ public class Eventos extends javax.swing.JFrame {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaf = tipoevento1.getFecha_inicio();
                     String fechai = formato.format(fechaf);
+                    double precio = tipoevento1.getPrecio();
 
                     String horaini = tipoevento1.getHora_inicio();
                     Date fechafin = tipoevento1.getFecha_fin();
                     String horafi = tipoevento1.getHora_fin();
-                    String provincia = tipoevento1.getProvincia();
-                    String ciudad = tipoevento1.getCiudad();
-                    String calle = tipoevento1.getCalle();
+
                     String fechafi = formato.format(fechafin);
-                    
 
                     JButton boton = new JButton(tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                     boton.setSize(200, 200);
@@ -164,9 +164,6 @@ public class Eventos extends javax.swing.JFrame {
                                 mensaje.append("Fecha de fin: ").append(fechafi).append("\n");
                                 mensaje.append("Hora de inicio: ").append(horaini).append("\n");
                                 mensaje.append("Hora final: ").append(horafi).append("\n");
-                                mensaje.append("Provincia: ").append(provincia).append("\n");
-                                mensaje.append("Ciudad: ").append(ciudad).append("\n");
-                                mensaje.append("Calle Principal: ").append(calle).append("\n");
                                 UIManager.put("Button.background", Color.YELLOW);
                                 int opcion = JOptionPane.showOptionDialog(
                                         null,
@@ -176,7 +173,7 @@ public class Eventos extends javax.swing.JFrame {
                                         JOptionPane.QUESTION_MESSAGE,
                                         null,
                                         arreglo,
-                                        arreglo[0] 
+                                        arreglo[0]
                                 );
 
                                 UIManager.put("Button.background", UIManager.get("OptionPane.background"));
@@ -190,7 +187,36 @@ public class Eventos extends javax.swing.JFrame {
                                                 String publico = Inicio.nombre + " " + Inicio.apellido;
                                                 ConfirmarAsistencia(asistir, nom, publico);
                                             } else {
-                                                JOptionPane.showMessageDialog(null, "Ya has confirmado asistencia para este evento.");
+//                                                if (precio > 0.0) {
+                                                JSpinner spi = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+
+                                                if (precio > 0.0) {
+
+                                                    Object[] options = {"Confirmar", "Cancelar"};
+                                                    int result = JOptionPane.showOptionDialog(null, new Object[]{
+                                                        "Ya has confirmado asistencia para este evento.\n"
+                                                        + "Este evento es privado.\n"
+                                                        + "Precio: " + precio + "\n"
+                                                        + "Ingresa la cantidad de boletos que desea ", spi
+                                                    }, "Spinner in JOptionPane", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                                                    if (result == 0) {
+
+                                                        Eventos.this.dispose();
+                                                        int cantidad =(int) spi.getValue();
+
+                                                        Boleto boleto1 = new Boleto(cod, nom,cantidad,precio);
+                                                        boleto1.setVisible(true);
+
+                                                    } else if (result == 1) {
+                                                        JOptionPane.showMessageDialog(null, "Has cancelado tu asistencia a este evento");
+
+                                                    }
+//                                                    
+                                                } else if (precio == 0.0) {
+                                                    JOptionPane.showMessageDialog(null, "Ya has confirmado asistencia para este evento.");
+//
+                                                }
                                             }
                                             break;
                                         case 1:
@@ -411,7 +437,6 @@ public class Eventos extends javax.swing.JFrame {
         jLabel2.setText("BIENVENIDO:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
 
-        txtFechaactual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtFechaactual.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtFechaactual, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 130, 20));
 

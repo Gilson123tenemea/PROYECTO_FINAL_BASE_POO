@@ -31,10 +31,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author ADMIN_01
- */
+
 public class Crud_Comerciante extends javax.swing.JPanel {
 
     private TableRowSorter trs;
