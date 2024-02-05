@@ -39,6 +39,8 @@ public class Galeria extends javax.swing.JFrame {
         botones = new ArrayList<>();
         indice = 0;
         ObtenerImagen();
+        setLocationRelativeTo(null);
+
     }
 
     public void ObtenerImagen() {
@@ -170,7 +172,7 @@ public class Galeria extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+
         this.dispose();
         Inicio ini = new Inicio();
         ini.setVisible(true);

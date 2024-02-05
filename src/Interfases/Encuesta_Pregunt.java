@@ -260,9 +260,11 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         jLabel2.setText("Pregunta 1:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
 
+        txt1.setEditable(false);
         txt1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel1.add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 498, -1));
 
+        txt2.setEditable(false);
         txt2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel1.add(txt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 498, -1));
 
@@ -270,6 +272,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         jLabel3.setText("Pregunta 2:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, -1, -1));
 
+        txt3.setEditable(false);
         txt3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txt3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +289,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         jLabel6.setText("Pregunta 4:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
 
+        txt4.setEditable(false);
         txt4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel1.add(txt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 500, -1));
 
@@ -293,6 +297,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         jLabel5.setText("Pregunta 5:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, -1, 20));
 
+        txt5.setEditable(false);
         txt5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txt5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
