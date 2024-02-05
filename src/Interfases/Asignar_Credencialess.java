@@ -95,13 +95,13 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableasignar = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
         txtusuario = new javax.swing.JTextField();
         txtpass = new javax.swing.JPasswordField();
         lblcod = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnGuardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,15 +194,6 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 170, 160));
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, -1, -1));
-
         txtusuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtusuarioMouseClicked(evt);
@@ -229,13 +220,26 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
         add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 150, -1));
         add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 50, -1));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar (1).png"))); // NOI18N
         jButton1.setText("LIMPIAR CAMPOS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, -1, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dispositivo.png"))); // NOI18N
         jButton2.setText("CARGAR TABLA");
@@ -244,9 +248,8 @@ public class Asignar_Credencialess extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, -1, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, -1, 30));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 900, 570));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
