@@ -386,9 +386,9 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                                         .addComponent(btnin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(271, 271, 271)
+                                .addGap(187, 187, 187)
                                 .addComponent(btnguardar)
-                                .addGap(62, 62, 62)
+                                .addGap(107, 107, 107)
                                 .addComponent(btnmodificar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
@@ -470,10 +470,10 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                                     .addComponent(btnfin)
                                     .addComponent(btnin)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnmodificar)
-                            .addComponent(btnguardar))
+                            .addComponent(btnguardar)
+                            .addComponent(btnmodificar))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -816,24 +816,29 @@ public class Cruds_Eventos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         try {
-            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null));
+            ObjectSet<Evento> resul = bd.queryByExample(new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null, null, null, null));
             int ultimoCodigo = resul.size() + 1;
             String codi = String.format("EVE-%03d", ultimoCodigo);
+
             if (jdtinicio.getDate() == null || jDateChooser2.getDate() == null || jdtinicio.getDate().after(jDateChooser2.getDate())) {
                 JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             validar();
-            ObjectSet<Evento> result = bd.queryByExample(new Evento(codi, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null));
+
+            String nombreEvento = txtnombre.getText().trim();
+            ObjectSet<Evento> result = bd.queryByExample(new Evento(null, nombreEvento, null, null, null, null, null, null, null, null, null, 0.0, 0, null, null, null, null));
 
             if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Este evento ya existe, ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe un evento con el mismo nombre, ingresa uno nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
             ObjectSet<Evento> eventosExistentes = bd.queryByExample(
-                    new Evento(null, txtnombre.getText().trim(), null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null));
+                    new Evento(null, nombreEvento, null, null, null, null, null, null, null, null, null, 0.0, 0, null, null, null, null));
 
             for (Evento eventoExistente : eventosExistentes) {
                 if (fechasCoinciden(eventoExistente)) {
@@ -841,12 +846,13 @@ public class Cruds_Eventos extends javax.swing.JPanel {
                     return;
                 }
             }
+
             String codigoTipoEvento = obtenerCodigoTipoEventoSeleccionado();
             int numpuestos = (int) numpuestosspn.getValue();
             String codigoPatrocinador = obtenerCodigoPatrocinadorSeleccionado();
 
             Evento evento1 = new Evento(codi,
-                    txtnombre.getText().trim(),
+                    nombreEvento,
                     txadescripcion.getText().trim(),
                     codigoPatrocinador,
                     null,
@@ -940,7 +946,7 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
         try {
-            Evento miagente = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null);
+            Evento miagente = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null, null, null, null);
 
             ObjectSet<Evento> res = base.get(miagente);
             if (!res.isEmpty()) {
@@ -978,6 +984,12 @@ public class Cruds_Eventos extends javax.swing.JPanel {
         cbxtipo.setSelectedItem("Seleccione");
         cbxubicacion.setSelectedItem("Seleccione");
         cboxpatrocinador.setSelectedItem("Seleccione");
+        jTextField1.setText("");
+        numpuestosspn.setValue(0);
+        txtorga.setText("");
+        txtciudad.setText("");
+        txtcalle.setText("");
+
     }
 
     public void Deshabilitar() {
