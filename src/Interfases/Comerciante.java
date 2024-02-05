@@ -107,7 +107,7 @@ public class Comerciante extends javax.swing.JFrame {
 
             // Obtener el código del puesto seleccionado en el ComboBox
             String codigoPuesto = obtenerCodigoPuestoSeleccionado();
-            String evento=obtenerCodigoEventoSeleccionado();
+            String evento = obtenerCodigoEventoSeleccionado();
 
             // Crear y almacenar el organizador
             Comerciantes miorganizador = new Comerciantes(
@@ -126,13 +126,14 @@ public class Comerciante extends javax.swing.JFrame {
                     nacimiento,
                     sexo,
                     evento
-                    
-                    
             );
 
             base.store(miorganizador);
 
             JOptionPane.showMessageDialog(null, "Solicitud Enviada");
+            this.dispose();
+            Inicio in = new Inicio();
+            in.setVisible(true);
         } finally {
             base.close();
         }
@@ -310,7 +311,7 @@ public class Comerciante extends javax.swing.JFrame {
         boolean ban_confirmar = true;
 
         if (txtCedula.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese la cédula del cliente");
+            JOptionPane.showMessageDialog(this, "Ingrese la Cédula");
             ban_confirmar = false;
         } else if (!miValidaciones.validarCedula(txtCedula.getText())) {
             JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
@@ -318,7 +319,7 @@ public class Comerciante extends javax.swing.JFrame {
         }
 
         if (txtNombre.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
+            JOptionPane.showMessageDialog(this, "Ingrese el Nombre");
             ban_confirmar = false;
         } else if (!miValidaciones.ValidarNomApe(txtNombre.getText())) {
             JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
@@ -326,7 +327,7 @@ public class Comerciante extends javax.swing.JFrame {
         }
 
         if (txtApellido.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el apellido del cliente");
+            JOptionPane.showMessageDialog(this, "Ingrese el Apellido");
             ban_confirmar = false;
         } else if (!miValidaciones.ValidarNomApe(txtApellido.getText())) {
             JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
@@ -334,7 +335,7 @@ public class Comerciante extends javax.swing.JFrame {
         }
 
         if (txtEmail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el correo del cliente");
+            JOptionPane.showMessageDialog(this, "Ingrese el Corrreo Electronico");
             ban_confirmar = false;
         } else if (!miValidaciones.ValidarCorreo(txtEmail.getText())) {
             JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
@@ -360,6 +361,33 @@ public class Comerciante extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Fecha incorrecta. Ingrese de nuevo");
                 ban_confirmar = false;
             }
+        }
+
+        // Validar otros campos aquí...
+        if (txtProductosC.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese los Productos");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtProductosC.getText())) {
+            JOptionPane.showMessageDialog(this, "Productos ingresados incorrectos. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (txtServiciosC.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese los Servicios");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarDireccion(txtServiciosC.getText())) {
+            JOptionPane.showMessageDialog(this, "Servicios ingresados incorrectos. Ingrese de nuevo");
+            ban_confirmar = false;
+        }
+
+        // Validar otros campos aquí...
+        if (txtCelular.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el Celular");
+            ban_confirmar = false;
+        } else if (!miValidaciones.validarCedula(txtCelular.getText())) {
+            JOptionPane.showMessageDialog(this, "Celular incorrecto. Ingrese de nuevo");
+            ban_confirmar = false;
         }
         return ban_confirmar;
     }
@@ -647,13 +675,13 @@ public class Comerciante extends javax.swing.JFrame {
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 70, 140, -1));
 
-        jButton2.setText("jButton2");
+        jButton2.setText("CARGAR FOTO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 51));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -727,9 +755,6 @@ public class Comerciante extends javax.swing.JFrame {
         ObjectContainer bases = Db4o.openFile(Inicio.direccion);
         crearOrganizador(bases);
         bases.close();
-        this.dispose();
-        Inicio in = new Inicio();
-        in.setVisible(true);
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -899,8 +924,6 @@ public class Comerciante extends javax.swing.JFrame {
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
-
-       
 
 
     }//GEN-LAST:event_jComboBox1ItemStateChanged
