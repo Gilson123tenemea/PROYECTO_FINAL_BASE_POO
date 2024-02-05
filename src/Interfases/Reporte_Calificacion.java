@@ -12,6 +12,7 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 public class Reporte_Calificacion extends javax.swing.JPanel {
 
     private TableRowSorter trs;
+
     public Reporte_Calificacion() {
         initComponents();
 
@@ -38,6 +40,7 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
         Query query = base.query();
         query.constrain(Calificar_evento.class);
         ObjectSet<Calificar_evento> result = query.execute();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         while (result.hasNext()) {
             Calificar_evento calificacion = result.next();
@@ -46,13 +49,13 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
                 calificacion.getCod_evento(), // Código del evento
                 calificacion.getValoracion(),
                 calificacion.getCod_cliente(),
-                calificacion.getFecha_calificacion() // Fecha de calificación
+                calificacion.getFecha_calificacion() != null ? sdf.format(calificacion.getFecha_calificacion()) : null// Fecha de calificación
             };
             model.addRow(row);
         }
         base.close();
     }
-    
+
     public void Filtro() {
 
         if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
@@ -65,8 +68,6 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
 
         }
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -119,7 +120,7 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
-         if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
+        if (cbxbusqueda.getSelectedItem().toString().equalsIgnoreCase("Cedula")) {
 
             txtconsulta.addKeyListener(new KeyAdapter() {
                 @Override
