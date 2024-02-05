@@ -202,6 +202,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
 
+        btnHelp.setBackground(new java.awt.Color(0, 153, 153));
         btnHelp.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btnHelp.setText("HELP");
         btnHelp.addActionListener(new java.awt.event.ActionListener() {
@@ -211,18 +212,21 @@ public class Inicio extends javax.swing.JFrame {
         });
         jPanel1.add(btnHelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 70, 50));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 159));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 159));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/HELP.jpg"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ImagenServicio.PNG"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 380, 310));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 380, 310));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 153, 153));
+        jSeparator2.setForeground(new java.awt.Color(0, 153, 153));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 210, 10));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/InicionIma.jpg"))); // NOI18N
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, 250));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, 250));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/INFO_INI.PNG"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, -1, -1));
@@ -234,7 +238,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hogar.png"))); // NOI18N
-        jMenu1.setText("INICIO COMO:");
+        jMenu1.setText("INICIAR COMO:");
 
         jMenu3.setText("Administrador");
 
@@ -263,7 +267,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null));
-        jMenu2.setText("INFORMACION");
+        jMenu2.setText("INFORMACIÓN");
         jMenu2.add(jSeparator1);
 
         jMenuItem7.setText("Mostrar");
