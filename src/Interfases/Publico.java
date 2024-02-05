@@ -99,9 +99,13 @@ public class Publico extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(870, 630));
+        setPreferredSize(new java.awt.Dimension(870, 630));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
+        jPanel1.setMinimumSize(new java.awt.Dimension(840, 570));
+        jPanel1.setPreferredSize(new java.awt.Dimension(840, 570));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -118,11 +122,11 @@ public class Publico extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Email:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, -1, 40));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, 40));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Telefono:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, -1, 40));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, 40));
 
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +171,7 @@ public class Publico extends javax.swing.JFrame {
                 txtApellidoKeyTyped(evt);
             }
         });
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 180, -1));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 180, -1));
 
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,14 +183,14 @@ public class Publico extends javax.swing.JFrame {
                 txtEmailKeyReleased(evt);
             }
         });
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 180, -1));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 180, -1));
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jLabel9.setText("REGISTRO PUBLICO");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 260, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 480, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, -1, -1));
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,11 +205,11 @@ public class Publico extends javax.swing.JFrame {
                 txtTelefonoKeyTyped(evt);
             }
         });
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 180, -1));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, 180, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Contraseña:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, -1, -1));
 
         jPasswordPublico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordPublico.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +222,7 @@ public class Publico extends javax.swing.JFrame {
                 jPasswordPublicoKeyReleased(evt);
             }
         });
-        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 210, 180, -1));
+        jPanel1.add(jPasswordPublico, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 180, -1));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/REGRESAR.jpg"))); // NOI18N
@@ -276,15 +280,15 @@ public class Publico extends javax.swing.JFrame {
                 btncrearActionPerformed(evt);
             }
         });
-        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 550, 160, 40));
+        jPanel1.add(btncrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, 160, 40));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Celular:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Preferencias: ");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, 30));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, 30));
 
         txtPreferencias.setColumns(20);
         txtPreferencias.setRows(5);
@@ -298,7 +302,7 @@ public class Publico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtPreferencias);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 260, 180, 120));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 180, 120));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Dirección:");
@@ -320,38 +324,38 @@ public class Publico extends javax.swing.JFrame {
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 180, -1));
 
         lblcedula.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 124, 180, 20));
+        jPanel1.add(lblcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 180, 20));
 
         lblnombre.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 174, 180, 20));
+        jPanel1.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 180, 20));
 
         lblapellido.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 224, 180, 20));
+        jPanel1.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 180, 20));
 
         lblemail.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 274, 180, 20));
+        jPanel1.add(lblemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 180, 20));
 
         lbltelefono.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lbltelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 324, 180, 20));
+        jPanel1.add(lbltelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 180, 20));
 
         lbldireccion.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lbldireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 374, 180, 20));
+        jPanel1.add(lbldireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 180, 20));
 
         lblfecha.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 424, 140, 20));
+        jPanel1.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 444, 180, 20));
 
         lblgenero.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 180, 20));
+        jPanel1.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 510, 180, 20));
 
         lblcelular.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 174, 180, 20));
+        jPanel1.add(lblcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 180, 20));
 
         lblcontraseña.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 180, 20));
+        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 180, 20));
 
         lblpreferencia.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 180, 20));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 180, 30));
+        jPanel1.add(lblpreferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 180, 20));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 180, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 240, -1));
@@ -364,7 +368,7 @@ public class Publico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         pack();

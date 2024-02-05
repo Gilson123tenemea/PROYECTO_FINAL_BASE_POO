@@ -463,6 +463,8 @@ public class Comerciante extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
+        jPanel1.setMinimumSize(new java.awt.Dimension(920, 615));
+        jPanel1.setPreferredSize(new java.awt.Dimension(920, 615));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -524,7 +526,7 @@ public class Comerciante extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 50));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 440, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 440, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel10.setText("REGISTRO DEL COMERCIANTE");
@@ -622,7 +624,7 @@ public class Comerciante extends javax.swing.JFrame {
                 btnVerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 400, 40, 40));
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 400, 40, 40));
         jPanel1.add(lblCodigoComerciante, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 150, 20));
 
         txtTipoComercio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
