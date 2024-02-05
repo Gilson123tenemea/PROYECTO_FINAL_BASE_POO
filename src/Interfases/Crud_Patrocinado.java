@@ -866,7 +866,7 @@ public class Crud_Patrocinado extends javax.swing.JPanel {
 
         try {
             // Verificar si el propietario tiene una Casa Vacacional asociada
-            Evento casaAsociada = new Evento(null, null, null, codigopro, null, null, null, null, null, null, null, 0.0, 0, null);
+            Evento casaAsociada = new Evento(null, null, null, codigopro, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null);
             ObjectSet resultCasa = base.get(casaAsociada);
 
             if (resultCasa.size() > 0) {

@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Clases;
-
 import java.util.Date;
-
-/**
- *
- * @author Mauricio
- */
 public class Evento {
 
     private String cod_evento, nombre, descripcion, codigo_patrocinador, codigo_agenda, tipo;
@@ -20,11 +10,13 @@ public class Evento {
     private double precio;
     private int num_puestos;
     private String cod_organizador;
-
+    private String provincia;
+    private String ciudad;
+    private String calle;
     public Evento() {
     }
 
-    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, String tipo, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, byte[] data, double precio, int num_puestos, String cod_organizador) {
+    public Evento(String cod_evento, String nombre, String descripcion, String codigo_patrocinador, String codigo_agenda, String tipo, Date fecha_inicio, Date Fecha_fin, String hora_inicio, String hora_fin, byte[] data, double precio, int num_puestos, String cod_organizador, String provincia, String ciudad, String calle) {
         this.cod_evento = cod_evento;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -39,7 +31,12 @@ public class Evento {
         this.precio = precio;
         this.num_puestos = num_puestos;
         this.cod_organizador = cod_organizador;
+        this.provincia = provincia;
+        this.ciudad = ciudad;
+        this.calle = calle;
     }
+
+    
 
     public String getCod_evento() {
         return cod_evento;
@@ -153,6 +150,30 @@ public class Evento {
         this.cod_organizador = cod_organizador;
     }
 
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+    
      public String toString() {
         return cod_evento + " - " + nombre;
     }

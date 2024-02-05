@@ -319,7 +319,12 @@ public class Reporte_eventos extends javax.swing.JPanel {
             int cantidad = (int) jTable1.getModel().getValueAt(selectedRow, 9);
 
             double precio = (double) jTable1.getModel().getValueAt(selectedRow, 10);
-            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 11);
+            
+            String provincia = (String) jTable1.getModel().getValueAt(selectedRow, 11);
+            String ciudad = (String) jTable1.getModel().getValueAt(selectedRow, 12);
+            String calle = (String) jTable1.getModel().getValueAt(selectedRow, 13);
+            
+            ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 14);
 
             JLabel imageLabel = new JLabel(icono);
             JPanel panel = new JPanel();
@@ -327,7 +332,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, new Object[]{"Codigo del evento: " + Codigo, "Nombre del evento: " + nombre, "Descripcion: " + descripcion, "Tipo de evento: "
                 + tipo, "Patrocinador: " + patrocinador, "Fecha de inicio: " + Fechai, "Hora de inicio: " + horai,
-                "Fecha final: " + fechaf, "hora final: " + horaf, "Cantidad de Puestos" + cantidad, "Precio del evento" + precio, panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
+                "Fecha final: " + fechaf, "hora final: " + horaf, "Cantidad de Puestos" + cantidad, "Precio del evento" + precio ,"Provincia" + provincia ,"Ciudad" + ciudad ,"calle" + calle , panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
@@ -374,7 +379,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null);
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null);
         ObjectSet result = BaseD.get(ima);
         CargarDatos(result);
 
@@ -382,7 +387,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
     }
 
     public void CargarDatos(ObjectSet result) {
-        Object[][] data = new Object[result.size()][12];
+        Object[][] data = new Object[result.size()][15];
         if (result.size() == 0) {
             JOptionPane.showMessageDialog(null, "El evento no existe");
         } else {
@@ -402,23 +407,26 @@ public class Reporte_eventos extends javax.swing.JPanel {
                 data[i][8] = im.getHora_fin();
                 data[i][9] = im.getNum_puestos();
                 data[i][10] = im.getPrecio();
+                data[i][11] = im.getProvincia();
+                data[i][12] = im.getCiudad();
+                data[i][13] = im.getCalle();
 
                 byte[] fotoBytes = im.getData();
                 if (fotoBytes != null) {
                     ImageIcon icono = new ImageIcon(fotoBytes);
-                    data[i][11] = icono;
+                    data[i][14] = icono;
                 } else {
-                    data[i][11] = null;
+                    data[i][14] = null;
                 }
 
                 // Configurar el modelo de la tabla con los datos y títulos de columna
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         data,
-                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "NUM PUESTOS", "PRECIO", "IMAGEN"}
+                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "NUM PUESTOS", "PRECIO","PROVINCIA","CIUDAD","CALLE", "IMAGEN"}
                 ));
 
                 // Asignar el renderer personalizado a la columna de la foto (columna 3)
-                jTable1.getColumnModel().getColumn(11).setCellRenderer(new ImageTableCellRenderer());
+                jTable1.getColumnModel().getColumn(14).setCellRenderer(new ImageTableCellRenderer());
             }
         }
 

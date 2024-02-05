@@ -109,8 +109,11 @@ public class Eventos extends javax.swing.JFrame {
                     String horaini = tipoevento1.getHora_inicio();
                     Date fechafin = tipoevento1.getFecha_fin();
                     String horafi = tipoevento1.getHora_fin();
-
+                    String provincia = tipoevento1.getProvincia();
+                    String ciudad = tipoevento1.getCiudad();
+                    String calle = tipoevento1.getCalle();
                     String fechafi = formato.format(fechafin);
+                    
 
                     JButton boton = new JButton(tipoevento1.getCod_evento() + " " + tipoevento1.getNombre());
                     boton.setSize(200, 200);
@@ -161,6 +164,9 @@ public class Eventos extends javax.swing.JFrame {
                                 mensaje.append("Fecha de fin: ").append(fechafi).append("\n");
                                 mensaje.append("Hora de inicio: ").append(horaini).append("\n");
                                 mensaje.append("Hora final: ").append(horafi).append("\n");
+                                mensaje.append("Provincia: ").append(provincia).append("\n");
+                                mensaje.append("Ciudad: ").append(ciudad).append("\n");
+                                mensaje.append("Calle Principal: ").append(calle).append("\n");
                                 UIManager.put("Button.background", Color.YELLOW);
                                 int opcion = JOptionPane.showOptionDialog(
                                         null,
