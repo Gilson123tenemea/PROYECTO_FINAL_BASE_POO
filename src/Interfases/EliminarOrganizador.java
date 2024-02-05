@@ -163,7 +163,7 @@ public class EliminarOrganizador extends javax.swing.JPanel {
 
         try {
 
-            Evento eventoAsociado = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, codEliminar);
+            Evento eventoAsociado = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, codEliminar,null,null,null);
             ObjectSet resultadoEvento = base.get(eventoAsociado);
 
             if (resultadoEvento.size() > 0) {
