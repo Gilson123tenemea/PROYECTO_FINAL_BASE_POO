@@ -9,6 +9,8 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+
 
 /**
  *
@@ -18,11 +20,12 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     String encuesta = "", pregunta1 = "", pregunta2 = "", pregunta3 = "", pregunta4 = "", pregunta5 = "";
 
-    String cod=" ";
+    String cod = " ";
+
     public Encuesta_Pregunt(String codigo) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.cod=codigo;
+        this.cod = codigo;
         txtCedula.setText(Inicio.cedula);
         obtenerPreguntas(codigo);
         Agrupar1();
@@ -97,7 +100,30 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     public void crearRespuestas(ObjectContainer base) {
         try {
+
+            if (!validarRadioButton(SI1, NO1)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 1", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!validarRadioButton(SI2, NO2)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 2", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             
+            if (!validarRadioButton(SI3, NO3)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 3", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!validarRadioButton(SI4, NO4)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 4", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!validarRadioButton(SI5, NO5)) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 5", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+
             System.out.println(cod);
             ObjectSet<RespuestasEncuesta> result = base.queryByExample(new RespuestasEncuesta(null, null, null, null, null, null, null, null));
             Query query = base.query();
@@ -157,7 +183,8 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
             RespuestasEncuesta respuestas = new RespuestasEncuesta(nuevoCodigo, txtCedula.getText().trim(), cod, res1, res2, res3, res4, res5);
             base.store(respuestas);
 
-            JOptionPane.showMessageDialog(this, "Puesto creado exitosamente");
+            JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente");
+            jButton1.setEnabled(false);
             limpiar();
 
         } finally {
@@ -179,6 +206,14 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
         NO5.setSelected(false);
     }
 
+    private boolean validarRadioButton(JRadioButton... buttons) {
+        for (JRadioButton button : buttons) {
+            if (button.isSelected()) {
+                return true;
+            }
+        }
+        return false;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -372,9 +407,9 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-        Menu_Cliente men =new Menu_Cliente();
+        Menu_Cliente men = new Menu_Cliente();
         men.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed

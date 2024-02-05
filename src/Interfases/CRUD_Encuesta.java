@@ -26,7 +26,7 @@ import javax.swing.table.TableRowSorter;
 public class CRUD_Encuesta extends javax.swing.JPanel {
 
     private TableRowSorter trs;
-    
+
     public CRUD_Encuesta() {
         initComponents();
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
@@ -34,7 +34,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();
-        
+
     }
 
     public void crearEncuesta(ObjectContainer base) {
@@ -63,7 +63,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 return;
             }
 
-            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null,null));
+            result = base.queryByExample(new Encuesta(nuevoCodigo, null, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una Encuesta con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -106,7 +106,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (partes.length > 0) {
             return partes[0];
         } else {
-            return ""; 
+            return "";
         }
     }
 
@@ -240,7 +240,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         }
 
         try {
-            Encuesta micasa = new Encuesta(txtcodigopersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null,null);
+            Encuesta micasa = new Encuesta(txtcodigopersonal.getText().trim(), null, null, null, null, null, null, null, null, null, null, null);
 
             ObjectSet res = base.get(micasa);
             Encuesta micasita = (Encuesta) res.next();
@@ -285,7 +285,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la Encuesta a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectSet<Encuesta> result = base.queryByExample(new Encuesta(codigoBusqueda, null, null, null, null, null, null, null, null, null, null,null));
+            ObjectSet<Encuesta> result = base.queryByExample(new Encuesta(codigoBusqueda, null, null, null, null, null, null, null, null, null, null, null));
 
             if (!result.isEmpty()) {
                 Encuesta actividadEncontrada = result.next();
@@ -334,7 +334,6 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             actividadFiltrada.getPregunta5(),};
         model.addRow(row);
 
-        
     }
 
     private void limpiarTabla() {
@@ -370,7 +369,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 String cedulaSeleccionada = selectedItem.toString();
                 Query query = bases.query();
                 query.constrain(Evento.class);
-                query.descend("Cod_evento"+"Nombre_encuesta").constrain(cedulaSeleccionada);
+                query.descend("Cod_evento" + "Nombre_encuesta").constrain(cedulaSeleccionada);
                 ObjectSet<Evento> result = query.execute();
 
                 if (!result.isEmpty()) {
@@ -846,7 +845,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField2.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextField2.setText(String.valueOf(letra));
+            jTextField2.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -860,6 +859,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (jTextField2.getText().length() > 500) {
             evt.consume();
         }
+
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private boolean isSignoEspecial(char c) {
@@ -872,7 +872,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField3.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextField3.setText(String.valueOf(letra));
+            jTextField3.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -886,6 +886,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (jTextField3.getText().length() > 500) {
             evt.consume();
         }
+
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
@@ -894,7 +895,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField4.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextField4.setText(String.valueOf(letra));
+            jTextField4.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -908,6 +909,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (jTextField4.getText().length() > 500) {
             evt.consume();
         }
+
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
@@ -916,7 +918,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField5.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextField5.setText(String.valueOf(letra));
+            jTextField5.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -930,6 +932,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (jTextField5.getText().length() > 500) {
             evt.consume();
         }
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
@@ -938,7 +941,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextField6.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextField6.setText(String.valueOf(letra));
+            jTextField6.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -952,6 +955,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         if (jTextField6.getText().length() > 500) {
             evt.consume();
         }
+
+
     }//GEN-LAST:event_jTextField6KeyTyped
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
@@ -960,7 +965,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Verificar si es una letra, número o caracter especial y si es la primera letra
         if ((Character.isLetter(letra) || Character.isDigit(letra) || esCaracterEspecial(letra)) && jTextArea1.getText().trim().isEmpty()) {
             // Convertir la letra a mayúscula y agregarla al texto existente
-            jTextArea1.setText(String.valueOf(letra));
+            jTextArea1.setText(String.valueOf(Character.toUpperCase(letra)));
             evt.consume();  // Consumir el evento para evitar que la letra original se muestre
         } else if (Character.isLetterOrDigit(letra) || Character.isSpaceChar(letra) || esCaracterEspecial(letra)) {
             // Verificar si es letra, número, espacio o caracter especial y agregar al texto en minúscula
@@ -973,12 +978,15 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 // Limitar la longitud del texto a 20 caracteres
         if (jTextArea1.getText().length() > 500) {
             evt.consume();
-        }        // TODO add your handling code here:
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTextArea1KeyTyped
-    private boolean esCaracterEspecial(char caracter) {
-        // Puedes ajustar esta lógica según los caracteres especiales que quieras permitir
-        return "!@#$%^&*()_-+=<>?/".indexOf(caracter) != -1;
-    }
+   private boolean esCaracterEspecial(char caracter) {
+    // Puedes ajustar esta lógica según los caracteres especiales que quieras permitir
+    String caracteresEspeciales = "!@#$%^&*()_-+=<>?/";
+    return caracteresEspeciales.indexOf(caracter) != -1 || caracter == '?' || caracter == '¿';
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboxbusqueda;
     private javax.swing.JComboBox<String> cboxevento;
