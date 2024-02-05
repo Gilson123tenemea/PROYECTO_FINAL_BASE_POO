@@ -41,6 +41,7 @@ public class Galeria extends javax.swing.JFrame {
         ObtenerImagen();
         setLocationRelativeTo(null);
 
+        
     }
 
     public void ObtenerImagen() {

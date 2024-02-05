@@ -100,6 +100,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
 
     public void crearRespuestas(ObjectContainer base) {
         try {
+            
 
             if (!validarRadioButton(SI1, NO1)) {
                 JOptionPane.showMessageDialog(null, "Por favor, selecciona una opción en la Pregunta 1", "Error", JOptionPane.ERROR_MESSAGE);
