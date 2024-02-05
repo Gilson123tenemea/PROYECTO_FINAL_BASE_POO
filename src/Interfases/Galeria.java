@@ -5,12 +5,14 @@
  */
 package Interfases;
 
+import Clases.Comentario;
 import Clases.Imagen;
 import Clases.Tipo_evento;
 
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -41,8 +43,11 @@ public class Galeria extends javax.swing.JFrame {
 
     public void ObtenerImagen() {
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        ObjectSet<Imagen> result = base.queryByExample(new Imagen());
 
+        Query query = base.query();
+        query.constrain(Imagen.class);
+        query.descend("cod_publico").constrain(Inicio.codigo);
+        ObjectSet<Imagen> result = query.execute();
         for (Imagen tipoevento1 : result) {
             // Asegúrate de tener un método getData() en la clase Tipo_evento
             byte[] foto = tipoevento1.getData();
