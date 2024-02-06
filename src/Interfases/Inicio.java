@@ -26,7 +26,7 @@ public class Inicio extends javax.swing.JFrame {
     //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\Proyceto_Final_Eventos.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\PriyectoFinal\\Proyceto_Final.yap";
    // public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\PROYECTO_FINAL_BASE_POO\\re.yap";
-    public static String direccion = "src/base/base.yap";
+    public static String direccion = "src/base/basee.yap";
 
     public static String nombre = " ", codigo = "", apellido, cedula = "";
     String usuario = " ", password = " ";

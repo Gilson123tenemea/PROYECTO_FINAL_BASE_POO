@@ -133,7 +133,6 @@ public class ReportePersonal extends javax.swing.JPanel {
     public void estadisticasTipoPersonalesMasGrandes() {
 
         Map<String, Integer> personales = new TreeMap<>();
-        System.out.println("Veamos " + listaPersonales.get(1).getTipo_personal());
         for (Personal personal : listaPersonales) {
             if (personal.getTipo_personal() != null) {
                 personales.put(personal.getTipo_personal(), personales.getOrDefault(personal.getTipo_personal(), 0) + 1);

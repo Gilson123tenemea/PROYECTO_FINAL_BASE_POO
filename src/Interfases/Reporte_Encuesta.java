@@ -8,15 +8,19 @@ package Interfases;
 import Clases.Encuesta;
 import Clases.RespuestasEncuesta;
 import base.ImpresionDeReportes;
+import base.ReporteEncuesta;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -150,7 +154,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablares);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 840, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 840, 240));
 
         jButton1.setText("Ver eventos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -158,17 +162,17 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         txtconsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtconsultaKeyTyped(evt);
             }
         });
-        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 100, -1));
+        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 100, -1));
 
         cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Evento" }));
-        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 130, -1));
+        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 130, -1));
 
         btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -182,7 +186,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -242,8 +246,16 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
-        reporte.impresionEncuesta("Seleccione");
+        ReporteEncuesta reporte = new ReporteEncuesta();
+        JPanel contenedorPrincipal = (JPanel) this.getParent();
+        contenedorPrincipal.add(reporte, "reporte");
+        
+        CardLayout vista;
+        vista = (CardLayout) contenedorPrincipal.getLayout();
+        vista.show(contenedorPrincipal, "reporte");
+        SwingUtilities.updateComponentTreeUI(contenedorPrincipal);
+        contenedorPrincipal.repaint();
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

@@ -118,7 +118,7 @@ public class ReporteCalificacion extends javax.swing.JPanel {
 
         // Creamos el gráfico de barras
         JFreeChart grafico_barras = ChartFactory.createBarChart3D(
-                "Eventos con Mejores Promedios de Valoración",
+                "",
                 "Evento",
                 "Promedio de Valoración",
                 data,
@@ -248,7 +248,7 @@ public class ReporteCalificacion extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Personas que mas han asistido a eventos");
+        jLabel6.setText("Personas que mas han calificado");
 
         javax.swing.GroupLayout pnGrAsistentesLayout = new javax.swing.GroupLayout(pnGrAsistentes);
         pnGrAsistentes.setLayout(pnGrAsistentesLayout);

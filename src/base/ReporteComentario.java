@@ -236,7 +236,7 @@ public class ReporteComentario extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Personas que mas han asistido a eventos");
+        jLabel6.setText("Eventos mas comentados");
 
         javax.swing.GroupLayout pnGrAsistentesLayout = new javax.swing.GroupLayout(pnGrAsistentes);
         pnGrAsistentes.setLayout(pnGrAsistentesLayout);

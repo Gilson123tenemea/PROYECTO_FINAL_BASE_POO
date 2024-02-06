@@ -111,9 +111,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" pref="924" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" pref="904" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jLabel9" pref="904" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="pnGrEventos" min="-2" max="-2" attributes="0"/>
@@ -138,7 +141,7 @@
                           <Component id="jLabel6" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnGrAsistentes" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="78" max="32767" attributes="0"/>
+                          <EmptySpace pref="200" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -153,7 +156,7 @@
                       <Color blue="0" green="66" red="33" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Estadisticas de las Encuestas"/>
+                    <Property name="text" type="java.lang.String" value="Estadisticas de las Asistencias"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -185,7 +188,7 @@
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Eventos con mas asistencias"/>
+                    <Property name="text" type="java.lang.String" value="Personas que mas han asistido a eventos"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
@@ -194,7 +197,7 @@
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Personas que mas han asistido a eventos"/>
+                    <Property name="text" type="java.lang.String" value="Eventos con mas asistentes"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnGrAsistentes">
