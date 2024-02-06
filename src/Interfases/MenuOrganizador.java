@@ -337,10 +337,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         jLabel1.setText("BIENVENIDO:");
 
-        txtOrganizador.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        txtOrganizador.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         txtOrganizador.setText("jLabel2");
 
-        txtApellido.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        txtApellido.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         txtApellido.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
