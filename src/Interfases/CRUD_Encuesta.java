@@ -447,7 +447,6 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         cboxbusqueda = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -463,6 +462,9 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
+        jScrollPane1.setRequestFocusEnabled(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -496,14 +498,14 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
 
         jLabel2.setText("Código Encuesta:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-        jPanel3.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, 240, -1));
+        jPanel3.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 140, -1));
 
         jLabel3.setText("Descripción: ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         jLabel4.setText("Evento:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
-        jPanel3.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 240, -1));
+        jPanel3.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 140, -1));
 
         jLabel5.setText("Preguntas del Evento: ");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
@@ -514,8 +516,8 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         jLabel7.setText(" Fecha Fin:");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, 30));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lOGO1.png"))); // NOI18N
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, -1, 150));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, 150));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -639,24 +641,16 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         });
         jPanel3.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, -1));
-
         cboxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Nombre" }));
         cboxbusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxbusquedaActionPerformed(evt);
             }
         });
-        jPanel3.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, -1, -1));
+        jPanel3.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, -1, -1));
 
         jLabel15.setText("Buscar por:");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 70, 20));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 70, 20));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/secretario.png"))); // NOI18N
         jButton6.setText("LIMPIAR CAMPOS");
@@ -665,7 +659,7 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 170, 40));
+        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 170, -1));
 
         txtorga.setBackground(new java.awt.Color(255, 255, 255));
         txtorga.setForeground(new java.awt.Color(255, 255, 255));
@@ -699,11 +693,11 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -785,12 +779,6 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
         buscarActividad(base);
         base.close();
     }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        mostrarDatosEventos(bases);
-        bases.close();         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         if (cboxbusqueda.getSelectedItem().toString().equalsIgnoreCase("nombre")) {
@@ -1009,7 +997,6 @@ public class CRUD_Encuesta extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;

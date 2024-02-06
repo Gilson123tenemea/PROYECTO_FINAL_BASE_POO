@@ -75,6 +75,11 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
 
         jButton3.setText("jButton3");
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
+        setMinimumSize(new java.awt.Dimension(923, 638));
+        setPreferredSize(new java.awt.Dimension(923, 638));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -140,7 +145,7 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,23 +160,23 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
                     .addComponent(txtconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 100));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 100));
 
         javax.swing.GroupLayout pnlinfoLayout = new javax.swing.GroupLayout(pnlinfo);
         pnlinfo.setLayout(pnlinfoLayout);
         pnlinfoLayout.setHorizontalGroup(
             pnlinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         pnlinfoLayout.setVerticalGroup(
             pnlinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGap(0, 510, Short.MAX_VALUE)
         );
 
-        jPanel1.add(pnlinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 940, 480));
+        jPanel1.add(pnlinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 900, 510));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,13 +191,15 @@ public class ReporteSolicitudes extends javax.swing.JPanel {
         ));
         scpanel.setViewportView(jTable1);
 
-        jPanel1.add(scpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 940, 480));
+        jPanel1.add(scpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 900, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 890, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

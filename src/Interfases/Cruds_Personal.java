@@ -115,47 +115,49 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jComboBoxevento = new javax.swing.JComboBox<>();
         jComboBoxdepartamento = new javax.swing.JComboBox<>();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         txtcodigopersonal = new javax.swing.JLabel();
         txttipopersonal = new javax.swing.JComboBox<>();
-        jButton8 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         cboxbusqueda = new javax.swing.JComboBox<>();
         txtorga = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(923, 638));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(923, 638));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/humano.png"))); // NOI18N
         jLabel1.setText("PERSONAL");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 6, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, -1));
 
         jLabel2.setText("Cédula: ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 92, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         jLabel3.setText("Nombre: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 135, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         jLabel5.setText("Apellido:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 182, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         jLabel6.setText("Teléfono: ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 224, -1, 20));
 
         jLabel7.setText("Email: ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 270, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
         jLabel8.setText("Fecha de Nacimiento: ");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 270, -1, -1));
 
         jLabel9.setText("Dirección: ");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 312, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, 20));
 
         jLabel11.setText("Género: ");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 359, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
         jPanel1.add(fechanac, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 262, 200, -1));
 
         txtemail.addActionListener(new java.awt.event.ActionListener() {
@@ -242,8 +244,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -252,7 +252,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 468, 903, 163));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 468, 880, 150));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         jButton1.setText("GUARDAR");
@@ -321,22 +321,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jComboBoxdepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 177, 200, -1));
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 50, -1));
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 50, -1));
         jPanel1.add(txtcodigopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 88, 165, 18));
 
         txttipopersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -346,15 +330,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             }
         });
         jPanel1.add(txttipopersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 130, 200, -1));
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 50, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, 180, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 180, 10));
 
         jLabel16.setText("Filtro de busqueda");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 20, -1, -1));
@@ -373,7 +349,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
         jPanel1.add(cboxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 130, -1));
 
         txtorga.setText("jLabel10");
-        jPanel1.add(txtorga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        jPanel1.add(txtorga, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -423,14 +399,7 @@ public class Cruds_Personal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No hay puestos con información que mostrar.", "Departamentos no encontrados", JOptionPane.WARNING_MESSAGE);
         }
         bases.close();
-    }
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        mostrarDatosDepartamentos(bases);
-        bases.close();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-    private void mostrarDatosEventos(ObjectContainer bases) {
+    }    private void mostrarDatosEventos(ObjectContainer bases) {
         try {
             Object selectedItem = jComboBoxevento.getSelectedItem();
 
@@ -468,12 +437,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
             bases.close();
         }
     }
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        ObjectContainer bases = Db4o.openFile(Inicio.direccion);
-        mostrarDatosEventos(bases);
-        bases.close();           // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ObjectContainer base = Db4o.openFile(Inicio.direccion);
 
@@ -868,12 +831,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private void txttipopersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttipopersonalMouseClicked
         cargarTipoPersonal();
     }//GEN-LAST:event_txttipopersonalMouseClicked
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        ObjectContainer base = Db4o.openFile(Inicio.direccion);
-        mostrarDatosTipoPersonal(base);
-        base.close();
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void cboxbusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxbusquedaMouseClicked
 
@@ -1290,9 +1247,6 @@ public class Cruds_Personal extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBoxdepartamento;
     private javax.swing.JComboBox<String> jComboBoxevento;
     private javax.swing.JLabel jLabel1;

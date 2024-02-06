@@ -84,9 +84,15 @@ public class Cambio extends javax.swing.JPanel implements ActionListener {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        setMinimumSize(new java.awt.Dimension(923, 638));
+        setPreferredSize(new java.awt.Dimension(923, 638));
         setLayout(new java.awt.BorderLayout());
 
+        contenedor.setBackground(new java.awt.Color(255, 255, 255));
+        contenedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 153), 12, true));
         contenedor.setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         btnanterior.setText("Tipo de evento");
         btnanterior.addActionListener(new java.awt.event.ActionListener() {
