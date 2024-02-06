@@ -36,7 +36,7 @@ public class Boleto extends javax.swing.JFrame {
         this.cantidad = cantidad;
         this.valor = valor;
         initComponents();
-
+        setLocationRelativeTo(null);
         cargarBoleto(cod, evento, cantidad, valor);
     }
 
@@ -318,9 +318,9 @@ public class Boleto extends javax.swing.JFrame {
         try {
 
             ObjectSet<enca_boleto> resul = base.queryByExample(new enca_boleto(null, null, null, null, null));
-            ObjectSet<Detalle_boleto> resu = base.queryByExample(new Detalle_boleto(0.0,0.0, 0, null, null));
+            ObjectSet<Detalle_boleto> resu = base.queryByExample(new Detalle_boleto(0.0, 0.0, 0, null, null));
 
-            resu = base.queryByExample(new Detalle_boleto(0.0,0.0, 0, null, null));
+            resu = base.queryByExample(new Detalle_boleto(0.0, 0.0, 0, null, null));
             int ultimoCod = resul.size() + 1;
 
             String nuevoCodi = String.format("BOL-%03d", ultimoCod);
@@ -333,9 +333,9 @@ public class Boleto extends javax.swing.JFrame {
 
             enca_boleto califi = new enca_boleto(Inicio.codigo, cliente, Even, nuevoCodigo, fecha);
             base.store(califi);
-            Detalle_boleto det = new Detalle_boleto(precio,precioTotal, cant, codi,nuevoCodi);
+            Detalle_boleto det = new Detalle_boleto(precio, precioTotal, cant, codi, nuevoCodi);
             base.store(det);
-            Reporte_Boletos puesto1 = new Reporte_Boletos(nuevoCodigo, jTextField3.getText().trim(), jTextField2.getText().trim(),fecha,precio,cant,precioTotal);
+            Reporte_Boletos puesto1 = new Reporte_Boletos(nuevoCodigo, jTextField3.getText().trim(), jTextField2.getText().trim(), fecha, precio, cant, precioTotal);
             base.store(puesto1);
 
         } finally {
@@ -343,7 +343,6 @@ public class Boleto extends javax.swing.JFrame {
         }
 
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -370,5 +369,4 @@ public class Boleto extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 
-   
 }

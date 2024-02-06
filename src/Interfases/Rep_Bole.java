@@ -40,7 +40,7 @@ public class Rep_Bole extends javax.swing.JPanel {
                 acti.getCliente(),
                 acti.getEvento(),
                 acti.getPrecio(),
-                acti.getFecha(),
+                acti.getFecha()!= null ? sdf.format(acti.getFecha()) : null,
                 acti.getCantidad(),
                 acti.getTotal(),
 
