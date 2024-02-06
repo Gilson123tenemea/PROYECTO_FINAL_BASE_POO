@@ -176,7 +176,6 @@ public class ImpresionDeReportes {
         JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaPersonal.toArray());
         JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaPersonal.toArray());
 
-        // cargarParametros("ReportePersonal.jasper", ds, emptyDataSource);
 
     }
 
@@ -307,7 +306,7 @@ public class ImpresionDeReportes {
             pv.setVisible(true);
 
         } catch (JRException ex) {
-            System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA");
+            System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA ----> " + rutaJasper);
         } catch (FileNotFoundException ex) {
             System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA DE LA IMAGEN");
         } catch (Exception e) {
