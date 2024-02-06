@@ -22,9 +22,7 @@ import javax.swing.JOptionPane;
 public class Calificar extends javax.swing.JFrame {
 
     int calificacion = 0;
-    String codigo_evento=" ";
-    
-    
+    String codigo_evento = " ";
 
     /**
      * Creates new form Calificar
@@ -33,8 +31,8 @@ public class Calificar extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         txtcedula.setText(Inicio.cedula);
-        this.codigo_evento=codigo;
-        
+        this.codigo_evento = codigo;
+
     }
 
     /**
@@ -230,15 +228,15 @@ public class Calificar extends javax.swing.JFrame {
     }//GEN-LAST:event_lblEstrella1MouseClicked
 
     private void lbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl1MouseClicked
-        
-                lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
-                lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-                lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-                lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-                lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
-        
-                calificacion = 1;
-                lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara123.png"));
+
+        lbl1.setIcon(new ImageIcon("src\\imagenes\\Estrella llena.png"));
+        lbl2.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        lbl3.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        lbl4.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+        lbl5.setIcon(new ImageIcon("src\\imagenes\\Estrella vacia.png"));
+
+        calificacion = 1;
+        lblemoji.setIcon(new ImageIcon("src\\imagenes\\Cara123.png"));
 
     }//GEN-LAST:event_lbl1MouseClicked
 
@@ -308,14 +306,14 @@ public class Calificar extends javax.swing.JFrame {
 
     public void GuardarCalificacion(ObjectContainer base, int calificacion) {
 
-        System.out.println(codigo_evento+" "+calificacion);
-        
+        System.out.println(codigo_evento + " " + calificacion);
+
         try {
             Query query = base.query();
             query.constrain(Calificar_evento.class);
             query.descend("cod_evento").orderDescending();
             ObjectSet<Calificar_evento> result = query.execute();
-            
+
             int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Calificar_evento ultimoPuesto = result.next();
@@ -323,7 +321,6 @@ public class Calificar extends javax.swing.JFrame {
             }
 
             String nuevoCodigo = String.format("CAL-%03d", ultimoCodigo);
-            
 
             SimpleDateFormat forma = new SimpleDateFormat("dd/MM/yyyy ");
             Date fecha = new Date();
@@ -332,6 +329,12 @@ public class Calificar extends javax.swing.JFrame {
             int resultado = JOptionPane.showConfirmDialog(null, "Esta de acuerdo con esa calificación", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resultado == JOptionPane.YES_OPTION) {
+                ObjectSet<Calificar_evento> resul = base.queryByExample(new Calificar_evento(null,txtcedula.getText().trim(),null,0,null));
+
+                if (!resul.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ya ha calificado el evento.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 Calificar_evento califi = new Calificar_evento(codigo_evento, txtcedula.getText().trim(), nuevoCodigo, calificacion, fecha);
                 base.store(califi);
                 JOptionPane.showMessageDialog(null, "Gracias por apoyarnos, tu opinión nos ayuda a crecer");
@@ -358,7 +361,6 @@ public class Calificar extends javax.swing.JFrame {
 
     }
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
