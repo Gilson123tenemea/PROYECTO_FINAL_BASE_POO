@@ -326,15 +326,17 @@ public class Calificar extends javax.swing.JFrame {
             Date fecha = new Date();
             String formato = forma.format(fecha);
 
+            ObjectSet<Calificar_evento> resul = base.queryByExample(new Calificar_evento(null, txtcedula.getText().trim(), null, 0, null));
+
+            if (!resul.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya ha calificado el evento.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             int resultado = JOptionPane.showConfirmDialog(null, "Esta de acuerdo con esa calificación", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
             if (resultado == JOptionPane.YES_OPTION) {
-                ObjectSet<Calificar_evento> resul = base.queryByExample(new Calificar_evento(null,txtcedula.getText().trim(),null,0,null));
 
-                if (!resul.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Ya ha calificado el evento.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
                 Calificar_evento califi = new Calificar_evento(codigo_evento, txtcedula.getText().trim(), nuevoCodigo, calificacion, fecha);
                 base.store(califi);
                 JOptionPane.showMessageDialog(null, "Gracias por apoyarnos, tu opinión nos ayuda a crecer");

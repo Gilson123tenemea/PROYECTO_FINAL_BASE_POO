@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Asistencia;
 import Clases.Evento;
+import Clases.RespuestasEncuesta;
 import Clases.Tipo_evento;
 import static Interfases.Menu_Cliente.codigotipo;
 import static Interfases.Menu_Cliente.tip;
@@ -203,9 +204,9 @@ public class Eventos extends javax.swing.JFrame {
                                                     if (result == 0) {
 
                                                         Eventos.this.dispose();
-                                                        int cantidad =(int) spi.getValue();
+                                                        int cantidad = (int) spi.getValue();
 
-                                                        Boleto boleto1 = new Boleto(cod, nom,cantidad,precio);
+                                                        Boleto boleto1 = new Boleto(cod, nom, cantidad, precio);
                                                         boleto1.setVisible(true);
 
                                                     } else if (result == 1) {
@@ -284,12 +285,16 @@ public class Eventos extends javax.swing.JFrame {
             }
 
             String nuevoCodigo = String.format("ASI-%03d", ultimoCodigo);
+            ObjectSet<Asistencia> resul = base.queryByExample(new Asistencia(null, null,publi));
+
+            if (!resul.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya ha  confirmado su asistencia al evento.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Asistencia nuevaAsistencia = new Asistencia(nuevoCodigo, nombreEvento, publi);
 
             base.store(nuevaAsistencia);
-            JOptionPane.showMessageDialog(null,
-                    "<html><style>body {color: green; font-size: 15px;}</style>"
-                    + "<body>Le esperamos en el evento !</body></html>");
 
             System.out.println("Asistencia confirmada: " + asistencia + ", Evento: " + nombreEvento + ", Cliente: " + publi);
 

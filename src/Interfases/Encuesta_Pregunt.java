@@ -1,5 +1,6 @@
 package Interfases;
 
+import Clases.Calificar_evento;
 import Clases.Encuesta;
 import Clases.Evento;
 import Clases.RespuestasEncuesta;
@@ -179,6 +180,13 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
                 res5 = "SI";
             } else if (NO5.isSelected()) {
                 res5 = "NO";
+            }
+            
+             ObjectSet<RespuestasEncuesta> resul = base.queryByExample(new RespuestasEncuesta(null,txtCedula.getText().trim(), null,null,null,null,null, null));
+
+            if (!resul.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya ha respondido esta encuesta.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
             RespuestasEncuesta respuestas = new RespuestasEncuesta(nuevoCodigo, txtCedula.getText().trim(), cod, res1, res2, res3, res4, res5);
