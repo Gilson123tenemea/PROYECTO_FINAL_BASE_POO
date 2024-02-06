@@ -208,6 +208,9 @@ public class Eventos extends javax.swing.JFrame {
 
                                                         Boleto boleto1 = new Boleto(cod, nom, cantidad, precio);
                                                         boleto1.setVisible(true);
+                                                        JOptionPane.showMessageDialog(null,
+                                                                "<html><style>body {color: green; font-size: 15px;}</style>"
+                                                                + "<body>Gracias por realizar la compra!</body></html>");
 
                                                     } else if (result == 1) {
                                                         JOptionPane.showMessageDialog(null, "Has cancelado tu asistencia a este evento");
@@ -285,7 +288,6 @@ public class Eventos extends javax.swing.JFrame {
             }
 
             String nuevoCodigo = String.format("ASI-%03d", ultimoCodigo);
-            
 
             Asistencia nuevaAsistencia = new Asistencia(nuevoCodigo, nombreEvento, publi);
 
