@@ -20,7 +20,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Reporte_Encuesta respuestas = new Reporte_Encuesta ();
     Reporte_Comentario cometario = new Reporte_Comentario ();
     Reporte_Calificacion cali = new Reporte_Calificacion ();
-    
+    Rep_Bole bole = new Rep_Bole ();
     
     Cambio tip = new Cambio();
 
@@ -52,13 +52,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton3 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jButton6 = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JSeparator();
         jButton7 = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         jButton9 = new javax.swing.JButton();
@@ -71,11 +68,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
-        jSeparator13 = new javax.swing.JSeparator();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
         pnldinamico = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -109,7 +106,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 20));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 20));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 200, 10));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
@@ -122,8 +119,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 20));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, 10));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 200, 20));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -135,8 +131,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 200, 20));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 200, 10));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 20));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -148,8 +143,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 200, 20));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 200, 10));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 20));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 10));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -161,8 +156,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 20));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 200, 10));
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 20));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -174,7 +168,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 200, -1));
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, -1));
         jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 10));
 
         jButton9.setBackground(new java.awt.Color(255, 255, 255));
@@ -187,7 +181,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, -1));
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 200, -1));
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -200,7 +194,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 200, 20));
+        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, 20));
 
         jButton10.setBackground(new java.awt.Color(255, 255, 255));
         jButton10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -212,7 +206,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 200, 20));
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 200, 20));
 
         jButton11.setBackground(new java.awt.Color(255, 255, 255));
         jButton11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -224,7 +218,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 20));
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 200, 20));
         jPanel2.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 200, 10));
         jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 200, 10));
         jPanel2.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 200, 20));
@@ -238,10 +232,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton12ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 30));
+        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, 30));
         jPanel2.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 200, 10));
         jPanel2.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 200, 10));
-        jPanel2.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, 10));
 
         jButton13.setText("ASISTENCIAS AL EVENTO");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -249,7 +242,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton13ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 20));
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 200, 20));
 
         jButton14.setText("REPORTE DE ECUESTA");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +250,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton14ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 200, 20));
+        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 20));
 
         jButton15.setText("CALIFICACIONES");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +258,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton15ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 200, 20));
+        jPanel2.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 200, 20));
 
         jButton16.setText("MI BLOG");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +266,15 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 jButton16ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 200, 20));
+        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 200, 20));
+
+        jButton17.setText("reportebole");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 200, 30));
 
         pnldinamico.setBackground(new java.awt.Color(255, 255, 255));
         pnldinamico.setLayout(new java.awt.CardLayout());
@@ -459,6 +460,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jButton15ActionPerformed
 
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+      pnldinamico.add(bole, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton17ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -535,6 +543,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -550,11 +559,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
