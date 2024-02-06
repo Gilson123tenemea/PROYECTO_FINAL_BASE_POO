@@ -7,6 +7,7 @@ package Interfases;
 
 import Clases.Encuesta;
 import Clases.RespuestasEncuesta;
+import base.ImpresionDeReportes;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -128,6 +129,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         txtconsulta = new javax.swing.JTextField();
         cbxbusqueda = new javax.swing.JComboBox<>();
+        btnGuardar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,7 +150,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablares);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 830, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 840, 240));
 
         jButton1.setText("Ver eventos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +158,7 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         txtconsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -167,6 +169,20 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
 
         cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Evento" }));
         jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 130, -1));
+
+        btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
+        btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.setIconTextGap(8);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -224,8 +240,15 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         tablares.setRowSorter(trs);
     }//GEN-LAST:event_txtconsultaKeyTyped
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        ImpresionDeReportes reporte = new ImpresionDeReportes(Login_Organizador.organizador);
+        reporte.impresionEncuesta("Seleccione");
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxbusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

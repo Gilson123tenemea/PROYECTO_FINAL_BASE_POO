@@ -6,15 +6,19 @@
 package Interfases;
 
 import Clases.Asistencia;
+import base.ReporteAsistencia;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.CardLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -73,6 +77,7 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         cbxbusqueda = new javax.swing.JComboBox<>();
         txtconsulta = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,6 +109,20 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
             }
         });
         add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 120, -1));
+
+        btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
+        btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.setIconTextGap(8);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtconsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtconsultaKeyTyped
@@ -144,9 +163,22 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
         Tablarepor.setRowSorter(trs);
     }//GEN-LAST:event_txtconsultaKeyTyped
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        ReporteAsistencia reporte = new ReporteAsistencia();
+        JPanel contenedorPrincipal = (JPanel) this.getParent();
+        contenedorPrincipal.add(reporte, "reporte");
+        
+        CardLayout vista;
+        vista = (CardLayout) contenedorPrincipal.getLayout();
+        vista.show(contenedorPrincipal, "reporte");
+        SwingUtilities.updateComponentTreeUI(contenedorPrincipal);
+        contenedorPrincipal.repaint();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tablarepor;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxbusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
