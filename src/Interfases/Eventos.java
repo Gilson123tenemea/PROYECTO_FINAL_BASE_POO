@@ -285,12 +285,7 @@ public class Eventos extends javax.swing.JFrame {
             }
 
             String nuevoCodigo = String.format("ASI-%03d", ultimoCodigo);
-            ObjectSet<Asistencia> resul = base.queryByExample(new Asistencia(null, null,publi));
-
-            if (!resul.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya ha  confirmado su asistencia al evento.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            
 
             Asistencia nuevaAsistencia = new Asistencia(nuevoCodigo, nombreEvento, publi);
 
