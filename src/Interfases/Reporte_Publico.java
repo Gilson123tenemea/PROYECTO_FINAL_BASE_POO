@@ -24,6 +24,10 @@ public class Reporte_Publico extends javax.swing.JPanel {
      */
     public Reporte_Publico() {
         initComponents();
+
+        ObjectContainer base = Db4o.openFile(Inicio.direccion);
+        cargarTabla(base);
+        base.close();
     }
 
     private void cargarTabla(ObjectContainer base) {
@@ -47,8 +51,7 @@ public class Reporte_Publico extends javax.swing.JPanel {
                 publico.getGenero(),
                 publico.getCelular(),
                 publico.getContraseña(),
-                publico.getPreferencias_p(),
-            };
+                publico.getPreferencias_p(),};
             model.addRow(row);
         }
     }
