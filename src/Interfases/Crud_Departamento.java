@@ -726,7 +726,7 @@ public class Crud_Departamento extends javax.swing.JPanel {
         if (txtNombreDepartamento.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el nombre del cliente");
             ban_confirmar = false;
-        } else if (!miValidaciones.ValidarNomApe(txtNombreDepartamento.getText())) {
+        } else if (!miValidaciones.validarDireccion(txtNombreDepartamento.getText())) {
             JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }

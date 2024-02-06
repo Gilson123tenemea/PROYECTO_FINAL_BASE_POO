@@ -160,7 +160,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         if (txtnombrepuesto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el nombre del Puesto");
             ban_confirmar = false;
-        } else if (!miValidaciones.ValidarNomApe(txtnombrepuesto.getText())) {
+        } else if (!miValidaciones.validarDireccion(txtnombrepuesto.getText())) {
             JOptionPane.showMessageDialog(this, "Nombre del Puesto incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
@@ -168,7 +168,7 @@ public class Crud_Puestos extends javax.swing.JPanel {
         if (txttipopuesto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el Tipo de Puesto");
             ban_confirmar = false;
-        } else if (!miValidaciones.ValidarNomApe(txttipopuesto.getText())) {
+        } else if (!miValidaciones.validarDireccion(txttipopuesto.getText())) {
             JOptionPane.showMessageDialog(this, "Tipo de Puesto incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
