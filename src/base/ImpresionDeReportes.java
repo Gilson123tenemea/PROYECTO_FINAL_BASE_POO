@@ -114,11 +114,12 @@ public class ImpresionDeReportes {
     public void impresionPersonal(ArrayList<Personal> listaPersonal) {
 
         if (!listaPersonal.isEmpty()) {
+            
 
             JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaPersonal.toArray());
             JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaPersonal.toArray());
 
-            cargarParametros("ReportePersonales.jasper", ds, emptyDataSource);
+            cargarParametros("ReportePersonale.jasper", ds, emptyDataSource);
         } else {
 
             JOptionPane.showMessageDialog(null, "NO podemos mostrar datos estadisticas y reportes debido a que no existen registros");
@@ -171,7 +172,7 @@ public class ImpresionDeReportes {
         }
 
         base.close();
-        System.out.println("Muestra --->" + listaPersonal.get(1));
+        // System.out.println("Muestra --->" + listaPersonal.get(1));
 
         JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaPersonal.toArray());
         JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaPersonal.toArray());
@@ -333,6 +334,7 @@ public class ImpresionDeReportes {
 
         } catch (JRException ex) {
             System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA");
+            
         } catch (FileNotFoundException ex) {
             System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA DE LA IMAGEN");
         } catch (Exception e) {

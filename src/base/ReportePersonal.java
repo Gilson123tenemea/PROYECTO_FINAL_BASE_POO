@@ -167,7 +167,7 @@ public class ReportePersonal extends javax.swing.JPanel {
 
         ChartPanel panel = new ChartPanel(grafico_barras);
         panel.setMouseWheelEnabled(false);
-        panel.setPreferredSize(new Dimension(616, 421));
+        panel.setPreferredSize(new Dimension(616, 420));
 
         pnGrTipoPersonal.setLayout(new BorderLayout());
         pnGrTipoPersonal.add(panel, BorderLayout.NORTH);
