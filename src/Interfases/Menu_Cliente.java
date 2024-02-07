@@ -176,7 +176,7 @@ public class Menu_Cliente extends javax.swing.JFrame {
 
         jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 10, 20));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 10, 20));
 
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 660, 160, 10));
@@ -184,32 +184,28 @@ public class Menu_Cliente extends javax.swing.JFrame {
         jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 660, 160, 10));
 
-        txtNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         txtNombre.setText("jLabel1");
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, -1, 20));
 
-        txtApellido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtApellido.setForeground(new java.awt.Color(255, 255, 255));
+        txtApellido.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         txtApellido.setText("jLabel2");
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, -1, 20));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, -1, 20));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         jLabel1.setText("TIPOS DE EVENTOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 160, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 160, -1));
 
         jSeparator11.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 220, 10));
+        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 260, 10));
 
         jSeparator13.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 10, 20));
+        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 10, 20));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         jLabel2.setText("BIENVENIDO:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
