@@ -334,13 +334,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
         pnldinamico.setLayout(new java.awt.CardLayout());
         pnldinamico.add(jSeparator7, "card2");
 
-        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         jLabel1.setText("BIENVENIDO:");
 
-        txtOrganizador.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        txtOrganizador.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         txtOrganizador.setText("jLabel2");
 
-        txtApellido.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        txtApellido.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         txtApellido.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -351,13 +351,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addGap(248, 248, 248)
                         .addComponent(jLabel1)
-                        .addGap(34, 34, 34)
-                        .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(365, Short.MAX_VALUE))
+                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(335, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnldinamico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -367,12 +367,12 @@ public class MenuOrganizador extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtOrganizador)
                     .addComponent(txtApellido))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(pnldinamico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
