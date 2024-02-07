@@ -187,41 +187,41 @@ public class Eventos extends javax.swing.JFrame {
                                                 boolean asistir = true;
                                                 String publico = Inicio.nombre + " " + Inicio.apellido;
                                                 ConfirmarAsistencia(asistir, nom, publico);
-                                            } else {
-//                                                if (precio > 0.0) {
-                                                JSpinner spi = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
-
-                                                if (precio > 0.0) {
-
-                                                    Object[] options = {"Confirmar", "Cancelar"};
-                                                    int result = JOptionPane.showOptionDialog(null, new Object[]{
-                                                        "Ya has confirmado asistencia para este evento.\n"
-                                                        + "Este evento es privado.\n"
-                                                        + "Precio: " + precio + "\n"
-                                                        + "Ingresa la cantidad de boletos que desea ", spi
-                                                    }, "Spinner in JOptionPane", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-                                                    if (result == 0) {
-
-                                                        Eventos.this.dispose();
-                                                        int cantidad = (int) spi.getValue();
-
-                                                        Boleto boleto1 = new Boleto(cod, nom, cantidad, precio);
-                                                        boleto1.setVisible(true);
-                                                        JOptionPane.showMessageDialog(null,
-                                                                "<html><style>body {color: green; font-size: 15px;}</style>"
-                                                                + "<body>Gracias por realizar la compra!</body></html>");
-
-                                                    } else if (result == 1) {
-                                                        JOptionPane.showMessageDialog(null, "Has cancelado tu asistencia a este evento");
-
-                                                    }
-//                                                    
-                                                } else if (precio == 0.0) {
-                                                    JOptionPane.showMessageDialog(null, "Ya has confirmado asistencia para este evento.");
-//
-                                                }
                                             }
+//                                                if (precio > 0.0) {
+                                            JSpinner spi = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+
+                                            if (precio > 0.0) {
+
+                                                Object[] options = {"Confirmar", "Cancelar"};
+                                                int result = JOptionPane.showOptionDialog(null, new Object[]{
+                                                    "Ya has confirmado asistencia para este evento.\n"
+                                                    + "Este evento es privado.\n"
+                                                    + "Precio: " + precio + "\n"
+                                                    + "Ingresa la cantidad de boletos que desea ", spi
+                                                }, "Spinner in JOptionPane", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                                                if (result == 0) {
+
+                                                    Eventos.this.dispose();
+                                                    int cantidad = (int) spi.getValue();
+
+                                                    Boleto boleto1 = new Boleto(cod, nom, cantidad, precio);
+                                                    boleto1.setVisible(true);
+                                                    JOptionPane.showMessageDialog(null,
+                                                            "<html><style>body {color: green; font-size: 15px;}</style>"
+                                                            + "<body>Gracias por realizar la compra!</body></html>");
+
+                                                } else if (result == 1) {
+                                                    JOptionPane.showMessageDialog(null, "Has cancelado tu asistencia a este evento");
+
+                                                }
+//                                                    
+                                            } else if (precio == 0.0) {
+                                                JOptionPane.showMessageDialog(null, "Ya has confirmado asistencia para este evento.");
+//
+                                            }
+
                                             break;
                                         case 1:
                                             if (!encuestaRealizada) {

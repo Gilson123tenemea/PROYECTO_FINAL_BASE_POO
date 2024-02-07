@@ -329,20 +329,39 @@ public class Reporte_eventos extends javax.swing.JPanel {
             int cantidad = (int) jTable1.getModel().getValueAt(selectedRow, 9);
 
             double precio = (double) jTable1.getModel().getValueAt(selectedRow, 10);
-            
+
             String provincia = (String) jTable1.getModel().getValueAt(selectedRow, 11);
             String ciudad = (String) jTable1.getModel().getValueAt(selectedRow, 12);
             String calle = (String) jTable1.getModel().getValueAt(selectedRow, 13);
-            
+
             ImageIcon icono = (ImageIcon) jTable1.getModel().getValueAt(selectedRow, 14);
 
             JLabel imageLabel = new JLabel(icono);
             JPanel panel = new JPanel();
             panel.add(imageLabel);
 
-            JOptionPane.showMessageDialog(null, new Object[]{"Codigo del evento: " + Codigo, "Nombre del evento: " + nombre, "Descripcion: " + descripcion, "Tipo de evento: "
-                + tipo, "Patrocinador: " + patrocinador, "Fecha de inicio: " + Fechai, "Hora de inicio: " + horai,
-                "Fecha final: " + fechaf, "hora final: " + horaf, "Cantidad de Puestos" + cantidad, "Precio del evento" + precio ,"Provincia" + provincia ,"Ciudad" + ciudad ,"calle" + calle , panel}, "Event Details", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    new Object[]{
+                        "Codigo del evento: " + Codigo,
+                        "Nombre del evento: " + nombre,
+                        "Descripción: " + descripcion,
+                        "Tipo de evento: " + tipo,
+                        "Patrocinador: " + patrocinador,
+                        "Fecha de inicio: " + Fechai,
+                        "Hora de inicio: " + horai,
+                        "Fecha final: " + fechaf,
+                        "Hora final: " + horaf,
+                        "Cantidad de Puestos: " + cantidad,
+                        "Precio del evento: " + precio,
+                        "Provincia: " + provincia,
+                        "Ciudad: " + ciudad,
+                        "Calle: " + calle,
+                        panel
+                    },
+                    "Detalles del evento",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
         }
@@ -389,7 +408,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
 
         ObjectContainer BaseD = Db4o.openFile(Inicio.direccion);
 
-        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null,null,null,null);
+        Evento ima = new Evento(null, null, null, null, null, null, null, null, null, null, null, 0.0, 0, null, null, null, null);
         ObjectSet result = BaseD.get(ima);
         CargarDatos(result);
 
@@ -432,7 +451,7 @@ public class Reporte_eventos extends javax.swing.JPanel {
                 // Configurar el modelo de la tabla con los datos y títulos de columna
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         data,
-                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "NUM PUESTOS", "PRECIO","PROVINCIA","CIUDAD","CALLE", "IMAGEN"}
+                        new String[]{"CODIGO", "NOMBRE", "DESCRIPCION", "TIPO DE EVENTO", "PATROCINADOR", "FECHA DE INICIO", "HORA DE INICIO", "FECHA FINAL", "HORA FINAL", "NUM PUESTOS", "PRECIO", "PROVINCIA", "CIUDAD", "CALLE", "IMAGEN"}
                 ));
 
                 // Asignar el renderer personalizado a la columna de la foto (columna 3)

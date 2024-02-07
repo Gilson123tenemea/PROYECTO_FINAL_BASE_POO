@@ -76,7 +76,7 @@ public class Rep_Bole extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
+                "CODIGO DEL BOLETO", "NOMBRE DEL CLIENTE", "NOMBRE DEL EVENTO", "PRECIO DEL EVENTO", "FECHA", "NUMERO DE TICKETS", "PRECIO TOTAL"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

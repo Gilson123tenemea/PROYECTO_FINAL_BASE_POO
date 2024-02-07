@@ -192,7 +192,7 @@ public class Encuesta_Pregunt extends javax.swing.JFrame {
             RespuestasEncuesta respuestas = new RespuestasEncuesta(nuevoCodigo, txtCedula.getText().trim(), cod, res1, res2, res3, res4, res5);
             base.store(respuestas);
 
-            JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Encuesta enviada exitosamente");
             jButton1.setEnabled(false);
             limpiar();
 

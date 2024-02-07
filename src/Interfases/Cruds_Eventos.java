@@ -313,6 +313,8 @@ public class Cruds_Eventos extends javax.swing.JPanel {
 
         jLabel10.setText("Numero puestos:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 262, -1, -1));
+
+        numpuestosspn.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         jPanel1.add(numpuestosspn, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 259, -1, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
