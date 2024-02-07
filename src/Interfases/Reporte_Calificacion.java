@@ -113,7 +113,7 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
                 cbxbusquedaActionPerformed(evt);
             }
         });
-        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 120, -1));
+        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 120, -1));
 
         txtconsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +125,7 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
                 txtconsultaKeyTyped(evt);
             }
         });
-        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 100, -1));
+        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 100, -1));
 
         btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -141,11 +141,13 @@ public class Reporte_Calificacion extends javax.swing.JPanel {
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 570, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calificado.png"))); // NOI18N
         jLabel1.setText("REPORTE DE CALIFICACIONES ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Buscar por:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));

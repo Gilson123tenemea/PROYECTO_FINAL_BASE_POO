@@ -101,8 +101,9 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 870, 370));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ausencia (1).png"))); // NOI18N
         jLabel1.setText("REPORTE DE LAS ASISTENCIAS");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
         cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cliente", "Evento" }));
         cbxbusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +111,7 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
                 cbxbusquedaActionPerformed(evt);
             }
         });
-        add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, 20));
+        add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, -1, 20));
 
         txtconsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +123,7 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
                 txtconsultaKeyTyped(evt);
             }
         });
-        add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 120, -1));
+        add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 120, -1));
 
         btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -137,8 +138,9 @@ public class Reporte_Asistencias extends javax.swing.JPanel {
         });
         add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 580, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Buscar por: ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));

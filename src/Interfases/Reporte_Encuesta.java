@@ -144,8 +144,9 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/encuesta.png"))); // NOI18N
         jLabel1.setText("REPORTE DE ENCUESTA");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
 
         tablares.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,13 +163,15 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 860, 320));
 
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hpermetropia.png"))); // NOI18N
         jButton1.setText("Ver eventos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
         txtconsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,10 +183,10 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
                 txtconsultaKeyTyped(evt);
             }
         });
-        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 140, -1));
+        jPanel1.add(txtconsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 140, -1));
 
         cbxbusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Evento" }));
-        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 130, -1));
+        jPanel1.add(cbxbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 130, -1));
 
         btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -198,8 +201,9 @@ public class Reporte_Encuesta extends javax.swing.JPanel {
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Busca por:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Oficila de Eventos.PNG"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
